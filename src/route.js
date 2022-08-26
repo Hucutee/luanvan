@@ -1,11 +1,11 @@
 import React from "react"; 
 import { useRoutes } from 'react-router-dom';
-import HomePage from './Components/Pages/HomePage';
-import Home from "./features/Home/Home";
-import Product from "./features/Product/components/Product";
-import ProductList from "./features/Product/components/ProductList";
-import ListPage from "./features/Product/page2";
-import Chitietsp from "./features/Product/page2/Chitietsp";
+import HomePage from './Shop/Components/Pages/HomePage';
+import Home from "./Shop/features/Home/Home";
+import ListPage from "./Shop/features/Product/page2";
+import Chitietsp from "./Shop/features/Product/page2/Chitietsp";
+import Listncc  from "./Manage/Pages/nhacungcap/Listncc";
+import HomeManagePage from "./Manage/Component/ManagePage";
 export default function Router() {
     // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
@@ -16,6 +16,9 @@ export default function Router() {
                 path: '/products',
                 element: <ListPage />
             },{
+                path: '/',
+                element: <Home />
+            },{
                 path: '/app',
                 element: <Home />
             },{
@@ -25,8 +28,15 @@ export default function Router() {
             
            
         ],
-            
+       
 
+        },{
+            path: '/Manager',
+            element: <HomeManagePage/>,
+            children: [{
+                path: '/Manager/nhacungcap',
+                element: <Listncc />
+            }]
         }
     ])
 }
