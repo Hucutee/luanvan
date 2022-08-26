@@ -1,4 +1,3 @@
-import { red } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
 import nhacungcapAPI from "../../api/nhacungcapApi";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -11,16 +10,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
 import InputBase from "@mui/material/InputBase";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import DirectionsIcon from "@mui/icons-material/Directions";
 import Snackbar from "@mui/material/Snackbar";
-import Slide from "@mui/material/Slide";
-import Stack from "@mui/material/Stack";
 import MuiAlert from "@mui/material/Alert";
 
 export default function Listncc() {
@@ -66,16 +59,6 @@ export default function Listncc() {
       }
     })();
   }, [count]);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (mancc) {
-      await nhacungcapAPI.delete(mancc);
-      setCount((e) => e + 1);
-      setOpenalert(true);
-      setTrangthai("");
-    }
-    setOpen(false);
-  };
 
   const handleGetid = async (e) => {
     e.preventDefault();
@@ -111,16 +94,7 @@ export default function Listncc() {
   const handleCloseadd = () => {
     setOpenadd(false);
   };
-  const handlesua = async (e) => {
-    e.preventDefault();
-    if (tenncc && sdt && diachi) {
-      await nhacungcapAPI.sua(mancc,tenncc,sdt,diachi);
-      setCount((e) => e + 1);
-      setOpensua(false)
-
-    }
-    setOpen(false);
-  };
+ 
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
     if (openadd) {
@@ -134,7 +108,18 @@ export default function Listncc() {
   //sua
   const [opensua, setOpensua] = React.useState(false);
   const [scrollsua, setScrollsua] = React.useState("paper");
+  const handlesua = async (e) => {
+    e.preventDefault();
+    if (tenncc && sdt && diachi) {
+      setTrangthai("");
 
+      await nhacungcapAPI.sua(mancc, tenncc, sdt, diachi);
+      setCount((e) => e + 1);
+      setOpensua(false);    setOpenalert(true);
+
+    }
+    setOpen(false);
+  };
   const handleClickOpensua = (id, ten, sdt, dc) => () => {
     setOpensua(true);
     setMancc(id);
@@ -157,7 +142,26 @@ export default function Listncc() {
     }
   }, [open]);
 
+  //xoa
+  const [openxoa, setOpenxoa] = React.useState(false);
+  const handleClosexoa = () => {
+    setOpenxoa(false);
+  };
+  const handleClickOpenxoa = (id) => () => {
+    setMancc(id);
+    setOpenxoa("true");
+  };
+  const handleSubmitxoa = async (e) => {
+    e.preventDefault();
+    if (mancc) {
+      setTrangthai("");
 
+      await nhacungcapAPI.delete(mancc);
+      setCount((e) => e + 1);
+      setOpenalert(true);
+    }
+    setOpenxoa(false);
+  };
   return (
     <div>
       <div
@@ -351,52 +355,29 @@ export default function Listncc() {
                         <Button
                           color="success"
                           variant="outlined"
-                          onClick={handleClickOpen}
+                          onClick={handleClickOpenxoa(product.ma_ncc)}
                         >
+                          {" "}
                           <DeleteOutlineIcon />
                         </Button>
-                        <Dialog
-                          className="opacity-50"
-                          open={open}
-                          onClose={handleClose}
-                          aria-labelledby="alert-dialog-title"
-                          aria-describedby="alert-dialog-description"
-                        >
-                          <DialogTitle id="alert-dialog-title">
-                            {"Bạn có chắc muốn xóa?"}
-                          </DialogTitle>
-                          <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                              Khi bạn đồng ý xóa thì không thể khôi phục lại dữ
-                              liệu!
-                            </DialogContentText>
-                          </DialogContent>
-                          <DialogActions>
-                            <button
-                              className=" px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"
-                              onClick={handleClose}
-                            >
-                              Quay lại
-                            </button>
-                            <form onSubmit={handleSubmit}>
-                              <button
-                                className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4"
-                                value={product.ma_ncc}
-                                onClick={(e) => setMancc(e.target.value)}
-                              >
-                                Chấp nhận
-                              </button>
-                              <div></div>
-                            </form>
-                          </DialogActions>
-                        </Dialog>
                       </div>
                     </td>
                     <td className="border-[1px] 	border-white	 bg-gray-100	 border-solid ">
-                      <Button color="success" variant="outlined">
-                        {" "}
-                        <ColorizeIcon />
-                      </Button>
+                      <div>
+                        <Button
+                          color="success"
+                          variant="outlined"
+                          onClick={handleClickOpensua(
+                            product.ma_ncc,
+                            product.ten_ncc,
+                            product.sdt_ncc,
+                            product.diachi_ncc
+                          )}
+                        >
+                          {" "}
+                          <ColorizeIcon />
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -432,45 +413,11 @@ export default function Listncc() {
                       <Button
                         color="success"
                         variant="outlined"
-                        onClick={handleClickOpen}
+                        onClick={handleClickOpenxoa(product.ma_ncc)}
                       >
+                        {" "}
                         <DeleteOutlineIcon />
                       </Button>
-                      <Dialog
-                        className="opacity-25"
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                      >
-                        <DialogTitle id="alert-dialog-title">
-                          {"Bạn có chắc muốn xóa?"}
-                        </DialogTitle>
-                        <DialogContent>
-                          <DialogContentText id="alert-dialog-description">
-                            Khi bạn đồng ý xóa thì không thể khôi phục lại dữ
-                            liệu!
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <button
-                            className=" px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"
-                            onClick={handleClose}
-                          >
-                            Quay lại
-                          </button>
-                          <form onSubmit={handleSubmit}>
-                            <button
-                              className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4"
-                              value={product.ma_ncc}
-                              onClick={(e) => setMancc(e.target.value)}
-                            >
-                              Chấp nhận
-                            </button>
-                            <div></div>
-                          </form>
-                        </DialogActions>
-                      </Dialog>
                     </div>
                   </td>
 
@@ -527,7 +474,7 @@ export default function Listncc() {
           aria-labelledby="scroll-dialog-title"
           aria-describedby="scroll-dialog-description"
         >
-          <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+          <DialogTitle id="scroll-dialog-title">Chỉnh sửa dữ liệu</DialogTitle>
           <DialogContent dividers={scroll === "paper"}>
             <DialogContentText
               id="scroll-dialog-description"
@@ -558,8 +505,42 @@ export default function Listncc() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClosesua}>Cancel</Button>
-            <Button onClick={handlesua}>Subscribe</Button>
+            <button onClick={handleClosesua} className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">Quay về</button>
+            <button onClick={handlesua} className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">Thực hiện</button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={openxoa}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Bạn có chắc muốn xóa?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Khi bạn đồng ý xóa thì không thể khôi phục lại dữ liệu!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <button
+              className=" px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"
+              onClick={handleClosexoa}
+            >
+              Quay lại
+            </button>
+            <form onSubmit={handleSubmitxoa}>
+              <button
+                className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4"
+                value={mancc}
+                onClick={(e) => setMancc(e.target.value)}
+              >
+                Thực hiện
+              </button>
+              <div></div>
+            </form>
           </DialogActions>
         </Dialog>
       </form>
