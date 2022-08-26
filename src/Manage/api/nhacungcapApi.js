@@ -23,6 +23,10 @@ const nhacungcapAPI = {
     const API_URL = `/nhacungcap/get/${ten}`;
     return axiosClient.get(API_URL);
   },
+  sua(id,ten,sdt,dc) {
+    const API_URL = `/nhacungcap/sua/${id}&&${ten}&&${sdt}&&${dc}`;
+    return axiosClient.get(API_URL);
+  },
 
 
  
