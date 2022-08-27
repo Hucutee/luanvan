@@ -13,18 +13,16 @@ const nhacungcapAPI = {
     const API_URL = `/nhacungcap/delete/${id}`;
     return axiosClient.get(API_URL,id);
   },
-
-
-  getIdAddress(id_dc) {
-    const API_URL = `/api/manage/address/iddc=${id_dc}`;
-    return axiosClient.get(API_URL);
-  },
-  getid(ten) {
-    const API_URL = `/nhacungcap/get/${ten}`;
+  getid(ten,trang) {
+    const API_URL = `/nhacungcap/get/${ten}&&${trang}`;
     return axiosClient.get(API_URL);
   },
   sua(id,ten,sdt,dc) {
     const API_URL = `/nhacungcap/sua/${id}&&${ten}&&${sdt}&&${dc}`;
+    return axiosClient.get(API_URL);
+  },
+  getCount() {
+    const API_URL = "/nhacungcap";
     return axiosClient.get(API_URL);
   },
 
