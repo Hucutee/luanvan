@@ -15,6 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import Pagination from "@mui/material/Pagination";
 
 export default function Listncc() {
   const [count, setCount] = useState(0);
@@ -48,10 +49,17 @@ export default function Listncc() {
     setOpen(false);
   };
 
+  const [trang, setTrang] = useState(1);
+  const handleChangepage = (event, value) => {
+    setTrang(value);
+    setCount((e) => e + 1);
+
+  };
   useEffect(() => {
     (async () => {
       try {
-        const data = await nhacungcapAPI.getList();
+        
+        const data = await nhacungcapAPI.getList(trang);
         console.log(data);
         setData(data);
       } catch (e) {
@@ -73,13 +81,12 @@ export default function Listncc() {
     e.preventDefault();
     if (tenncc && diachi && sdt) {
       await nhacungcapAPI.create(tenncc, diachi, sdt);
-      setCount((e) => e + 1);
       setOpenadd(false);
       setOpenalert(true);
       setTenncc("");
       setDiachi("");
       setSdt("");
-      setTrangthai("");
+      setCount((e) => e + 1);
     }
   };
 
@@ -162,6 +169,8 @@ export default function Listncc() {
     }
     setOpenxoa(false);
   };
+  // pha trang 
+ 
   return (
     <div>
       <div
@@ -447,7 +456,10 @@ export default function Listncc() {
                 colspan="6"
                 className=" border-[1px] 	border-white			 border-solid"
               >
-                <div className="rounded-bl-2xl rounded-br-2xl  bg-gray-100 h-[57px] pt-4"></div>
+                <div className="rounded-bl-2xl rounded-br-2xl  bg-gray-100 h-[57px] pt-4"> <Pagination
+                    color="success"
+                    count={10} page={trang} onChange={handleChangepage}
+                  ></Pagination></div>
               </th>
             </tr>
           </tbody>

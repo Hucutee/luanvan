@@ -5,8 +5,8 @@ const nhacungcapAPI = {
     const API_URL = `/nhacungcap/add/${tenncc}&&${sdt}&&${diachi}`;
     return axiosClient.get(API_URL);
   },
-  getList() {
-    const API_URL = "/nhacungcap/get";
+  getList(trang) {
+    const API_URL = `/nhacungcap/${trang}`;
     return axiosClient.get(API_URL);
   },
   delete(id) {
