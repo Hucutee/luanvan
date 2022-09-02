@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import nhacungcapAPI from "../../api/nhacungcapApi";
+import kichthuocAPI from "../../api/kichthuocApi";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Grid, Box, Paper, Typography, Link, TextField } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -18,13 +18,11 @@ import MuiAlert from "@mui/material/Alert";
 import Pagination from "@mui/material/Pagination";
 import InputAdornment from "@mui/material/InputAdornment";
 
-export default function Listncc() {
+export default function Listkt() {
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
-  const [mancc, setMancc] = useState("");
-  const [tenncc, setTenncc] = useState("");
-  const [diachi, setDiachi] = useState("");
-  const [sdt, setSdt] = useState("");
+  const [makt, setMakt] = useState("");
+  const [tenkt, setTenkt] = useState("");
   const [tenget, setTenget] = useState("");
   const [trangthai, setTrangthai] = useState("1");
   const [open, setOpen] = React.useState(false);
@@ -57,20 +55,20 @@ const [counttrang,setCounttrang] = useState("");
     (async () => {
       if (trangthai) {
         try {
-          const data = await nhacungcapAPI.getList(trang);
+          const data = await kichthuocAPI.getList(trang);
           setData(data);
         } catch (e) {
           console.log("loi lay dl", e);
         }
       } else {
         try {
-          const data = await nhacungcapAPI.getid(tenget, trang);
+          const data = await kichthuocAPI.getid(tenget, trang);
           setData(data);
         } catch (e) {
           console.log("loi lay dl", e);
         }
       }
-      const datacount = await nhacungcapAPI.getCount("a");
+      const datacount = await kichthuocAPI.getCount("a");
       const sotrang = Math.ceil(datacount.length/10);
 
       setCounttrang(sotrang);
@@ -92,19 +90,18 @@ const [counttrang,setCounttrang] = useState("");
   };
   const handleAddSubmit = async (e) => {
     e.preventDefault();
-    if (tenncc && diachi && sdt) {
-      const check = await nhacungcapAPI.checktrung(tenncc);
+    if (tenkt) {
+      const check = await kichthuocAPI.checktrung(tenkt);
       if (check.length == 0) {
-      await nhacungcapAPI.create(tenncc, diachi, sdt);
+      await kichthuocAPI.create(tenkt);
       setOpenadd(false);
       setOpenalert(true);
-      setTenncc("");
-      setDiachi("");
-      setSdt("");
+      setTenkt("");
+
       setCount((e) => e + 1);}
       else {setOpentrung(true);}
     }
-    if ((!tenncc || !diachi || !sdt) && !openxoa) {
+    if ((!tenkt) && !openxoa) {
       setOpenloi(true);
     }
   };
@@ -119,9 +116,8 @@ const [counttrang,setCounttrang] = useState("");
 
   const handleCloseadd = () => {
     setOpenadd(false);
-    setTenncc("");
-    setSdt("");
-    setDiachi("");
+    setTenkt("");
+  
   };
 
   const descriptionElementRef = React.useRef(null);
@@ -139,34 +135,30 @@ const [counttrang,setCounttrang] = useState("");
   const [scrollsua, setScrollsua] = React.useState("paper");
   const handlesua = async (e) => {
     e.preventDefault();
-    if (tenncc && sdt && diachi) {
+    if (tenkt) {
 
-      await nhacungcapAPI.sua(mancc, tenncc, sdt, diachi);
+      await kichthuocAPI.sua(makt, tenkt);
       setCount((e) => e + 1);
       setOpensua(false);
       setOpenalert(true);
-      setTenncc("");
-      setSdt("");
-      setDiachi("");
+      setTenkt("");
     } else {
       setOpenloi(true);
     }
     setOpen(false);
   };
-  const handleClickOpensua = (id, ten, sdt, dc) => () => {
+  const handleClickOpensua = (id, ten) => () => {
     setOpensua(true);
-    setMancc(id);
-    setTenncc(ten);
-    setSdt(sdt);
-    setDiachi(dc);
+    setMakt(id);
+    setTenkt(ten);
+
     setScrollsua("paper");
   };
 
   const handleClosesua = () => {
     setOpensua(false);
-    setTenncc("");
-    setSdt("");
-    setDiachi("");
+    setTenkt("");
+
   };
   const descriptionElementRefsua = React.useRef(null);
   React.useEffect(() => {
@@ -184,13 +176,13 @@ const [counttrang,setCounttrang] = useState("");
     setOpenxoa(false);
   };
   const handleClickOpenxoa = (id) => () => {
-    setMancc(id);
+    setMakt(id);
     setOpenxoa("true");
   };
   const handleSubmitxoa = async (e) => {
     e.preventDefault();
-    if (mancc) {
-      await nhacungcapAPI.delete(mancc);
+    if (makt) {
+      await kichthuocAPI.delete(makt);
       setCount((e) => e + 1);
       setOpenalert(true);
     }
@@ -222,7 +214,7 @@ const [counttrang,setCounttrang] = useState("");
             Quản lý
           </Link>
           <Link underline="hover" color="inherit">
-            Nhà cung cấp
+            Kích thước 
           </Link>
           <Link
             value="1"
@@ -251,7 +243,7 @@ const [counttrang,setCounttrang] = useState("");
             <InputBase
               onChange={(e) => setTenget(e.target.value)}
               sx={{ ml: 1, flex: 1 }}
-              placeholder="Tìm nhà cung cấp"
+              placeholder="Tìm kích thước"
               inputProps={{ "aria-label": "search google maps" }}
             />
             <IconButton
@@ -281,7 +273,7 @@ const [counttrang,setCounttrang] = useState("");
               aria-describedby="scroll-dialog-description"
             >
               <DialogTitle id="scroll-dialog-title">
-                Thêm nhà cung cấp mới
+                Thêm kích thước mới
               </DialogTitle>
               <DialogContent dividers={scroll === "paper"}>
                 <DialogContentText
@@ -292,23 +284,10 @@ const [counttrang,setCounttrang] = useState("");
                   <div>
                     <div>
                       <TextField
-                        label="* Tên nhà cung cấp"
+                        label="* Tên kích thước"
                         color="success"
-                        onChange={(e) => setTenncc(e.target.value)}
+                        onChange={(e) => setTenkt(e.target.value)}
                         style={{ display: "block", marginBottom: "10px" }}
-                        type="text"
-                      />
-                      <TextField
-                        label="* Số điện thoại"
-                        color="success"
-                        onChange={(e) => setDiachi(e.target.value)}
-                        type="text"
-                        style={{ display: "block", marginBottom: "10px" }}
-                      />
-                      <TextField
-                        label="* Địa chỉ"
-                        color="success"
-                        onChange={(e) => setSdt(e.target.value)}
                         type="text"
                       />
                     </div>
@@ -339,24 +318,15 @@ const [counttrang,setCounttrang] = useState("");
             <tr>
               <th className="w-[20%] border-[1px] 	border-white			 border-solid">
                 <div className="rounded-tl-2xl  bg-green-700 h-[57px] pt-4 mr-[-3px]">
-                  Mã nhà cung cấp
+                  Mã kích thước
                 </div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-6px]">
-                  Tên nhà cung cấp
+                  Tên kích thước
                 </div>
               </th>
-              <th className="border-[1px] 	border-white	border-solid">
-                <div className="  bg-green-700 h-[57px] pt-4 mr-[-9px]">
-                  Số điện thoại
-                </div>
-              </th>
-              <th className="border-[1px] 	border-white	border-solid">
-                <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">
-                  Địa chỉ
-                </div>
-              </th>
+             
               <th className="border-[1px] 	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">
                   Xóa
@@ -372,25 +342,20 @@ const [counttrang,setCounttrang] = useState("");
           <tbody className="">
             {data.length ? (
               data.map((product) => (
-                <tr key={product.ma_ncc} className="h-10">
+                <tr key={product.ma_ncc} className="h-12">
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
-                    {product.ma_ncc}{" "}
+                    {product.ma_kt}{" "}
                   </td>
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
-                    {product.ten_ncc}
+                    {product.ten_kt}
                   </td>
-                  <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
-                    {product.sdt_ncc}
-                  </td>
-                  <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
-                    {product.diachi_ncc}
-                  </td>
+                 
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     <div>
                       <Button
                         color="success"
                         variant="outlined"
-                        onClick={handleClickOpenxoa(product.ma_ncc)}
+                        onClick={handleClickOpenxoa(product.ma_kt)}
                       >
                         {" "}
                         <DeleteOutlineIcon />
@@ -403,10 +368,9 @@ const [counttrang,setCounttrang] = useState("");
                         color="success"
                         variant="outlined"
                         onClick={handleClickOpensua(
-                          product.ma_ncc,
-                          product.ten_ncc,
-                          product.sdt_ncc,
-                          product.diachi_ncc
+                          product.ma_kt,
+                          product.ten_kt,
+                        
                         )}
                       >
                         {" "}
@@ -500,32 +464,16 @@ const [counttrang,setCounttrang] = useState("");
               tabIndex={-1}
             >
               <TextField
-                label="* Tên nhà cung cấp"
+                label="* Tên kích thước"
                 color="success"
-                onChange={(e) => setTenncc(e.target.value)}
+                onChange={(e) => setTenkt(e.target.value)}
                 className="px-4 py-2 border rounded-lg mb-4"
                 style={{ display: "block", marginBottom: "10px" }}
                 type="text"
-                defaultValue={tenncc}
+                defaultValue={tenkt}
               />
-              <TextField
-                label="* Số điện thoại"
-                color="success"
-                onChange={(e) => setSdt(e.target.value)}
-                className="px-4 py-2 border rounded-lg mb-4"
-                style={{ display: "block", marginBottom: "10px" }}
-                type="text"
-                defaultValue={sdt}
-              />
-              <TextField
-                label="* Địa chỉ"
-                color="success"
-                onChange={(e) => setDiachi(e.target.value)}
-                className="px-4 py-2 border rounded-lg mb-4"
-                style={{ display: "block" }}
-                type="text"
-                defaultValue={diachi}
-              />
+              
+              
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -568,8 +516,8 @@ const [counttrang,setCounttrang] = useState("");
             <form onSubmit={handleSubmitxoa}>
               <button
                 className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4"
-                value={mancc}
-                onClick={(e) => setMancc(e.target.value)}
+                value={makt}
+                onClick={(e) => setMakt(e.target.value)}
               >
                 Thực hiện
               </button>

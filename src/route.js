@@ -5,7 +5,12 @@ import Home from "./Shop/features/Home/Home";
 import ListPage from "./Shop/features/Product/page2";
 import Chitietsp from "./Shop/features/Product/page2/Chitietsp";
 import Listncc  from "./Manage/Pages/nhacungcap/Listncc";
+import Listkt  from "./Manage/Pages/kichthuoc/Listkt";
+import Listpgg  from "./Manage/Pages/phieugiamgia/Listpgg";
+import Listkm  from "./Manage/Pages/khuyenmai/Listkm";
+
 import HomeManagePage from "./Manage/Component/ManagePage";
+import Listlsp from "./Manage/Pages/loaisanpham/Listlsp";
 export default function Router() {
     // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
@@ -36,7 +41,20 @@ export default function Router() {
             children: [{
                 path: '/Manager/nhacungcap',
                 element: <Listncc />
-            }]
+            },{
+                path: '/Manager/kichthuoc',
+                element: <Listkt/>
+            },{
+                path: '/Manager/loaisanpham',
+                element: <Listlsp/>
+            },{
+                path: '/Manager/phieugiamgia',
+                element: <Listpgg/>
+            },{
+                path: '/Manager/khuyenmai',
+                element: <Listkm/>
+            }
+        ]
         }
     ])
 }

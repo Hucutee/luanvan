@@ -18,7 +18,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import logo from "../../../Shop/Components/Header/logo.jpg";
 import ListIcon from '@mui/icons-material/List';
-
+import StoreIcon from '@mui/icons-material/Store';
+import StraightenIcon from '@mui/icons-material/Straighten';
+import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     top: false,
@@ -70,15 +74,41 @@ export default function TemporaryDrawer() {
       <List>
             <ListItemButton>
               <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {"A" % 2 === 0 ? <InboxIcon /> : <StoreIcon />}
               </ListItemIcon>
-              <ListItemText primary={"A"} />
+              <ListItemText  ><Link to="/Manager/nhacungcap" className="">
+              Nhà cung cấp
+            </Link> </ListItemText>
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {"A" % 2 === 0 ? <InboxIcon /> : <StraightenIcon />}
               </ListItemIcon>
-              <ListItemText > <Link to="/Manager/nhacungcap" className="">
+              <ListItemText > <Link to="/Manager/kichthuoc" className="">
+              Kích thước
+            </Link></ListItemText>
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <AutoAwesomeMotionIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/loaisanpham" className="">
+              Loại sản phẩm
+            </Link></ListItemText>
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <AccountBalanceWalletIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/phieugiamgia" className="">
+              Phiếu giảm giá
+            </Link></ListItemText>
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <LocalAtmIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/khuyenmai" className="">
               Khuyến mãi
             </Link></ListItemText>
             </ListItemButton>

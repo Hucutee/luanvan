@@ -5,6 +5,10 @@ const nhacungcapAPI = {
     const API_URL = `/nhacungcap/add/${tenncc}&&${sdt}&&${diachi}`;
     return axiosClient.get(API_URL);
   },
+  checktrung(tenncc) {
+    const API_URL = `/nhacungcap/checktrung/${tenncc}`;
+    return axiosClient.get(API_URL);
+  },
   getList(trang) {
     const API_URL = `/nhacungcap/${trang}`;
     return axiosClient.get(API_URL);
