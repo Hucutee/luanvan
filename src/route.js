@@ -8,6 +8,8 @@ import Listncc  from "./Manage/Pages/nhacungcap/Listncc";
 import Listkt  from "./Manage/Pages/kichthuoc/Listkt";
 import Listpgg  from "./Manage/Pages/phieugiamgia/Listpgg";
 import Listkm  from "./Manage/Pages/khuyenmai/Listkm";
+import Listsp  from "./Manage/Pages/sanpham/Listsp";
+import Listctsp  from "./Manage/Pages/chitietsanpham/Listctsp";
 
 import HomeManagePage from "./Manage/Component/ManagePage";
 import Listlsp from "./Manage/Pages/loaisanpham/Listlsp";
@@ -53,6 +55,12 @@ export default function Router() {
             },{
                 path: '/Manager/khuyenmai',
                 element: <Listkm/>
+            },{
+                path: '/Manager/sanpham',
+                element: <Listsp/>
+            },{
+                path: '/Manager/chitietsanpham',
+                element: <Listctsp/>
             }
         ]
         }
