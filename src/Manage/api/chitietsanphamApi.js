@@ -21,17 +21,31 @@ const chitietsanphamApi = {
     const API_URL = `/chitietsanpham/get/${ten}&&${trang}`;
     return axiosClient.get(API_URL);
   },
-  sua(id,sp,kt,sl,gb,tt,ha) {
-    const API_URL = `/chitietsanpham/sua/${id}&&${sp}&&${kt}&&${sl}&&${gb}&&${tt}&&${ha}`;
+  sua(id,sp,tensp,kt,tenkt,sl,gb,tt,ha) {
+    const API_URL = `/chitietsanpham/sua/${id}&&${sp}&&${tensp}&&${kt}&&${tenkt}&&${sl}&&${gb}&&${tt}&&${ha}`;
     return axiosClient.get(API_URL);
   },
   getCount() {
     const API_URL = "/chitietsanpham";
     return axiosClient.get(API_URL);
   },
+  suatrung(mactsp,masp,makt) {
+    const API_URL = `/chitietsanpham/suatrung/${mactsp}&&${masp}&&${makt}`;
+    return axiosClient.get(API_URL);
+  },
 
-
- 
+  getsp(id) {
+    const API_URL = `/chitietsanphamProduct/${id}`;
+    return axiosClient.get(API_URL);
+  },
+  getgia1(id) {
+    const API_URL = `/chitietsanphamProduct/gia1/${id}`;
+    return axiosClient.get(API_URL);
+  },
+  getgia2(id) {
+    const API_URL = `/chitietsanphamProduct/gia2/${id}`;
+    return axiosClient.get(API_URL);
+  },
 };
 
 export default chitietsanphamApi;

@@ -29,7 +29,10 @@ const kichthuocAPI = {
     return axiosClient.get(API_URL);
   },
 
-
+  suatrung(makt,tenkt) {
+    const API_URL = `/kichthuoc/suatrung/${makt}&&${tenkt}`;
+    return axiosClient.get(API_URL);
+  },
  
 };
 

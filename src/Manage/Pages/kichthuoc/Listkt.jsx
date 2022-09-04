@@ -131,17 +131,25 @@ const [counttrang,setCounttrang] = useState("");
   }, [openadd]);
 
   //sua
+  const [opensuatrung, setOpensuatrung] = React.useState(false);
+  const handleClosesuatrung = () => {
+    setOpensuatrung(false);  };
   const [opensua, setOpensua] = React.useState(false);
   const [scrollsua, setScrollsua] = React.useState("paper");
   const handlesua = async (e) => {
     e.preventDefault();
     if (tenkt) {
-
+        const checktrung = await kichthuocAPI.suatrung(makt,tenkt);
+        console.log(checktrung);
+        if(checktrung.length==0){
       await kichthuocAPI.sua(makt, tenkt);
       setCount((e) => e + 1);
       setOpensua(false);
       setOpenalert(true);
       setTenkt("");
+    }else{
+      setOpensuatrung(true);
+    }
     } else {
       setOpenloi(true);
     }
@@ -447,6 +455,10 @@ const [counttrang,setCounttrang] = useState("");
         <Alert onClose={handleCloseloi} severity="error" sx={{ width: "100%" }}>
           Vui lòng nhập đầy đủ thông tin vào các trường có dấu (*)!
         </Alert>
+      </Snackbar>
+      <Snackbar  open={opensuatrung}  autoHideDuration={6000}  onClose={handleClosesuatrung}>
+        <Alert   onClose={handleClosesuatrung}   severity="error"   sx={{ width: "100%" }} >
+          Tên kích thước này đã tồn tại - vui lòng nhập tên khác! </Alert>
       </Snackbar>
       <form onSubmit={handleAddSubmit}>
         <Dialog

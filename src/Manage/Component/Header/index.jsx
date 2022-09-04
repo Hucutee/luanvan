@@ -23,6 +23,10 @@ import StraightenIcon from '@mui/icons-material/Straighten';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import SpaIcon from '@mui/icons-material/Spa';
+import StorageIcon from '@mui/icons-material/Storage';
+import YardIcon from '@mui/icons-material/Yard';
+import GrassIcon from '@mui/icons-material/Grass';
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     top: false,
@@ -114,7 +118,7 @@ export default function TemporaryDrawer() {
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <LocalAtmIcon />}
+                {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
               </ListItemIcon>
               <ListItemText > <Link to="/Manager/sanpham" className="">
               Sản phẩm
@@ -122,7 +126,7 @@ export default function TemporaryDrawer() {
             </ListItemButton>
             <ListItemButton>
               <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <LocalAtmIcon />}
+                {"A" % 2 === 0 ? <InboxIcon /> : <StorageIcon />}
               </ListItemIcon>
               <ListItemText > <Link to="/Manager/chitietsanpham" className="">
               Chi tiết sản phẩm

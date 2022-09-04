@@ -30,7 +30,10 @@ const loaisanphamAPI = {
     return axiosClient.get(API_URL);
   },
 
-
+  suatrung(malsp,tenlsp) {
+    const API_URL = `/loaisanpham/suatrung/${malsp}&&${tenlsp}`;
+    return axiosClient.get(API_URL);
+  },
  
 };
 

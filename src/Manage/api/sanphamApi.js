@@ -29,9 +29,22 @@ const sanphamAPI = {
     const API_URL = "/sanpham";
     return axiosClient.get(API_URL);
   },
-
-
- 
+  checkloai(loai) {
+    const API_URL = `/sanpham/checkloai/${loai}`;
+    return axiosClient.get(API_URL);
+  },
+  suatrung(ma,ten,loai) {
+    const API_URL = `/sanpham/suatrung/${ma}&&${ten}&&${loai}`;
+    return axiosClient.get(API_URL);
+  },
+  getListnoi() {
+    const API_URL = `/sanphamnoi`;
+    return axiosClient.get(API_URL);
+  },
+  getsp(id) {
+    const API_URL = `/sanphamProduct/${id}`;
+    return axiosClient.get(API_URL);
+  },
 };
 
 export default sanphamAPI;

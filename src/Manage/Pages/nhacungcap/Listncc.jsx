@@ -135,12 +135,17 @@ const [counttrang,setCounttrang] = useState("");
   }, [openadd]);
 
   //sua
+  const [opensuatrung, setOpensuatrung] = React.useState(false);
+  const handleClosesuatrung = () => {
+    setOpensuatrung(false);  };
   const [opensua, setOpensua] = React.useState(false);
   const [scrollsua, setScrollsua] = React.useState("paper");
   const handlesua = async (e) => {
     e.preventDefault();
     if (tenncc && sdt && diachi) {
-
+      const checktrung = await nhacungcapAPI.suatrung(mancc,tenncc);
+      console.log(checktrung);
+      if(checktrung.length==0){
       await nhacungcapAPI.sua(mancc, tenncc, sdt, diachi);
       setCount((e) => e + 1);
       setOpensua(false);
@@ -148,6 +153,9 @@ const [counttrang,setCounttrang] = useState("");
       setTenncc("");
       setSdt("");
       setDiachi("");
+    }else{
+      setOpensuatrung(true);
+    }
     } else {
       setOpenloi(true);
     }
@@ -295,7 +303,7 @@ const [counttrang,setCounttrang] = useState("");
                         label="* Tên nhà cung cấp"
                         color="success"
                         onChange={(e) => setTenncc(e.target.value)}
-                        style={{ display: "block", marginBottom: "10px" }}
+                        style={{ display: "block", marginBottom: "20px" }}
                         type="text"
                       />
                       <TextField
@@ -303,7 +311,7 @@ const [counttrang,setCounttrang] = useState("");
                         color="success"
                         onChange={(e) => setDiachi(e.target.value)}
                         type="text"
-                        style={{ display: "block", marginBottom: "10px" }}
+                        style={{ display: "block", marginBottom: "20px" }}
                       />
                       <TextField
                         label="* Địa chỉ"
@@ -372,7 +380,7 @@ const [counttrang,setCounttrang] = useState("");
           <tbody className="">
             {data.length ? (
               data.map((product) => (
-                <tr key={product.ma_ncc} className="h-10">
+                <tr key={product.ma_ncc} className="h-12">
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     {product.ma_ncc}{" "}
                   </td>
@@ -484,6 +492,10 @@ const [counttrang,setCounttrang] = useState("");
           Vui lòng nhập đầy đủ thông tin vào các trường có dấu (*)!
         </Alert>
       </Snackbar>
+      <Snackbar  open={opensuatrung}  autoHideDuration={6000}  onClose={handleClosesuatrung}>
+        <Alert   onClose={handleClosesuatrung}   severity="error"   sx={{ width: "100%" }} >
+          Tên nhà cung cấp này đã tồn tại - vui lòng nhập tên khác! </Alert>
+      </Snackbar>
       <form onSubmit={handleAddSubmit}>
         <Dialog
           open={opensua}
@@ -504,7 +516,7 @@ const [counttrang,setCounttrang] = useState("");
                 color="success"
                 onChange={(e) => setTenncc(e.target.value)}
                 className="px-4 py-2 border rounded-lg mb-4"
-                style={{ display: "block", marginBottom: "10px" }}
+                style={{ display: "block", marginBottom: "20px" }}
                 type="text"
                 defaultValue={tenncc}
               />
@@ -513,7 +525,7 @@ const [counttrang,setCounttrang] = useState("");
                 color="success"
                 onChange={(e) => setSdt(e.target.value)}
                 className="px-4 py-2 border rounded-lg mb-4"
-                style={{ display: "block", marginBottom: "10px" }}
+                style={{ display: "block", marginBottom: "20px" }}
                 type="text"
                 defaultValue={sdt}
               />

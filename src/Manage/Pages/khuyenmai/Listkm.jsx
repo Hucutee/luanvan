@@ -112,7 +112,7 @@ export default function Listkm() {
         if (!(ngaybd.$d > ngaykt.$d)) {
           const bd = ngaybd.$y + "-" + (ngaybd.$M + 1) + "-" + ngaybd.$D;
           const kt = ngaykt.$y + "-" + (ngaykt.$M + 1) + "-" + ngaykt.$D;
-          const checkngay = await khuyenmaiAPI.checkngay(sanpham,bd,kt,makm);
+          const checkngay = await khuyenmaiAPI.checkngayadd(sanpham,bd,kt);
           if(!(checkngay.length >0)) {
             if (phantram > 0 &&phantram<100 && phantram % 1 == 0) {
               await khuyenmaiAPI.create(

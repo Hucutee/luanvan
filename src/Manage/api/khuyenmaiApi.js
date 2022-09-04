@@ -33,7 +33,10 @@ const khuyenmaiAPI = {
     const API_URL = `/khuyenmai/checkngay/${ngay}&&${ngaybd}&&${ngaykt}&&${makm}`;
     return axiosClient.get(API_URL);
   },
-
+  checkngayadd(ngay,ngaybd,ngaykt) {
+    const API_URL = `/khuyenmai/checkngayadd/${ngay}&&${ngaybd}&&${ngaykt}`;
+    return axiosClient.get(API_URL);
+  },
 
  
 };

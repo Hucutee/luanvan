@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import chitietsanphamApi from "../../api/chitietsanphamApi";
 import sanphamApi from "../../api/sanphamApi";
+import loaisanphamApi from "../../api/loaisanphamApi";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Grid, Box, Paper, Typography, Link, TextField } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -22,11 +23,15 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import kichthuocApi from "../../api/kichthuocApi";
+import InputAdornment from '@mui/material/InputAdornment';
+
 export default function Listctsp() {
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
   const [listsp, setListsp] = useState([]);
   const [listkt, setListkt] = useState([]);
+  const [listlsp, setListlsp] = useState([]);
+  const [getloaiii, setGetloaiii] = useState("");
   const [mactsp, setMactsp] = useState("");
   const [masp, setMasp] = useState("");
   const [tensp, setTensp] = useState("");
@@ -59,15 +64,22 @@ export default function Listctsp() {
     setCount((e) => e + 1); };
   useEffect(() => {
     (async () => {
-      const loai = await sanphamApi.getCount();
-          setListsp(loai); 
+      if(getloaiii){
+      const loai = await sanphamApi.checkloai(getloaiii);
+          setListsp(loai);  
+        }else{
+          const loai =await sanphamApi.getCount();
+          setListsp(loai);
+        }
       const loaii = await kichthuocApi.getCount();
           setListkt(loaii);
+    
+     const loaiii = await loaisanphamApi.getCount();
+          setListlsp(loaiii); 
       if (trangthai) {
         try {
           const data = await chitietsanphamApi.getList(trang);
           setData(data);
-        console.log(data);
         } catch (e) {
           console.log("loi lay dl", e);   }
       } else {
@@ -111,7 +123,7 @@ export default function Listctsp() {
       if(!(trung.length >0)){
             if (soluong > 0 && giaban > 999 && soluong % 1 == 0 && giaban % 1 == 0) {
               await chitietsanphamApi.create(masp,makt,soluong,giaban,thongtin,hinhanh,tenkt,tensp);
-              setOpenadd(false);  setOpenalert(true); setMasp(""); setSoluong(""); setGiaban("");setTenkt(""); setTensp("");  setMakt("");  setHinhanh("");setThongtin("");   setCount((e) => e + 1);
+              setOpenadd(false);  setOpenalert(true); setMasp(""); setTensp(""); setTenkt(""); setSoluong(""); setGiaban("");setTenkt(""); setTensp("");  setMakt("");  setHinhanh("");setThongtin("");   setCount((e) => e + 1);
             } else {
               setOpensonguyen(true); }
             } else { setOpentrungten(true)}
@@ -133,7 +145,7 @@ export default function Listctsp() {
     setMakt("");
     setSoluong("");
     setGiaban("");
-    setHinhanh(""); setThongtin("");
+    setHinhanh(""); setThongtin("");setTensp("");setTenkt(""); setMasp(""); setCount((e) => e + 1);
   };
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
@@ -143,27 +155,33 @@ export default function Listctsp() {
         descriptionElement.focus();
       } } }, [openadd]);
   //sua
+  const [opensuatrung, setOpensuatrung] = React.useState(false);
+  const handleClosesuatrung = () => {
+    setOpensuatrung(false);  };
   const [opensua, setOpensua] = React.useState(false);
   const [scrollsua, setScrollsua] = React.useState("paper");
   const handlesua = async (e) => {
     e.preventDefault();
-    if (masp && makt && soluong && giaban && thongtin && hinhanh) {
-      
-          if (soluong > 0 && soluong <100 && soluong % 1 == 0) {
-      await chitietsanphamApi.sua( mactsp,masp,makt, soluong,giaban,thongtin,hinhanh);
-      setCount((e) => e + 1); setOpensua(false); setOpenalert(true); setMactsp("");setMasp(""); setMakt(""); setSoluong(""); setGiaban(""); setThongtin(""); setHinhanh("");
-    } else {
-      setOpensonguyen(true); }
+    if (masp && tensp && makt  && tenkt && soluong && giaban && thongtin && hinhanh ) {
+      const checktrung = await chitietsanphamApi.suatrung(mactsp,masp,makt);
+      if (checktrung.length==0){
+        if (soluong > 0 && giaban >999 && giaban % 1 ==0 && soluong % 1 == 0) {
+          await chitietsanphamApi.sua( mactsp,masp,tensp,makt,tenkt, soluong,giaban,thongtin,hinhanh);
+          setCount((e) => e + 1); setOpensua(false); setOpenalert(true);setTensp(""); setTenkt(""); setMactsp("");setMasp(""); setMakt(""); setSoluong(""); setGiaban(""); setThongtin(""); setHinhanh("");
+        } else {
+          setOpensonguyen(true); }
+      } else{setOpensuatrung(true);}
+         
    
  
     } else {
       setOpenloi(true);}
     setOpen(false); };
-  const handleClickOpensua = (id,sp,kt,sl,gb,tt, ha) => () => {
-    setOpensua(true);  setMactsp(id);  setMasp(sp);setMakt(kt);  setSoluong(sl);  setGiaban(gb); setThongtin(tt); setHinhanh(ha);
+  const handleClickOpensua = (id,sp,tensp,kt,tenkt,sl,gb,tt, ha) => () => {
+    setOpensua(true);  setMactsp(id);  setMasp(sp); setTensp(tensp); setMakt(kt);setTenkt(tenkt);  setSoluong(sl);  setGiaban(gb); setThongtin(tt); setHinhanh(ha);
      setScrollsua("paper"); };
 
-  const handleClosesua = () => { setOpensua(false);  setMactsp("");setMasp(""); setMakt(""); setSoluong(""); setGiaban(""); setThongtin(""); setHinhanh(""); };
+  const handleClosesua = () => { setOpensua(false); setTensp(""); setTenkt(""); setMactsp("");setMasp(""); setMakt(""); setSoluong(""); setGiaban(""); setThongtin(""); setHinhanh(""); };
   const descriptionElementRefsua = React.useRef(null);
   React.useEffect(() => {
     if (open) {
@@ -177,6 +195,9 @@ export default function Listctsp() {
     setOpenxoa(false);  };
   const handleClickOpenxoa = (id) => () => {
     setMactsp(id);   setOpenxoa("true");
+  };
+  const handleGetloai = (id) => () => {
+    setGetloaiii(id);  setCount((e) => e + 1);
   };
   const handleSubmitxoa = async (e) => {
     e.preventDefault();
@@ -230,7 +251,14 @@ export default function Listctsp() {
                   id="scroll-dialog-description" ref={descriptionElementRef}   >
                   <div>
                     <div>    
-                      
+                    <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
+                        <InputLabel htmlFor="grouped-native-select"> Loại sản phẩm</InputLabel>
+                        <Select defaultValue="" id="grouped-select" label="Groupingpppppp" onChange={(e) => setMasp(e.target.value)}>
+                       {listlsp.map((tenspp) => (
+                          <MenuItem value={tenspp.ma_lsp} ><button value={tenspp.ten_lsp} onClick={handleGetloai(tenspp.ma_lsp)}>{tenspp.ten_lsp}</button></MenuItem>
+                        ))}
+                      </Select>
+                       </FormControl>
                         <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
                         <InputLabel htmlFor="grouped-native-select">* Tên sản phẩm</InputLabel>
                         <Select defaultValue="" id="grouped-select" label="Groupingppppp" onChange={(e) => setMasp(e.target.value)}>
@@ -257,11 +285,12 @@ export default function Listctsp() {
                         label="* Thông tin"     color="success"     onChange={(e) => setThongtin(e.target.value)}
                         type="text"     style={{ display: "block", marginBottom: "20px" }}   />
                         <TextField fullWidth
-                        label="* Hình ảnh"     color="success"     onChange={(e) => setHinhanh(e.target.value)}
-                        type="text"     style={{ display: "block", marginBottom: "20px" }}   />
-                        <TextField fullWidth
-                             color="success"     onChange={(e) => setHinhanh(e.target.value.slice(12 ))}
-                        type="file" name="file"     style={{ display: "block", marginBottom: "20px" }}   />
+                         label="* Hình ảnh"           color="success"     onChange={(e) => setHinhanh(e.target.value.slice(12 ))}
+                        type="file" name="file"     style={{ display: "block", marginBottom: "20px" }}
+                        
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start"> </InputAdornment>,
+                        }}   />
                         
                     </div>
                   </div>
@@ -343,7 +372,7 @@ export default function Listctsp() {
                   <td className="border-[1px] 	border-white	 bg-gray-100	 border-solid ">
                     <div>
                       <Button  color="success"  variant="outlined"  onClick={handleClickOpensua(
-                          product.ma_ctsp, product.ma_sp,product.ma_kt,product.soluong, product.giaban, product.thongtin, product.hinhanh)} >
+                          product.ma_ctsp, product.ma_sp, product.ten_sp,product.ma_kt,product.ten_kt,product.soluong, product.giaban, product.thongtin, product.hinhanh)} >
                         {" "}   <ColorizeIcon /> </Button>
                     </div>
                   </td>
@@ -385,7 +414,10 @@ export default function Listctsp() {
         <Alert onClose={handleClosetrungten} severity="error" sx={{ width: "100%" }} >
           Sản phẩm có kích thước này đã tồn tại - vui lòng nhập lại! </Alert>
       </Snackbar>
-      
+      <Snackbar open={opensuatrung} autoHideDuration={6000} onClose={handleClosesuatrung}>
+        <Alert onClose={handleClosesuatrung} severity="error" sx={{ width: "100%" }} >
+          Sản phẩm có kích thước này đã tồn tại - vui lòng nhập lại! </Alert>
+      </Snackbar>
       <Snackbar open={openloi} autoHideDuration={6000} onClose={handleCloseloi}>
         <Alert onClose={handleCloseloi} severity="error" sx={{ width: "100%" }}>
           Vui lòng nhập đầy đủ thông tin vào các trường có dấu (*)!</Alert>
@@ -396,17 +428,36 @@ export default function Listctsp() {
           <DialogTitle id="scroll-dialog-title">Chỉnh sửa dữ liệu</DialogTitle>
           <DialogContent dividers={scroll === "paper"}>
             <DialogContentText   id="scroll-dialog-description"   ref={descriptionElementRef}    >
-              <TextField label="* Sản phẩm"  color="success"
-                onChange={(e) => setMasp(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
-                style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={masp}/>
-                <FormControl sx={{ width: "85%" , marginBottom: "20px" }} color="success">
-                        <InputLabel htmlFor="grouped-native-select">* Loại</InputLabel>
-                        <Select defaultValue={masp} id="grouped-select" label="Grouping" onChange={(e) => setMasp(e.target.value)}>
+           
+                <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
+                        <InputLabel htmlFor="grouped-native-select">* Tên sản phẩm</InputLabel>
+                        <Select defaultValue={masp} id="grouped-select" label="Groupinggggg" onChange={(e) => setMasp(e.target.value)}>
                        {listsp.map((loaispp) => (
-                          <MenuItem value={loaispp.ma_lsp} >{loaispp.ten_lsp}</MenuItem>
+                          <MenuItem value={loaispp.ma_sp} ><button value={loaispp.ten_sp} onClick={(e) => setTensp(e.target.value)}>{loaispp.ten_sp}</button></MenuItem>
                         ))}
                       </Select> </FormControl>
-             
+                 <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
+                        <InputLabel htmlFor="grouped-native-select">* Kích thức</InputLabel>
+                        <Select defaultValue={makt} id="grouped-select" label="Groupinggg" onChange={(e) => setMakt(e.target.value)}>
+                       {listkt.map((loaispp) => (
+                          <MenuItem value={loaispp.ma_kt} ><button value={loaispp.ten_kt} onClick={(e) => setTenkt(e.target.value)}>{loaispp.ten_kt}</button></MenuItem>
+                        ))}
+                      </Select> </FormControl>
+              <TextField fullWidth label="* Số lượng"  color="success"
+                onChange={(e) => setSoluong(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
+                style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={soluong}/>
+             <TextField fullWidth label="* Giá bán"  color="success"
+                onChange={(e) => setGiaban(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
+                style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={giaban}/>
+              <TextField fullWidth label="* Thông tin"  color="success"
+                onChange={(e) => setThongtin(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
+                style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={thongtin}/>
+              <TextField fullWidth
+                         label="* Hình ảnh"       color="success"     onChange={(e) => setHinhanh(e.target.value.slice(12 ))}
+                        type="file" name="file"    style={{ display: "block", marginBottom: "20px" }}
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start"> </InputAdornment>,
+                        }}   />
             </DialogContentText>
           </DialogContent>
           <DialogActions>

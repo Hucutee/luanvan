@@ -136,16 +136,25 @@ export default function Listlsp() {
   }, [openadd]);
 
   //sua
+  const [opensuatrung, setOpensuatrung] = React.useState(false);
+  const handleClosesuatrung = () => {
+    setOpensuatrung(false);  };
   const [opensua, setOpensua] = React.useState(false);
   const [scrollsua, setScrollsua] = React.useState("paper");
   const handlesua = async (e) => {
     e.preventDefault();
     if (tenlsp) {
-      await loaisanphamAPI.sua(malsp, tenlsp);
+      const checktrung = await loaisanphamAPI.suatrung(malsp,tenlsp);
+      console.log(checktrung);
+      if(checktrung.length==0){
+        await loaisanphamAPI.sua(malsp, tenlsp);
       setCount((e) => e + 1);
       setOpensua(false);
       setOpenalert(true);
       setTenlsp("");
+      }else{
+        setOpensuatrung(true);
+      }
     } else {
       setOpenloi(true);
     }
@@ -444,6 +453,10 @@ export default function Listlsp() {
         >
           Tên này đã tồn tại - vui lòng nhập tên khác!
         </Alert>
+      </Snackbar>
+      <Snackbar  open={opensuatrung}  autoHideDuration={6000}  onClose={handleClosesuatrung}>
+        <Alert   onClose={handleClosesuatrung}   severity="error"   sx={{ width: "100%" }} >
+          Tên loại sản phẩm này đã tồn tại - vui lòng nhập tên khác! </Alert>
       </Snackbar>
       <Snackbar open={openloi} autoHideDuration={6000} onClose={handleCloseloi}>
         <Alert onClose={handleCloseloi} severity="error" sx={{ width: "100%" }}>
