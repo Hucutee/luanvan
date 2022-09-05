@@ -39,7 +39,7 @@ function Product(product) {
     <div>
       {data.length > 1
         ? gia2.map((product) => (
-            <div className="ml-2 mb-2">
+            <div className="ml-4 mb-3">
               {new Intl.NumberFormat("vi-VN", {
                 style: "currency",
                 currency: "VND",
@@ -51,7 +51,7 @@ function Product(product) {
               }).format(product.max)}{" "}
             </div>
           ))
-        : gia1.map((product) => <div className="ml-2 mb-2">{new Intl.NumberFormat("vi-VN", {
+        : gia1.map((product) => <div className="ml-4 mb-3">{new Intl.NumberFormat("vi-VN", {
             style: "currency",
             currency: "VND",
           }).format(product.giaban)}</div>)}

@@ -33,7 +33,7 @@ const chitietsanphamApi = {
     const API_URL = `/chitietsanpham/suatrung/${mactsp}&&${masp}&&${makt}`;
     return axiosClient.get(API_URL);
   },
-
+//trang khach hang
   getsp(id) {
     const API_URL = `/chitietsanphamProduct/${id}`;
     return axiosClient.get(API_URL);

@@ -28,7 +28,7 @@ const HomePage = () => {
     <RootStyle>
       <MainStyle>
         <Header />
-        <Outlet />
+        <Outlet  />
         <Footer />
       </MainStyle>
     </RootStyle>

@@ -144,8 +144,8 @@ export default function Listctsp() {
     setMasp("");
     setMakt("");
     setSoluong("");
-    setGiaban("");
-    setHinhanh(""); setThongtin("");setTensp("");setTenkt(""); setMasp(""); setCount((e) => e + 1);
+    setGiaban(""); setGetloaiii("");
+    setHinhanh(""); setThongtin("");setTensp("");setTenkt(""); setCount((e) => e + 1); 
   };
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
