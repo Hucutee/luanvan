@@ -102,7 +102,7 @@ export default function Header() {
         elevation={0}
         position="static"
         sx={{ backgroundColor: "#fff" }}
-        style={{ margin: "auto", width: "75%" , height: "80px" }}
+        style={{ margin: "auto", width: "80%" , height: "80px" }}
       >
         <Toolbar sx={{marginTop: "10px"}}>
           <Typography

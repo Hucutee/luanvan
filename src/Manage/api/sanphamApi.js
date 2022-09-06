@@ -74,6 +74,15 @@ const sanphamAPI = {
     const API_URL = `/sanphamnoiloaikhoanggia/${loai}&&${nho}&&${lon}&&${trang}`;
     return axiosClient.get(API_URL);
   },
+  getListnoigiakhoanggia(gia,nho,lon,trang) {
+    const API_URL = `/sanphamnoigiakhoanggia/${gia}&&${nho}&&${lon}&&${trang}`;
+    return axiosClient.get(API_URL);
+  },
+  getListnoiloaigiakhoanggia(loai,gia,nho,lon,trang) {
+    const API_URL = `/sanphamnoiloaigiakhoanggia/${loai}&&${gia}&&${nho}&&${lon}&&${trang}`;
+    return axiosClient.get(API_URL);
+  },
+
 };
 
 export default sanphamAPI;

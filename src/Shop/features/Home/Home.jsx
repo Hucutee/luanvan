@@ -17,15 +17,16 @@ export default function Home() {
         style={{ margin: "auto", width: "100%" }}
       >
         <Grid className="abc">
-          <Grid className="chu1">#THE STONE SERIES</Grid>
-          <Grid className="chu2">Cây Xinh Cây Đẹp Nè</Grid>
+          <Grid className="chu1">#CỬA HÀNG CÂY TRỒNG</Grid>
+          <span className="chu2 font-bold bg-clip-text 	 text-transparent bg-gradient-to-r from-green-900 to-green-500 ">
+          Hau's  Garden
+          </span>
           <Grid className="chu3">
-            Quán em có bán cà phê cà phê đen và cà phê đá. Quán em có các loai
-            rau má có trà sửa chân châu đường đen
+            Cửa hàng cây trồng Hau's Garden cung cấp các loại sen đá, xương rồng, chậu tiểu cảnh,đất chuyên dụng, dụng cụ chăm sóc cây trồng,..
           </Grid>
           <Grid className="chu4">
             <Button variant="contained" color="success">
-              Mua hàng ngay
+              Khám phá ngay
             </Button>
           </Grid>
         </Grid>

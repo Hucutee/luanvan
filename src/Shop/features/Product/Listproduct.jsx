@@ -19,20 +19,16 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Tab, Tabs } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-
+import bg from "./i4.png";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+import ViewComfyIcon from "@mui/icons-material/ViewComfy";
 const useStyles = makeStyles((theme) => ({
   root: {},
-  left: {
-    width: "250px",
-    backgroundColor: "#f8f8f8",
-    paddingLeft: "20px",
-    paddingTop: "30px",
-  },
-  right: { flex: "1 1 0" },
-}));
+  left: { width: "250px", backgroundColor: "#f8f8f8", paddingLeft: "20px", paddingTop: "30px", },
+  right: { flex: "1 1 0" },}));
 function Listproduct(props) {
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
@@ -40,8 +36,10 @@ function Listproduct(props) {
   const [tenget, setTenget] = useState("");
   const [trangthai, setTrangthai] = useState("1");
   const [counttrang, setCounttrang] = useState("");
+  const [hienkhoanggia, setHienkhoanggia] = useState(false);
   const [trang, setTrang] = useState(1);
   const [locloai, setLocloai] = useState("");
+  const [locloaiten, setLocloaiten] = useState("");
   const [locgianho, setLocgianho] = useState("");
   const [locgialon, setLocgialon] = useState("");
   const [locgia, setLocgia] = useState("");
@@ -49,48 +47,33 @@ function Listproduct(props) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
   const handleChangepage = (event, value) => {
-    setTrang(value);
-    setCount((e) => e + 1);
+    setTrang(value); setCount((e) => e + 1);
   };
   const [opencheckgia, setOpencheckgia] = React.useState(false);
   const handleClosecheckgia = () => {
     setOpencheckgia(false);
   };
   const handleSubmitgia = () => {
-    if (
-      locgianho > 999 &&
-      locgialon > 999 &&
-      locgianho % 1 == 0 &&
-      locgialon % 1 == 0 &&
-      locgianho < locgialon
-    ) {
-      setCount((e) => e + 1);
-    } else {
-      setLocgianho("");
-      setLocgialon("");
-      setOpencheckgia(true);
-    }
+    if ( locgianho > 999 && locgialon > 999 && locgianho % 1 == 0 && locgialon % 1 == 0 && locgianho <= locgialon) {
+      setCount((e) => e + 1); setHienkhoanggia(true);
+    } else { setLocgianho(""); setLocgialon(""); setOpencheckgia(true);
+    }};
+  const handleChangloai = (Value, ten) => {
+    setLocloai(Value); setLocloaiten(ten);  setCount((e) => e + 1);
   };
-
   const handleChangegia = (event, newValue) => {
-    setLocgia(newValue);
-    setCount((e) => e + 1);
+    setLocgia(newValue); setCount((e) => e + 1);
   };
   const handleTimkim = () => {
-    setTrangthai("");
-    setCount((e) => e + 1);
+    setTrangthai("");  setLocgia("");  setLocloai("");  setLocloaiten("");  setLocgianho("");
+    setLocgialon("");  setHienkhoanggia(false);  setCount((e) => e + 1);
   };
   const handleTrangthai = () => {
-    setTrangthai("1");
-    setLocloai("");
-    setLocgia("");
-    setLocgialon("");
-    setLocgianho("");
-    setCount((e) => e + 1);
+    setTrangthai("1"); setLocloai(""); setLocgia(""); setLocgialon(""); setTrang("1");
+    setLocgianho(""); setHienkhoanggia(false); setCount((e) => e + 1);
   };
   useEffect(() => {
     (async () => {
-      console.log(locgialon, locgianho);
       const loaisp = await loaisanphamAPI.getCount();
       setDatalsp(loaisp);
       if (trangthai) {
@@ -102,31 +85,30 @@ function Listproduct(props) {
             const data = await sanphamAPI.getListnoigia(locgia, trang);
             setData(data);
           } else if (!locloai && !locgia && locgianho && locgialon) {
-            const data = await sanphamAPI.getListnoikhoanggia(
-              locgianho,
-              locgialon,
-              trang
-            );
+            const data = await sanphamAPI.getListnoikhoanggia(  locgianho,  locgialon,  trang);
             setData(data);
-          }else if(locloai && locgia && (!locgianho || !locgialon)){
-            const data = await sanphamAPI.getListnoiloaigia(locloai,locgia, trang);
+          } else if (locloai && locgia && (!locgianho || !locgialon)) {
+            const data = await sanphamAPI.getListnoiloaigia(  locloai,  locgia,  trang);
             setData(data);
-          }else if(locloai && !locgia && (locgianho && locgialon)){
-            const data = await sanphamAPI.getListnoiloaikhoanggia(locloai,locgianho,locgialon, trang);
+          } else if (locloai && !locgia && locgianho && locgialon) {
+            const data = await sanphamAPI.getListnoiloaikhoanggia(  locloai,  locgianho,  locgialon,  trang);
+            setData(data);
+          } else if (!locloai && locgia && locgianho && locgialon) {
+            const data = await sanphamAPI.getListnoigiakhoanggia( locgia,  locgianho,  locgialon,  trang);
+            setData(data);
+          } else if (locloai && locgia && locgianho && locgialon) {
+            const data = await sanphamAPI.getListnoiloaigiakhoanggia(  locloai,  locgia,  locgianho,  locgialon,  trang);
             setData(data);
           } else {
             const data = await sanphamAPI.getListnoi(trang);
             setData(data);
           }
-        } catch (e) {
-          console.log("loi lay dl", e);
+        } catch (e) { console.log("loi lay dl", e);
         }
       } else {
         try {
-          const data = await sanphamAPI.getidnoi(tenget, trang);
-          setData(data);
-        } catch (e) {
-          console.log("loi lay dl", e);
+          const data = await sanphamAPI.getidnoi(tenget, trang); setData(data);
+        } catch (e) { console.log("loi lay dl", e);
         }
       }
       const datacount = await sanphamAPI.getListnoicount();
@@ -134,68 +116,36 @@ function Listproduct(props) {
       setCounttrang(sotrang);
     })();
   }, [count]);
+
+  const handleDelete = () => {
+    console.info("You clicked the delete icon.");
+  };
+  const handleDeletekhoanggia = () => {
+    setLocgianho(""); setLocgialon(""); setHienkhoanggia(""); setCount((e) => e + 1);
+  };
+  const handleDeletegia = () => {
+    setLocgia(""); setCount((e) => e + 1);
+  };
+  const handleDeleteloai = () => {
+    setLocloai(""); setLocloaiten(""); setCount((e) => e + 1);
+  };
+
   const classes = useStyles();
   return (
     <Box>
       <div
-        role="presentation"
-        style={{
-          borderTop: "1px solid #ededed",
-          borderBottom: "1px solid #ededed",
-          marginBottom: "40px",
-        }}
+        role="presentation" style={{ borderTop: "1px solid #ededed",  borderBottom: "1px solid #ededed",  marginBottom: "40px", }}
       >
         <Breadcrumbs
-          separator="&ensp; › &ensp; "
-          aria-label="breadcrumb"
-          style={{ marginLeft: "12.5%", fontSize: "13px", lineHeight: "40px" }}
+          separator="&ensp; › &ensp; " aria-label="breadcrumb" style={{ marginLeft: "12.5%", fontSize: "13px", lineHeight: "40px" }}
         >
           <Link underline="hover" color="inherit" href="/app">
-            {" "}
-            Trang chủ{" "}
+            {" "} Trang chủ{" "}
           </Link>
-          <Link
-            underline="hover"
-            color="#339900"
-            value="1"
-            onClick={handleTrangthai}
-          >
-            {" "}
-            Danh sách sản phẩm{" "}
+          <Link  underline="hover" color="#339900" value="1" onClick={handleTrangthai}>
+            {" "}  Danh sách sản phẩm{" "}
           </Link>
         </Breadcrumbs>
-        <div className="bg-slate-200">
-          <Paper
-            elevation={0}
-            component="form"
-            className="my-1 mr-[4%] border-[1px] 	border-slate-300	bg-slate-200		 border-solid hover:bg-slate-300"
-            sx={{
-              p: "0px 4px",
-              display: "flex",
-              alignItems: "center",
-              width: "15%",
-              float: "left",
-              marginLeft: "39%",
-              backgroundColor: " rgb(229 231 235);",
-            }}
-          >
-            <InputBase
-              onChange={(e) => setTenget(e.target.value)}
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="Tìm sản phẩm"
-              inputProps={{ "aria-label": "search google maps" }}
-            />
-
-            <IconButton
-              onClick={handleTimkim}
-              type="button"
-              sx={{ p: 1 }}
-              aria-label="search"
-            >
-              <SearchIcon />
-            </IconButton>
-          </Paper>
-        </div>
       </div>
       <Container>
         <Grid container>
@@ -203,43 +153,19 @@ function Listproduct(props) {
             <Grid item className={classes.left}>
               <Box>
                 <Grid
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    marginBottom: "10px",
-                    marginLeft: "5px",
-                  }}
-                >
-                  Loại sản phẩm
+                  sx={{  fontSize: "18px",  fontWeight: "500",  marginBottom: "10px",  marginLeft: "5px",}}
+                > Loại sản phẩm
                 </Grid>
                 <FormControl color="success" sx={{ m: 1, minWidth: "82%" }}>
-                  <InputLabel id="demo-select-small">
-                    Chọn loại sản phẩm
-                  </InputLabel>
+                  <InputLabel id="demo-select-small"> Chọn loại sản phẩm </InputLabel>
                   <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={locloai}
-
-                    label="Ageaaaaaaaaaaaaa"
-                    onChange={(e) => setCount((e) => e + 1)}
+                    labelId="demo-select-small"  id="demo-select-small"  value={locloai}  label="Ageaaaaaaaaaaaaa"
                   >
-                    <MenuItem value="">
-                      <button
-                        value=""
-                        onClick={(e) => setLocloai(e.target.value)}
-                      >
-                        Bỏ chọn
-                      </button>{" "}
-                    </MenuItem>
-
                     {datalsp.map((loai) => (
                       <MenuItem value={loai.ma_lsp}>
                         <button
-                          value={loai.ma_lsp}
-                          onClick={(e) => setLocloai(e.target.value)}
-                        >
-                          {loai.ten_lsp}
+                          value={loai.ma_lsp} onClick={(e) =>  handleChangloai(e.target.value, loai.ten_lsp) }
+                        >  {loai.ten_lsp}
                         </button>
                       </MenuItem>
                     ))}
@@ -248,123 +174,59 @@ function Listproduct(props) {
               </Box>
 
               <Grid
-                style={{
-                  borderBottom: "1px solid #dcdcdc",
-                  width: "170px",
-                  margin: "20px",
-                  marginTop: "35px",
-                  marginBottom: "25px",
-                  lineHeight: "60px",
-                }}
+                style={{  borderBottom: "1px solid #dcdcdc",  width: "170px",  margin: "20px",  marginTop: "25px",  marginBottom: "20px",  lineHeight: "60px",  }}
               ></Grid>
               <Box>
                 <Grid
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    marginBottom: "12px",
-                    marginLeft: "5px",
-                  }}
-                >
-                  Sắp sếp giá
+                  sx={{  fontSize: "18px",   fontWeight: "500",   marginBottom: "8px",   marginLeft: "5px", }}
+                >  Sắp sếp giá
                 </Grid>
                 <Tabs
-                  variant="Box"
-                  orientation="vertical"
-                  indicatorColor="none"
-                  textColor="none"
-                  sx={{ padding: "1px 1px", color: "#00000099" }}
-                  onChange={handleChangegia}
+                  variant="Box" orientation="vertical" indicatorColor="none" textColor="none" sx={{ padding: "1px 1px", color: "#00000099" }} onChange={handleChangegia}
                 >
                   <Tab
-                    sx={{
-                      width: "100%",
-                      padding: "10px",
-                      minHeight: "18px",
-                      alignItems: "flex-start",
-                      "&:hover": { color: "#339900" },
-                    }}
-                    label="Giá thấp tới cao"
-                    value="ASC"
+                    sx={{  width: "100%",  padding: "10px",paddingTop:"5px",     minHeight: "15px",  alignItems: "flex-start",
+                      "&:hover": { color: "#339900" }, }}  label="Giá thấp tới cao"  value="ASC"
                   ></Tab>
                   <Tab
-                    sx={{
-                      width: "100%",
-                      padding: "10px",
-                      minHeight: "18px",
-                      alignItems: "flex-start",
-                      "&:hover": { color: "#339900" },
-                    }}
-                    label="Giá cao tới thấp"
-                    value="DESC"
+                    sx={{   width: "100%",   padding: "10px",paddingTop:"5px",   minHeight: "15px",   alignItems: "flex-start",
+                      "&:hover": { color: "#339900" }, }} label="Giá cao tới thấp"  value="DESC"
                   ></Tab>
                 </Tabs>
               </Box>
 
               <Grid
-                style={{
-                  borderBottom: "1px solid #dcdcdc",
-                  width: "170px",
-                  margin: "20px",
-                  marginTop: "20px",
-                  marginBottom: "20px",
-                  lineHeight: "60px",
-                }}
+                style={{  borderBottom: "1px solid #dcdcdc",  width: "170px",  margin: "20px",
+                  marginTop: "15px",  marginBottom: "20px",  lineHeight: "60px", }}
               ></Grid>
               <Box>
                 <Grid
-                  sx={{
-                    fontSize: "18px",
-                    fontWeight: "500",
-                    marginBottom: "15px",
-                    marginLeft: "5px",
-                  }}
-                >
-                  Khoảng giá (VNĐ)
+                  sx={{ fontSize: "18px", fontWeight: "500", marginBottom: "15px", marginLeft: "5px", }}
+                >  Khoảng giá (VNĐ)
                 </Grid>
                 <Tabs
-                  variant="Box"
-                  orientation="vertical"
-                  value="A"
-                  indicatorColor="none"
-                  textColor="none"
-                  sx={{ padding: "1px 1px", color: "#00000099" }}
+                  variant="Box" orientation="vertical" value="A" indicatorColor="none" textColor="none" sx={{ padding: "1px 1px", color: "#00000099" }}
                 >
                   <Box
-                    component="form"
-                    sx={{ "& .MuiTextField-root": { m: 1, width: "22ch" } }}
-                    noValidate
-                    autoComplete="off"
+                    component="form"  sx={{ "& .MuiTextField-root": { m: 1, width: "22ch" } }}
+                    noValidate   autoComplete="off"
                   >
                     <div>
                       <TextField
-                        color="success"
-                        label="Từ"
-                        value={locgianho}
-                        id="outlined-size-small"
-                        size="small"
-                        onChange={(e) => setLocgianho(e.target.value)}
+                        color="success"  label="Từ"  value={locgianho}
+                        id="outlined-size-small"  size="small"  onChange={(e) => setLocgianho(e.target.value)}
                       />
                     </div>
                     <div>
                       <TextField
-                        color="success"
-                        label="Đến"
-                        value={locgialon}
-
-                        id="outlined-size-small"
-                        size="small"
-                        style={{ marginBottom: "15px" }}
-                        onChange={(e) => setLocgialon(e.target.value)}
+                        color="success"  label="Đến"  value={locgialon}  id="outlined-size-small"  size="small"
+                        style={{ marginBottom: "15px" }}  onChange={(e) => setLocgialon(e.target.value)}
                       />
                       <div>
                         <Button
-                          style={{ marginLeft: "3%", marginBottom: "20px" }}
-                          variant="contained"
-                          color="success"
-                          onClick={handleSubmitgia}
-                        >
-                          Áp dụng
+                          style={{ marginLeft: "3%", marginBottom: "20px" }}  variant="contained"
+                          color="success"  onClick={handleSubmitgia}
+                        >  Áp dụng
                         </Button>
                       </div>
                     </div>
@@ -374,39 +236,74 @@ function Listproduct(props) {
             </Grid>
           </Grid>
           <Grid item className={classes.right}>
+            <Grid
+              className="w-[96%] h-[170px] mb-[4%] ml-[2%]" style={{ backgroundImage: `url(${bg})`,backgroundRepeat: "no-repeat",
+              backgroundsize: "cover",
+              backgroundPosition: "center center" 
+            }}
+            ><div style={{fontFamily: "papyrus "}} className=" text-[46px]  w-[100%] pt-[60px] text-center">Sản phẩm tốt nhất, mức giá rẻ nhất</div></Grid>
+            <Grid
+              className="w-[96%] h-[50px] mb-[4%] ml-[2%]"  style={{ border: "1px solid #f0f0f0" }}
+            >
+              <Stack
+                direction="row"  spacing={1}  style={{ marginTop: "8px", marginLeft: "14px", float: "left" }}
+              >
+                <ViewComfyIcon
+                  onClick={handleTrangthai}  color="action"  fontSize="medium"  className="a1 mt-[4px] mr-[10px]"
+                />
+                {(locloai || locgia || locgialon || locgianho || hienkhoanggia) ? (<></>
+                ) : ( <Chip label="Danh sách tất cả sản phẩm" />
+                )}
+                {!locloai == "" ? (<Chip  label={`Loại: ` + locloaiten}  onDelete={handleDeleteloai}/>
+                ) : (<span> </span>
+                )}
+                {locgia == "DESC" ? ( <Chip label="Giá cao tới thấp" onDelete={handleDeletegia} />) : ( <></>
+                )}
+                {locgia == "ASC" ? ( <Chip label="Giá thấp tới cao" onDelete={handleDeletegia} /> ) : ( <></>
+                )}
+                {hienkhoanggia ? ( <Chip   label={`Giá: ` + locgianho + ` - ` + locgialon}   onDelete={handleDeletekhoanggia} /> ) : (  <></>
+                )}
+              </Stack>
+
+              <div className="bg-slate-200">
+                <Paper
+                  elevation={0}  component="form"
+                  className=" h-[100%] 	border-gray-200			 border-solid hover:bg-gray-300"
+                  sx={{   display: "flex",    alignItems: "center",  width: "25%",
+                    float: "right",  height: "100%",  backgroundColor: " #f0f0f0",}}
+                >
+                  <InputBase
+                    onChange={(e) => setTenget(e.target.value)}  sx={{ ml: 1, flex: 1, height: "50px" }}
+                    placeholder="Tìm sản phẩm"  inputProps={{ "aria-label": "search google maps" }}
+                  />
+
+                  <IconButton
+                    onClick={handleTimkim}  type="button"  sx={{ p: 1 }}  aria-label="search"
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </Paper>
+              </div>
+            </Grid>
+
             <Grid container>
               {data.length > 0 ? (
                 data.map((product) => (
                   <Grid item key={product.ma_sp} sm={4}>
                     <Box className="b1" minHeight="350px">
                       <Paper
-                        style={{
-                          border: "1px solid #f0f0f0",
-                        }}
+                        style={{  border: "1px solid #f0f0f0", }}
                       >
                         <Box sx={{ cursor: "pointer" }}>
-                          <Zoom
-                            img={require("../../../images/" + product.hinhanh)}
-                            zoomScale={1.5}
-                            height={350}
-                            width="100%"
-                          />
+                          <Zoom  img={require("../../../images/" + product.hinhanh)}  zoomScale={1.5}  height={350}  width="100%"/>
                         </Box>
                         <Typography
-                          padding={2}
-                          variant="body2"
-                          color="#333"
-                          fontSize="14px"
-                          noWrap
-                        >
-                          {product.ten_sp}
+                          padding={2}  variant="body2"  color="#333"  fontSize="14px"  noWrap
+                        >  {product.ten_sp}
                         </Typography>
                         <Typography variant="body2">
                           <Box
-                            component="span"
-                            fontSize="16px"
-                            fontWeight="bold"
-                            color="#ABD373"
+                            component="span"  fontSize="16px"  fontWeight="bold"  color="#ABD373"
                           >
                             <Product data={product} />
                           </Box>
@@ -416,40 +313,25 @@ function Listproduct(props) {
                   </Grid>
                 ))
               ) : (
-                <div className="  h-[57px] pt-4">
-                  {" "}
-                  Không tìm thấy sản phẩm bạn đang tìm!{" "}
+                <div className="text-lg  w-[100%] pt-5 text-center	">
+                  Rất tiết không có sản phẩm bạn đang tìm!
                 </div>
               )}
             </Grid>
             <div className="rounded-bl-2xl rounded-br-2xl   h-[57px] pt-4">
               <Pagination
-                style={{
-                  display: "flex",
-                  flexFlow: "row nowrap",
-                  justifyContent: "center",
-                }}
-                color="success"
-                count={counttrang}
-                page={trang}
-                onChange={handleChangepage}
+                style={{  display: "flex",  flexFlow: "row nowrap",  justifyContent: "center",}}
+                color="success"  count={counttrang}  page={trang}  onChange={handleChangepage}
               ></Pagination>
             </div>
           </Grid>
         </Grid>
       </Container>
       <Snackbar
-        open={opencheckgia}
-        autoHideDuration={6000}
-        onClose={handleClosecheckgia}
+        open={opencheckgia} autoHideDuration={6000} onClose={handleClosecheckgia}
       >
-        <Alert
-          onClose={handleClosecheckgia}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
-          Vui lòng nhập số nguyên lớn hơn hoặc bằng 1000 và gía(từ) lớn hơn
-          giá(đến)!{" "}
+        <Alert  onClose={handleClosecheckgia}  severity="error"  sx={{ width: "100%" }}>
+          Vui lòng nhập số nguyên lớn hơn hoặc bằng 1000 và gía(từ) lớn hơn  giá(đến)!
         </Alert>
       </Snackbar>
     </Box>

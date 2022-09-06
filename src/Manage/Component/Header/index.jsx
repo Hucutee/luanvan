@@ -156,7 +156,7 @@ export default function TemporaryDrawer() {
         <span style={{ float: "left"  , marginTop: "-5px" }}>
               <img src={logo} width="60px" heigh="60px" />
             </span>
-        <span className=" font-bold bg-clip-text text-[24px] text-transparent bg-gradient-to-r from-green-900 to-green-500 ">
+        <span className=" font-bold bg-clip-text text-[26px] text-transparent bg-gradient-to-r from-green-900 to-green-500 ">
           Hau's Garden
           </span>
         </div>
