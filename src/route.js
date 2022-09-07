@@ -3,14 +3,13 @@ import { useRoutes } from 'react-router-dom';
 import HomePage from './Shop/Components/Pages/HomePage';
 import Home from "./Shop/features/Home/Home";
 import ListPage from "./Shop/features/Product/page2";
-import Chitietsp from "./Shop/features/Product/page2/Chitietsp";
+import Chitietsp from "./Shop/features/Product/Chitietsp";
 import Listncc  from "./Manage/Pages/nhacungcap/Listncc";
 import Listkt  from "./Manage/Pages/kichthuoc/Listkt";
 import Listpgg  from "./Manage/Pages/phieugiamgia/Listpgg";
 import Listkm  from "./Manage/Pages/khuyenmai/Listkm";
 import Listsp  from "./Manage/Pages/sanpham/Listsp";
 import Listctsp  from "./Manage/Pages/chitietsanpham/Listctsp";
-
 import HomeManagePage from "./Manage/Component/ManagePage";
 import Listlsp from "./Manage/Pages/loaisanpham/Listlsp";
 import Listproduct from "./Shop/features/Product/Listproduct";

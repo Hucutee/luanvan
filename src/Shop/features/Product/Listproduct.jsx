@@ -21,7 +21,7 @@ import { Tab, Tabs } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import bg from "./i4.png";
+import bg from "./i1.png";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import ViewComfyIcon from "@mui/icons-material/ViewComfy";
@@ -241,7 +241,7 @@ function Listproduct(props) {
               backgroundsize: "cover",
               backgroundPosition: "center center" 
             }}
-            ><div style={{fontFamily: "papyrus "}} className=" text-[46px]  w-[100%] pt-[60px] text-center">Sản phẩm tốt nhất, mức giá rẻ nhất</div></Grid>
+            ><div style={{fontFamily: "papyrus "}} className=" text-[42px]  w-[100%] pt-[25px] text-center">Sản phẩm tốt nhất,<br/> mức giá rẻ nhất</div></Grid>
             <Grid
               className="w-[96%] h-[50px] mb-[4%] ml-[2%]"  style={{ border: "1px solid #f0f0f0" }}
             >
@@ -290,26 +290,9 @@ function Listproduct(props) {
               {data.length > 0 ? (
                 data.map((product) => (
                   <Grid item key={product.ma_sp} sm={4}>
-                    <Box className="b1" minHeight="350px">
-                      <Paper
-                        style={{  border: "1px solid #f0f0f0", }}
-                      >
-                        <Box sx={{ cursor: "pointer" }}>
-                          <Zoom  img={require("../../../images/" + product.hinhanh)}  zoomScale={1.5}  height={350}  width="100%"/>
-                        </Box>
-                        <Typography
-                          padding={2}  variant="body2"  color="#333"  fontSize="14px"  noWrap
-                        >  {product.ten_sp}
-                        </Typography>
-                        <Typography variant="body2">
-                          <Box
-                            component="span"  fontSize="16px"  fontWeight="bold"  color="#ABD373"
-                          >
+                    
                             <Product data={product} />
-                          </Box>
-                        </Typography>
-                      </Paper>
-                    </Box>
+                       
                   </Grid>
                 ))
               ) : (

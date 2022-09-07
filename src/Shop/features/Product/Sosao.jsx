@@ -8,7 +8,9 @@ export default function Sosao() {
 
   return (
     <Box
-     
+      sx={{
+        '& > legend': { mt: 2 },
+      }}
     >  
       <Rating  size="small"name="read-only" value={value} readOnly />
 
