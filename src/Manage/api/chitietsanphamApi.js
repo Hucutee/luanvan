@@ -46,6 +46,10 @@ const chitietsanphamApi = {
     const API_URL = `/chitietsanphamProduct/gia2/${id}`;
     return axiosClient.get(API_URL);
   },
+  getsp1(id) {
+    const API_URL = `/chitietsanphamProduct1/${id}`;
+    return axiosClient.get(API_URL);
+  },
 };
 
 export default chitietsanphamApi;

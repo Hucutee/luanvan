@@ -17,6 +17,8 @@ import hotro from "./hotro.png";
 import baomat from "./baomat.png";
 import { useState } from "react";
 import { useEffect } from "react";
+import chitietsanphamApi from "../../../Manage/api/chitietsanphamApi";
+import Zoom from "react-img-zoom";
 
 Chitietsp.propTypes = {};
 
@@ -24,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   root: {},
   left: {
     width: "500px",
+    height: "500px",
     padding: 2,
   },
   right: {
@@ -33,39 +36,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Chitietsp(props) {
+function Chitietsp() {
   const classes = useStyles();
+  const [count, setCount] = useState(0);
   const params = useLocation();
-  const productId = params.pathname;
+  const productId = params.pathname.slice(10);
+  const [data, setData] = useState([]);
+  const [datasp, setDatasp] = useState([]);
+  const [makt, setMakt] = useState("");
+  const [tenkt, setTenkt] = useState("");
+  const [soluong, setSoluong] = useState("");
+  const [giaban, setGiaban] = useState("");
+  const [hinhanh, setHinhanh] = useState("");
   const handleAddToCartSubmit = (formValues) => {
     console.log("form", formValues);
   };
-
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const handleChangeha = (ha,makt,tenkt,sl,gb) => {
+    setMakt(makt); setTenkt(tenkt); setSoluong(sl); setGiaban(gb);
+    setHinhanh(ha); setCount((e) => e + 1);  
+  };
 
   const [productList, setProductList] = useState([]);
 
-  const [filters, setFilters] = useState({
-    _page: 1,
-    _limit: 4,
-  });
+  const [filters, setFilters] = useState(0);
   useEffect(() => {
     (async () => {
-      console.log(productId);
       try {
+        console.log(hinhanh);
+        const dataa = await chitietsanphamApi.getsp(productId);
+        const dataaa = await chitietsanphamApi.getsp1(productId);
+        setData(dataa);
+        setDatasp(dataaa); 
         
+       
       } catch (error) {
         console.log("loi", error);
       }
     })();
-  }, [filters]);
+  }, [count]);
 
   return (
     <Box className={classes.root}>
+      
       <Container>
         <Paper elevation={0}>
           <div
@@ -94,7 +111,36 @@ function Chitietsp(props) {
           </div>
           <Grid container>
             <Grid item marginRight={5} className={classes.left}>
-              aaa
+              <Box sx={{ cursor: "pointer", width: "100%", height: "500px" }}>
+             
+                {count == 0 ? (
+                   datasp.map((aa) => (
+                    <p><Zoom
+                    img={require("../../../images/" + aa.hinhanh)}
+                    zoomScale={2}
+                    height={650}
+                    width={500}
+                    marginRight="5%"
+                  /></p>
+                 ))): (
+                  <p> <Zoom
+                  img={require("../../../images/" +hinhanh )}
+                  zoomScale={2}
+                  height={650}
+                  width={500}
+                  marginRight="5%"
+                /></p>
+                  
+                  
+                )}
+                
+              </Box>
+              <div>
+                {data.map((aa)=>(
+                  <Button  style={{ marginTop:"170px"}}  onClick={(e)=>handleChangeha(aa.hinhanh)}>
+                 <img width="60" height="60px" src={require('../../../images/' + aa.hinhanh)} /></Button>
+                ))}
+              </div>
             </Grid>
             <Grid item className={classes.right}>
               <Typography
@@ -107,7 +153,7 @@ function Chitietsp(props) {
                   color: "#333",
                 }}
               >
-                aaaa
+                {datasp.map((aa) => aa.ten_sp)}
               </Typography>
               <Typography>
                 {" "}
@@ -128,7 +174,9 @@ function Chitietsp(props) {
                   fontFamily: "IBM Plex Sans,sans-serif",
                 }}
               >
-                gia
+                {giaban =="" ? (
+                  datasp.map((aa)=>(<p>{aa.giaban}</p>)
+                 )): (<p>{giaban}</p>)}
               </Typography>
               <Typography
                 style={{
@@ -139,7 +187,9 @@ function Chitietsp(props) {
                   marginBottom: "20px",
                 }}
               >
-                Trang thai: Con Hang
+                 {tenkt =="" ? (
+                  datasp.map((aa)=>(<p>Số lượng: {aa.soluong}, &ensp; &ensp; kích thước: {aa.ten_kt}</p>))
+                 ): (<p>Số lượng: {soluong}, &ensp; &ensp; kích thước: {tenkt}</p>)}
               </Typography>
               <Typography
                 style={{
@@ -172,15 +222,12 @@ function Chitietsp(props) {
                 {" "}
                 <Stack direction="row" spacing={2} style={{ height: "50px" }}>
                   <p style={{ marginTop: "10px" }}>Kích thước: </p>
-                  <Button variant="contained" color="secondary">
-                    Nhỏ
-                  </Button>
-                  <Button variant="contained" color="success">
-                    Vừa
-                  </Button>
-                  <Button variant="contained" color="error">
-                    Lớn
-                  </Button>
+
+                  {data.map((aa) => (
+                    <Button variant="outlined" color="success" onClick={(e)=>handleChangeha(aa.hinhanh,aa.ma_kt,aa.ten_kt,aa.soluong,aa.giaban)}>
+                      {aa.ten_kt}
+                    </Button>
+                  ))}
                 </Stack>
               </Typography>
               <Stack
@@ -275,7 +322,6 @@ function Chitietsp(props) {
                 </Typography>
               </Grid>
             </Grid>
-
           </Grid>
           <Box sx={{ width: "100%", typography: "body1", marginTop: "50px" }}>
             <TabContext value={value}>

@@ -6,7 +6,7 @@ import textt from "./text.png";
 import "./stylesp.css";
 import Zoom from "react-img-zoom";
 import { Link, useNavigate } from "react-router-dom";
-import chitietsanphamAPI from "../../../Manage/api/chitietsanphamApi";
+import chitietsanphamApi from "../../../Manage/api/chitietsanphamApi";
 import Sosao from "./Sosao";
 
 Product.propTypes = {
@@ -25,14 +25,14 @@ function Product(product) {
   useEffect(() => {
     (async () => {
       try {
-        const data = await chitietsanphamAPI.getsp(product.data.ma_sp);
+        const data = await chitietsanphamApi.getsp(product.data.ma_sp);
         setData(data);
         if (data.length == 1) {
-          const dataa = await chitietsanphamAPI.getgia1(product.data.ma_sp);
+          const dataa = await chitietsanphamApi.getgia1(product.data.ma_sp);
           setGia1(dataa);
         }
         if (data.length > 1) {
-          const dataaa = await chitietsanphamAPI.getgia2(product.data.ma_sp);
+          const dataaa = await chitietsanphamApi.getgia2(product.data.ma_sp);
           setGia2(dataaa);
         }
       } catch (e) {
