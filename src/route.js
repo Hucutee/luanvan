@@ -13,6 +13,8 @@ import Listctsp  from "./Manage/Pages/chitietsanpham/Listctsp";
 import HomeManagePage from "./Manage/Component/ManagePage";
 import Listlsp from "./Manage/Pages/loaisanpham/Listlsp";
 import Listproduct from "./Shop/features/Product/Listproduct";
+import Listhdn from "./Manage/Pages/hoadonnhap/Listhdn";
+import Listcthdn from "./Manage/Pages/chitiethoadonnhap/Listcthdn";
 export default function Router() {
     // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
@@ -61,6 +63,12 @@ export default function Router() {
             },{
                 path: '/Manager/chitietsanpham',
                 element: <Listctsp/>
+            },{
+                path: '/Manager/hoadonnhap',
+                element: <Listhdn/>
+            },{
+                path: '/Manager/chitiethoadonnhap',
+                element: <Listcthdn/>
             }
         ]
         }

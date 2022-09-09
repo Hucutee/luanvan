@@ -82,6 +82,10 @@ const sanphamAPI = {
     const API_URL = `/sanphamnoiloaigiakhoanggia/${loai}&&${gia}&&${nho}&&${lon}&&${trang}`;
     return axiosClient.get(API_URL);
   },
+  getmasp(id) {
+    const API_URL = `/sanphammasp/${id}`;
+    return axiosClient.get(API_URL);
+  },
 
 };
 

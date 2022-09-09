@@ -44,6 +44,7 @@ function Chitietsp() {
   const [data, setData] = useState([]);
   const [datasp, setDatasp] = useState([]);
   const [makt, setMakt] = useState("");
+  const [mactsp, setMactsp] = useState("");
   const [tenkt, setTenkt] = useState("");
   const [soluong, setSoluong] = useState("");
   const [giaban, setGiaban] = useState("");
@@ -56,14 +57,13 @@ function Chitietsp() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const handleChangeha = (ha,makt,tenkt,sl,gb) => {
+  const handleChangeha = (mactsp,ha,makt,tenkt,sl,gb) => {
+    setMactsp(mactsp);
     setMakt(makt); setTenkt(tenkt); setSoluong(sl); setGiaban(gb);
     setHinhanh(ha); setCount((e) => e + 1);  
   };
 
-  const [productList, setProductList] = useState([]);
 
-  const [filters, setFilters] = useState(0);
   useEffect(() => {
     (async () => {
       try {
@@ -137,8 +137,8 @@ function Chitietsp() {
               </Box>
               <div>
                 {data.map((aa)=>(
-                  <Button  style={{ marginTop:"170px"}}  onClick={(e)=>handleChangeha(aa.hinhanh)}>
-                 <img width="60" height="60px" src={require('../../../images/' + aa.hinhanh)} /></Button>
+                  <Button  style={{ marginTop:"170px", height:"60px"}}  onClick={(e)=>handleChangeha(aa.ma_ctsp,aa.hinhanh,aa.ma_kt,aa.ten_kt,aa.soluong,aa.giaban)}>
+                 <Zoom width={60} height={60} img={require('../../../images/' + aa.hinhanh)} /></Button>
                 ))}
               </div>
             </Grid>
@@ -224,7 +224,7 @@ function Chitietsp() {
                   <p style={{ marginTop: "10px" }}>Kích thước: </p>
 
                   {data.map((aa) => (
-                    <Button variant="outlined" color="success" onClick={(e)=>handleChangeha(aa.hinhanh,aa.ma_kt,aa.ten_kt,aa.soluong,aa.giaban)}>
+                    <Button variant="outlined" color="success" onClick={(e)=>handleChangeha(aa.ma_ctsp,aa.hinhanh,aa.ma_kt,aa.ten_kt,aa.soluong,aa.giaban)}>
                       {aa.ten_kt}
                     </Button>
                   ))}

@@ -132,6 +132,22 @@ export default function TemporaryDrawer() {
               Chi tiết sản phẩm
             </Link></ListItemText>
             </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/hoadonnhap" className="">
+              Hóa đơn nhập
+            </Link></ListItemText>
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/chitiethoadonnhap" className="">
+              Chi tiết hóa đơn nhập
+            </Link></ListItemText>
+            </ListItemButton>
       </List>
       <Divider />
       <List>
