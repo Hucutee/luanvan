@@ -26,11 +26,15 @@ const chitiethoadonnhapApi = {
     return axiosClient.get(API_URL,id);
   },
   getid(ten,trang) {
-    const API_URL = `/chitietsanpham/get/${ten}&&${trang}`;
+    const API_URL = `/chitiethoadonnhap/get/${ten}&&${trang}`;
     return axiosClient.get(API_URL);
   },
-  sua(id,sp,tensp,kt,tenkt,sl,gb,tt,ha) {
-    const API_URL = `/chitietsanpham/sua/${id}&&${sp}&&${tensp}&&${kt}&&${tenkt}&&${sl}&&${gb}&&${tt}&&${ha}`;
+  sua(macthdn,mactsp,sl,gn) {
+    const API_URL = `/chitietsanpham/sua/${macthdn}&&${mactsp}&&${sl}&&${gn} `;
+    return axiosClient.get(API_URL);
+  },
+  suasl(macthdn,mactsp,slc,sl,gn) {
+    const API_URL = `/chitietsanpham/suasl/${macthdn}&&${mactsp}&&${slc}&&${sl}&&${gn} `;
     return axiosClient.get(API_URL);
   },
   getCount() {

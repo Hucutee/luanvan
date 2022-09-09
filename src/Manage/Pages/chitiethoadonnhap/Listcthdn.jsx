@@ -38,11 +38,11 @@ export default function Listcthdn() {
   const [mahdn, setMahdn] = useState("");
   const [malsp, setMalsp] = useState("");
   const [masp, setMasp] = useState("");
-
   const [tensp, setTensp] = useState("");
   const [makt, setMakt] = useState("");
   const [tenkt, setTenkt] = useState("");
   const [soluong, setSoluong] = useState("");
+  const [soluongcu, setSoluongcu] = useState("");
   const [gianhap, setGianhap] = useState("");
   const [loaiget, setLoaiget] = useState("");
   const [trangthai, setTrangthai] = useState("1");
@@ -169,26 +169,25 @@ export default function Listcthdn() {
   const [scrollsua, setScrollsua] = React.useState("paper");
   const handlesua = async (e) => {
     e.preventDefault();
-    if (masp && makt && soluong && gianhap) {
-      const checktrung = await chitiethoadonnhapApi.suatrung(macthdn,malsp,makt);
-      if (checktrung.length==0){
+    if (macthdn && mactsp && soluong && gianhap) {
+      
         if (soluong > 0 && gianhap >999 && gianhap % 1 ==0 && soluong % 1 == 0) {
-          await chitiethoadonnhapApi.sua( macthdn,malsp,tensp,makt,tenkt, soluong,gianhap);
-          setCount((e) => e + 1); setOpensua(false); setOpenalert(true);setTensp(""); setTenkt(""); setMacthdn("");setMalsp(""); setMakt(""); setSoluong(""); setGianhap(""); 
+          await chitiethoadonnhapApi.sua( macthdn,mactsp, soluong,gianhap);
+          if(soluong){
+            await chitiethoadonnhapApi.suasl( macthdn,mactsp,soluongcu, soluong,gianhap);
+          }
+          setCount((e) => e + 1); setOpensua(false); setOpenalert(true);setTensp("");setMactsp(""); setTenkt(""); setMacthdn("");setMalsp(""); setMakt(""); setSoluong(""); setGianhap(""); 
         } else {
           setOpensonguyen(true); }
-      } else{setOpensuatrung(true);}
-         
-   
- 
+      
     } else {
       setOpenloi(true);}
     setOpen(false); };
-  const handleClickOpensua = (id,sp,tensp,kt,tenkt,sl,gb) => () => {
-    setOpensua(true);  setMacthdn(id);  setMalsp(sp); setTensp(tensp); setMakt(kt);setTenkt(tenkt);  setSoluong(sl);  setGianhap(gb); 
+  const handleClickOpensua = (macthdn,mahdn,mactsp,sl,gn) => () => {
+    setOpensua(true);  setMacthdn(macthdn);  setMahdn(mahdn); setMactsp(mactsp);setSoluong(sl);setSoluongcu(sl);  setGianhap(gn); 
      setScrollsua("paper"); };
 
-  const handleClosesua = () => { setOpensua(false); setTensp(""); setTenkt(""); setMacthdn("");setMalsp(""); setMakt(""); setSoluong(""); setGianhap(""); };
+  const handleClosesua = () => { setOpensua(false); setTensp(""); setTenkt("");setMahdn(""); setMactsp(""); setMacthdn("");setMalsp(""); setMakt(""); setSoluong(""); setGianhap(""); };
   const descriptionElementRefsua = React.useRef(null);
   React.useEffect(() => {
     if (open) {
@@ -227,7 +226,7 @@ export default function Listcthdn() {
           separator="&ensp; › &ensp;" aria-label="breadcrumb" 
            style={{    fontSize: "13px",    lineHeight: "50px",   marginLeft: "9.5%",   float: "left", }}  >
           <Link underline="hover" color="inherit" href="">  Quản lý </Link>
-          <Link underline="hover" color="inherit">   Chi tiết sản phẩm </Link>
+          <Link underline="hover" color="inherit">   Chi tiết hóa đơn nhập </Link>
           <Link  value="1"  underline="hover"  color="#339900"  onClick={handleTrangthai}>  Danh sách </Link>
         </Breadcrumbs>
         <div className="bg-slate-200">
@@ -238,7 +237,7 @@ export default function Listcthdn() {
               backgroundColor: " rgb(229 231 235);",  }} >
             <InputBase
               onChange={(e) => setLoaiget(e.target.value)} sx={{ ml: 1, flex: 1 }}
-              placeholder="Tìm theo sản phẩm"  inputProps={{ "aria-label": "search google maps" }} />
+              placeholder="Tìm kím theo hóa đơn nhập"  inputProps={{ "aria-label": "search google maps" }} />
               
             <IconButton
               onClick={handleTimkim}  type="button"
@@ -374,7 +373,7 @@ export default function Listcthdn() {
                   <td className="border-[1px] 	border-white	 bg-gray-100	 border-solid ">
                     <div>
                       <Button  color="success"  variant="outlined"  onClick={handleClickOpensua(
-                          product.ma_cthdn, product.ma_hdn, product.ma_ctsp,product.so_luong_nhap,product.gia_ban)} >
+                          product.ma_cthdn, product.ma_hdn, product.ma_ctsp,product.so_luong_nhap,product.gia_nhap)} >
                         {" "}   <ColorizeIcon /> </Button>
                     </div>
                   </td>
@@ -431,24 +430,11 @@ export default function Listcthdn() {
           <DialogContent dividers={scroll === "paper"}>
             <DialogContentText   id="scroll-dialog-description"   ref={descriptionElementRef}    >
            
-                <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
-                        <InputLabel htmlFor="grouped-native-select">* Tên sản phẩm</InputLabel>
-                        <Select defaultValue={malsp} id="grouped-select" label="Groupinggggg" onChange={(e) => setMalsp(e.target.value)}>
-                       {listsp.map((loaispp) => (
-                          <MenuItem value={loaispp.ma_sp} ><button value={loaispp.ten_sp} onClick={(e) => setTensp(e.target.value)}>{loaispp.ten_sp}</button></MenuItem>
-                        ))}
-                      </Select> </FormControl>
-                 <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
-                        <InputLabel htmlFor="grouped-native-select">* Kích thức</InputLabel>
-                        <Select defaultValue={makt} id="grouped-select" label="Groupinggg" onChange={(e) => setMakt(e.target.value)}>
-                       {listkt.map((loaispp) => (
-                          <MenuItem value={loaispp.ma_kt} ><button value={loaispp.ten_kt} onClick={(e) => setTenkt(e.target.value)}>{loaispp.ten_kt}</button></MenuItem>
-                        ))}
-                      </Select> </FormControl>
+                
               <TextField fullWidth label="* Số lượng"  color="success"
                 onChange={(e) => setSoluong(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
                 style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={soluong}/>
-             <TextField fullWidth label="* Giá bán"  color="success"
+             <TextField fullWidth label="* Giá nhập"  color="success"
                 onChange={(e) => setGianhap(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
                 style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={gianhap}/>
              
