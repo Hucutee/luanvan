@@ -15,6 +15,7 @@ import Listlsp from "./Manage/Pages/loaisanpham/Listlsp";
 import Listproduct from "./Shop/features/Product/Listproduct";
 import Listhdn from "./Manage/Pages/hoadonnhap/Listhdn";
 import Listcthdn from "./Manage/Pages/chitiethoadonnhap/Listcthdn";
+import Dictaphone1 from "./Shop/features/Product/giongnoi";
 export default function Router() {
     // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
@@ -33,6 +34,9 @@ export default function Router() {
             },{
                 path: '/products/:id',
                 element: <Chitietsp />
+            },{
+                path: '/products/gn',
+                element: <Dictaphone1/>
             }
             
            

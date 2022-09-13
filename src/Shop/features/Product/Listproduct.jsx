@@ -25,12 +25,16 @@ import bg from "./i1.png";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import ViewComfyIcon from "@mui/icons-material/ViewComfy";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import MicIcon from '@mui/icons-material/Mic';
+import MicOffIcon from '@mui/icons-material/MicOff';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 const useStyles = makeStyles((theme) => ({
   root: {},
   left: { width: "250px", backgroundColor: "#f8f8f8", paddingLeft: "20px", paddingTop: "30px", },
   right: { flex: "1 1 0" },}));
 function Listproduct(props) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [data, setData] = useState([]);
   const [datalsp, setDatalsp] = useState([]);
   const [tenget, setTenget] = useState("");
@@ -43,6 +47,10 @@ function Listproduct(props) {
   const [locgianho, setLocgianho] = useState("");
   const [locgialon, setLocgialon] = useState("");
   const [locgia, setLocgia] = useState("");
+  const [search, setSearch] = useState(1);
+  const [reset, setReset] = useState(0);
+
+
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -64,7 +72,8 @@ function Listproduct(props) {
   const handleChangegia = (event, newValue) => {
     setLocgia(newValue); setCount((e) => e + 1);
   };
-  const handleTimkim = () => {
+  const handleTimkim = (aa) => {
+    setTenget(aa);
     setTrangthai("");  setLocgia("");  setLocloai("");  setLocloaiten("");  setLocgianho("");
     setLocgialon("");  setHienkhoanggia(false);  setCount((e) => e + 1);
   };
@@ -131,6 +140,56 @@ function Listproduct(props) {
   };
 
   const classes = useStyles();
+  const [message, setMessage] = useState('');
+  const commands = [
+    {
+      command: 'reset',
+      callback: () => resetTranscript()
+    },
+    {
+      command: 'shut up',
+      callback: () => setMessage('I wasn\'t talking.')
+    },
+    {
+      command: 'Hello',
+      callback: () => setMessage('Hi there!')
+    },
+  ]
+  const {
+    transcript,
+    interimTranscript,
+    finalTranscript,
+    resetTranscript,
+    listening,
+  } = useSpeechRecognition({ commands });
+ 
+  useEffect(() => {
+    if (finalTranscript !== '') {
+      console.log('Got final result:', finalTranscript);
+    }
+  }, [interimTranscript, finalTranscript]);
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+    return null;
+  }
+ 
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+    console.log('Your browser does not support speech recognition software! Try Chrome desktop, maybe?');
+  }
+  const stoplistenContinuously = () => {
+    setSearch(0); setReset(1);
+    SpeechRecognition.stopListening();
+    handleTimkim(transcript); setCount((e) => e + 1);
+  };
+  const listenContinuously = () => {
+    setSearch(0); setReset(0);
+    SpeechRecognition.startListening({
+      continuous: true,
+      language: 'vi-VN',
+    }); setCount((e) => e + 1);
+  };
+  const handleSearch = () => {
+    setSearch(1);setReset(0); setCount((e) => e + 1);
+  };
   return (
     <Box>
       <div
@@ -174,11 +233,11 @@ function Listproduct(props) {
               </Box>
 
               <Grid
-                style={{  borderBottom: "1px solid #dcdcdc",  width: "170px",  margin: "20px",  marginTop: "25px",  marginBottom: "20px",  lineHeight: "60px",  }}
+                style={{  borderBottom: "1px solid #dcdcdc",  width: "170px",  margin: "20px",  marginTop: "35px",  marginBottom: "30px",  lineHeight: "60px",  }}
               ></Grid>
               <Box>
                 <Grid
-                  sx={{  fontSize: "18px",   fontWeight: "500",   marginBottom: "8px",   marginLeft: "5px", }}
+                  sx={{  fontSize: "18px",   fontWeight: "500",   marginBottom: "10px",   marginLeft: "5px", }}
                 >  Sắp sếp giá
                 </Grid>
                 <Tabs
@@ -197,7 +256,7 @@ function Listproduct(props) {
 
               <Grid
                 style={{  borderBottom: "1px solid #dcdcdc",  width: "170px",  margin: "20px",
-                  marginTop: "15px",  marginBottom: "20px",  lineHeight: "60px", }}
+                  marginTop: "25px",  marginBottom: "30px",  lineHeight: "60px", }}
               ></Grid>
               <Box>
                 <Grid
@@ -269,19 +328,26 @@ function Listproduct(props) {
                 <Paper
                   elevation={0}  component="form"
                   className=" h-[100%] 	border-gray-200			 border-solid hover:bg-gray-300"
-                  sx={{   display: "flex",    alignItems: "center",  width: "25%",
+                  sx={{   display: "flex",    alignItems: "center",  width: "30%",
                     float: "right",  height: "100%",  backgroundColor: " #f0f0f0",}}
                 >
-                  <InputBase
-                    onChange={(e) => setTenget(e.target.value)}  sx={{ ml: 1, flex: 1, height: "50px" }}
-                    placeholder="Tìm sản phẩm"  inputProps={{ "aria-label": "search google maps" }}
-                  />
-
                   <IconButton
-                    onClick={handleTimkim}  type="button"  sx={{ p: 1 }}  aria-label="search"
+                    onClick={handleSearch}  type="button"  sx={{ p: 1 }}  aria-label="search"
                   >
                     <SearchIcon />
                   </IconButton>
+                  {search ? <InputBase
+                    onChange={(e) => handleTimkim(e.target.value)}  sx={{ ml: 1, flex: 1, height: "50px" }}
+                    placeholder="Tìm sản phẩm..."   inputProps={{ "aria-label": "search google maps" }}
+                  />: <InputBase
+                  onChange={(e) => handleTimkim(e.target.value)}  sx={{ ml: 1, flex: 1, height: "50px" }}
+                  placeholder="Tìm giọng nói..." value={transcript}  inputProps={{ "aria-label": "search google maps" }}
+                />}
+                 <span>
+         {listening ?  <span> 
+          <IconButton type="button"    aria-label="search" onClick={stoplistenContinuously}><MicOffIcon/></IconButton></span>
+ : <span>{reset ? <IconButton type="button" sx={{ p: 1 }}  aria-label="search" onClick={resetTranscript}><RestartAltIcon/></IconButton> : <></>}<IconButton type="button" sx={{ p: 1 }}  aria-label="search" onClick={listenContinuously}><MicIcon/></IconButton> </span>} 
+       </span>
                 </Paper>
               </div>
             </Grid>
@@ -317,6 +383,7 @@ function Listproduct(props) {
           Vui lòng nhập số nguyên lớn hơn hoặc bằng 1000 và gía(từ) lớn hơn  giá(đến)!
         </Alert>
       </Snackbar>
+
     </Box>
   );
 }
