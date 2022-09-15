@@ -37,6 +37,10 @@ const khuyenmaiAPI = {
     const API_URL = `/khuyenmai/checkngayadd/${ngay}&&${ngaybd}&&${ngaykt}`;
     return axiosClient.get(API_URL);
   },
+  getkm(ma) {
+    const API_URL = `/khuyenmai/checkkm/${ma}`;
+    return axiosClient.get(API_URL);
+  },
 
  
 };

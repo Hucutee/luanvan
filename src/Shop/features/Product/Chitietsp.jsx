@@ -19,14 +19,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import chitietsanphamApi from "../../../Manage/api/chitietsanphamApi";
 import Zoom from "react-img-zoom";
+import Texthinh from "./texthinh";
+import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
 
 Chitietsp.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   left: {
-    width: "500px",
-    height: "500px",
+    width: "540px",
+    height: "600px",
     padding: 2,
   },
   right: {
@@ -49,6 +51,8 @@ function Chitietsp() {
   const [soluong, setSoluong] = useState("");
   const [giaban, setGiaban] = useState("");
   const [hinhanh, setHinhanh] = useState("");
+  const [km, setKm] = useState([]);
+
   const handleAddToCartSubmit = (formValues) => {
     console.log("form", formValues);
   };
@@ -70,6 +74,7 @@ function Chitietsp() {
         console.log(hinhanh);
         const dataa = await chitietsanphamApi.getsp(productId);
         const dataaa = await chitietsanphamApi.getsp1(productId);
+        const kmm = await khuyenmaiAPI.getkm(productId); setKm(kmm);
         setData(dataa);
         setDatasp(dataaa); 
         
@@ -110,38 +115,37 @@ function Chitietsp() {
             </Breadcrumbs>
           </div>
           <Grid container>
-            <Grid item marginRight={5} className={classes.left}>
-              <Box sx={{ cursor: "pointer", width: "100%", height: "500px" }}>
-             
-                {count == 0 ? (
-                   datasp.map((aa) => (
-                    <p><Zoom
-                    img={require("../../../images/" + aa.hinhanh)}
+            <Grid item  className={classes.left}>
+            <Typography>
+
+              {hinhanh =="" ? (
+                  datasp.map((aa)=>( <div style={{ float: "left", marginBottom: "10px" , marginLeft: "8px" }}> <Zoom
+                    img={require("../../../images/" + aa.hinhanh )}
                     zoomScale={2}
-                    height={650}
+                    height={600}
                     width={500}
-                    marginRight="5%"
-                  /></p>
-                 ))): (
-                  <p> <Zoom
-                  img={require("../../../images/" +hinhanh )}
-                  zoomScale={2}
-                  height={650}
-                  width={500}
-                  marginRight="5%"
-                /></p>
-                  
-                  
-                )}
-                
-              </Box>
-              <div>
-                {data.map((aa)=>(
-                  <Button  style={{ marginTop:"170px", height:"60px"}}  onClick={(e)=>handleChangeha(aa.ma_ctsp,aa.hinhanh,aa.ma_kt,aa.ten_kt,aa.soluong,aa.giaban)}>
-                 <Zoom width={60} height={60} img={require('../../../images/' + aa.hinhanh)} /></Button>
-                ))}
-              </div>
-            </Grid>
+                  /></div>))
+                 ): (
+                  data.map((aa)=>(
+                    hinhanh == aa.hinhanh ?  <div style={{marginBottom: "10px" , marginLeft: "8px" }}> <Zoom
+                    img={require("../../../images/" + hinhanh )}
+                    zoomScale={2}
+                    height={600}
+                    width={500}
+                  /></div> : <p></p>
+                  ))
+                 )}
+              </Typography> 
+              <Typography>
+                { data.map((aa)=>(
+                      <Button  color="success" onClick={(e)=>handleChangeha(aa.ma_ctsp,aa.hinhanh,aa.ma_kt,aa.ten_kt,aa.soluong,aa.giaban)}> <Zoom
+                    img={require("../../../images/" + aa.hinhanh )}
+                    height={100}
+                    width={100}
+                   onClick={(e) => setHinhanh(aa.hinhanh)}
+                  /></Button>
+                  ))}
+                </Typography> </Grid>
             <Grid item className={classes.right}>
               <Typography
                 component="h1"
@@ -160,23 +164,54 @@ function Chitietsp() {
                 <Rating
                   style={{ marginTop: "10px" }}
                   size="small"
-                  name="read-only"
-                  value={4}
+                  name="half-rating-read" defaultValue={2.6} precision={0.1}
+                  
                   readOnly
                 />
               </Typography>
               <Typography
-                style={{
-                  fontSize: "36px",
-                  lineHeight: "60px",
-                  fontWeight: "700",
-                  color: "#ABD373",
-                  fontFamily: "IBM Plex Sans,sans-serif",
-                }}
+               
               >
                 {giaban =="" ? (
-                  datasp.map((aa)=>(<p>{aa.giaban}</p>)
-                 )): (<p>{giaban}</p>)}
+                 km.length ? (
+                  km.map((aaa)=>(
+                    datasp.map((aa)=>(<p><span style={{fontSize:"20px", color:"#333", fontWeight:"300", textDecoration: "line-through"
+                  }}>{new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(aa.giaban)}</span>&ensp; &ensp;
+                     <span  style={{  fontSize: "36px",  lineHeight: "60px",  fontWeight: "700",  color: "#ABD373",  fontFamily: "IBM Plex Sans,sans-serif",
+                }}>{new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(aa.giaban-aa.giaban*aaa.phantram_km/100)}</span></p>)
+                   )
+                  ))
+                 ):( datasp.map((aa)=>(<p  style={{  fontSize: "36px",  lineHeight: "60px",  fontWeight: "700",  color: "#ABD373",  fontFamily: "IBM Plex Sans,sans-serif",
+                }}> {new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                }).format(aa.giaban)}</p>)
+               ))): (km.length ? (
+                km.map((aaa)=>(
+                  <p><span style={{fontSize:"20px", color:"#333", fontWeight:"300", textDecoration: "line-through"
+                }}>{new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(giaban)}</span>&ensp; &ensp;
+                   <span  style={{  fontSize: "36px",  lineHeight: "60px",  fontWeight: "700",  color: "#ABD373",  fontFamily: "IBM Plex Sans,sans-serif",
+              }}>{new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(giaban-giaban*aaa.phantram_km/100)}</span></p>)
+                 )
+                
+               ):(<p  style={{  fontSize: "36px",  lineHeight: "60px",  fontWeight: "700",  color: "#ABD373",  fontFamily: "IBM Plex Sans,sans-serif",
+              }}> {new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              }).format(giaban)}</p>)
+             )}
               </Typography>
               <Typography
                 style={{
@@ -191,6 +226,7 @@ function Chitietsp() {
                   datasp.map((aa)=>(<p>Số lượng: {aa.soluong}, &ensp; &ensp; kích thước: {aa.ten_kt}</p>))
                  ): (<p>Số lượng: {soluong}, &ensp; &ensp; kích thước: {tenkt}</p>)}
               </Typography>
+             
               <Typography
                 style={{
                   fontFamily: "IBM Plex Sans,sans-serif",

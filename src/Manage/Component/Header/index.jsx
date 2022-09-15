@@ -27,6 +27,16 @@ import SpaIcon from '@mui/icons-material/Spa';
 import StorageIcon from '@mui/icons-material/Storage';
 import YardIcon from '@mui/icons-material/Yard';
 import GrassIcon from '@mui/icons-material/Grass';
+import ListSubheader from '@mui/material/ListSubheader';
+import Collapse from '@mui/material/Collapse';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SendIcon from '@mui/icons-material/Send';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import GiteIcon from '@mui/icons-material/Gite';
+import PercentIcon from '@mui/icons-material/Percent';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     top: false,
@@ -53,6 +63,7 @@ export default function TemporaryDrawer() {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const [chon, setChon] = React.useState(true);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -63,36 +74,37 @@ export default function TemporaryDrawer() {
     setOpen(true);
   };
 
-  const handleCloseForm = () => {
-    setOpen(false);
+  const [opensp, setOpensp] = React.useState(false);
+  const handleClicksp = () => {
+    setOpensp(!opensp);
   };
-
+  const [openkho, setOpenkho] = React.useState(false);
+  const handleClickkho = () => {
+    setOpenkho(!openkho);
+  };
+  const [opengg, setOpengg] = React.useState(false);
+  const handleClickgg = () => {
+    setOpengg(!opengg);
+  };
 
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      
     >
       <List>
-            <ListItemButton>
-              <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <StoreIcon />}
-              </ListItemIcon>
-              <ListItemText  ><Link to="/Manager/nhacungcap" className="">
-              Nhà cung cấp
-            </Link> </ListItemText>
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <StraightenIcon />}
-              </ListItemIcon>
-              <ListItemText > <Link to="/Manager/kichthuoc" className="">
-              Kích thước
-            </Link></ListItemText>
-            </ListItemButton>
-            <ListItemButton>
+
+      <ListItemButton onClick={handleClicksp}>
+        <ListItemIcon>
+          <YardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Sản phẩm" />
+        {opensp ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={opensp} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 6 }}>
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <AutoAwesomeMotionIcon />}
               </ListItemIcon>
@@ -100,31 +112,23 @@ export default function TemporaryDrawer() {
               Loại sản phẩm
             </Link></ListItemText>
             </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <AccountBalanceWalletIcon />}
-              </ListItemIcon>
-              <ListItemText > <Link to="/Manager/phieugiamgia" className="">
-              Phiếu giảm giá
-            </Link></ListItemText>
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <LocalAtmIcon />}
-              </ListItemIcon>
-              <ListItemText > <Link to="/Manager/khuyenmai" className="">
-              Khuyến mãi
-            </Link></ListItemText>
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
+          <ListItemButton sx={{ pl: 6 }} >
+              <ListItemIcon >
                 {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
               </ListItemIcon>
               <ListItemText > <Link to="/Manager/sanpham" className="">
               Sản phẩm
             </Link></ListItemText>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton sx={{ pl: 6 }}>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <StraightenIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/kichthuoc" className="">
+              Kích thước
+            </Link></ListItemText>
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 6 }}>
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <StorageIcon />}
               </ListItemIcon>
@@ -132,22 +136,79 @@ export default function TemporaryDrawer() {
               Chi tiết sản phẩm
             </Link></ListItemText>
             </ListItemButton>
-            <ListItemButton>
+           
+            
+        </List>
+      </Collapse>
+
+      <ListItemButton onClick={handleClickkho}>
+        <ListItemIcon>
+          <GiteIcon />
+        </ListItemIcon>
+        <ListItemText primary="Nhập kho" />
+        {openkho ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={openkho} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 6 }}>
               <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
+                {"A" % 2 === 0 ? <InboxIcon /> : <StoreIcon />}
+              </ListItemIcon>
+              <ListItemText  ><Link to="/Manager/nhacungcap" className="">
+              Nhà cung cấp
+            </Link> </ListItemText>
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 6 }}>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <ReceiptIcon />}
               </ListItemIcon>
               <ListItemText > <Link to="/Manager/hoadonnhap" className="">
               Hóa đơn nhập
             </Link></ListItemText>
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton sx={{ pl: 6 }}>
               <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
+                {"A" % 2 === 0 ? <InboxIcon /> : <ReceiptLongIcon />}
               </ListItemIcon>
               <ListItemText > <Link to="/Manager/chitiethoadonnhap" className="">
               Chi tiết hóa đơn nhập
             </Link></ListItemText>
             </ListItemButton>
+        </List>
+      </Collapse>
+
+      <ListItemButton onClick={handleClickgg}>
+        <ListItemIcon>
+          <LocalAtmIcon />
+        </ListItemIcon>
+        <ListItemText primary="Ưu đãi" />
+        {opengg ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={opengg} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 6 }}>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <AccountBalanceWalletIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/phieugiamgia" className="">
+              Phiếu giảm giá
+            </Link></ListItemText>
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 6 }}>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <PercentIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/khuyenmai" className="">
+              Khuyến mãi
+            </Link></ListItemText>
+            </ListItemButton>
+        </List>
+      </Collapse>
+           
+            
+           
+          
+            
       </List>
       <Divider />
       <List>
