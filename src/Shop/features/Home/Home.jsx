@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { Route, Routes } from "react-router-dom";
 import YouTube from "./log/logtonghop";
-import Spbanchay from "./Spbanchay";
+import Spmoi from "./Spmoi";
 
 export default function Home() {
   return (
@@ -31,7 +31,7 @@ export default function Home() {
           </Grid>
         </Grid>
       </AppBar>
-      <Spbanchay />
+      <Spmoi />
       <YouTube />
     </Box>
   );

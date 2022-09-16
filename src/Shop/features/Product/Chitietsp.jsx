@@ -21,6 +21,7 @@ import chitietsanphamApi from "../../../Manage/api/chitietsanphamApi";
 import Zoom from "react-img-zoom";
 import Texthinh from "./texthinh";
 import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
+import Sptt from "./sptt";
 
 Chitietsp.propTypes = {};
 
@@ -52,7 +53,11 @@ function Chitietsp() {
   const [giaban, setGiaban] = useState("");
   const [hinhanh, setHinhanh] = useState("");
   const [km, setKm] = useState([]);
+  const handleTruyenn = (aaa,hinhanh) =>{
+    console.log(aaa);setHinhanh(hinhanh);
+     setCount((e) => e + 1);
 
+  }
   const handleAddToCartSubmit = (formValues) => {
     console.log("form", formValues);
   };
@@ -71,7 +76,7 @@ function Chitietsp() {
   useEffect(() => {
     (async () => {
       try {
-        console.log(hinhanh);
+        
         const dataa = await chitietsanphamApi.getsp(productId);
         const dataaa = await chitietsanphamApi.getsp1(productId);
         const kmm = await khuyenmaiAPI.getkm(productId); setKm(kmm);
@@ -655,6 +660,9 @@ function Chitietsp() {
                   }}
                 ></Grid>
               </Grid>
+              {datasp.map((aa)=>(
+                <Sptt data={aa} handleTruyenn={handleTruyenn}/>
+              ))}
             </Paper>
           </Box>
         </Paper>

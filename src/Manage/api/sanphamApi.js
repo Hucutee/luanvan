@@ -86,7 +86,18 @@ const sanphamAPI = {
     const API_URL = `/sanphammasp/${id}`;
     return axiosClient.get(API_URL);
   },
-
+  getlq(id) {
+    const API_URL = `/sanpham/lienquan/${id}`;
+    return axiosClient.get(API_URL);
+  },
+  getlistlq(id) {
+    const API_URL = `/sanpham/listlienquan/${id}`;
+    return axiosClient.get(API_URL);
+  },
+  spmoi() {
+    const API_URL = `/sanphamm`;
+    return axiosClient.get(API_URL);
+  },
 };
 
 export default sanphamAPI;

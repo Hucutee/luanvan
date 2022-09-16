@@ -10,15 +10,19 @@ import chitietsanphamApi from "../../../Manage/api/chitietsanphamApi";
 import Sosao from "./Sosao";
 import Fab from '@mui/material/Fab';
 import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
+import { propsToClassKey } from "@mui/styles";
 
 Product.propTypes = {
   product: PropTypes.object,
 };
 
-function Product(product) {
+function Product(product,props) {
   const history = useNavigate();
   const handleClick = () => {
+
     history(`/products/${product.data.ma_sp}`);
+    product.handleTruyen(product.data.ma_sp,product.data.hinhanh);
+
   };
   const [data, setData] = useState([]);
   const [gia1, setGia1] = useState([]);
