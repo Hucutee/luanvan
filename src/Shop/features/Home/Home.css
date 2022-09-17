@@ -112,6 +112,11 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  height: 835px;   
+  height: 760px;   
              /* optional, center the image */
+}
+.thespm {
+  padding-left: 4%;
+    padding-right: 4%;
+    padding-bottom: 8%;
 }

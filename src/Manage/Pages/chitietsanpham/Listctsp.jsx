@@ -165,7 +165,7 @@ export default function Listctsp() {
     if (masp && tensp && makt  && tenkt && soluong && giaban && thongtin && hinhanh ) {
       const checktrung = await chitietsanphamApi.suatrung(mactsp,masp,makt);
       if (checktrung.length==0){
-        if (soluong > 0 && giaban >999 && giaban % 1 ==0 && soluong % 1 == 0) {
+        if (soluong >= 0 && giaban >999 && giaban % 1 ==0 && soluong % 1 == 0) {
           await chitietsanphamApi.sua( mactsp,masp,tensp,makt,tenkt, soluong,giaban,thongtin,hinhanh);
           setCount((e) => e + 1); setOpensua(false); setOpenalert(true);setTensp(""); setTenkt(""); setMactsp("");setMasp(""); setMakt(""); setSoluong(""); setGiaban(""); setThongtin(""); setHinhanh("");
         } else {

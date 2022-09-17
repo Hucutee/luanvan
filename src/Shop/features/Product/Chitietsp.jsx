@@ -22,6 +22,7 @@ import Zoom from "react-img-zoom";
 import Texthinh from "./texthinh";
 import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
 import Sptt from "./sptt";
+import Checksl from "./checksl";
 
 Chitietsp.propTypes = {};
 
@@ -49,13 +50,21 @@ function Chitietsp() {
   const [makt, setMakt] = useState("");
   const [mactsp, setMactsp] = useState("");
   const [tenkt, setTenkt] = useState("");
-  const [soluong, setSoluong] = useState("");
+  const [soluong, setSoluong] = useState(0);
+  const [soluongnhap, setSoluongnhap] = useState(1);
+
   const [giaban, setGiaban] = useState("");
   const [hinhanh, setHinhanh] = useState("");
   const [km, setKm] = useState([]);
   const handleTruyenn = (aaa,hinhanh) =>{
     console.log(aaa);setHinhanh(hinhanh);
      setCount((e) => e + 1);
+
+  }
+  const handleTruyensl = (aaa) =>{
+    setSoluongnhap(aaa);
+     setCount((e) => e + 1);
+
 
   }
   const handleAddToCartSubmit = (formValues) => {
@@ -71,12 +80,24 @@ function Chitietsp() {
     setMakt(makt); setTenkt(tenkt); setSoluong(sl); setGiaban(gb);
     setHinhanh(ha); setCount((e) => e + 1);  
   };
-
+const handleaddcart = () =>{
+  if(soluongnhap > 0){
+    console.log(soluongnhap);
+    if(soluongnhap <= soluong){
+      console.log(soluongnhap,soluong);
+    }else{
+        console.log("ko du hang");
+      
+    }
+  }else{
+    console.log("nhap so > 0");
+  }
+}
 
   useEffect(() => {
     (async () => {
       try {
-        
+        console.log(soluong);
         const dataa = await chitietsanphamApi.getsp(productId);
         const dataaa = await chitietsanphamApi.getsp1(productId);
         const kmm = await khuyenmaiAPI.getkm(productId); setKm(kmm);
@@ -104,7 +125,7 @@ function Chitietsp() {
             }}
           >
             <Breadcrumbs
-              separator="›"
+              separator="&ensp; › &ensp;"
               aria-label="breadcrumb"
               style={{
                 fontSize: "13px",
@@ -113,6 +134,9 @@ function Chitietsp() {
             >
               <Link underline="hover" color="inherit" href="/app">
                 Trang chủ
+              </Link>
+              <Link underline="hover" color="inherit" href="/app">
+                Sản phẩm
               </Link>
               <Link underline="hover" color="#339900">
                 Chi tiết sản phẩm
@@ -228,8 +252,8 @@ function Chitietsp() {
                 }}
               >
                  {tenkt =="" ? (
-                  datasp.map((aa)=>(<p>Số lượng: {aa.soluong}, &ensp; &ensp; kích thước: {aa.ten_kt}</p>))
-                 ): (<p>Số lượng: {soluong}, &ensp; &ensp; kích thước: {tenkt}</p>)}
+                  datasp.map((aa)=>(<p>Số lượng: {aa.soluong ? <span style={{color:"#339900", fontWeight:"400"}}>{aa.soluong}</span> : <span style={{color:"RED"}}>hết hàng</span>}, &ensp; &ensp; kích thước: <span style={{color:"#339900", fontWeight:"400"}}>{aa.ten_kt}</span></p>))
+                 ): (<p>Số lượng: {soluong ? <span style={{color:"#339900",fontWeight:"400"}}>{soluong}</span> : <span style={{color:"red"}}>hết hàng</span>}, &ensp; &ensp; kích thước: <span style={{color:"#339900", fontWeight:"400"}}>{tenkt}</span></p>)}
               </Typography>
              
               <Typography
@@ -265,33 +289,29 @@ function Chitietsp() {
                   <p style={{ marginTop: "10px" }}>Kích thước: </p>
 
                   {data.map((aa) => (
-                    <Button variant="outlined" color="success" onClick={(e)=>handleChangeha(aa.ma_ctsp,aa.hinhanh,aa.ma_kt,aa.ten_kt,aa.soluong,aa.giaban)}>
-                      {aa.ten_kt}
-                    </Button>
+                    aa.soluong ? <Button variant="contained" color="success" onClick={(e)=>handleChangeha(aa.ma_ctsp,aa.hinhanh,aa.ma_kt,aa.ten_kt,aa.soluong,aa.giaban)}>
+                    {aa.ten_kt}
+                  </Button> :  <Button variant="outlined" color="success" onClick={(e)=>handleChangeha(aa.ma_ctsp,aa.hinhanh,aa.ma_kt,aa.ten_kt,aa.soluong,aa.giaban)}>
+                    {aa.ten_kt}
+                  </Button>
                   ))}
                 </Stack>
               </Typography>
               <Stack
-                style={{ height: "55px" }}
+                style={{ height: "50px" }}
                 direction="row"
                 spacing={2}
                 marginTop="30px"
                 marginBottom="30px"
               >
-                <p>Số lượng: </p>
-                <TextField
-                  color="success"
-                  id="outlined-number"
-                  type="number"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  style={{ padding: "none" }}
-                />
+                <p style={{marginTop:"10px"}}>Số lượng: </p>
+               
+                <Checksl data={soluong} handleTruyensl={handleTruyensl}/>
                 <Button
                   variant="contained"
                   color="success"
-                  sx={{ marginLeft: "20px", backgroundColor: "#ABD373" }}
+                  sx={{ marginLeft: "20px", backgroundColor: "#ABD373", height: "55px" }}
+                  onClick={handleaddcart}
                 >
                   Thêm vào giỏ hàng
                 </Button>

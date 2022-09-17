@@ -11,11 +11,11 @@ import Link from "@mui/material/Link";
 import ProductList from "../Product/components/ProductList";
 import "./Home.css";
 import sanphamAPI from "../../../Manage/api/sanphamApi";
-import Product from "../Product/Product";
+import Product from "./Product";
 const useStyles = makeStyles((theme) => ({
   root: {},
   left: {
-    width: "300px",
+    width: "440px",
   },
   right: {
     flex: "1 1 0",
@@ -70,11 +70,14 @@ function Spmoi(props) {
           ></Grid>
         </Grid>
         <Grid container marginTop="20px">
+          <Grid className={classes.left}>
+            <Grid className="spbc" sx={{width: "427px"}}></Grid>
+          </Grid>
           <Grid item className={classes.right}>
             <Paper elevation={0}>
             <Grid container>
         {productList.map((product) => (
-          <Grid  sm={3}>
+          <Grid  sm={4} >
             <Product data={product} />
           </Grid>
         ))}

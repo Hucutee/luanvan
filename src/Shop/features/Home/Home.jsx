@@ -1,11 +1,12 @@
-import { Box, Grid, AppBar } from "@mui/material";
+import { Box, Grid, AppBar, } from "@mui/material";
 import * as React from "react";
 import "./Home.css";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { Route, Routes } from "react-router-dom";
 import YouTube from "./log/logtonghop";
 import Spmoi from "./Spmoi";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+
 
 export default function Home() {
   return (
@@ -26,7 +27,10 @@ export default function Home() {
           </Grid>
           <Grid className="chu4">
             <Button variant="contained" color="success">
-              Khám phá ngay
+            <Link underline="hover"  color="inherit" to="/products">
+                Khám phá ngay
+              </Link>
+              
             </Button>
           </Grid>
         </Grid>

@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Paper, Typography } from "@mui/material";
 import { Box, Grid, Skeleton } from "@mui/material";
-import textt from "./text.png";
-import "./stylesp.css";
 import Zoom from "react-img-zoom";
 import { Link, useNavigate } from "react-router-dom";
 import chitietsanphamApi from "../../../Manage/api/chitietsanphamApi";
-import Sosao from "./Sosao";
+import Sosao from "../Product/Sosao";
 import Fab from '@mui/material/Fab';
 import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
 import { propsToClassKey } from "@mui/styles";
@@ -52,8 +50,8 @@ function Product(product,props) {
   }, []);
   return (
     <div onClick={handleClick}>
-      <Box className="b1" minHeight="350px">
-        <Paper style={{ border: "1px solid #f0f0f0" }}>
+      <Box className="thespm" minHeight="300px">
+        <Box style={{ border: "2px solid #f0f0f0" }}>
           <Box sx={{ cursor: "pointer" }}>
           <Box sx={{ '& > :not(style)': { ml:1 ,mt: 1,width:"65px", }}}>
           {km.length ? km.map((aa)=>(<Button variant="contained" color="warning" style={{position: "absolute",zIndex:1 }}>
@@ -63,7 +61,7 @@ function Product(product,props) {
             <Zoom
               img={require("../../../images/" + product.data.hinhanh)}
               zoomScale={1.5}
-              height={350}
+              height={280}
               width="100%"
               position="absolute"
             />
@@ -145,7 +143,7 @@ function Product(product,props) {
                 )}
             </Box>
           </Typography>
-        </Paper>
+        </Box>
       </Box>
     </div>
   );
