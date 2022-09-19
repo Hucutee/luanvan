@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Container } from "@mui/system";
 import { Button, Grid, Box, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import Link from "@mui/material/Link";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import sanphamAPI from "../../../Manage/api/sanphamApi";
 import loaisanphamAPI from "../../../Manage/api/loaisanphamApi";
@@ -29,6 +29,8 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import {connect} from 'react-redux';
+
 const useStyles = makeStyles((theme) => ({
   root: {},
   left: { width: "250px", backgroundColor: "#f8f8f8", paddingLeft: "20px", paddingTop: "30px", },
@@ -195,13 +197,13 @@ function Listproduct(props) {
       <div
         role="presentation" style={{ borderTop: "1px solid #ededed",  borderBottom: "1px solid #ededed",  marginBottom: "40px", }}
       >
-        <Breadcrumbs
+        <Breadcrumbs id="123"
           separator="&ensp; › &ensp; " aria-label="breadcrumb" style={{ marginLeft: "12.5%", fontSize: "13px", lineHeight: "40px" }}
         >
-          <Link underline="hover" color="inherit" href="/app">
+          <Link underline="hover" color="inherit" to="/app">
             {" "} Trang chủ{" "}
           </Link>
-          <Link  underline="hover" color="#339900" value="1" onClick={handleTrangthai}>
+          <Link to="" underline="hover" style={{color:"#339900"}} value="1" onClick={handleTrangthai}>
             {" "}  Danh sách sản phẩm{" "}
           </Link>
         </Breadcrumbs>
@@ -356,9 +358,8 @@ function Listproduct(props) {
               {data.length > 0 ? (
                 data.map((product) => (
                   <Grid item key={product.ma_sp} sm={4}>
-                    
-                            <Product data={product} />
-                       
+                    <Link style={{textDecoration: "none"}} to={`/products/${product.ma_sp}`}> <Product data={product} /></Link>
+                           
                   </Grid>
                 ))
               ) : (
@@ -383,9 +384,16 @@ function Listproduct(props) {
           Vui lòng nhập số nguyên lớn hơn hoặc bằng 1000 và gía(từ) lớn hơn  giá(đến)!
         </Alert>
       </Snackbar>
-
     </Box>
   );
 }
-
-export default Listproduct;
+const mapStateToProps = (state) => {
+  return { data: state.users  }
+ }
+const mapDispatchToProps = (dispatch) => {
+  return{
+      deleteUserRedux: (userDelete) =>  dispatch({type: 'DELETE_USER',payload: userDelete}),
+      addUserRedux: (hauu) =>  dispatch({type: 'CREATE_USER',payload: hauu}),
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Listproduct);

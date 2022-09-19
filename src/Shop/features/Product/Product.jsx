@@ -21,7 +21,6 @@ function Product(product,props) {
   const history = useNavigate();
   const handleClick = () => {
 
-    history(`/products/${product.data.ma_sp}`);
     product.handleTruyen(product.data.ma_sp,product.data.hinhanh);
 
   };

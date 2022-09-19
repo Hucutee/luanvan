@@ -5,13 +5,13 @@ import { Box, Grid, Skeleton } from "@mui/material";
 import textt from "./text.png";
 import "./stylesp.css";
 import Zoom from "react-img-zoom";
-import { Link, useNavigate } from "react-router-dom";
 import chitietsanphamApi from "../../../Manage/api/chitietsanphamApi";
 import Sosao from "./Sosao";
 import Fab from '@mui/material/Fab';
 import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
 import sanphamAPI from "../../../Manage/api/sanphamApi";
 import Product from "./Product";
+import { Link } from "react-router-dom";
 
 Sptt.propTypes = {
   product: PropTypes.object,
@@ -51,7 +51,7 @@ function Sptt(product) {
       <Grid  sm={4}>
                     
                    <Typography sx={{width: "25%", float:"left"}}>
-                   <Product data={aa} handleTruyen={handleTruyen}  />
+                   <Link style={{textDecoration: "none"}} to={`/products/${aa.ma_sp}`} ><Product data={aa} handleTruyen={handleTruyen}  /></Link>
                    </Typography>
                    
                

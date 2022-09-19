@@ -7,7 +7,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from "@mui/material/Link";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import ProductList from "../Product/components/ProductList";
 import "./Home.css";
 import sanphamAPI from "../../../Manage/api/sanphamApi";
@@ -78,7 +78,7 @@ function Spmoi(props) {
             <Grid container>
         {productList.map((product) => (
           <Grid  sm={4} >
-            <Product data={product} />
+            <Link style={{textDecoration: "none"}} to={`/products/${product.ma_sp}`}> <Product data={product} /></Link>
           </Grid>
         ))}
       </Grid>
