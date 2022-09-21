@@ -35,6 +35,8 @@ const useStyles = makeStyles((theme) => ({
 function Chitietsp(props) {
   const classes = useStyles();
   const [count, setCount] = useState(0);
+  const [countt, setCountt] = useState(0);
+  const [counttt, setCounttt] = useState(0);
   const params = useLocation();
   const productId = params.pathname.slice(10);
   const [data, setData] = useState([]);
@@ -62,19 +64,28 @@ function Chitietsp(props) {
     setMactsp(mactsp);  setMakt(makt); setTenkt(tenkt); setSoluong(sl); setGiaban(gb);  setHinhanh(ha); setCount((e) => e + 1);  
   };
 const handleaddcart = () =>{
+  const check=0;
   if(makt){
     if(soluongnhap > 0){
       if(soluongnhap <= soluong){
         if(props.data.length >0){
-
+          if(props.carts.length>0){ props.carts.map((aaa)=>(aaa.ma_ctsp != mactsp ? console.log(aaa.ma_ctsp,mactsp):  setCountt(1)))}
+          setCounttt(1);
         }else{ setOpen(true); }
       }else{
         setOpencheckslcl(true);}
     }else{
       setOpenchecksl(true); }
   }else{
-    setOpencheckkt(true); }
+    setOpencheckkt(true); } 
+     setCount((e) => e + 1)
 }
+const goToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+};
 
   useEffect(() => {
     (async () => {
@@ -84,12 +95,12 @@ const handleaddcart = () =>{
         const kmm = await khuyenmaiAPI.getkm(productId); setKm(kmm);
         setData(dataa);
         setDatasp(dataaa); 
-
-       
+        if(countt==0 && counttt==1){props.addcart({ma_ctsp: mactsp, ten_sp: `${datasp[0].ten_sp} `,ten_kt: tenkt ,hinh_anh: hinhanh,so_luong:soluongnhap,gia_ban:giaban })}
+        setCountt(0); setCounttt(0);
       } catch (error) {
         console.log("loi", error);
       }
-    })();
+    })(); console.log(props.carts); 
   }, [count]);
 
   return (
@@ -389,7 +400,7 @@ const handleaddcart = () =>{
                 ></Grid>
               </Grid>
               {datasp.map((aa)=>(
-                <Sptt data={aa} handleTruyenn={handleTruyenn}/>
+                <span onClick={goToTop}><Sptt data={aa} handleTruyenn={handleTruyenn}/></span>
               ))}
             </Paper>
           </Box>
@@ -427,12 +438,12 @@ const handleaddcart = () =>{
   );
 }
 const mapStateToProps = (state) => {
-  return { data: state.users  }
+  return { data: state.users ,carts : state.carts }
  }
 const mapDispatchToProps = (dispatch) => {
   return{
-      deleteUserRedux: (userDelete) =>  dispatch({type: 'DELETE_USER',payload: userDelete}),
-      addUserRedux: (hauu) =>  dispatch({type: 'CREATE_USER',payload: hauu}),
+    addcart: (hauu) => dispatch({ type: "ADD_CART", payload: hauu }),
+
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Chitietsp);

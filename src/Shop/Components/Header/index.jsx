@@ -85,8 +85,8 @@ function Header(props) {
             </Link>
           </Typography>
           <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/products" className="a1">
-              Khuyến mãi
+            <Link to="/products/carts" className="a1">
+              Giỏ hàng
             </Link>
           </Typography>
           <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
@@ -101,11 +101,13 @@ function Header(props) {
             component="div"
             sx={{ width: "5%", marginLeft: "15px" }}
           >
+              <Link to="/products/carts">
+              
             <IconButton aria-label="cart">
-              <StyledBadge badgeContent={1} color="warning">
+              <StyledBadge badgeContent={props.carts.length} color="warning">
                 <ShoppingCartIcon className="a1" />
               </StyledBadge>
-            </IconButton>
+            </IconButton> </Link>
           </Typography>
           <Typography>
             <div>
@@ -195,7 +197,7 @@ function Header(props) {
 }
 const mapStateToProps = (state) => {
   return {
-    data: state.users,
+    data: state.users,carts: state.carts,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -51,8 +51,7 @@ function Listproduct(props) {
   const [locgia, setLocgia] = useState("");
   const [search, setSearch] = useState(1);
   const [reset, setReset] = useState(0);
-
-
+  const goToTop = () => {  window.scrollTo({ top: 0,  behavior: 'smooth', }); };
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -296,7 +295,7 @@ function Listproduct(props) {
               </Box>
             </Grid>
           </Grid>
-          <Grid item className={classes.right}>
+          <Grid item className={classes.right} onClick={goToTop}>
             <Grid
               className="w-[96%] h-[170px] mb-[4%] ml-[2%]" style={{ backgroundImage: `url(${bg})`,backgroundRepeat: "no-repeat",
               backgroundsize: "cover",

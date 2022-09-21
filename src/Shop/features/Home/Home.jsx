@@ -9,6 +9,12 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 
 export default function Home() {
+  const goToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
   return (
     <Box>
       <AppBar
@@ -35,7 +41,7 @@ export default function Home() {
           </Grid>
         </Grid>
       </AppBar>
-      <Spmoi />
+     <span onClick={goToTop}> <Spmoi  /></span>
       <YouTube />
     </Box>
   );
