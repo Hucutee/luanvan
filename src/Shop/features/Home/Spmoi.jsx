@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Spmoi(props) {
+function Spmoi() {
   const classes = useStyles();
 
   const [productList, setProductList] = useState([]);

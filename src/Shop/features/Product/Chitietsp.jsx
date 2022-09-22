@@ -25,14 +25,17 @@ import Checksl from "./checksl";
 import Binhluan from "./binhluan";
 import Snackbar from "@mui/material/Snackbar";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import {connect} from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
+import { addtoCart } from "../../app/cartSlide";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   left: {  width: "540px",  height: "600px",  padding: 2,},
   right: {   padding: "20px",   border: "1px solid #ededed",   width: "600px", },
 }));
-function Chitietsp(props) {
+function Chitietsp() {
+  const dispatch = useDispatch();
+  const dataUser = useSelector((state) => state.user.current);
   const classes = useStyles();
   const [count, setCount] = useState(0);
   const [countt, setCountt] = useState(0);
@@ -58,6 +61,7 @@ function Chitietsp(props) {
   const handleClosecheckslcl = () => {setOpencheckslcl(false); };
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {  setOpen(false); };
+  const handleCloseTop = () => {  setOpen(false); goToTop(); };
   const handleTruyenn = (aaa,hinhanh) =>{   console.log(aaa);setHinhanh(hinhanh);    setCount((e) => e + 1); }
   const handleTruyensl = (aaa) =>{ setSoluongnhap(aaa);  setCount((e) => e + 1);} 
   const handleChangeha = (mactsp,ha,makt,tenkt,sl,gb) => {
@@ -68,10 +72,19 @@ const handleaddcart = () =>{
   if(makt){
     if(soluongnhap > 0){
       if(soluongnhap <= soluong){
-        if(props.data.length >0){
-          if(props.carts.length>0){ props.carts.map((aaa)=>(aaa.ma_ctsp != mactsp ? console.log(aaa.ma_ctsp,mactsp):  setCountt(1)))}
-          setCounttt(1);
-        }else{ setOpen(true); }
+        console.log(dataUser);
+        if(dataUser.length > 0){
+          dispatch(
+            addtoCart({
+              ma_ctsp: mactsp,
+              ten_sp: datasp[0].ten_sp,
+              ten_kt: tenkt,
+              so_luong: soluongnhap,
+              hinh_anh: hinhanh,
+              gia_ban: giaban,
+              type: "cart",
+            }));
+        }else{ setOpen(true)}
       }else{
         setOpencheckslcl(true);}
     }else{
@@ -95,12 +108,11 @@ const goToTop = () => {
         const kmm = await khuyenmaiAPI.getkm(productId); setKm(kmm);
         setData(dataa);
         setDatasp(dataaa); 
-        if(countt==0 && counttt==1){props.addcart({ma_ctsp: mactsp, ten_sp: `${datasp[0].ten_sp} `,ten_kt: tenkt ,hinh_anh: hinhanh,so_luong:soluongnhap,gia_ban:giaban })}
-        setCountt(0); setCounttt(0);
+       
       } catch (error) {
         console.log("loi", error);
       }
-    })(); console.log(props.carts); 
+    })(); 
   }, [count]);
 
   return (
@@ -431,19 +443,11 @@ const goToTop = () => {
         </DialogContent>
         <DialogActions>
           <Button variant="contained" color="success" onClick={handleClose}>Quay lại</Button>
-          <Button variant="contained" color="success" onClick={handleClose} autoFocus> <Link to="/products/dangnhap">Đăng nhập</Link></Button>
+          <Button variant="contained" color="success" onClick={handleCloseTop} autoFocus> <Link to="/products/dangnhap">Đăng nhập</Link></Button>
         </DialogActions>
       </Dialog>
     </Box>
   );
 }
-const mapStateToProps = (state) => {
-  return { data: state.users ,carts : state.carts }
- }
-const mapDispatchToProps = (dispatch) => {
-  return{
-    addcart: (hauu) => dispatch({ type: "ADD_CART", payload: hauu }),
 
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Chitietsp);
+export default Chitietsp;

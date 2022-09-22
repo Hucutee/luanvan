@@ -25,8 +25,8 @@ const nguoidungApi = {
     const API_URL = `/nhacungcap/sua/${id}&&${ten}&&${sdt}&&${dc}`;
     return axiosClient.get(API_URL);
   },
-  getCount() {
-    const API_URL = "/nhacungcap";
+  login() {
+    const API_URL = "/nguoidung";
     return axiosClient.get(API_URL);
   },
 

@@ -29,13 +29,12 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import {connect} from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   left: { width: "250px", backgroundColor: "#f8f8f8", paddingLeft: "20px", paddingTop: "30px", },
   right: { flex: "1 1 0" },}));
-function Listproduct(props) {
+function Listproduct() {
   const [count, setCount] = useState(1);
   const [data, setData] = useState([]);
   const [datalsp, setDatalsp] = useState([]);
@@ -386,13 +385,5 @@ function Listproduct(props) {
     </Box>
   );
 }
-const mapStateToProps = (state) => {
-  return { data: state.users  }
- }
-const mapDispatchToProps = (dispatch) => {
-  return{
-      deleteUserRedux: (userDelete) =>  dispatch({type: 'DELETE_USER',payload: userDelete}),
-      addUserRedux: (hauu) =>  dispatch({type: 'CREATE_USER',payload: hauu}),
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Listproduct);
+
+export default Listproduct;

@@ -15,7 +15,7 @@ Product.propTypes = {
   product: PropTypes.object,
 };
 
-function Product(product,props) {
+function Product(product) {
   const history = useNavigate();
   const handleClick = () => {
 

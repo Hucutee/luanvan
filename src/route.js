@@ -18,8 +18,9 @@ import Listcthdn from "./Manage/Pages/chitiethoadonnhap/Listcthdn";
 import Dictaphone1 from "./Shop/features/Product/giongnoi";
 import Texthinh from "./Shop/features/Product/texthinh";
 import Dangnhap from "./Shop/features/Nguoidung/dangnhap";
-import CounterFeature from "./Shop/Components/Counter";
 import Carts from "./Shop/features/Carts/carts";
+import Thongtincanhan from "./Shop/features/Nguoidung/thongtincanhan";
+import Dangky from "./Shop/features/Nguoidung/dangky";
 export default function Router() {
     // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
@@ -50,6 +51,12 @@ export default function Router() {
             },{
                 path: '/products/carts',
                 element: <Carts/>
+            },{
+                path: '/products/thongtincanhan',
+                element: <Thongtincanhan/>
+            },{
+                path: '/products/dangky',
+                element: <Dangky/>
             }
             
            

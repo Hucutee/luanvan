@@ -27,22 +27,21 @@ import { propsToClassKey } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addtoUser, login } from "../../app/userSlice";
+import PropTypes from 'prop-types';
+import { IMaskInput } from 'react-imask';
+import NumberFormat from 'react-number-format';
 
-Dangnhap.propTypes={
+Dangky.propTypes={
 
 };
- function Dangnhap() {
+ function Dangky() {
   const dataUser = useSelector((state) => state?.user?.userItem);
-
-
   const dispatch = useDispatch();
   const navigation = useNavigate();
-
 const [email,setEmail]= React.useState("");
 const [count,setCount]= React.useState(0);
 const [data,setData]= React.useState([]);
 const [trangthai,setTrangthai]= React.useState(0);
-
   const [matkhau, setMatkhau] = React.useState({
     amount: "",
     password: "",
@@ -80,6 +79,16 @@ const handleChangetk = (value) => {
   const handlethem = (hau) => {
     console.log(hau);
 }
+const [values, setValues] = React.useState({
+    textmask: '',
+  });
+
+  const handleChangetext = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
   useEffect(() => {
     (async () => {
       try {
@@ -105,10 +114,10 @@ const handleChangetk = (value) => {
         }}
       >
         <Grid
-          marginTop="50px"
-          height="500px"
+          marginTop="20px"
+          height="630px"
           sx={{ borderRadius: "5px" }}
-          width="27%"
+          width="30%"
           item
           xs={10}
           sm={8}
@@ -125,17 +134,69 @@ const handleChangetk = (value) => {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 2, mt: 4, bgcolor: "#339900" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h7">
-            <span className=" font-bold bg-clip-text text-[38px] 	 text-transparent bg-gradient-to-r from-green-900 to-green-500 ">
-          Đăng nhập
+               <Box
+      sx={{
+        '& > :not(style)': {
+          m: 1,
+        },
+      }}
+    >
+      <FormControl variant="standard">
+        <InputLabel htmlFor="formatted-text-mask-input">react-imask</InputLabel>
+        <Input
+          value={values.textmask}
+          onChange={handleChangetext}
+          name="textmask"
+          id="formatted-text-mask-input"
+          inputComponent={TextMaskCustom}
+        />
+      </FormControl>
+     
+    </Box>
+            <Typography component="h1" variant="h7" sx={{marginTop:"30px"}}>
+            <span className=" font-bold bg-clip-text text-[34px] 	 text-transparent bg-gradient-to-r from-green-900 to-green-500 ">
+          Đăng ký
           </span>
             </Typography>
-            <Box component="form" noValidate sx={{ mt: 1, padding: 2 }}>
+            <Box component="form" noValidate sx={{ mt: 0, padding: 2 }}>
+            <TextField color="success"
+                label="Họ và tên đệm"
+                id="outlined-start-adornment"
+                sx={{ m: 1, width: "50%", marginRight:"10%" }}
+                variant="standard"
+                onChange={(e)=>handleChangetk(e.target.value)}
+              />
+
+               <TextField color="success"
+                label="Tên"
+                id="outlined-start-adornment"
+                sx={{ m: 1, width: "33%" }}
+                variant="standard"
+                onChange={(e)=>handleChangetk(e.target.value)}
+              />
+               <TextField color="success"
+                label="Giới tính"
+                id="outlined-start-adornment"
+                sx={{ m: 1, width: "33%", marginRight:"10%" }}
+                variant="standard"
+                onChange={(e)=>handleChangetk(e.target.value)}
+              />
+               <TextField color="success"
+                label="Ngày sinh"
+                id="outlined-start-adornment"
+                sx={{ m: 1, width: "50%" }}
+                variant="standard"
+                onChange={(e)=>handleChangetk(e.target.value)}
+              />
               <TextField color="success"
                 label="Địa chỉ Email"
+                id="outlined-start-adornment"
+                sx={{ m: 1, width: "95%" }}
+                variant="standard"
+                onChange={(e)=>handleChangetk(e.target.value)}
+              />
+              <TextField color="success"
+                label="Số điện thoại"
                 id="outlined-start-adornment"
                 sx={{ m: 1, width: "95%" }}
                 variant="standard"
@@ -167,7 +228,32 @@ const handleChangetk = (value) => {
                   }
                 />
               </FormControl>
-              
+              <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
+                <InputLabel htmlFor="standard-adornment-password">
+                  Nhập lại mật khẩu
+                </InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  type={matkhau.showPassword ? "text" : "password"}
+                  value={matkhau.password}
+                  onChange={handleChange("password")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {matkhau.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
               <Button
                  color="success"
                 fullWidth
@@ -175,20 +261,9 @@ const handleChangetk = (value) => {
                 sx={{ mt: 4, mb: 4,height:"40px" }}
                 onClick={handledangnhap}
               >
-                Đăng Nhập
+                Đăng ký
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" style={{textDecoration:"none", color:"#333"}}  variant="body2">
-                    Quên mật khẩu?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link style={{textDecoration:"none", color:"#333"}} href="#" variant="body2">
-                    {"Bạn chưa có tài khoản? Đăng ký"}
-                  </Link>
-                </Grid>
-              </Grid>
+            
             </Box>
           </Box>
         </Grid>
@@ -197,5 +272,31 @@ const handleChangetk = (value) => {
   );
 }
 
+const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+  const { onChange, ...other } = props;
+  return (
+    <IMaskInput
+      {...other}
+      mask="$###########"
+      definitions={{
+        '#': /[0-9]/,
+        '$': /[0]/
+      }}
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
 
-export default Dangnhap;
+TextMaskCustom.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+
+
+
+
+
+export default Dangky;
