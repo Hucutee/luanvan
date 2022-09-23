@@ -38,8 +38,6 @@ function Header() {
   const dataCart = useSelector((state) => state?.cart?.cartItem);
   const dataUser = useSelector((state) => state?.user?.current);
   const dispatch = useDispatch();
-  const [dx, setDx] = useState(0);
-
   const [anchorEl, setAnchorEl] = useState(false);
   const open = Boolean(anchorEl);
   const handleClickdn = (event) => {
@@ -200,7 +198,7 @@ function Header() {
                   
 
                 </MenuItem>
-                <MenuItem><Lin to="/products/dangky">Đăng ký</Lin></MenuItem>
+                <MenuItem onClick={handleClose}><Lin to="/products/dangky">Đăng ký</Lin></MenuItem>
               </Menu>
             </div>
           </Typography>
