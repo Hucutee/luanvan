@@ -27,6 +27,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { useDispatch, useSelector } from "react-redux";
 import { addtoCart } from "../../app/cartSlide";
+import { addquaylai } from "../../app/quaylai";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -61,7 +62,7 @@ function Chitietsp() {
   const handleClosecheckslcl = () => {setOpencheckslcl(false); };
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {  setOpen(false); };
-  const handleCloseTop = () => {  setOpen(false); goToTop(); };
+  const handleCloseTop = () => {  setOpen(false); goToTop(); dispatch(addquaylai({link: params.pathname}))  };
   const handleTruyenn = (aaa,hinhanh) =>{   console.log(aaa);setHinhanh(hinhanh);    setCount((e) => e + 1); }
   const handleTruyensl = (aaa) =>{ setSoluongnhap(aaa);  setCount((e) => e + 1);} 
   const handleChangeha = (mactsp,ha,makt,tenkt,sl,gb) => {

@@ -1,8 +1,12 @@
 import axiosClient from "./axiosClient";
 
 const nguoidungApi = {
-  create(tenncc,sdt,diachi) {
-    const API_URL = `/nhacungcap/add/${tenncc}&&${sdt}&&${diachi}`;
+  add(ten,gt,ns,email,sdt,pass) {
+    const API_URL = `/nguoidung/add/${ten}&&${gt}&&${ns}&&${email}&&${sdt}&&${pass}`;
+    return axiosClient.get(API_URL);
+  },
+  getemail(email){
+    const API_URL = `/nguoidung/checkemail/${email}`;
     return axiosClient.get(API_URL);
   },
   checkdn(email,mk) {
