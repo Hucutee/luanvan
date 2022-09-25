@@ -78,6 +78,7 @@ const handleaddcart = () =>{
           dispatch(
             addtoCart({
               ma_ctsp: mactsp,
+              ma_sp: datasp[0].ma_sp,
               ten_sp: datasp[0].ten_sp,
               ten_kt: tenkt,
               so_luong: soluongnhap,

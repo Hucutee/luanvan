@@ -31,6 +31,11 @@ const cartSlice = createSlice({
         const a = JSON.parse(localStorage.getItem("cart"));
         a[index].so_luong = so_luong;
         localStorage.setItem("cart", JSON.stringify(a));
+      }else{
+        state.cartItem[index].so_luong = "";
+        const a = JSON.parse(localStorage.getItem("cart"));
+        a[index].so_luong = so_luong;
+        localStorage.setItem("cart", JSON.stringify(a));
       }
     },
     removeFromCart(state, action) {

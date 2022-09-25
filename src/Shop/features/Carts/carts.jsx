@@ -3,34 +3,56 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Zoom from "react-img-zoom";
-import { Button } from "@mui/material";
+import { Button, FormHelperText } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, setQuantity } from "../../app/cartSlide";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
-
+import chitietsanphamApi from "../../../Manage/api/chitietsanphamApi";
+import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
+import FormControl from "@mui/material/FormControl";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 function Carts() {
   const Alert = React.forwardRef(function Alert(props, ref) {return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />; });
   const dataCart = useSelector((state) => state?.cart?.cartItem);
   const dataUser = useSelector((state) => state?.user?.current);
-
   const dispatch = useDispatch();
-
   const deleteCart = (value) => {
     dispatch(removeFromCart({ ma_ctsp: value }));
   };
   const handlesl = (value) => {
-        console.log(value.so_luong);
-    if(value.so_luong > 0 && value.so_luong % 1 ==0){
-      dispatch(setQuantity(value));
-    }else {
-      
-    }
+    {data.map((data) =>(data.ma_ctsp == value.ma_ctsp && data.soluong >= value.so_luong ?       dispatch(setQuantity(value)) : false
+      ))}
+  
+    if(!value.so_luong){dispatch(setQuantity({ma_ctsp: value.ma_ctsp,so_luong: "" }));}
   };
+
+  const [data, setData] = React.useState([]);
+  const [nhap, setNhap] = React.useState(0);
+  const [datakm, setDatakm] = React.useState([]);
   const [openchecksl, setOpenchecksl] = React.useState(false);
   const handlechecksl = () => {  setOpenchecksl(false); };
+  useEffect(() => {
+    (async () => {
+      try {
+        const dataa = await chitietsanphamApi.getCount();
+        const km = await khuyenmaiAPI.getCount(); 
+        setDatakm(km);console.log(dataa);console.log(km);  setData(dataa); 
+      } catch (error) {
+        console.log("loi", error);
+      }
+    })(); 
+  }, []);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <div
@@ -65,24 +87,22 @@ function Carts() {
           <table className=" w-[100%] text-center rounded-lg	 	">
             <thead className="h-14   bg-gray-100 	">
               <tr>
-                <th className="border-[1px] 	border-gray-200	border-solid">
-                  Chọn
-                </th>
-                <th className=" border-[1px] 		border-gray-200	 border-solid">
+               
+                <th className=" border-[1px] 		border-gray-300	 border-solid">
                   Hình ảnh
                 </th>
-                <th className="border-[1px] 	border-gray-200	border-solid">
+                <th className="border-[1px] 	border-gray-300	border-solid">
                   Sản phẩm
                 </th>
-                <th className="border-[1px]	border-gray-200	border-solid">Giá</th>
-                <th className="border-[1px] 	border-gray-200	border-solid">
+                <th className="border-[1px]	border-gray-300	border-solid">Giá</th>
+                <th className="border-[1px] 	border-gray-300	border-solid">
                   Số lượng
                 </th>
-                <th className="border-[1px] 	border-gray-200	border-solid">
+                <th className="border-[1px] 	border-gray-300	border-solid">
                   Tổng
                 </th>
 
-                <th className="border-[1px] 	border-gray-200	border-solid">
+                <th className="border-[1px] 	border-gray-300	border-solid">
                   Xóa
                 </th>
               </tr>
@@ -90,37 +110,57 @@ function Carts() {
             <tbody className="">
               {dataCart?.map((product) => (
                 <tr key={product.ma_ctsp} className="h-10">
-                  <td className="border-[1px] 	border-gray-200 			 border-solid "></td>
-                  <td className="border-[1px] w-[200px] p-2 border-gray-200	 			 border-solid ">
+                  <td className="border-[1px] w-[200px] p-2 border-gray-300	 			 border-solid ">
                     <Zoom
                       img={require("../../../images/" + product.hinh_anh)}
                       height={200}
                     />
                   </td>
-                  <td className="border-[1px] 	border-gray-200		 border-solid ">
+                  <td className="border-[1px] 	border-gray-300		 border-solid ">
                     {product.ten_sp} <br />
                     Kích thước: {product.ten_kt}
                   </td>
-                  <td className="border-[1px] 	border-gray-200			 border-solid ">
-                    {product.gia_ban}{" "}
+                  <td className="border-[1px] 	border-gray-300			 border-solid ">
+                    <p> {new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND", }).format(product.gia_ban)}</p>
+                   {datakm.map((km)=>(km.ma_sp == product.ma_sp ? (<p><p style={{fontSize:"14px", color:"#333", fontWeight:"300",}}>Giảm: {km.phantram_km}% </p><p>Còn:                    {new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND", }).format(product.gia_ban-product.gia_ban*km.phantram_km/100)} </p></p>):( <></>)))}
                   </td>
-                  <td className="border-[1px] w-[15%]	border-gray-200			 border-solid ">
-                    <input style={{width: "100px", height:"40px" , hover:{ border: "1px solid #339900"}, borderRadius: "5px", paddingLeft: "40px"}}
-                      color="success"
-                      id="outlined-number"
-                      type="number" 
-                      min={1} 
-                      defaultValue={product.so_luong}
-                      onChange={(e) => handlesl({ma_ctsp: product.ma_ctsp, so_luong: e.target.value})}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    />{" "}
+                  <td className="border-[1px] w-[15%]	border-gray-300			 border-solid ">
+                   
+              
+                 <Box
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 150 }}
+    >
+      
+      <button value={product.so_luong} style={{ marginLeft : '20px',marginRight:"10px", fontSize:"40px" }}  onClick={(e)=>handlesl({ma_ctsp: product.ma_ctsp, so_luong: e.target.value-1})}>-</button>
+
+      <InputBase
+        sx={{ ml: 2, flex: 1 }}
+        color="success"
+                  value={product.so_luong}
+                  onChange={(e)=>handlesl({ma_ctsp: product.ma_ctsp, so_luong: e.target.value})}
+      />
+                          <button value={product.so_luong} style={{ margin: '5px',fontSize:"30px" }} onClick={(e)=>handlesl({ma_ctsp: product.ma_ctsp, so_luong: e.target.value-(-1)})}>+</button>
+
+      
+    </Box>
+                {data.map((aa)=>(aa.ma_ctsp == product.ma_ctsp ? (
+                      <Box sx={{
+                        display: "flex",
+                        alignContent: "center",
+                        justifyContent: "center",
+                      }}><FormHelperText   id="component-error-text"  sx={{ m: 0}}>
+                   <p>(Hàng trong kho: {aa.soluong})</p> 
+                    </FormHelperText>
+                    </Box>
+                      
+                    ):(false)))}
+             
                   </td>
-                  <td className="border-[1px] w-[17%] 	border-gray-200			 border-solid ">
-                    {product.so_luong * product.gia_ban}{" "}
+                  <td className="border-[1px] w-[17%] 	border-gray-300			 border-solid ">
+                  <p> {new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND", }).format(product.so_luong * product.gia_ban)}</p>
+                   {datakm.map((km)=>(km.ma_sp == product.ma_sp ? (<p><p style={{fontSize:"14px", color:"#333", fontWeight:"300",}}>Giảm: {km.phantram_km}% </p><p>Còn: {new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND", }).format(product.so_luong * product.gia_ban-product.so_luong * product.gia_ban*km.phantram_km/100)}</p></p>):( <></>)))}
                   </td>
-                  <td className="border-[1px] 	border-gray-200 			 border-solid ">
+                  <td className="border-[1px] 	border-gray-300 			 border-solid ">
                     <ClearIcon
                       className="a1"
                       onClick={(e) => deleteCart(product.ma_ctsp)}
@@ -131,8 +171,8 @@ function Carts() {
 
               <tr className="h-14">
                 <td
-                  colspan="7"
-                  className="border-[1px] 	border-gray-200	 bg-gray-50	 border-solid "
+                  colspan="6"
+                  className="border-[1px] 	border-gray-300	 bg-gray-100	 border-solid "
                 ></td>
               </tr>
             </tbody>
@@ -200,5 +240,6 @@ function Carts() {
     </Box>
   );
 }
+
 
 export default Carts;

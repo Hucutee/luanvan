@@ -17,12 +17,15 @@ const quaylai = createSlice({
       
     },
   
-
+    removequaylai(state) {
+      state.quaylaiItem = [];
+      localStorage.removeItem("quaylai");
+    },
 
     
   },
 });
 
 const {actions, reducer} = quaylai;
-export const { addquaylai} = actions;
+export const { addquaylai,removequaylai} = actions;
 export default reducer;

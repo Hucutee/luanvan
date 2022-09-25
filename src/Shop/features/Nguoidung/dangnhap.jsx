@@ -33,6 +33,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { ConstructionOutlined } from "@mui/icons-material";
+import { removequaylai } from "../../app/quaylai";
 const Transitiondnn = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -108,7 +109,7 @@ const handleChangetk = (value) => {
   };
 
   const handleClosednn = () => {
-    setOpendnn(false);
+    setOpendnn(false); dispatch(removequaylai())
   };
   return (
     <Box>
@@ -222,9 +223,9 @@ const handleChangetk = (value) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        {dataquaylai.length >0 ? <Button variant="contained" color="success" onClose={handleClosednn}  ><Link  to={`${dataquaylai[0].link}`}>Quay lại mua hàng</Link></Button> : <></>}
+        {dataquaylai.length >0 ? <Button variant="contained" color="success"  onClick={handleClosednn} ><Link  to={`${dataquaylai[0].link}`}>Quay lại mua hàng</Link></Button> : <></>}
 
-          <Button variant="contained" color="success"><Link  to="/products/thongtincanhan" >Thông tin cá nhân</Link></Button>
+          <Button variant="contained" color="success"  onClick={handleClosednn}><Link  to="/products/thongtincanhan" >Thông tin cá nhân</Link></Button>
         </DialogActions>
       </Dialog>
     </Box>
