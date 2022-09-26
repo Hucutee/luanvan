@@ -95,7 +95,7 @@ function Header() {
           </Typography>
           <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
             <Lin to="/products/carts" className="a1">
-              Giỏ hàng
+              Ưu đãi
             </Lin>
           </Typography>
           <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
@@ -172,7 +172,7 @@ function Header() {
                 }}
               >
                 <MenuItem onClick={handleClosedx}>
-                  <Lin to="/products/dangnhap">Thông tin cá nhân</Lin>
+                  <Lin to="/products/thongtincanhan">Thông tin cá nhân</Lin>
 
                 </MenuItem>
                 <MenuItem onClick={handledx}>   <Link sx={{textDecoration: "none", color:"#333"}} href="/app">Đăng xuất</Link></MenuItem>
