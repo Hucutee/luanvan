@@ -34,8 +34,8 @@ function Sptt(product) {
     (async () => {
       try {
         
-        const splq = await sanphamAPI.getlq(product.data.ma_sp)
-        const listlq = await sanphamAPI.getlistlq(splq[0].loai_sp)
+        const splq = await sanphamAPI.getlq(product.data.ma_sp);
+        const listlq = await sanphamAPI.getlistlq(splq[0].loai_sp,product.data.ma_sp)
         setData(listlq);
         
         

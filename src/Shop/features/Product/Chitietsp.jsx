@@ -56,6 +56,8 @@ function Chitietsp() {
   const Alert = React.forwardRef(function Alert(props, ref) {return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />; });
   const [openchecksl, setOpenchecksl] = React.useState(false);
   const handleClosechecksl = () => {setOpenchecksl(false); };
+  const [opencheckgio, setOpencheckgio] = React.useState(false);
+  const handleClosecheckgio = () => {setOpencheckgio(false); };
   const [opencheckkt, setOpencheckkt] = React.useState(false);
   const handleClosecheckkt = () => {setOpencheckkt(false); };
   const [opencheckslcl, setOpencheckslcl] = React.useState(false);
@@ -85,7 +87,7 @@ const handleaddcart = () =>{
               hinh_anh: hinhanh,
               gia_ban: giaban,
               type: "cart",
-            }));
+            })); setOpencheckgio(true);
         }else{ setOpen(true)}
       }else{
         setOpencheckslcl(true);}
@@ -448,6 +450,9 @@ const goToTop = () => {
           <Button variant="contained" color="success" onClick={handleCloseTop} autoFocus> <Link to="/products/dangnhap">Đăng nhập</Link></Button>
         </DialogActions>
       </Dialog>
+      <Snackbar  open={opencheckgio} autoHideDuration={6000} onClose={handleClosecheckgio} >
+        <Alert  onClose={handleClosecheckgio}  severity="success"  sx={{ width: "100%" }}>  Sản phẩm đã được thêm vào giỏ hàng!</Alert>
+      </Snackbar>
     </Box>
   );
 }

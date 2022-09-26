@@ -90,8 +90,8 @@ const sanphamAPI = {
     const API_URL = `/sanpham/lienquan/${id}`;
     return axiosClient.get(API_URL);
   },
-  getlistlq(id) {
-    const API_URL = `/sanpham/listlienquan/${id}`;
+  getlistlq(id,masp) {
+    const API_URL = `/sanpham/listlienquan/${id}&&${masp}`;
     return axiosClient.get(API_URL);
   },
   spmoi() {

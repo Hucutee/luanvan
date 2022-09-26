@@ -1,3 +1,28 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th9 26, 2022 lúc 03:50 PM
+-- Phiên bản máy phục vụ: 10.4.24-MariaDB
+-- Phiên bản PHP: 8.1.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Cơ sở dữ liệu: `ct593`
+--
+
+-- --------------------------------------------------------
+
 --
 -- Cấu trúc bảng cho bảng `chi_tiet_hdn`
 --
@@ -36,17 +61,7 @@ END
 $$
 DELIMITER ;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `chi_tiet_hdn`
---
-ALTER TABLE `chi_tiet_hdn`
-  ADD PRIMARY KEY (`ma_cthdn`);
-COMMIT;
-
+-- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `chi_tiet_san_pham`
@@ -70,18 +85,11 @@ CREATE TABLE `chi_tiet_san_pham` (
 
 INSERT INTO `chi_tiet_san_pham` (`ma_ctsp`, `ma_sp`, `ma_kt`, `soluong`, `giaban`, `thongtin`, `ten_sp`, `ten_kt`, `hinhanh`) VALUES
 ('CT018', 'SP01', 'KT03', 56, 30000, 'Sen đá xứ lạnh', 'Sen đá hoa hồng', 'Trung', '4-sen-da-hoa-hong-xanh-lon.jpg'),
-('CT019', 'SP09', 'KT01', 60, 12000, 'Sen đá xứ lạnh', 'Sen đá hồng dâu', 'Nhỏ', 'sen-da-hong-dau-nho.jpg'),
-('CT020', 'SP09', 'KT02', 110, 20000, 'Sen đá xứ lạnh', 'Sen đá hồng dâu', 'Vừa', 'hong dau vua.jpg'),
-('CT021', 'SP09', 'KT03', 110, 3000, 'Sen đá xứ lạnh', 'Sen đá hồng dâu', 'Trung', 'hong dau lon.jpg'),
 ('CT022', 'SP010', 'KT03', 110, 30000, 'Sen đá xứ lạnh', 'Sen đá hồng phấn', 'Trung', 'hong phan trung.jpg'),
 ('CT024', 'SP03', 'KT02', 110, 20000, 'Xương rồng ', 'Xương rồng thanh sơn', 'Vừa', 'xuong-rong-thanh-son-nho.jpg'),
 ('CT026', 'SP02', 'KT01', 110, 12000, 'Xương rồng', 'Xương rồng tay thỏ', 'Nhỏ', 'xuong-rong-tai-tho-nho.jpg'),
 ('CT027', 'SP011', 'KT02', 110, 50000, 'Chậu tiểu cảnh sen đá', 'Chậu tiểu cảnh sen đá', 'Vừa', 'chau cay van phong 1.jpg'),
-('CT028', 'SP07', 'KT02', 160, 45000, 'Cây cảnh văn phòng', 'Cỏ may mắn', 'Vừa', 'co may man nho.jpg'),
-('CT029', 'SP07', 'KT03', 110, 55000, 'Cây cảnh văn phòng', 'Cỏ may mắn', 'Trung', 'co may man to.jpg'),
-('CT030', 'SP05', 'KT02', 110, 35000, 'Chậu gốm trồng sen', 'Chậu gốm sứ', 'Vừa', 'chau gom xu.jpg'),
 ('CT031', 'SP012', 'KT01', 130, 25000, 'Đá rải mặt Masato trọng lượng 1 kí', 'Đá Masato (1kg)', 'Nhỏ', 'masato.jpg'),
-('CT032', 'SP08', 'KT01', 110, 130000, 'Đất Soilmix bao 6 kí', 'Đất Soilmix (bao 6kg)', 'Nhỏ', 'Soilimix.jpg'),
 ('CT033', 'SP014', 'KT03', 110, 15000, 'Thuốc tím túi 1kg', 'Thuốc tím', 'Trung', 'thuoc-tim-thai-lan.jpg'),
 ('CT034', 'SP013', 'KT01', 1030, 20000, 'Thuốc Coc85 bịch 20g', 'Thuốc trị nấm Coc85', 'Nhỏ', 'coc85 nho.jpg'),
 ('CT035', 'SP013', 'KT03', 110, 50000, 'Thuốc Coc85 bịch 100g', 'Thuốc trị nấm Coc85', 'Trung', 'COC-85-01.jpg'),
@@ -108,18 +116,33 @@ INSERT INTO `chi_tiet_san_pham` (`ma_ctsp`, `ma_sp`, `ma_kt`, `soluong`, `giaban
 ('CT057', 'SP029', 'KT02', 70, 12000, 'Sen đá xứ lạnh', 'Sen đá Liên đài tím', 'Vừa', '5434f3ba476fce62ee907686152d84e9.jpg'),
 ('CT058', 'SP029', 'KT03', 40, 35000, 'Sen đá xứ lạnh', 'Sen đá Liên đài tím', 'Trung', '6566ae1e4f7c7102375d0898563ecfc4.jpg'),
 ('CT059', 'SP029', 'KT04', 60, 85000, 'Sen đá xứ lạnh', 'Sen đá Liên đài tím', 'Lớn', 'ldh.jpg'),
-('CT060', 'SP034', 'KT03', 80, 120000, 'Sen đá xứ lạnh', 'Sen đá đế đỏ', 'Trung', 'S_758000-MLB26295115161_112017-O.jpg'),
-('CT061', 'SP033', 'KT04', 60, 150000, 'Sen đá xứ lạnh', 'Sen đá kim cương', 'Lớn', 'sen-da-kim-cuong-xanh-1.jpg'),
-('CT062', 'SP032', 'KT01', 60, 40000, 'Sen đá sứ lạnh', 'Sen đá tay gấu', 'Nhỏ', 'Sen-da-tay-gau-bear-Paw.jpg'),
 ('CT063', 'SP031', 'KT04', 80, 200000, 'Sen đá xứ lạnh', 'Sen đá đất xanh', 'Lớn', 'cay-sen-dưqeqw.jpg'),
-('CT064', 'SP035', 'KT01', 110, 120000, 'Thuốc trị nấm', 'Thuốc trị nấm Anvil', 'Nhỏ', 'ANVIL-5SC-100ml.jpg'),
-('CT065', 'SP036', 'KT01', 100, 80000, 'Thuốc tím Thái', 'Thuốc tím Thái', 'Nhỏ', '16a809279333351db996b0e5591ed2e4.jpg'),
-('CT066', 'SP038', 'KT04', 70, 550000, 'Xương rồng kim hổ', 'Xương rồng kim hổ', 'Lớn', 'edbba0062a81dda5e0f70485dfed639e.jpg'),
-('CT067', 'SP037', 'KT02', 60, 35000, 'Xương rồng bánh xinh nhật ', 'Xương rồng bánh sinh nhật', 'Trung', '20190409181519288.jpg'),
-('CT068', 'SP039', 'KT03', 80, 70000, 'Xương rồng đuôi cáo to', 'Xương rồng đuôi cáo', 'Trung', 'e7866e257b8c998fd5e99b6d51fcfdc9.jpg'),
-('CT069', 'SP040', 'KT03', 60, 72000, 'Chậu tiểu cảnh con cáo', 'Tiểu cảnh con cáo', 'Trung', 'ab8a8edb4457da83b2914bdb636d5bfb.jpg'),
-('CT070', 'SP041', 'KT01', 50, 40000, 'Xương rồng Echino nhỏ', 'Xương rồng Echino', 'Nhỏ', '31422afbbdb638d049c02230ced888a5.jpg'),
-('CT071', 'SP042', 'KT02', 56, 30000, 'Xương rồng Aster vừa', 'Xương rồng Aster', 'Vừa', 'hat-giong-xuong-rong-aster-1.__.jpg');
+('CT064', 'SP032', 'KT03', 50, 50000, 'Cây cảnh văn phòng', 'Cỏ may mắn', 'Trung', 'co may man nho.jpg'),
+('CT065', 'SP032', 'KT04', 100, 70000, 'Cây cảnh văn phòng', 'Cỏ may mắn', 'Lớn', 'co may man to.jpg'),
+('CT066', 'SP034', 'KT05', 100, 130000, 'Đất chuyên dụng trồng sen đá', 'Đất soilmix Túi 6kg', 'Túi lớn', 'Soilimix.jpg'),
+('CT067', 'SP035', 'KT02', 90, 35000, 'Sen đá xứ lạnh', 'Sen đá đế đỏ', 'Vừa', 'S_758000-MLB26295115161_112017-O.jpg'),
+('CT068', 'SP036', 'KT03', 100, 120000, 'Sen đá xứ lạnh', 'Sen đá kim cương', 'Trung', 'sen-da-kim-cuong-xanh-1.jpg'),
+('CT069', 'SP037', 'KT02', 200, 35000, 'Sen đá xứ lạnh', 'Sen đá tay gấu', 'Vừa', 'Sen-da-tay-gau-bear-Paw.jpg'),
+('CT070', 'SP038', 'KT07', 100, 40000, 'Thuốc trị nấm', 'Thuốc trị nấm Anvil', 'Chai nhỏ', 'ANVIL-5SC-100ml.jpg'),
+('CT071', 'SP039', 'KT06', 60, 65000, 'Thuốc trị rệp', 'Thuốc tím Thái', 'Túi nhỏ', '16a809279333351db996b0e5591ed2e4.jpg'),
+('CT072', 'SP033', 'KT02', 30, 25000, 'Chậu gốm sứ', 'Chậu gốm sứ', 'Vừa', 'chau gom xu.jpg'),
+('CT073', 'SP015', 'KT02', 50, 70000, 'Chậu tiểu cảnh xương rồng', 'Mix xương rồng', 'Vừa', 'mix xuong rong.jpg'),
+('CT074', 'SP015', 'KT04', 20, 100000, 'Chậu tiểu cảnh ', 'Mix xương rồng', 'Lớn', 'mix xuong rong a.jpg'),
+('CT075', 'SP016', 'KT03', 40, 65000, 'Mix sen đá nhiều loại', 'Mix sen đá nhiều loại', 'Trung', 'mix sen da 1.webp'),
+('CT076', 'SP040', 'KT04', 30, 150000, 'Xương rồng kim hổ lớn', 'Xương rồng kim hổ', 'Lớn', 'edbba0062a81dda5e0f70485dfed639e.jpg'),
+('CT077', 'SP042', 'KT02', 100, 50000, 'Xương rồng Aster', 'Xương rồng Aster', 'Vừa', 'hat-giong-xuong-rong-aster-1.__.jpg'),
+('CT078', 'SP044', 'KT03', 30, 70000, 'Xương rồng Mickey', 'Xương rồng Mickey', 'Trung', 'cay-xuong-rong-tai-tho-trung.jpg'),
+('CT079', 'SP045', 'KT03', 50, 90000, 'Chậu cảnh con cáo', 'Chậu cây con cáo', 'Trung', 'ab8a8edb4457da83b2914bdb636d5bfb.jpg'),
+('CT080', 'SP046', 'KT01', 50, 30000, 'Chậu trồng cây', 'Chậu gốm nhật', 'Nhỏ', '0665b9d50eb8f90fbf857b5b8a424ee1.jpg'),
+('CT081', 'SP047', 'KT02', 100, 10000, 'Chậu trồng cây', 'Chậu đất nung', 'Vừa', 'chau-dat-nung.jpg'),
+('CT082', 'SP048', 'KT02', 100, 25000, 'Chậu trồng cây', 'Chậu họa tiết lá', 'Vừa', 'z2515470090222_5bb2b1f86f53988dab36f93c23eeab88.jpg'),
+('CT083', 'SP050', 'KT05', 100, 12000, 'Đất trồng cây', 'Promix', 'Túi lớn', 'w-sen-da.png'),
+('CT084', 'SP049', 'KT05', 100, 60000, 'Đất trồng cây', 'Namix', 'Túi lớn', 'gia-the-trong-sen-da-xuong-rong.jpg'),
+('CT085', 'SP051', 'KT01', 10, 20000, 'Xẻn nhỏ', 'Xẻn nhỏ', 'Nhỏ', 'c4b59dbeecde8f1c1ddc5530e0c3c3c2.jpg'),
+('CT086', 'SP052', 'KT01', 60, 5000, 'Nhíp', 'Nhíp', 'Nhỏ', '586f1066599536c83cd699f03179cd2b.jpg'),
+('CT087', 'SP053', 'KT01', 100, 10000, 'Ống thổi nước', 'Ống thổi nước', 'Nhỏ', '1f66c5654c7cf5ef978968fb133a971d.jpg'),
+('CT088', 'SP054', 'KT06', 100, 15000, 'Đá Lava đen', 'Đá Lava đen', 'Túi nhỏ', '653005c1bf4f4a11135e.webp'),
+('CT089', 'SP055', 'KT06', 100, 20000, 'Đá Lava đỏ', 'Đá Lava đỏ', 'Túi nhỏ', 'e99681e1b3397f4a4143d21418f85c7d.jpg');
 
 --
 -- Bẫy `chi_tiet_san_pham`
@@ -138,51 +161,25 @@ END
 $$
 DELIMITER ;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `chi_tiet_san_pham`
---
-ALTER TABLE `chi_tiet_san_pham`
-  ADD PRIMARY KEY (`ma_ctsp`),
-  ADD KEY `chi_tiet_san_pham` (`ma_sp`),
-  ADD KEY `thuoc_san_pham` (`ma_sp`),
-  ADD KEY `thuoc_kich_thuoc` (`ma_kt`);
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `chi_tiet_san_pham`
---
-ALTER TABLE `chi_tiet_san_pham`
-  ADD CONSTRAINT `thuoc_kich_thuoc` FOREIGN KEY (`ma_kt`) REFERENCES `kich_thuoc` (`ma_kt`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `thuoc_san_pham` FOREIGN KEY (`ma_sp`) REFERENCES `san_pham` (`ma_sp`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
+-- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `hoa_don_nhap`
 --
 
-CREATE TABLE IF NOT EXISTS `hoa_don_nhap` (
+CREATE TABLE `hoa_don_nhap` (
   `ma_hdn` varchar(50) NOT NULL,
   `ngay_nhap` date NOT NULL,
   `ma_nv` varchar(50) NOT NULL,
   `ma_ncc` varchar(50) DEFAULT NULL,
-  `ghi_chu` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ma_hdn`),
-  KEY `thuoc_ncc` (`ma_ncc`)
+  `ghi_chu` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hoa_don_nhap`
 --
 
-INSERT DELAYED IGNORE INTO `hoa_don_nhap` (`ma_hdn`, `ngay_nhap`, `ma_nv`, `ma_ncc`, `ghi_chu`) VALUES
+INSERT INTO `hoa_don_nhap` (`ma_hdn`, `ngay_nhap`, `ma_nv`, `ma_ncc`, `ghi_chu`) VALUES
 ('HDN1', '2022-09-10', 'NV01', 'CC01', 'Lô hàng sen đá mini'),
 ('HDN2', '2022-09-30', 'NV01', 'CC02', 'Hàng nhiều loại'),
 ('HDN3', '2022-09-27', 'NV01', 'CC03', 'Lô hàng xương rồng'),
@@ -206,17 +203,7 @@ END
 $$
 DELIMITER ;
 
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `hoa_don_nhap`
---
-ALTER TABLE `hoa_don_nhap`
-  ADD CONSTRAINT `thuoc_ncc` FOREIGN KEY (`ma_ncc`) REFERENCES `nha_cung_cap` (`ma_ncc`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
+-- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `khuyen_mai`
@@ -258,30 +245,7 @@ END
 $$
 DELIMITER ;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `khuyen_mai`
---
-ALTER TABLE `khuyen_mai`
-  ADD PRIMARY KEY (`ma_km`),
-  ADD KEY `khuyen_mai_loai_san_pham` (`sanpham_km`);
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `khuyen_mai`
---
-ALTER TABLE `khuyen_mai`
-  ADD CONSTRAINT `khuyen_mai_loai_san_pham` FOREIGN KEY (`sanpham_km`) REFERENCES `loai_san_pham` (`ma_lsp`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
-
-
+-- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `kich_thuoc`
@@ -300,7 +264,10 @@ INSERT INTO `kich_thuoc` (`ma_kt`, `ten_kt`) VALUES
 ('KT01', 'Nhỏ'),
 ('KT02', 'Vừa'),
 ('KT03', 'Trung'),
-('KT04', 'Lớn');
+('KT04', 'Lớn'),
+('KT05', 'Túi lớn'),
+('KT06', 'Túi nhỏ'),
+('KT07', 'Chai nhỏ');
 
 --
 -- Bẫy `kich_thuoc`
@@ -319,18 +286,7 @@ END
 $$
 DELIMITER ;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `kich_thuoc`
---
-ALTER TABLE `kich_thuoc`
-  ADD PRIMARY KEY (`ma_kt`);
-COMMIT;
-
-
+-- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `loai_san_pham`
@@ -374,18 +330,7 @@ END
 $$
 DELIMITER ;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `loai_san_pham`
---
-ALTER TABLE `loai_san_pham`
-  ADD PRIMARY KEY (`ma_lsp`);
-COMMIT;
-
-
+-- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `nguoi_dung`
@@ -411,10 +356,7 @@ INSERT INTO `nguoi_dung` (`ma_nd`, `ten_nd`, `gioi_tinh`, `ngay_sinh`, `email`, 
 ('ND01', 'Phan Trung Hậu', 'Nam', '2000-04-19', 'haub1809235@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Cần Thơ', '1', NULL),
 ('ND02', 'Bùi Công Minh', 'Nam', '2000-09-14', 'minh@gmail.com', 'ef209c9343ca8c715265781876657b18', '', '', '0999484885'),
 ('ND03', 'Nguyễn Thị Hòa', 'Nữ', '2001-09-24', 'hoa@gmail.com', 'ef209c9343ca8c715265781876657b18', '', '', '0987667889'),
-('ND06', 'Trần Minh Trí', 'Nam', '1996-09-24', 'tri@gmail.com', 'ef209c9343ca8c715265781876657b18', '', '', '0987654321'),
-('ND07', 'a a', 'Nam', '2022-09-01', 's@sss.jg', 'ef209c9343ca8c715265781876657b18', '', '', '099574636274'),
-('ND08', 'â a', 'Nam', '2022-09-05', 'aa@ss.ss', 'ef209c9343ca8c715265781876657b18', '', '', '0983484358'),
-('ND09', 'a a', 'Nam', '2022-09-14', 'haub@sss.sss', 'ef209c9343ca8c715265781876657b18', '', '', '049494949595');
+('ND06', 'Trần Minh Trí', 'Nam', '1996-09-24', 'tri@gmail.com', 'ef209c9343ca8c715265781876657b18', '', '', '0987654321');
 
 --
 -- Bẫy `nguoi_dung`
@@ -433,17 +375,7 @@ END
 $$
 DELIMITER ;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `nguoi_dung`
---
-ALTER TABLE `nguoi_dung`
-  ADD PRIMARY KEY (`ma_nd`);
-COMMIT;
-
+-- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `nha_cung_cap`
@@ -484,17 +416,7 @@ END
 $$
 DELIMITER ;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `nha_cung_cap`
---
-ALTER TABLE `nha_cung_cap`
-  ADD PRIMARY KEY (`ma_ncc`);
-COMMIT;
-
+-- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `phieu_giam_gia`
@@ -532,18 +454,7 @@ END
 $$
 DELIMITER ;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `phieu_giam_gia`
---
-ALTER TABLE `phieu_giam_gia`
-  ADD PRIMARY KEY (`ma_pgg`);
-COMMIT;
-
-
+-- --------------------------------------------------------
 
 --
 -- Cấu trúc bảng cho bảng `san_pham`
@@ -585,7 +496,31 @@ INSERT INTO `san_pham` (`ma_sp`, `ten_sp`, `loai_sp`, `ngay_them`) VALUES
 ('SP029', 'Sen đá Liên đài tím', 'LSP1', NULL),
 ('SP03', 'Xương rồng thanh sơn', 'LSP2', NULL),
 ('SP030', 'Sen đá sao biển', 'LSP1', NULL),
-('SP031', 'Sen đá đất xanh', 'LSP1', NULL);
+('SP031', 'Sen đá đất xanh', 'LSP1', NULL),
+('SP032', 'Cỏ may mắn', 'LSP4', '2022-09-26'),
+('SP033', 'Chậu gốm sứ', 'LSP6', '2022-09-26'),
+('SP034', 'Đất soilmix Túi 6kg', 'LSP7', '2022-09-26'),
+('SP035', 'Sen đá đế đỏ', 'LSP1', '2022-09-26'),
+('SP036', 'Sen đá kim cương', 'LSP1', '2022-09-26'),
+('SP037', 'Sen đá tay gấu', 'LSP1', '2022-09-26'),
+('SP038', 'Thuốc trị nấm Anvil', 'LSP10', '2022-09-26'),
+('SP039', 'Thuốc tím Thái', 'LSP11', '2022-09-26'),
+('SP040', 'Xương rồng kim hổ', 'LSP2', '2022-09-26'),
+('SP041', 'Xương rồng Echino', 'LSP2', '2022-09-26'),
+('SP042', 'Xương rồng Aster', 'LSP2', '2022-09-26'),
+('SP043', 'Xương rồng Astro', 'LSP2', '2022-09-26'),
+('SP044', 'Xương rồng Mickey', 'LSP2', '2022-09-26'),
+('SP045', 'Chậu cây con cáo', 'LSP4', '2022-09-26'),
+('SP046', 'Chậu gốm nhật', 'LSP6', '2022-09-26'),
+('SP047', 'Chậu đất nung', 'LSP6', '2022-09-26'),
+('SP048', 'Chậu họa tiết lá', 'LSP6', '2022-09-26'),
+('SP049', 'Namix', 'LSP7', '2022-09-26'),
+('SP050', 'Promix', 'LSP7', '2022-09-26'),
+('SP051', 'Xẻn nhỏ', 'LSP8', '2022-09-26'),
+('SP052', 'Nhíp', 'LSP8', '2022-09-26'),
+('SP053', 'Ống thổi nước', 'LSP8', '2022-09-26'),
+('SP054', 'Đá Lava đen', 'LSP9', '2022-09-26'),
+('SP055', 'Đá Lava đỏ', 'LSP9', '2022-09-26');
 
 --
 -- Bẫy `san_pham`
@@ -609,6 +544,65 @@ DELIMITER ;
 --
 
 --
+-- Chỉ mục cho bảng `chi_tiet_hdn`
+--
+ALTER TABLE `chi_tiet_hdn`
+  ADD PRIMARY KEY (`ma_cthdn`);
+
+--
+-- Chỉ mục cho bảng `chi_tiet_san_pham`
+--
+ALTER TABLE `chi_tiet_san_pham`
+  ADD PRIMARY KEY (`ma_ctsp`),
+  ADD KEY `chi_tiet_san_pham` (`ma_sp`),
+  ADD KEY `thuoc_san_pham` (`ma_sp`),
+  ADD KEY `thuoc_kich_thuoc` (`ma_kt`);
+
+--
+-- Chỉ mục cho bảng `hoa_don_nhap`
+--
+ALTER TABLE `hoa_don_nhap`
+  ADD PRIMARY KEY (`ma_hdn`),
+  ADD KEY `thuoc_ncc` (`ma_ncc`);
+
+--
+-- Chỉ mục cho bảng `khuyen_mai`
+--
+ALTER TABLE `khuyen_mai`
+  ADD PRIMARY KEY (`ma_km`),
+  ADD KEY `khuyen_mai_loai_san_pham` (`sanpham_km`);
+
+--
+-- Chỉ mục cho bảng `kich_thuoc`
+--
+ALTER TABLE `kich_thuoc`
+  ADD PRIMARY KEY (`ma_kt`);
+
+--
+-- Chỉ mục cho bảng `loai_san_pham`
+--
+ALTER TABLE `loai_san_pham`
+  ADD PRIMARY KEY (`ma_lsp`);
+
+--
+-- Chỉ mục cho bảng `nguoi_dung`
+--
+ALTER TABLE `nguoi_dung`
+  ADD PRIMARY KEY (`ma_nd`);
+
+--
+-- Chỉ mục cho bảng `nha_cung_cap`
+--
+ALTER TABLE `nha_cung_cap`
+  ADD PRIMARY KEY (`ma_ncc`);
+
+--
+-- Chỉ mục cho bảng `phieu_giam_gia`
+--
+ALTER TABLE `phieu_giam_gia`
+  ADD PRIMARY KEY (`ma_pgg`);
+
+--
 -- Chỉ mục cho bảng `san_pham`
 --
 ALTER TABLE `san_pham`
@@ -620,8 +614,31 @@ ALTER TABLE `san_pham`
 --
 
 --
+-- Các ràng buộc cho bảng `chi_tiet_san_pham`
+--
+ALTER TABLE `chi_tiet_san_pham`
+  ADD CONSTRAINT `thuoc_kich_thuoc` FOREIGN KEY (`ma_kt`) REFERENCES `kich_thuoc` (`ma_kt`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `thuoc_san_pham` FOREIGN KEY (`ma_sp`) REFERENCES `san_pham` (`ma_sp`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `hoa_don_nhap`
+--
+ALTER TABLE `hoa_don_nhap`
+  ADD CONSTRAINT `thuoc_ncc` FOREIGN KEY (`ma_ncc`) REFERENCES `nha_cung_cap` (`ma_ncc`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `khuyen_mai`
+--
+ALTER TABLE `khuyen_mai`
+  ADD CONSTRAINT `khuyen_mai_loai_san_pham` FOREIGN KEY (`sanpham_km`) REFERENCES `loai_san_pham` (`ma_lsp`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Các ràng buộc cho bảng `san_pham`
 --
 ALTER TABLE `san_pham`
   ADD CONSTRAINT `loai_san_pham` FOREIGN KEY (`loai_sp`) REFERENCES `loai_san_pham` (`ma_lsp`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
