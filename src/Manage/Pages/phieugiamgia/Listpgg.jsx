@@ -26,6 +26,7 @@ export default function Listpgg() {
   const [mapgg, setMapgg] = useState("");
   const [tenpgg, setTenpgg] = useState("");
   const [sotiengiam, setSotiengiam] = useState("");
+  const [sotientoithieu, setSotientoithieu] = useState("");
   const [ngaybd, setNgaybd] = React.useState(null);
   const [ngaykt, setNgaykt] = React.useState(null);
   const [tenget, setTenget] = useState("");
@@ -91,25 +92,25 @@ export default function Listpgg() {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
   
-    if (tenpgg && sotiengiam && ngaybd) {
+    if (tenpgg && sotiengiam && ngaybd && sotientoithieu) {
       const check = await phieugiamgiaAPI.checktrung(tenpgg);
       if (check.length == 0) {
         if (!(ngaybd.$d > ngaykt.$d)) {
-          if (sotiengiam > 999 && sotiengiam % 1 == 0) {
+          if (sotiengiam > 999 && sotiengiam % 1 == 0 && sotientoithieu >999 && sotientoithieu % 1 == 0) {
             await phieugiamgiaAPI.create(
               tenpgg,
               sotiengiam,
               ngaybd.$y + "-" + (ngaybd.$M + 1) + "-" + ngaybd.$D,
-              ngaykt.$y + "-" + (ngaykt.$M + 1) + "-" + ngaykt.$D
+              ngaykt.$y + "-" + (ngaykt.$M + 1) + "-" + ngaykt.$D, sotientoithieu
             );
-            setOpenadd(false);  setOpenalert(true);  setTenpgg("");  setSotiengiam("");  setNgaybd("");  setNgaykt("");   setCount((e) => e + 1);
+            setOpenadd(false);  setOpenalert(true);  setTenpgg("");  setSotiengiam("");  setSotientoithieu("");  setNgaybd("");  setNgaykt("");   setCount((e) => e + 1);
           } else {
             setOpensonguyen(true); }
         } else {
           setOpenngay(true);  }
       } else {
         setOpentrung(true); }}
-    if ((!tenpgg || !sotiengiam || !ngaybd || !ngaykt) && !openxoa) {
+    if ((!tenpgg || !sotiengiam || !ngaybd || !ngaykt || !sotientoithieu) && !openxoa) {
       setOpenloi(true); }
   };
 
@@ -123,7 +124,7 @@ export default function Listpgg() {
     setOpenadd(false);
     setTenpgg("");
     setNgaybd("");
-    setSotiengiam("");
+    setSotiengiam(""); setSotientoithieu(""); 
     setNgaykt("");
   };
   const descriptionElementRef = React.useRef(null);
@@ -138,12 +139,12 @@ export default function Listpgg() {
   const [scrollsua, setScrollsua] = React.useState("paper");
   const handlesua = async (e) => {
     e.preventDefault();
-    if (tenpgg && ngaybd && sotiengiam) {
+    if (tenpgg && ngaybd && sotiengiam && sotientoithieu) {
         if (!(ngaybd.$d > ngaykt.$d)) {
-          if (sotiengiam > 999 && sotiengiam % 1 == 0) {
+          if (sotiengiam > 999 && sotiengiam % 1 == 0 && sotientoithieu > 999 && sotientoithieu % 1 == 0) {
       await phieugiamgiaAPI.sua( mapgg,  tenpgg, sotiengiam,
-        ngaybd.$y + "-" + (ngaybd.$M + 1) + "-" + ngaybd.$D, ngaykt.$y + "-" + (ngaykt.$M + 1) + "-" + ngaykt.$D );
-      setCount((e) => e + 1); setOpensua(false); setOpenalert(true); setTenpgg(""); setNgaybd(""); setSotiengiam(""); setNgaykt("");
+        ngaybd.$y + "-" + (ngaybd.$M + 1) + "-" + ngaybd.$D, ngaykt.$y + "-" + (ngaykt.$M + 1) + "-" + ngaykt.$D ,sotientoithieu);
+      setCount((e) => e + 1); setOpensua(false); setOpenalert(true); setTenpgg(""); setNgaybd(""); setSotiengiam(""); setNgaykt("");setSotientoithieu("")
     } else {
       setOpensonguyen(true); }
   } else {
@@ -151,12 +152,12 @@ export default function Listpgg() {
     } else {
       setOpenloi(true);}
     setOpen(false); };
-  const handleClickOpensua = (id, ten, stg, nbd, nkt) => () => {
-    setOpensua(true);  setMapgg(id);  setTenpgg(ten);  setNgaybd(nbd);  setNgaykt(nkt); 
+  const handleClickOpensua = (id, ten, stg, nbd, nkt,sttt) => () => {
+    setOpensua(true);  setMapgg(id);  setTenpgg(ten);  setNgaybd(nbd);  setNgaykt(nkt); setSotientoithieu(sttt);
      setSotiengiam(stg);  setScrollsua("paper"); };
 
   const handleClosesua = () => { setOpensua(false);  setTenpgg("");  setNgaybd("");
-    setSotiengiam(""); setNgaykt(""); };
+    setSotiengiam(""); setNgaykt("");setSotientoithieu("") };
   const descriptionElementRefsua = React.useRef(null);
   React.useEffect(() => {
     if (open) {
@@ -222,11 +223,14 @@ export default function Listpgg() {
                   id="scroll-dialog-description" ref={descriptionElementRef}   >
                   <div>
                     <div>
-                      <TextField
+                      <TextField fullWidth
                         label="* Tên phiếu giảm giá"  color="success"  onChange={(e) => setTenpgg(e.target.value)}
                         style={{ display: "block", marginBottom: "20px" }}   type="text" />
-                      <TextField
+                      <TextField fullWidth
                         label="* Số tiền giảm"     color="success"     onChange={(e) => setSotiengiam(e.target.value)}
+                        type="text"     style={{ display: "block", marginBottom: "20px" }}   />
+                         <TextField fullWidth
+                        label="* Số tiền tối thiểu"     color="success"     onChange={(e) => setSotientoithieu(e.target.value)}
                         type="text"     style={{ display: "block", marginBottom: "20px" }}   />
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <div className="mb-[20px]">
@@ -264,7 +268,7 @@ export default function Listpgg() {
         <table className=" w-[100%] text-center rounded-lg	 	">
           <thead className="h-14  text-white 	">
             <tr>
-              <th className="w-[20%] border-[1px] 	border-white			 border-solid">
+              <th className="w-[15%] border-[1px] 	border-white			 border-solid">
                 <div className="rounded-tl-2xl  bg-green-700 h-[57px] pt-4 mr-[-3px]">  Mã phiếu giảm giá</div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
@@ -274,9 +278,12 @@ export default function Listpgg() {
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-9px]">    Số tiền giảm  </div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
+                <div className="  bg-green-700 h-[57px] pt-4 mr-[-9px]">    Giá tối thiểu  </div>
+              </th>
+              <th className="border-[1px] w-[15%]	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">    Ngày bắt đầu  </div>
               </th>
-              <th className="border-[1px] 	border-white	border-solid">
+              <th className="border-[1px] w-[15%]	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">    Ngày kết thúc  </div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
@@ -297,6 +304,8 @@ export default function Listpgg() {
                     {product.ten_pgg} </td>
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     {product.so_tien_giam}  </td>
+                    <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
+                    {product.toi_thieu}  </td>
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker   inputFormat="YYYY-MM-DD"    mask="____-__-__"  value={product.ngay_bd}
@@ -319,7 +328,7 @@ export default function Listpgg() {
                   <td className="border-[1px] 	border-white	 bg-gray-100	 border-solid ">
                     <div>
                       <Button  color="success"  variant="outlined"  onClick={handleClickOpensua(
-                          product.ma_pgg, product.ten_pgg, product.so_tien_giam, product.ngay_bd, product.ngay_kt)} >
+                          product.ma_pgg, product.ten_pgg, product.so_tien_giam, product.ngay_bd, product.ngay_kt,product.toi_thieu)} >
                         {" "}   <ColorizeIcon /> </Button>
                     </div>
                   </td>
@@ -327,13 +336,13 @@ export default function Listpgg() {
               ))
             ) : (
               <tr>
-                <th  colspan="7"   className=" border-[1px] 	border-white			 border-solid">
+                <th  colspan="8"   className=" border-[1px] 	border-white			 border-solid">
                   <div className="  bg-gray-100 h-[57px] pt-4">  Không tìm thấy dữ liệu bạn đang tìm! </div>
                 </th>
               </tr>
             )}
             <tr>
-              <th  colspan="7"  className=" border-[1px] 	border-white			 border-solid">
+              <th  colspan="8"  className=" border-[1px] 	border-white			 border-solid">
                 <div className="rounded-bl-2xl rounded-br-2xl   bg-gray-100 h-[57px] pt-4">
                   {" "}
                   <Pagination    style={{      display: "flex", flexFlow: "row nowrap", justifyContent: "center",}}
@@ -355,7 +364,7 @@ export default function Listpgg() {
       </Snackbar>
       <Snackbar open={opensonguyen} autoHideDuration={6000} onClose={handleClosesonguyen}>
         <Alert onClose={handleClosesonguyen} severity="error" sx={{ width: "100%" }} >
-          Số tiền giảm phải là số nguyên lớn hơn hoặc bằng 1000 - vui lòng nhập lại! </Alert>
+          Số tiền giảm và số tiền tối thiểu phải là số nguyên lớn hơn hoặc bằng 1000! </Alert>
       </Snackbar>
       <Snackbar  open={openngay}  autoHideDuration={6000}  onClose={handleClosengay} >
         <Alert  onClose={handleClosengay}  severity="error"   sx={{ width: "100%" }} >
@@ -371,12 +380,15 @@ export default function Listpgg() {
           <DialogTitle id="scroll-dialog-title">Chỉnh sửa dữ liệu</DialogTitle>
           <DialogContent dividers={scroll === "paper"}>
             <DialogContentText   id="scroll-dialog-description"   ref={descriptionElementRef}    >
-              <TextField label="* Tên phiếu giảm giá"  color="success"
+              <TextField label="* Tên phiếu giảm giá"  color="success" fullWidth
                 onChange={(e) => setTenpgg(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
                 style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={tenpgg}/>
-              <TextField  label="* Số tiền giảm"  color="success"
+              <TextField  label="* Số tiền giảm"  color="success" fullWidth
                 onChange={(e) => setSotiengiam(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
                 style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={sotiengiam}/>
+                <TextField  label="* Số tiền tối thiểu"  color="success" fullWidth
+                onChange={(e) => setSotientoithieu(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
+                style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={sotientoithieu}/>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className="mb-[20px]">
                   <DatePicker      inputFormat="YYYY-MM-DD"   mask="____-__-__"   label="* Ngày bắt đầu" minDate={"2022-8-1"}

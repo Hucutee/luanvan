@@ -21,6 +21,7 @@ import Dangnhap from "./Shop/features/Nguoidung/dangnhap";
 import Carts from "./Shop/features/Carts/carts";
 import Thongtincanhan from "./Shop/features/Nguoidung/thongtincanhan";
 import Dangky from "./Shop/features/Nguoidung/dangky";
+import Thanhtoan from "./Shop/features/Carts/thanhtoan";
 export default function Router() {
     // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
@@ -57,6 +58,9 @@ export default function Router() {
             },{
                 path: '/products/dangky',
                 element: <Dangky/>
+            },{
+                path: '/products/thanhtoan',
+                element: <Thanhtoan/>
             }
             
            

@@ -168,6 +168,7 @@ function Carts() {
                           currency: "VND",
                         }).format(product.gia_ban)}
                       </p>
+                      {}
                       {datakm.map((km) =>
                         km.ma_sp == product.ma_sp ? (
                           <p>
@@ -399,9 +400,9 @@ function Carts() {
                 <Button
                   variant="contained"
                   color="success"
-                  sx={{ backgroundColor: "#ABD373", height: "55px" , float:"right"}} 
+                  sx={{ backgroundColor: "#ABD373", height: "55px" , float:"right"}}  onClick={goToTop}
                 >
-                  Thanh toán
+                 <Link to="/products/thanhtoan" > Thanh toán</Link>
                 </Button>
                 <Button
                   variant="outlined"

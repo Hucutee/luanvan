@@ -29,6 +29,7 @@ import { addtoUser, login, logout } from "../../app/userSlice";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
+import Filehinh from "./file";
 
 
 Thongtincanhan.propTypes={
@@ -133,6 +134,7 @@ const handleChangetk = (value) => {
         </Grid>
         <Grid sx={{width:"80%", float:"left"}}>a</Grid>
         </Grid>
+        <Filehinh/>
     </Box>
   );
 }

@@ -25,6 +25,7 @@
     "autoprefixer": "^10.4.8",
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
+    "filestack-react": "^4.0.1",
     "notistack": "^2.0.5",
     "query-string": "7.0.0",
     "react": "^18.2.0",

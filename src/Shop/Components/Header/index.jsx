@@ -23,6 +23,7 @@ import { deepOrange, green } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../app/userSlice";
 import { removeAllCart } from "../../app/cartSlide";
+import { removeAllCarttt } from "../../app/cartthanhtoan";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -58,7 +59,8 @@ function Header() {
   const handledx = ()=>{
     
     dispatch(logout());
-    dispatch(removeAllCart());
+    dispatch(removeAllCart());    dispatch(removeAllCarttt());
+
 
   }
   
