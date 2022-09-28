@@ -13,12 +13,16 @@ const donhangAPI = {
     const API_URL = `/donhang/addctdh/${mactsp}&&${madh}&&${sl}&&${gia}`;
     return axiosClient.get(API_URL);
   },
-  delete(id) {
-    const API_URL = `/nhacungcap/delete/${id}`;
+  getdhkh(id) {
+    const API_URL = `/donhang/cuakhachhang/${id}`;
     return axiosClient.get(API_URL,id);
   },
-  getid(id) {
-    const API_URL = `/diachi/getma/${id}`;
+  getctdhkh(id) {
+    const API_URL = `/donhang/ctdhcuakhachhang/${id}`;
+    return axiosClient.get(API_URL,id);
+  },
+  huy(id) {
+    const API_URL = `/donhang/huy/${id}`;
     return axiosClient.get(API_URL);
   },
   sua(id,ten,sdt,dc) {

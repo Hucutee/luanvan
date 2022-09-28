@@ -32,10 +32,10 @@ import { makeStyles } from "@mui/styles";
 import Menucanhan from "./nenu";
 
 
-Thongtincanhan.propTypes={
+Lichsu.propTypes={
 
 };
- function Thongtincanhan() {
+ function Lichsu() {
 
   const dataUser = useSelector((state) => state?.user?.userItem);
   const handledx = ()=>{
@@ -80,7 +80,7 @@ const [trangthai,setTrangthai]= React.useState(0);
             {" "}  Tài khoản{" "}
           </Link>
           <Link to="#" underline="hover" style={{color:"#339900"}} value="1" >
-            {" "}  Thông tin cá nhân{" "}
+            {" "}  Lịch sử mua hàng{" "}
           </Link>
         </Breadcrumbs>
       </div>
@@ -95,4 +95,4 @@ const [trangthai,setTrangthai]= React.useState(0);
 }
 
 
-export default Thongtincanhan;
+export default Lichsu;

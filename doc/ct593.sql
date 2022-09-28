@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 28, 2022 lúc 08:53 AM
+-- Thời gian đã tạo: Th9 28, 2022 lúc 04:32 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -276,9 +276,9 @@ CREATE TABLE `don_hang` (
   `ma_nv` varchar(50) NOT NULL,
   `ngay_dat_hang` datetime NOT NULL,
   `dia_chi_giao` varchar(255) NOT NULL,
-  `hinh_thuc_thanh_toan` varchar(50) NOT NULL,
+  `hinh_thuc_thanh_toan` int(20) NOT NULL,
   `tong_tien` int(20) NOT NULL,
-  `trang_thai` varchar(20) NOT NULL,
+  `trang_thai` int(20) NOT NULL,
   `nguoi_nhan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -287,8 +287,8 @@ CREATE TABLE `don_hang` (
 --
 
 INSERT INTO `don_hang` (`ma_dh`, `ma_kh`, `ma_pgg`, `ma_nv`, `ngay_dat_hang`, `dia_chi_giao`, `hinh_thuc_thanh_toan`, `tong_tien`, `trang_thai`, `nguoi_nhan`) VALUES
-('DH01', 'ND01', 'PGG1', 'ND01', '2022-09-28 13:49:57', 'a', '1', 186000, '0', 'Trần Hoàng Na, 0939542889'),
-('DH02', 'ND01', 'PGG2', 'ND01', '2022-09-28 13:51:57', 'AAAA', '1', 522800, '0', 'Phan Hậu, 0464545454');
+('DH01', 'ND01', 'PGG1', 'ND01', '2022-09-28 13:49:57', 'a', 1, 186000, 1, 'Trần Hoàng Na, 0939542889'),
+('DH02', 'ND01', 'PGG2', 'ND01', '2022-09-28 13:51:57', 'AAAA', 1, 522800, 0, 'Phan Hậu, 0464545454');
 
 --
 -- Bẫy `don_hang`

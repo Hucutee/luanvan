@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { addtoCarttt, removeAllCarttt } from "../../app/cartthanhtoan";
+import { removeAllCart } from "../../app/cartSlide";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import chitietsanphamApi from "../../../Manage/api/chitietsanphamApi";
 import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
@@ -20,7 +21,11 @@ import diachiAPI from "../../../Manage/api/diachi";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import donhangAPI from "../../../Manage/api/donhangApi";
+import { useNavigate } from "react-router-dom";
+
 function Thanhtoan() {
+  const history = useNavigate();
+
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -169,7 +174,8 @@ function Thanhtoan() {
         for (let i = 0; i < dataCarttt.length; i++) {
           await donhangAPI.addctdh(dataCarttt[i].ma_ctsp,maa[0].ma_dh,dataCarttt[i].so_luong,dataCarttt[i].gia);
     }
-  }
+  } dispatch(removeAllCarttt());dispatch(removeAllCart());    history(`/products/donhang`);
+
     }
   }
   return (
@@ -443,7 +449,33 @@ function Thanhtoan() {
                       </td>
                     </tr>
                   ))}
-
+ <tr
+                    style={{ height: "100px" }}
+                    className="border-t-[2px] 	border-gray-300			 border-solid "
+                  >
+                    <td colspan="2" className="p-2 ">
+                      <p style={{ fontSize: "18px", fontWeight: "500" }}>
+                        Tổng cộng
+                      </p>
+                    </td>
+                    <td
+                      style={{
+                        fontSize: "18px",
+                        color: "#339900",
+                        fontWeight: "500",
+                        paddingTop: "10px",
+                      }}
+                    >
+                        <p>
+                          {" "}
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(gia)}{" "}
+                        </p>
+                      
+                    </td>
+                  </tr>
                   <tr
                     style={{ height: "100px" }}
                     className="border-t-[2px] 	border-gray-300			 border-solid "
@@ -561,7 +593,7 @@ function Thanhtoan() {
                         paddingTop: "10px",
                       }}
                     >
-                      {gia - giam >= 500000 ? (
+                      {gia >= 500000 ? (
                         <p>
                           {" "}
                           {new Intl.NumberFormat("vi-VN", {

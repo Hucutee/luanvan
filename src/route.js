@@ -22,6 +22,8 @@ import Carts from "./Shop/features/Carts/carts";
 import Thongtincanhan from "./Shop/features/Nguoidung/thongtincanhan";
 import Dangky from "./Shop/features/Nguoidung/dangky";
 import Thanhtoan from "./Shop/features/Carts/thanhtoan";
+import Lichsu from "./Shop/features/Nguoidung/lichsu";
+import Donhang from "./Shop/features/Nguoidung/donhang";
 export default function Router() {
     // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
@@ -61,6 +63,13 @@ export default function Router() {
             },{
                 path: '/products/thanhtoan',
                 element: <Thanhtoan/>
+            },{
+                path: '/products/lichsumuahang',
+                element: <Lichsu/>
+            }
+            ,{
+                path: '/products/donhang',
+                element: <Donhang/>
             }
             
            
