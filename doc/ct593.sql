@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 26, 2022 lúc 03:50 PM
+-- Thời gian đã tạo: Th9 28, 2022 lúc 08:53 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -24,6 +24,47 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `chi_tiet_dh`
+--
+
+CREATE TABLE `chi_tiet_dh` (
+  `ma_ctdh` varchar(50) NOT NULL,
+  `ma_ctsp` varchar(50) NOT NULL,
+  `ma_dh` varchar(50) NOT NULL,
+  `so_luong` int(20) NOT NULL,
+  `gia` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `chi_tiet_dh`
+--
+
+INSERT INTO `chi_tiet_dh` (`ma_ctdh`, `ma_ctsp`, `ma_dh`, `so_luong`, `gia`) VALUES
+('CTD1', 'CT043', 'DH01', 1, 36000),
+('CTD2', 'CT035', 'DH01', 3, 50000),
+('CTD3', 'CT018', 'DH02', 8, 27000),
+('CTD4', 'CT049', 'DH02', 11, 28800);
+
+--
+-- Bẫy `chi_tiet_dh`
+--
+DELIMITER $$
+CREATE TRIGGER `them_ctdh` BEFORE INSERT ON `chi_tiet_dh` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("CTD",SUBSTRING(ma_ctdh,4)+1) FROM chi_tiet_dh ORDER BY SUBSTRING(ma_ctdh,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_ctdh = 'CTD1';
+ELSE SET NEW.ma_ctdh = id;
+END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `chi_tiet_hdn`
 --
 
@@ -40,8 +81,6 @@ CREATE TABLE `chi_tiet_hdn` (
 --
 
 INSERT INTO `chi_tiet_hdn` (`ma_cthdn`, `ma_hdn`, `ma_ctsp`, `so_luong_nhap`, `gia_nhap`) VALUES
-('CHN7', 'HDN4', 'CT018', 20, '23000'),
-('CHN8', 'HDN4', 'CT034', 20, '15000'),
 ('CHN9', 'HDN2', 'CT052', 25, '8000');
 
 --
@@ -164,6 +203,145 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `dia_chi`
+--
+
+CREATE TABLE `dia_chi` (
+  `ma_dc` varchar(50) NOT NULL,
+  `ten_dc` varchar(255) NOT NULL,
+  `ma_nd` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `dia_chi`
+--
+
+INSERT INTO `dia_chi` (`ma_dc`, `ten_dc`, `ma_nd`) VALUES
+('DC01', 'a', 'ND01'),
+('DC02', 'AAAA', 'ND01');
+
+--
+-- Bẫy `dia_chi`
+--
+DELIMITER $$
+CREATE TRIGGER `them_dc` BEFORE INSERT ON `dia_chi` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("DC0",SUBSTRING(ma_dc,4)+1) FROM dia_chi ORDER BY SUBSTRING(ma_dc,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_dc = 'DC01';
+ELSE SET NEW.ma_dc = id;
+END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `them_dcC` BEFORE INSERT ON `dia_chi` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("DC0",SUBSTRING(ma_dc,4)+1) FROM dia_chi ORDER BY SUBSTRING(ma_dc,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_dc = 'DC01';
+ELSE SET NEW.ma_dc = id;
+END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `them_dccc` BEFORE INSERT ON `dia_chi` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("DC0",SUBSTRING(ma_dc,4)+1) FROM dia_chi ORDER BY SUBSTRING(ma_dc,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_dc = 'DC01';
+ELSE SET NEW.ma_dc = id;
+END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `don_hang`
+--
+
+CREATE TABLE `don_hang` (
+  `ma_dh` varchar(50) NOT NULL,
+  `ma_kh` varchar(50) NOT NULL,
+  `ma_pgg` varchar(50) NOT NULL,
+  `ma_nv` varchar(50) NOT NULL,
+  `ngay_dat_hang` datetime NOT NULL,
+  `dia_chi_giao` varchar(255) NOT NULL,
+  `hinh_thuc_thanh_toan` varchar(50) NOT NULL,
+  `tong_tien` int(20) NOT NULL,
+  `trang_thai` varchar(20) NOT NULL,
+  `nguoi_nhan` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `don_hang`
+--
+
+INSERT INTO `don_hang` (`ma_dh`, `ma_kh`, `ma_pgg`, `ma_nv`, `ngay_dat_hang`, `dia_chi_giao`, `hinh_thuc_thanh_toan`, `tong_tien`, `trang_thai`, `nguoi_nhan`) VALUES
+('DH01', 'ND01', 'PGG1', 'ND01', '2022-09-28 13:49:57', 'a', '1', 186000, '0', 'Trần Hoàng Na, 0939542889'),
+('DH02', 'ND01', 'PGG2', 'ND01', '2022-09-28 13:51:57', 'AAAA', '1', 522800, '0', 'Phan Hậu, 0464545454');
+
+--
+-- Bẫy `don_hang`
+--
+DELIMITER $$
+CREATE TRIGGER `them_don_hang` BEFORE INSERT ON `don_hang` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("DH0",SUBSTRING(ma_dh,4)+1) FROM don_hang ORDER BY SUBSTRING(ma_dh,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_dh = 'DH01';
+ELSE SET NEW.ma_dh = id;
+END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `giao_hang`
+--
+
+CREATE TABLE `giao_hang` (
+  `ma_gh` varchar(50) NOT NULL,
+  `ngay_gh` date NOT NULL,
+  `ma_ngh` varchar(50) NOT NULL,
+  `ma_dh` varchar(50) NOT NULL,
+  `ghi_chu` varchar(255) NOT NULL,
+  `trang_thai` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Bẫy `giao_hang`
+--
+DELIMITER $$
+CREATE TRIGGER `them_gh` BEFORE INSERT ON `giao_hang` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("GH0",SUBSTRING(ma_gh,4)+1) FROM giao_hang ORDER BY SUBSTRING(ma_gh,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_gh = 'GH01';
+ELSE SET NEW.ma_gh = id;
+END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `hoa_don_nhap`
 --
 
@@ -180,11 +358,8 @@ CREATE TABLE `hoa_don_nhap` (
 --
 
 INSERT INTO `hoa_don_nhap` (`ma_hdn`, `ngay_nhap`, `ma_nv`, `ma_ncc`, `ghi_chu`) VALUES
-('HDN1', '2022-09-10', 'NV01', 'CC01', 'Lô hàng sen đá mini'),
-('HDN2', '2022-09-30', 'NV01', 'CC02', 'Hàng nhiều loại'),
-('HDN3', '2022-09-27', 'NV01', 'CC03', 'Lô hàng xương rồng'),
-('HDN4', '2022-09-28', 'NV01', 'CC04', 'Sen đá nhiều loại'),
-('HDN5', '2022-09-25', 'NV01', 'CC05', 'Chậu gốm sứ');
+('HDN1', '2022-09-10', 'ND01', 'CC01', 'Lô hàng sen đá mini'),
+('HDN2', '2022-09-30', 'ND01', 'CC02', 'Hàng nhiều loại');
 
 --
 -- Bẫy `hoa_don_nhap`
@@ -378,6 +553,47 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `nguoi_giao_hang`
+--
+
+CREATE TABLE `nguoi_giao_hang` (
+  `ma_ngh` varchar(50) NOT NULL,
+  `ten_ngh` varchar(150) NOT NULL,
+  `gioi_tinh` varchar(5) NOT NULL,
+  `ngay_sinh` date NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `dia_chi` varchar(255) NOT NULL,
+  `sdt` varchar(20) NOT NULL,
+  `mat_khau` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `nguoi_giao_hang`
+--
+
+INSERT INTO `nguoi_giao_hang` (`ma_ngh`, `ten_ngh`, `gioi_tinh`, `ngay_sinh`, `email`, `dia_chi`, `sdt`, `mat_khau`) VALUES
+('NGH1', 'Bùi Công Minh', 'Nam', '2012-09-01', 'minh@gmail.com', 'Cần Thơ', '0987654321', 'ef209c9343ca8c715265781876657b18');
+
+--
+-- Bẫy `nguoi_giao_hang`
+--
+DELIMITER $$
+CREATE TRIGGER `them_nguoi_giao_hang` BEFORE INSERT ON `nguoi_giao_hang` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("NGH",SUBSTRING(ma_ngh,4)+1) FROM nguoi_giao_hang ORDER BY SUBSTRING(ma_ngh,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_ngh = 'NGH1';
+ELSE SET NEW.ma_ngh = id;
+END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `nha_cung_cap`
 --
 
@@ -427,15 +643,17 @@ CREATE TABLE `phieu_giam_gia` (
   `ten_pgg` varchar(150) NOT NULL,
   `so_tien_giam` int(20) NOT NULL,
   `ngay_bd` date NOT NULL,
-  `ngay_kt` date NOT NULL
+  `ngay_kt` date NOT NULL,
+  `toi_thieu` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `phieu_giam_gia`
 --
 
-INSERT INTO `phieu_giam_gia` (`ma_pgg`, `ten_pgg`, `so_tien_giam`, `ngay_bd`, `ngay_kt`) VALUES
-('PGG4', 'Giảm giá trung thu', 10000, '2022-09-03', '2022-10-31');
+INSERT INTO `phieu_giam_gia` (`ma_pgg`, `ten_pgg`, `so_tien_giam`, `ngay_bd`, `ngay_kt`, `toi_thieu`) VALUES
+('PGG1', '1', 1000, '2022-09-28', '2022-09-28', 100000000),
+('PGG2', 'Giảm giá trung thu', 10000, '2022-09-28', '2022-10-26', 100000);
 
 --
 -- Bẫy `phieu_giam_gia`
@@ -544,10 +762,20 @@ DELIMITER ;
 --
 
 --
+-- Chỉ mục cho bảng `chi_tiet_dh`
+--
+ALTER TABLE `chi_tiet_dh`
+  ADD PRIMARY KEY (`ma_ctdh`),
+  ADD KEY `co_ctsp` (`ma_ctsp`),
+  ADD KEY `thuoc_dh` (`ma_dh`);
+
+--
 -- Chỉ mục cho bảng `chi_tiet_hdn`
 --
 ALTER TABLE `chi_tiet_hdn`
-  ADD PRIMARY KEY (`ma_cthdn`);
+  ADD PRIMARY KEY (`ma_cthdn`),
+  ADD KEY `thuoc_hdn` (`ma_hdn`),
+  ADD KEY `co_ctsp` (`ma_ctsp`);
 
 --
 -- Chỉ mục cho bảng `chi_tiet_san_pham`
@@ -559,11 +787,36 @@ ALTER TABLE `chi_tiet_san_pham`
   ADD KEY `thuoc_kich_thuoc` (`ma_kt`);
 
 --
+-- Chỉ mục cho bảng `dia_chi`
+--
+ALTER TABLE `dia_chi`
+  ADD PRIMARY KEY (`ma_dc`),
+  ADD KEY `thuoc_nd` (`ma_nd`);
+
+--
+-- Chỉ mục cho bảng `don_hang`
+--
+ALTER TABLE `don_hang`
+  ADD PRIMARY KEY (`ma_dh`),
+  ADD KEY `them_boi` (`ma_nv`),
+  ADD KEY `mua_boi` (`ma_kh`),
+  ADD KEY `co_pgg` (`ma_pgg`);
+
+--
+-- Chỉ mục cho bảng `giao_hang`
+--
+ALTER TABLE `giao_hang`
+  ADD PRIMARY KEY (`ma_gh`),
+  ADD KEY `thuoc_ngh` (`ma_ngh`),
+  ADD KEY `thuoc_dh` (`ma_dh`);
+
+--
 -- Chỉ mục cho bảng `hoa_don_nhap`
 --
 ALTER TABLE `hoa_don_nhap`
   ADD PRIMARY KEY (`ma_hdn`),
-  ADD KEY `thuoc_ncc` (`ma_ncc`);
+  ADD KEY `thuoc_ncc` (`ma_ncc`),
+  ADD KEY `them_boi` (`ma_nv`);
 
 --
 -- Chỉ mục cho bảng `khuyen_mai`
@@ -591,6 +844,12 @@ ALTER TABLE `nguoi_dung`
   ADD PRIMARY KEY (`ma_nd`);
 
 --
+-- Chỉ mục cho bảng `nguoi_giao_hang`
+--
+ALTER TABLE `nguoi_giao_hang`
+  ADD PRIMARY KEY (`ma_ngh`);
+
+--
 -- Chỉ mục cho bảng `nha_cung_cap`
 --
 ALTER TABLE `nha_cung_cap`
@@ -614,6 +873,20 @@ ALTER TABLE `san_pham`
 --
 
 --
+-- Các ràng buộc cho bảng `chi_tiet_dh`
+--
+ALTER TABLE `chi_tiet_dh`
+  ADD CONSTRAINT `co_ctspp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chi_tiet_san_pham` (`ma_ctsp`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `thuoc_dhh` FOREIGN KEY (`ma_dh`) REFERENCES `don_hang` (`ma_dh`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `chi_tiet_hdn`
+--
+ALTER TABLE `chi_tiet_hdn`
+  ADD CONSTRAINT `co_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chi_tiet_san_pham` (`ma_ctsp`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `thuoc_hdn` FOREIGN KEY (`ma_hdn`) REFERENCES `hoa_don_nhap` (`ma_hdn`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Các ràng buộc cho bảng `chi_tiet_san_pham`
 --
 ALTER TABLE `chi_tiet_san_pham`
@@ -621,9 +894,31 @@ ALTER TABLE `chi_tiet_san_pham`
   ADD CONSTRAINT `thuoc_san_pham` FOREIGN KEY (`ma_sp`) REFERENCES `san_pham` (`ma_sp`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Các ràng buộc cho bảng `dia_chi`
+--
+ALTER TABLE `dia_chi`
+  ADD CONSTRAINT `thuoc_nd` FOREIGN KEY (`ma_nd`) REFERENCES `nguoi_dung` (`ma_nd`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `don_hang`
+--
+ALTER TABLE `don_hang`
+  ADD CONSTRAINT `don_hang_ibfk_1` FOREIGN KEY (`ma_kh`) REFERENCES `nguoi_dung` (`ma_nd`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `don_hang_ibfk_2` FOREIGN KEY (`ma_nv`) REFERENCES `nguoi_dung` (`ma_nd`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `don_hang_ibfk_3` FOREIGN KEY (`ma_pgg`) REFERENCES `phieu_giam_gia` (`ma_pgg`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `giao_hang`
+--
+ALTER TABLE `giao_hang`
+  ADD CONSTRAINT `thuoc_dh` FOREIGN KEY (`ma_dh`) REFERENCES `don_hang` (`ma_dh`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `thuoc_ngh` FOREIGN KEY (`ma_ngh`) REFERENCES `nguoi_giao_hang` (`ma_ngh`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Các ràng buộc cho bảng `hoa_don_nhap`
 --
 ALTER TABLE `hoa_don_nhap`
+  ADD CONSTRAINT `them_boi` FOREIGN KEY (`ma_nv`) REFERENCES `nguoi_dung` (`ma_nd`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `thuoc_ncc` FOREIGN KEY (`ma_ncc`) REFERENCES `nha_cung_cap` (`ma_ncc`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

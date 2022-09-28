@@ -19,6 +19,7 @@ import { IMaskInput } from "react-imask";
 import diachiAPI from "../../../Manage/api/diachi";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import donhangAPI from "../../../Manage/api/donhangApi";
 function Thanhtoan() {
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -30,9 +31,11 @@ function Thanhtoan() {
   const [gia, setGia] = useState("");
   const [count, setCount] = useState(0);
   const [pgg, setPgg] = React.useState("");
+  const [giam, setGiam] = React.useState(0);
+
   const [datapgg, setDatapgg] = React.useState([]);
   const handleChangepgg = (event) => {
-    setPgg(event.target.value);
+    setPgg(event.target.value); setGiam(event.target.value.so_tien_giam);
     console.log(event.target.value);
   };
   const [diachi, setDiachi] = React.useState("");
@@ -155,6 +158,20 @@ function Thanhtoan() {
     }
     setOpenloi(false);
   };
+  const handlemua = async () =>{
+    console.log(ho.textmask+" "+ten.textmask +", "+sdt.textmask,diachi,pgg.ma_pgg,gia-giam,loaitt,dataUser[0].ma_nd);
+    if(ho.textmask && ten.textmask && sdt.textmask && diachi  &&  loaitt ==1){
+      if(pgg){
+        await donhangAPI.create(ho.textmask+" "+ten.textmask +", "+sdt.textmask,diachi,pgg.ma_pgg,gia-giam,loaitt,dataUser[0].ma_nd); console.log(pgg);
+      }else{        await donhangAPI.create(ho.textmask+" "+ten.textmask +", "+sdt.textmask,diachi,"PGG1",gia-giam,loaitt,dataUser[0].ma_nd);console.log(pgg); }
+      const maa = await donhangAPI.getdh(dataUser[0].ma_nd);console.log(maa);
+      if (dataCarttt.length !== 0) {
+        for (let i = 0; i < dataCarttt.length; i++) {
+          await donhangAPI.addctdh(dataCarttt[i].ma_ctsp,maa[0].ma_dh,dataCarttt[i].so_luong,dataCarttt[i].gia);
+    }
+  }
+    }
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <div
@@ -374,9 +391,9 @@ function Thanhtoan() {
               variant="contained"
               color="success"
               sx={{ backgroundColor: "#ABD373", height: "55px", width:"98%" }}
-              onClick={goToTop}
+              onClick={handlemua}
             >
-              <Link to="/products">Mua hàng</Link>
+              <Link to="#">Mua hàng</Link>
             </Button>
           </div>
         </Box>
@@ -502,7 +519,7 @@ function Thanhtoan() {
                         >
                           {datapgg.length > 0 ? (
                             datapgg.map((aa) => (
-                              <MenuItem value={aa.so_tien_giam}>
+                              <MenuItem value={aa}>
                                 {aa.ten_pgg} <br /> Số tiền giảm:{" "}
                                 {new Intl.NumberFormat("vi-VN", {
                                   style: "currency",
@@ -544,13 +561,13 @@ function Thanhtoan() {
                         paddingTop: "10px",
                       }}
                     >
-                      {gia - pgg >= 500000 ? (
+                      {gia - giam >= 500000 ? (
                         <p>
                           {" "}
                           {new Intl.NumberFormat("vi-VN", {
                             style: "currency",
                             currency: "VND",
-                          }).format(gia - pgg)}{" "}
+                          }).format(gia - giam)}{" "}
                         </p>
                       ) : (
                         <p>
@@ -558,7 +575,7 @@ function Thanhtoan() {
                           {new Intl.NumberFormat("vi-VN", {
                             style: "currency",
                             currency: "VND",
-                          }).format(gia - pgg + 30000)}{" "}
+                          }).format(gia - giam + 30000)}{" "}
                         </p>
                       )}
                     </td>
