@@ -86,7 +86,10 @@ export default function TemporaryDrawer() {
   const handleClickgg = () => {
     setOpengg(!opengg);
   };
-
+  const [openhd, setOpenhd] = React.useState(false);
+  const handleClickhd = () => {
+    setOpenhd(!openhd);
+  };
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -205,24 +208,39 @@ export default function TemporaryDrawer() {
         </List>
       </Collapse>
            
-            
+      <ListItemButton onClick={handleClickhd}>
+        <ListItemIcon>
+          <LocalAtmIcon />
+        </ListItemIcon>
+        <ListItemText primary="Đơn hàng" />
+        {openhd ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={openhd} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 6 }}>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <AccountBalanceWalletIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/donhang" className="">
+              Đơn hàng
+            </Link></ListItemText>
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 6 }}>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <PercentIcon />}
+              </ListItemIcon>
+              <ListItemText > <Link to="/Manager/khuyenmai" className="">
+              Khuyến mãi
+            </Link></ListItemText>
+            </ListItemButton>
+        </List>
+      </Collapse>
            
           
             
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      
     </Box>
   );
 

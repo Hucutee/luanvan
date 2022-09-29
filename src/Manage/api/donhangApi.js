@@ -9,6 +9,10 @@ const donhangAPI = {
     const API_URL = `/donhang/getmadh/${makh}`;
     return axiosClient.get(API_URL);
   },
+  getall() {
+    const API_URL = `/donhang`;
+    return axiosClient.get(API_URL);
+  },
   addctdh(mactsp,madh,sl,gia) {
     const API_URL = `/donhang/addctdh/${mactsp}&&${madh}&&${sl}&&${gia}`;
     return axiosClient.get(API_URL);
@@ -20,6 +24,10 @@ const donhangAPI = {
   getctdhkh(id) {
     const API_URL = `/donhang/ctdhcuakhachhang/${id}`;
     return axiosClient.get(API_URL,id);
+  },
+  getallctdh() {
+    const API_URL = `/donhang/getallctdh`;
+    return axiosClient.get(API_URL);
   },
   huy(id) {
     const API_URL = `/donhang/huy/${id}`;
