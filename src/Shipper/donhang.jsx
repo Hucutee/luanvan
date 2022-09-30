@@ -11,9 +11,9 @@ import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
-import chitietsanphamApi from "../../api/chitietsanphamApi";
-import sanphamApi from "../../api/sanphamApi";
-import loaisanphamApi from "../../api/loaisanphamApi";
+import chitietsanphamApi from "../Manage/api/chitietsanphamApi";
+import sanphamApi from "../Manage/api/sanphamApi";
+import loaisanphamApi from "../Manage/api/loaisanphamApi";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Grid, Box, Paper, Typography, Link, TextField } from "@mui/material";
 import { Button, ButtonGroup, FormHelperText } from "@mui/material";
@@ -22,7 +22,6 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect } from 'react';
 import { useState } from 'react';
-import donhangAPI from '../../api/donhangApi';
 import Zoom from "react-img-zoom";
 import Divider from '@mui/material/Divider';
 import Pagination from "@mui/material/Pagination";
@@ -31,8 +30,10 @@ import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import donhangAPI from '../Manage/api/donhangApi';
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Donhangquanly() {
+export default function Donhangshipper() {
   const [open, setOpen] = React.useState(false);
   const [count, setCount] = useState(0);
   const [datadh, setDatadh] = useState([]);
@@ -40,9 +41,10 @@ export default function Donhangquanly() {
   const [datactdh, setDatactdh] = useState([]);
   const [trang, setTrang] = React.useState(1);
   const [datadhtrang, setDatadhtrang] = useState([]);
-  const [trangthai, setTrangthai ] = React.useState('06');
+  const [trangthai, setTrangthai ] = React.useState('24');
   const [counttrang, setCounttrang] = useState(0);
-
+  const dataUser = useSelector((state) => state?.userShipper?.current); 
+  const dispatch = useDispatch();
   const handleChangetrangthai = (event) => {
     setTrangthai(event.target.value); setCount((e) => e + 1);console.log(event.target.value);
   };
@@ -58,26 +60,18 @@ export default function Donhangquanly() {
     await donhangAPI.huydon(madh);
     setCount((e) => e + 1);
   };
-  const handlexacnhandon = async(madh) => {
-    const dlctdh = await donhangAPI.getallctdh();console.log(dlctdh);
-    let a =0;
-    if (dlctdh.length !== 0) {
-      for (let i = 0; i < dlctdh.length; i++) {
-        if(dlctdh[i].so_luong > dlctdh[i].soluong && dlctdh[i].ma_dh==madh){
-          a=a+1; 
-        }
-  } 
-  } console.log(a);
-    if (dlctdh.length !== 0 && a<1) {
-      for (let i = 0; i < dlctdh.length; i++) {
-        if(dlctdh[i].ma_dh==madh){
-          await donhangAPI.setslctsp(dlctdh[i].ma_ctsp,dlctdh[i].so_luong); console.log(dlctdh[i].ma_ctsp,dlctdh[i].so_luong);
-        }
-  } await donhangAPI.daxacnhan(madh);
-    
-  } setCount((e) => e + 1);}
+  const handlexacnhandon = async(aa) => {
+   await donhangAPI.setttngh(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
+   await donhangAPI.addctgh(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
+
+    setCount((e) => e + 1);}
+    const handlexacnhandon1 = async(aa) => {
+      await donhangAPI.setttngh1(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
+      await donhangAPI.addctgh1(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
+   
+       setCount((e) => e + 1);}
   useEffect(() => {
-    (async () => {
+    (async () => { console.log(dataUser);
     const dl = await donhangAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
     const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); 
     const dlctdh = await donhangAPI.getallctdh();
@@ -92,29 +86,9 @@ export default function Donhangquanly() {
          <div
         role="presentation"
         style={{ borderTop: "1px solid #ededed",   borderBottom: "1px solid #ededed",   marginBottom: "40px", height:"52px"}} >
-        <Breadcrumbs
-          separator="&ensp; › &ensp;" aria-label="breadcrumb" 
-           style={{    fontSize: "13px",    lineHeight: "50px",   marginLeft: "9.5%",   float: "left", }}  >
-          <Link underline="hover" color="inherit" href="">  Quản lý </Link>
-          <Link underline="hover" color="inherit">   Chi tiết sản phẩm </Link>
-          <Link  value="1"  underline="hover"  color="#339900" >  Danh sách </Link>
-        </Breadcrumbs>
+       <Typography sx={{marginTop:"10px",marginLeft:"10%"}}>{dataUser[0].ten_ngh}</Typography>
         <div className="bg-slate-200">
-          <Paper
-            elevation={0} component="form"
-            className="my-1 mr-[4%] border-[1px] 	border-slate-300	bg-slate-200		 border-solid hover:bg-slate-300"
-            sx={{ p: "0px 4px", display: "flex",  alignItems: "center",  width: "15%",  float: "left",  marginLeft: "39%",
-              backgroundColor: " rgb(229 231 235);",  }} >
-            <InputBase
-               sx={{ ml: 1, flex: 1 }}
-              placeholder="Tìm theo sản phẩm"  inputProps={{ "aria-label": "search google maps" }} />
-              
-            <IconButton
-                type="button"
-              sx={{ p: 1 }}  aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </Paper>
+          
         </div>
         <div className="my-1   ">
           
@@ -132,12 +106,15 @@ export default function Donhangquanly() {
           onChange={handleChangetrangthai}
           label="Age"
         >
-                    <MenuItem value="06"><b>Tất cả đơn hàng</b></MenuItem>
-          <MenuItem value="00"><b>Chưa xác nhận</b></MenuItem>
-          <MenuItem value="13"><b>Đã xác nhận</b></MenuItem>
+         <MenuItem value="11"><b>Đơn hàng chờ</b></MenuItem>
+         <MenuItem value="24"><b>Đơn của bạn</b></MenuItem>
+          <MenuItem value="22"><b>Đã nhận</b></MenuItem>
+          <MenuItem value="33"><b>Đang giao</b></MenuItem>
           <MenuItem value="44"><b>Đã hoàn thành</b></MenuItem>
-          <MenuItem value="55"><b>Đơn đã hủy</b></MenuItem>
-          <MenuItem value="66"><b>Khách boom hàng</b></MenuItem>
+          <MenuItem value="44"><b>Đã hoàn thành</b></MenuItem>
+          <MenuItem value="66"><b>Kháchg boom hàng</b></MenuItem>
+
+
 
         </Select>
       </FormControl></ListItemText> </div>
@@ -162,17 +139,17 @@ export default function Donhangquanly() {
                               }).format(
                                 aa.tong_tien
                               )}</ListItemText> 
-        {aa.trang_thai ==0 ? (
-        <ListItemText sx={{width:"16%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa.ma_dh)}>Xác nhận</Button><Button onClick={(e)=>handlehuydon(aa.ma_dh)} variant="outlined" color="error">Hủy đơn</Button></ListItemText>
+        {aa.trang_thai ==1 ? (
+        <ListItemText sx={{width:"16%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa)}>Nhận đơn</Button></ListItemText>
        ):false}
-        {aa.trang_thai ==5 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="warning">Đã hủy đơn</Button></ListItemText>):false}
-        {aa.trang_thai > 0 && aa.trang_thai <4 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" >Đã xác nhận</Button></ListItemText>):false}
+        {aa.trang_thai >5 ? (
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}
+        {aa.trang_thai ==2 ? (
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="inherit" onClick={(e)=>handlexacnhandon(aa)}>Đã nhận</Button></ListItemText>):false}
+         {aa.trang_thai ==3 ? (
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" onClick={(e)=>handlexacnhandon(aa)} >Đang giao</Button><Button sx={{marginLeft:"10px"}} color="warning" variant="contained" onClick={(e)=>handlexacnhandon1(aa)}>Khách boom?</Button></ListItemText>):false}
        {aa.trang_thai ==4 ? (
        <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="success">Đã hoàn thành</Button></ListItemText>):false}
-           {aa.trang_thai >5 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}
         {open ? <ExpandLess onClick={(e)=>handleClick(aa.ma_dh)} /> : <ExpandMore onClick={(e)=>handleClick(aa.ma_dh)} />}
         
       </ListItemButton>
@@ -195,7 +172,7 @@ export default function Donhangquanly() {
                             <tr className="h-10 ">
                               <td className=" w-[8%] p-2 ">
                                 <Zoom
-                                  img={require("../../../images/" +
+                                  img={require("./../images/" +
                                     aaa.hinhanh)}
                                   height={50} width={50}
                                 />

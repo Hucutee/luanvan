@@ -48,7 +48,7 @@ function Donhang() {
   const [count, setCount] = React.useState(0);
   const [datadh, setDatadh] = React.useState([]);
   const [datactdh, setDatactdh] = React.useState([]);
-
+  const [loc, setLoc] = React.useState('07');
   const [trangthai, setTrangthai] = React.useState(0);
 const handlehuy = async (madh) =>{
   await donhangAPI.huy(madh); (setCount((e) => e + 1));
@@ -58,14 +58,13 @@ const handlehuy = async (madh) =>{
       try {
         const dh = await donhangAPI.getdhkh(dataUser[0].ma_nd,loc.slice(0,1),loc.slice(1));
         const ctdh = await donhangAPI.getctdhkh(dataUser[0].ma_nd);
-        setDatadh(dh);
+        setDatadh(dh); console.log(ctdh);
         setDatactdh(ctdh);
       } catch (error) {
         console.log("loi", error);
       }
     })();
   }, [count]);
-  const [loc, setLoc] = React.useState('04');
 
   const handleChangeloc = (event) => {
     setLoc(event.target.value); setCount((e) => e + 1);
@@ -107,11 +106,15 @@ const handlehuy = async (madh) =>{
         value={loc} 
         onChange={handleChangeloc}
       >
+          <MenuItem value="07">Tất cả đơn hàng</MenuItem>
         <MenuItem value="00">Chưa xác nhận</MenuItem>
-          <MenuItem value="12">Đã xác nhận</MenuItem>
-          <MenuItem value="33">Đã hoàn thành</MenuItem>
-          <MenuItem value="44">Đơn đã hủy</MenuItem>
-          <MenuItem value="04">Tất cả đơn hàng</MenuItem>
+          <MenuItem value="11">Đã xác nhận</MenuItem>
+          <MenuItem value="22">Đã có người giao</MenuItem>
+          <MenuItem value="33">Đang giao</MenuItem>
+          <MenuItem value="44">Đã hoàn thành</MenuItem>
+          <MenuItem value="55">Đơn đã bị hủy</MenuItem>
+          <MenuItem value="66">Bạn đã boom</MenuItem>
+
       </Select>
     </FormControl>
       </div>
@@ -147,7 +150,7 @@ const handlehuy = async (madh) =>{
                             rowSpan={3}
                             className="border-[1px] 	border-gray-300			 border-solid w-[60%] "
                           >
-                            {aa.trang_thai !=4 ?
+                            {aa.trang_thai <4 ?
                             <Stepper
                             sx={{ width: "100%" }}
                             success
@@ -169,14 +172,38 @@ const handlehuy = async (madh) =>{
                               <StepLabel>Đã giao</StepLabel>
                             </Step>
                           </Stepper>
-                          :<Stepper
+                          : 
+                          aa.trang_thai == 4?
+                          <Stepper
+                              sx={{ width: "100%" }}
+                              success
+                              activeStep={4}
+                              alternativeLabel
+                            >
+                              <Step key="aaa">
+                                <StepLabel>Chờ xác nhận
+                                </StepLabel>
+                              </Step>
+                              <Step key="aaa">
+                                <StepLabel>Tìm người giao hàng</StepLabel>
+                              </Step>
+                              <Step key="aaa">
+                                <StepLabel>Đang giao</StepLabel>
+                              </Step>
+                              <Step key="aaa">
+                                <StepLabel><Button  variant="contained" size="small" >Đã giao</Button></StepLabel>
+                              </Step>
+                            </Stepper>
+                            :
+                            aa.trang_thai == 5 ?
+                            <Stepper
                               sx={{ width: "100%" }}
                               success
                               activeStep={0}
                               alternativeLabel
                             >
                               <Step key="aaa">
-                                <StepLabel><Button onClick={(e)=>handlehuy(aa.ma_dh)} variant="outlined" size="small" color="error">Đơn hàng đã bị hủy</Button>
+                                <StepLabel><Button  variant="contained" size="small" color="warning">Đã bị hủy</Button>
                                 </StepLabel>
                               </Step>
                               <Step key="aaa">
@@ -188,7 +215,29 @@ const handlehuy = async (madh) =>{
                               <Step key="aaa">
                                 <StepLabel>Đã giao</StepLabel>
                               </Step>
-                            </Stepper>}
+                            </Stepper>
+                            : aa.trang_thai == 6 ?
+                            <Stepper
+                              sx={{ width: "100%" }}
+                              success
+                              activeStep={4}
+                              alternativeLabel
+                            >
+                              <Step key="aaa">
+                                <StepLabel>Chờ xác nhận
+                                </StepLabel>
+                              </Step>
+                              <Step key="aaa">
+                                <StepLabel>Tìm người giao hàng</StepLabel>
+                              </Step>
+                              <Step key="aaa">
+                                <StepLabel>Đang giao</StepLabel>
+                              </Step>
+                              <Step key="aaa">
+                                <StepLabel>Đã giao</StepLabel><Button  variant="contained" size="small" color="error">Bạn đã boom</Button>
+                              </Step>
+                            </Stepper> : false
+                          }
                           </td>
                         </tr>
 

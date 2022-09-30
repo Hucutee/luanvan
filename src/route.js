@@ -25,6 +25,9 @@ import Thanhtoan from "./Shop/features/Carts/thanhtoan";
 import Lichsu from "./Shop/features/Nguoidung/lichsu";
 import Donhang from "./Shop/features/Nguoidung/donhang";
 import Donhangquanly from "./Manage/Pages/donhang/donhang";
+import Dangnhapshipper from "./Shipper/dangnhap";
+import HomeShipper from "./Shipper";
+import Donhangshipper from "./Shipper/donhang";
 export default function Router() {
     // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
@@ -110,6 +113,17 @@ export default function Router() {
             },{
                 path: '/Manager/donhang',
                 element: <Donhangquanly/>
+            }
+        ]
+        },{
+            path: '/Shipper',
+            element: <HomeShipper/>,
+            children: [{
+                path: '/Shipper',
+                element: <Dangnhapshipper/>
+            },{
+                path: '/Shipper/donhang',
+                element: <Donhangshipper/>
             }
         ]
         }

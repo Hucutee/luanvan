@@ -13,6 +13,10 @@ const nguoidungApi = {
     const API_URL = `/nguoidung/checkdn/${email}&&${mk}`;
     return axiosClient.get(API_URL);
   },
+  checkdnshipper(email,mk) {
+    const API_URL = `/nguoidung/checkdnshipper/${email}&&${mk}`;
+    return axiosClient.get(API_URL);
+  },
   getList(trang) {
     const API_URL = `/nhacungcap/${trang}`;
     return axiosClient.get(API_URL);

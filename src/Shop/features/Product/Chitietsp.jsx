@@ -261,7 +261,7 @@ const goToTop = () => {
               >
                  {tenkt =="" ? (
                   datasp.map((aa)=>(<p>Số lượng: {aa.soluong ? <span style={{color:"#339900", fontWeight:"400"}}>&ensp; &ensp; </span> : <span style={{color:"RED"}}> </span>}&ensp; &ensp;, &ensp; &ensp; kích thước: <span style={{color:"#339900", fontWeight:"400"}}> </span></p>))
-                 ): (<p>Số lượng: {soluong ? <span style={{color:"#339900",fontWeight:"400"}}>{soluong}</span> : <span style={{color:"red"}}>hết hàng</span>}, &ensp; &ensp; kích thước: <span style={{color:"#339900", fontWeight:"400"}}>{tenkt}</span></p>)}
+                 ): (<p>Số lượng: {soluong ? <span style={{color:"#339900",fontWeight:"400"}}>{soluong}</span> : <span style={{color:"red"}}>hết hàng</span>}, &ensp; &ensp; kích thước: <span style={{color:"#339900", fontWeight:"400"}}>{tenkt}</span>,  &ensp; &ensp; đã bán: <span style={{color:"#339900", fontWeight:"400"}}>{datasp.map((aaa)=>(aaa.da_ban))}</span></p>)}
               </Typography>
              
               <Typography

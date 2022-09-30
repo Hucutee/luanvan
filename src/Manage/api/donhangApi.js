@@ -50,11 +50,22 @@ const donhangAPI = {
     return axiosClient.get(API_URL);
   },
 
-  suatrung(ma,ten) {
-    const API_URL = `/nhacungcap/suatrung/${ma}&&${ten}`;
+  setttngh(ma,mangh,tt) {
+    const API_URL = `/donhang/settrangthaidonhang/${ma}&&${mangh}&&${tt}`;
     return axiosClient.get(API_URL);
   },
- 
+  addctgh(ma,mangh,tt) {
+    const API_URL = `/donhang/themctgh/${ma}&&${mangh}&&${tt}`;
+    return axiosClient.get(API_URL);
+  },
+  setttngh1(ma,mangh,tt) {
+    const API_URL = `/donhang/settrangthaidonhang1/${ma}&&${mangh}&&${tt}`;
+    return axiosClient.get(API_URL);
+  },
+  addctgh1(ma,mangh,tt) {
+    const API_URL = `/donhang/themctgh1/${ma}&&${mangh}&&${tt}`;
+    return axiosClient.get(API_URL);
+  },
 };
 
 export default donhangAPI;
