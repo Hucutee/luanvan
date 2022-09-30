@@ -13,12 +13,16 @@ const donhangAPI = {
     const API_URL = `/donhang`;
     return axiosClient.get(API_URL);
   },
+  gettrang(trang,t1,t2) {
+    const API_URL = `/donhang/${trang}&&${t1}&&${t2}`;
+    return axiosClient.get(API_URL);
+  },
   addctdh(mactsp,madh,sl,gia) {
     const API_URL = `/donhang/addctdh/${mactsp}&&${madh}&&${sl}&&${gia}`;
     return axiosClient.get(API_URL);
   },
-  getdhkh(id) {
-    const API_URL = `/donhang/cuakhachhang/${id}`;
+  getdhkh(id,t1,t2) {
+    const API_URL = `/donhang/cuakhachhang/${id}&&${t1}&&${t2}`;
     return axiosClient.get(API_URL,id);
   },
   getctdhkh(id) {
@@ -26,19 +30,23 @@ const donhangAPI = {
     return axiosClient.get(API_URL,id);
   },
   getallctdh() {
-    const API_URL = `/donhang/getallctdh`;
+    const API_URL = `/donhang/ctdh/getallctdh`;
     return axiosClient.get(API_URL);
   },
   huy(id) {
     const API_URL = `/donhang/huy/${id}`;
     return axiosClient.get(API_URL);
   },
-  sua(id,ten,sdt,dc) {
-    const API_URL = `/nhacungcap/sua/${id}&&${ten}&&${sdt}&&${dc}`;
+  huydon(id) {
+    const API_URL = `/donhang/huydon/${id}`;
     return axiosClient.get(API_URL);
   },
-  getCount() {
-    const API_URL = "/nhacungcap";
+  setslctsp(idctsp,slg) {
+    const API_URL = `/donhang/setslctsp/${idctsp}&&${slg}`;
+    return axiosClient.get(API_URL);
+  },
+  daxacnhan(madh) {
+    const API_URL = `/donhang/daxacnhan/${madh}`;
     return axiosClient.get(API_URL);
   },
 

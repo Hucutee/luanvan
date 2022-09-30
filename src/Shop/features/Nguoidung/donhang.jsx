@@ -35,6 +35,8 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import donhangAPI from "../../../Manage/api/donhangApi";
 import Zoom from "react-img-zoom";
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 Donhang.propTypes = {};
 function Donhang() {
@@ -54,7 +56,7 @@ const handlehuy = async (madh) =>{
   useEffect(() => {
     (async () => {
       try {
-        const dh = await donhangAPI.getdhkh(dataUser[0].ma_nd);
+        const dh = await donhangAPI.getdhkh(dataUser[0].ma_nd,loc.slice(0,1),loc.slice(1));
         const ctdh = await donhangAPI.getctdhkh(dataUser[0].ma_nd);
         setDatadh(dh);
         setDatactdh(ctdh);
@@ -63,6 +65,11 @@ const handlehuy = async (madh) =>{
       }
     })();
   }, [count]);
+  const [loc, setLoc] = React.useState('04');
+
+  const handleChangeloc = (event) => {
+    setLoc(event.target.value); setCount((e) => e + 1);
+  };
   return (
     <Box>
       <div
@@ -70,14 +77,14 @@ const handlehuy = async (madh) =>{
         style={{
           borderTop: "1px solid #ededed",
           borderBottom: "1px solid #ededed",
-          marginBottom: "40px",
+          marginBottom: "40px",height: "42px" 
         }}
       >
         <Breadcrumbs
           id="123"
           separator="&ensp; › &ensp; "
           aria-label="breadcrumb"
-          style={{ marginLeft: "13%", fontSize: "13px", lineHeight: "40px" }}
+          style={{ marginLeft: "13%", fontSize: "13px", lineHeight: "40px",float: "left" }}
         >
           <Link underline="hover" color="inherit" to="/app">
             {" "}
@@ -91,9 +98,25 @@ const handlehuy = async (madh) =>{
             {" "}
             Đơn hàng{" "}
           </Link>
+         
         </Breadcrumbs>
+        <FormControl sx={{ minWidth: 200 , float:"right",marginRight:"15%"}} size="small" color="success">
+      <Select
+        labelId="demo-select-small"
+        id="demo-select-small"
+        value={loc} 
+        onChange={handleChangeloc}
+      >
+        <MenuItem value="00">Chưa xác nhận</MenuItem>
+          <MenuItem value="12">Đã xác nhận</MenuItem>
+          <MenuItem value="33">Đã hoàn thành</MenuItem>
+          <MenuItem value="44">Đơn đã hủy</MenuItem>
+          <MenuItem value="04">Tất cả đơn hàng</MenuItem>
+      </Select>
+    </FormControl>
       </div>
       <Grid className="w-[74%] mx-[13%] ">
+
         <Grid sx={{ width: "20%", float: "left" }}>
           <Menucanhan />
         </Grid>
@@ -124,15 +147,36 @@ const handlehuy = async (madh) =>{
                             rowSpan={3}
                             className="border-[1px] 	border-gray-300			 border-solid w-[60%] "
                           >
+                            {aa.trang_thai !=4 ?
                             <Stepper
+                            sx={{ width: "100%" }}
+                            success
+                            activeStep={aa.trang_thai}
+                            alternativeLabel
+                          >
+                            <Step key="aaa">
+                              <StepLabel>Chờ xác nhận <br/>
+                              {aa.trang_thai == 0 ? <Button onClick={(e)=>handlehuy(aa.ma_dh)} sx={{marginTop:"10px"}}variant="outlined" size="small" color="error">Hủy đơn</Button>:false}
+                              </StepLabel>
+                            </Step>
+                            <Step key="aaa">
+                              <StepLabel>Tìm người giao hàng</StepLabel>
+                            </Step>
+                            <Step key="aaa">
+                              <StepLabel>Đang giao</StepLabel>
+                            </Step>
+                            <Step key="aaa">
+                              <StepLabel>Đã giao</StepLabel>
+                            </Step>
+                          </Stepper>
+                          :<Stepper
                               sx={{ width: "100%" }}
                               success
-                              activeStep={aa.trang_thai}
+                              activeStep={0}
                               alternativeLabel
                             >
                               <Step key="aaa">
-                                <StepLabel>Chờ xác nhận <br/>
-                                {aa.trang_thai == 0 ? <Button onClick={(e)=>handlehuy(aa.ma_dh)} sx={{marginTop:"10px"}}variant="outlined" size="small" color="error">Hủy đơn</Button>:false}
+                                <StepLabel><Button onClick={(e)=>handlehuy(aa.ma_dh)} variant="outlined" size="small" color="error">Đơn hàng đã bị hủy</Button>
                                 </StepLabel>
                               </Step>
                               <Step key="aaa">
@@ -144,7 +188,7 @@ const handlehuy = async (madh) =>{
                               <Step key="aaa">
                                 <StepLabel>Đã giao</StepLabel>
                               </Step>
-                            </Stepper>
+                            </Stepper>}
                           </td>
                         </tr>
 
@@ -168,6 +212,7 @@ const handlehuy = async (madh) =>{
                             false
                           )
                         )}
+                        <tr><td ></td></tr>
                         <tr><td className="h-14"></td></tr>
                       </tbody>
                     </table>
@@ -176,7 +221,12 @@ const handlehuy = async (madh) =>{
               </Box>
             ))
           ) : (
-            <Typography>Bạn chưa có đơn hàng</Typography>
+            <Typography sx={{
+              mx: 2,my:4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              fontSize: "20px",  fontWeight: "500",}}>Mục bạn chọn hiện đang trống!</Typography>
           )}
         </Grid>
       </Grid>

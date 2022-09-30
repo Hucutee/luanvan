@@ -25,6 +25,12 @@ import { useState } from 'react';
 import donhangAPI from '../../api/donhangApi';
 import Zoom from "react-img-zoom";
 import Divider from '@mui/material/Divider';
+import Pagination from "@mui/material/Pagination";
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import NativeSelect from '@mui/material/NativeSelect';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 export default function Donhangquanly() {
   const [open, setOpen] = React.useState(false);
@@ -32,13 +38,48 @@ export default function Donhangquanly() {
   const [datadh, setDatadh] = useState([]);
   const [show, setShow] = React.useState('');
   const [datactdh, setDatactdh] = useState([]);
+  const [trang, setTrang] = React.useState(1);
+  const [datadhtrang, setDatadhtrang] = useState([]);
+  const [trangthai, setTrangthai ] = React.useState('04');
+  const [counttrang, setCounttrang] = useState(0);
 
+  const handleChangetrangthai = (event) => {
+    setTrangthai(event.target.value); setCount((e) => e + 1);console.log(event.target.value);
+  };
+
+
+  const handleChangepage = (event, value) => {
+    setTrang(value);
+    setCount((e) => e + 1); };
   const handleClick = (madh) => {
     setOpen(!open); setShow(madh)
   };
+  const handlehuydon = async(madh) => {
+    await donhangAPI.huydon(madh);
+    setCount((e) => e + 1);
+  };
+  const handlexacnhandon = async(madh) => {
+    const dlctdh = await donhangAPI.getallctdh();console.log(dlctdh);
+    let a =0;
+    if (dlctdh.length !== 0) {
+      for (let i = 0; i < dlctdh.length; i++) {
+        if(dlctdh[i].so_luong > dlctdh[i].soluong && dlctdh[i].ma_dh==madh){
+          a=a+1; 
+        }
+  } 
+  } console.log(a);
+    if (dlctdh.length !== 0 && a<1) {
+      for (let i = 0; i < dlctdh.length; i++) {
+        if(dlctdh[i].ma_dh==madh){
+          await donhangAPI.setslctsp(dlctdh[i].ma_ctsp,dlctdh[i].so_luong); console.log(dlctdh[i].ma_ctsp,dlctdh[i].so_luong);
+        }
+  } await donhangAPI.daxacnhan(madh);
+    
+  } setCount((e) => e + 1);}
   useEffect(() => {
     (async () => {
-    const dl = await donhangAPI.getall();
+    const dl = await donhangAPI.getall();setCounttrang(Math.ceil(dl.length / 5));
+    const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); 
     const dlctdh = await donhangAPI.getallctdh();
     setDatadh(dl);    setDatactdh(dlctdh);
 
@@ -47,6 +88,7 @@ export default function Donhangquanly() {
 
   return (
     <div>
+       
          <div
         role="presentation"
         style={{ borderTop: "1px solid #ededed",   borderBottom: "1px solid #ededed",   marginBottom: "40px", height:"52px"}} >
@@ -79,24 +121,34 @@ export default function Donhangquanly() {
         </div>
       </div>
       <div className="w-[84%] mx-[8%] ">
-        
+        <div style={{backgroundColor:"#3333", height:"50px",}}><ListItemText sx={{width:"23%",fontWeight:"500",float:"left",paddingTop:"10px" }}><b>&ensp; Mã đơn hàng</b></ListItemText>
+        <ListItemText sx={{width:"27%",float:"left",paddingTop:"10px"}}><b>Ngày đặt hàng</b></ListItemText>
+        <ListItemText sx={{width:"25%",float:"left",paddingTop:"10px"}}><b>Tổng đơn</b></ListItemText> 
+       <ListItemText sx={{width:"23%",float:"left" ,paddingTop:"8px"}} >  <FormControl variant="standard" color="success" size="small" sx={{  minWidth: 120 }}>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={trangthai}
+          onChange={handleChangetrangthai}
+          label="Age"
+        >
+          
+          <MenuItem value="00"><b>Chưa xác nhận</b></MenuItem>
+          <MenuItem value="12"><b>Đã xác nhận</b></MenuItem>
+          <MenuItem value="33"><b>Đã hoàn thành</b></MenuItem>
+          <MenuItem value="44"><b>Đơn đã hủy</b></MenuItem>
+          <MenuItem value="04"><b>Tất cả đơn hàng</b></MenuItem>
+        </Select>
+      </FormControl></ListItemText> </div>
       <List
-      sx={{ width: '100%',  }}
+      sx={{ width: '100%',marginTop:"-10px"  }}
       component="nav"
       aria-labelledby="nested-list-subheader"
      
     >
-      <ListItemButton sx={{bgcolor: "#3333" }}>
-       
-       <ListItemText sx={{width:"16%",fontWeight:"500", }}><b>Mã đơn hàng</b></ListItemText>
-        <ListItemText sx={{width:"22%"}}><b>Ngày đặt hàng</b></ListItemText>
-        <ListItemText sx={{width:"20%"}}><b>Tổng đơn</b></ListItemText> 
-       <ListItemText sx={{width:"18%"}}><b>Trạng thái</b></ListItemText> 
-       
-       
-     </ListItemButton>
      
-      {datadh.map((aa)=>(
+     
+      {datadhtrang.map((aa)=>(
         <span>
             
             <ListItemButton >
@@ -110,7 +162,7 @@ export default function Donhangquanly() {
                                 aa.tong_tien
                               )}</ListItemText> 
         {aa.trang_thai ==0 ? (
-        <ListItemText sx={{width:"16%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}}>Xác nhận</Button><Button variant="outlined" color="error">Hủy đơn</Button></ListItemText>
+        <ListItemText sx={{width:"16%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa.ma_dh)}>Xác nhận</Button><Button onClick={(e)=>handlehuydon(aa.ma_dh)} variant="outlined" color="error">Hủy đơn</Button></ListItemText>
        ):false}
         {aa.trang_thai ==4 ? (
        <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="error">Đã hủy đơn</Button></ListItemText>):false}
@@ -129,7 +181,7 @@ export default function Donhangquanly() {
            <ListItemButton sx={{ pl: 4 }}>
             
              <ListItemText>
-              <Box sx={{ width: "40%" }}>
+              <Box sx={{ width: "80%" }}>
                 <Grid sx={{  p: 2, pl: 6,pt:0 }}>
                   <Grid sx={{}}>
                     <table className=" w-[100%] rounded-lg border-1	 	">
@@ -145,11 +197,14 @@ export default function Donhangquanly() {
                                   height={50} width={50}
                                 />
                               </td>
-                              <td className="text-base">{aaa.ten_sp} <p className="text-xs">Giá: {aaa.gia} x{aaa.so_luong}</p></td>
-                              <td className="text-base ">{new Intl.NumberFormat("vi-VN", {
+                              <td className="text-base">{aaa.ten_sp} <p className="text-xs">Giá: {aaa.gia}</p></td>
+                              <td className="text-base">Số lượng mua: {aaa.so_luong}</td>
+
+                              <td className="text-base ">Tổng: {new Intl.NumberFormat("vi-VN", {
                           style: "currency",
                           currency: "VND",
                         }).format(aaa.so_luong*aaa.gia)}</td>
+                        <td className="text-base ">Số lượng trong kho: {aaa.soluong}</td>
                             </tr>
                           ) : (
                             false
@@ -175,7 +230,12 @@ export default function Donhangquanly() {
       ))}
     </List>
       </div>
-
+      <div className=" h-[57px] pt-4">
+                  {" "}
+                  <Pagination    style={{      display: "flex", flexFlow: "row nowrap", justifyContent: "center",}}
+                    color="success" count={counttrang}  page={trang}   onChange={handleChangepage}
+                  ></Pagination>
+                </div>
     </div>
    
   );
