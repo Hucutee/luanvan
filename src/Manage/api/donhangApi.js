@@ -66,6 +66,26 @@ const donhangAPI = {
     const API_URL = `/donhang/themctgh1/${ma}&&${mangh}&&${tt}`;
     return axiosClient.get(API_URL);
   },
+  hoanhang(mactsp,sl) {
+    const API_URL = `/donhang/hoanhang/${mactsp}&&${sl}`;
+    return axiosClient.get(API_URL);
+  },
+  getctgh(makh) {
+    const API_URL = `/donhang/chitietgiaohang/${makh}`;
+    return axiosClient.get(API_URL);
+  },
+  boomhang(madh) {
+    const API_URL = `/donhang/boomhang/${madh}`;
+    return axiosClient.get(API_URL);
+  },
+  getdhboom(madh) {
+    const API_URL = `/donhang/laydonhangboom/${madh}`;
+    return axiosClient.get(API_URL);
+  },
+  allctgh() {
+    const API_URL = `/chitietgiaohang`;
+    return axiosClient.get(API_URL);
+  },
 };
 
 export default donhangAPI;

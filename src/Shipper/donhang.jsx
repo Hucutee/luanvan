@@ -39,6 +39,8 @@ export default function Donhangshipper() {
   const [datadh, setDatadh] = useState([]);
   const [show, setShow] = React.useState('');
   const [datactdh, setDatactdh] = useState([]);
+  const [dataallctgh, setDataallctgh] = useState([]);
+
   const [trang, setTrang] = React.useState(1);
   const [datadhtrang, setDatadhtrang] = useState([]);
   const [trangthai, setTrangthai ] = React.useState('24');
@@ -65,16 +67,28 @@ export default function Donhangshipper() {
    await donhangAPI.addctgh(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
 
     setCount((e) => e + 1);}
+
     const handlexacnhandon1 = async(aa) => {
       await donhangAPI.setttngh1(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
       await donhangAPI.addctgh1(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
-   
+      const aaa =await donhangAPI.getdhboom(aa.ma_dh); console.log(aaa);
+      await donhangAPI.boomhang(aaa[0].ma_kh);
+   if (datactdh.length !== 0) {
+      for (let i = 0; i < datactdh.length; i++) {
+        if(datactdh[i].ma_dh==aa.ma_dh){
+          console.log(datactdh[i].ma_ctsp,datactdh[i].so_luong);
+          await donhangAPI.hoanhang(datactdh[i].ma_ctsp,datactdh[i].so_luong);
+        }
+  } 
+  }
        setCount((e) => e + 1);}
   useEffect(() => {
     (async () => { console.log(dataUser);
     const dl = await donhangAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
     const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); 
     const dlctdh = await donhangAPI.getallctdh();
+    const alllctgh = await donhangAPI.allctgh();setDataallctgh(alllctgh);
+
     setDatadh(dl);    setDatactdh(dlctdh);
 
     })();
@@ -149,7 +163,7 @@ export default function Donhangshipper() {
          {aa.trang_thai ==3 ? (
        <ListItemText sx={{width:"16%"}}> <Button variant="contained" onClick={(e)=>handlexacnhandon(aa)} >Đang giao</Button><Button sx={{marginLeft:"10px"}} color="warning" variant="contained" onClick={(e)=>handlexacnhandon1(aa)}>Khách boom?</Button></ListItemText>):false}
        {aa.trang_thai ==4 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="success">Đã hoàn thành</Button></ListItemText>):false}
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="success">Đã giao ngày:  {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
         {open ? <ExpandLess onClick={(e)=>handleClick(aa.ma_dh)} /> : <ExpandMore onClick={(e)=>handleClick(aa.ma_dh)} />}
         
       </ListItemButton>
@@ -158,15 +172,18 @@ export default function Donhangshipper() {
      {aa.ma_dh == show ? (<span>
          <Collapse in={open} timeout="auto" unmountOnExit>
          <List component="div" disablePadding sx={{ bgcolor: "#f8f8f8"}}>
-           <ListItemButton sx={{ pl: 4 }}>
+           <ListItemButton sx={{ pl: 1 }}>
             
              <ListItemText>
-              <Box sx={{ width: "80%" }}>
+              <Box sx={{ width: "100%" }}>
                 <Grid sx={{  p: 2, pl: 6,pt:0 }}>
                   <Grid sx={{}}>
                     <table className=" w-[100%] rounded-lg border-1	 	">
                       <tbody className="">
-                       
+                       <tr>
+               <td             colSpan={4} 
+                            className="border-[2px] 	border-gray-300		p-4	 border-solid w-[40%] text-base ">Thông tin khách hàng: {aa.nguoi_nhan}. &ensp;  &ensp;  &ensp; &ensp; Địa chỉ giao: {aa.dia_chi_giao}</td>
+                       </tr>
                         {datactdh?.map((aaa) =>
                           aaa.ma_dh == aa.ma_dh ? (
                             <tr className="h-10 ">
@@ -177,14 +194,17 @@ export default function Donhangshipper() {
                                   height={50} width={50}
                                 />
                               </td>
-                              <td className="text-base">{aaa.ten_sp} <p className="text-xs">Giá: {aaa.gia}</p></td>
-                              <td className="text-base">Số lượng mua: {aaa.so_luong}</td>
+                              <td className="text-base">{aaa.ten_sp} <p className="text-xs">Giá: {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(aaa.gia)}</p></td>
+                              <td className="text-base ">Số lượng: {aaa.so_luong}</td>
 
                               <td className="text-base ">Tổng: {new Intl.NumberFormat("vi-VN", {
                           style: "currency",
                           currency: "VND",
                         }).format(aaa.so_luong*aaa.gia)}</td>
-                        <td className="text-base ">Số lượng trong kho: {aaa.soluong}</td>
+                       
                             </tr>
                           ) : (
                             false

@@ -31,6 +31,7 @@ import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import nguoidungApi from '../../api/nguoidungApi';
 
 export default function Donhangquanly() {
   const [open, setOpen] = React.useState(false);
@@ -42,6 +43,8 @@ export default function Donhangquanly() {
   const [datadhtrang, setDatadhtrang] = useState([]);
   const [trangthai, setTrangthai ] = React.useState('06');
   const [counttrang, setCounttrang] = useState(0);
+  const [dataallctgh, setDataallctgh] = useState([]);
+  const [nguoidung, setNguoidung] = useState([]);
 
   const handleChangetrangthai = (event) => {
     setTrangthai(event.target.value); setCount((e) => e + 1);console.log(event.target.value);
@@ -82,7 +85,8 @@ export default function Donhangquanly() {
     const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); 
     const dlctdh = await donhangAPI.getallctdh();
     setDatadh(dl);    setDatactdh(dlctdh);
-
+    const alllctgh = await donhangAPI.allctgh();setDataallctgh(alllctgh);
+      const nd = await nguoidungApi.login(); setNguoidung(nd); console.log(nd);
     })();
   }, [count]);
 
@@ -170,7 +174,7 @@ export default function Donhangquanly() {
         {aa.trang_thai > 0 && aa.trang_thai <4 ? (
        <ListItemText sx={{width:"16%"}}> <Button variant="contained" >Đã xác nhận</Button></ListItemText>):false}
        {aa.trang_thai ==4 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="success">Đã hoàn thành</Button></ListItemText>):false}
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="success">ĐÃ GIAO NGÀY: {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
            {aa.trang_thai >5 ? (
        <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}
         {open ? <ExpandLess onClick={(e)=>handleClick(aa.ma_dh)} /> : <ExpandMore onClick={(e)=>handleClick(aa.ma_dh)} />}
@@ -184,12 +188,15 @@ export default function Donhangquanly() {
            <ListItemButton sx={{ pl: 4 }}>
             
              <ListItemText>
-              <Box sx={{ width: "80%" }}>
+              <Box sx={{ width: "100%" }}>
                 <Grid sx={{  p: 2, pl: 6,pt:0 }}>
                   <Grid sx={{}}>
                     <table className=" w-[100%] rounded-lg border-1	 	">
                       <tbody className="">
-                       
+                      <tr>
+                          <td           colSpan={5}
+                            className="border-[2px] 	border-gray-300		p-4	 border-solid w-[40%] text-base ">Thông tin khách hàng: {aa.nguoi_nhan}. &ensp; &ensp; &ensp; &ensp; Địa chỉ giao: {aa.dia_chi_giao}.  {nguoidung.map((nd)=>(nd.ma_nd==aa.ma_kh && nd.boom >0 ? <p style={{color:'red'}}>Đã boom hàng {nd.boom} lần.</p> : false))}</td>
+                       </tr>
                         {datactdh?.map((aaa) =>
                           aaa.ma_dh == aa.ma_dh ? (
                             <tr className="h-10 ">

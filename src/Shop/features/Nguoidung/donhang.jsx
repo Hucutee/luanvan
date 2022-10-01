@@ -47,6 +47,8 @@ function Donhang() {
   const [email, setEmail] = React.useState("");
   const [count, setCount] = React.useState(0);
   const [datadh, setDatadh] = React.useState([]);
+  const [datactgh, setDatactgh] = React.useState([]);
+
   const [datactdh, setDatactdh] = React.useState([]);
   const [loc, setLoc] = React.useState('07');
   const [trangthai, setTrangthai] = React.useState(0);
@@ -58,6 +60,8 @@ const handlehuy = async (madh) =>{
       try {
         const dh = await donhangAPI.getdhkh(dataUser[0].ma_nd,loc.slice(0,1),loc.slice(1));
         const ctdh = await donhangAPI.getctdhkh(dataUser[0].ma_nd);
+        const ctgh = await donhangAPI.getctgh(dataUser[0].ma_nd);
+        console.log(ctgh);setDatactgh(ctgh);
         setDatadh(dh); console.log(ctdh);
         setDatactdh(ctdh);
       } catch (error) {
@@ -191,7 +195,9 @@ const handlehuy = async (madh) =>{
                                 <StepLabel>Đang giao</StepLabel>
                               </Step>
                               <Step key="aaa">
-                                <StepLabel><Button  variant="contained" size="small" >Đã giao</Button></StepLabel>
+                                <StepLabel><Button  variant="contained" size="small" >Đã giao <br/>
+                                {datactgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}
+                                </Button></StepLabel>
                               </Step>
                             </Stepper>
                             :
@@ -203,7 +209,7 @@ const handlehuy = async (madh) =>{
                               alternativeLabel
                             >
                               <Step key="aaa">
-                                <StepLabel><Button  variant="contained" size="small" color="warning">Đã bị hủy</Button>
+                                <StepLabel><Button  variant="contained" size="small" color="warning">Đã bị hủy </Button>
                                 </StepLabel>
                               </Step>
                               <Step key="aaa">
@@ -234,7 +240,10 @@ const handlehuy = async (madh) =>{
                                 <StepLabel>Đang giao</StepLabel>
                               </Step>
                               <Step key="aaa">
-                                <StepLabel>Đã giao</StepLabel><Button  variant="contained" size="small" color="error">Bạn đã boom</Button>
+                                <StepLabel>Đã giao</StepLabel><Button  variant="contained" size="small" sx={{fontSize:"12px"}} color="error">Bạn đã boom<br/>
+                                {datactgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==6 ) ? gh.ngay_gh.slice(0,10):false)}
+
+                                </Button>
                               </Step>
                             </Stepper> : false
                           }
