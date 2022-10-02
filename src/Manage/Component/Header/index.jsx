@@ -37,6 +37,8 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import GiteIcon from '@mui/icons-material/Gite';
 import PercentIcon from '@mui/icons-material/Percent';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import UnarchiveIcon from '@mui/icons-material/Unarchive';
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     top: false,
@@ -210,29 +212,22 @@ export default function TemporaryDrawer() {
            
       <ListItemButton onClick={handleClickhd}>
         <ListItemIcon>
-          <LocalAtmIcon />
+          <UnarchiveIcon />
         </ListItemIcon>
-        <ListItemText primary="Đơn hàng" />
+        <ListItemText primary="Xuất kho" />
         {openhd ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={openhd} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
         <ListItemButton sx={{ pl: 6 }}>
               <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <AccountBalanceWalletIcon />}
+                {"A" % 2 === 0 ? <InboxIcon /> : <ShoppingBasketIcon />}
               </ListItemIcon>
               <ListItemText > <Link to="/Manager/donhang" className="">
               Đơn hàng
             </Link></ListItemText>
             </ListItemButton>
-            <ListItemButton sx={{ pl: 6 }}>
-              <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <PercentIcon />}
-              </ListItemIcon>
-              <ListItemText > <Link to="/Manager/khuyenmai" className="">
-              Khuyến mãi
-            </Link></ListItemText>
-            </ListItemButton>
+            
         </List>
       </Collapse>
            

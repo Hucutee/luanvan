@@ -33,6 +33,7 @@ import Slide from '@mui/material/Slide';
 import { ConstructionOutlined } from "@mui/icons-material";
 import { loginShipper } from "../Shop/app/shipperSlice";
 import nguoidungApi from "../Manage/api/nguoidungApi";
+import './a.css'
 const Transitiondnn = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -112,7 +113,7 @@ const handleChangetk = (value) => {
   return (
     <Box>
       <Grid
-        className="abc"
+        className="abcshipper"
         sx={{
           display: "flex",
           alignContent: "center",
@@ -120,7 +121,7 @@ const handleChangetk = (value) => {
         }}
       >
         <Grid
-          marginTop="50px"
+          marginTop="100px"
           height="500px"
           sx={{ borderRadius: "5px" }}
           width="27%"

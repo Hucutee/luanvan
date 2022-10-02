@@ -45,6 +45,7 @@ export default function Donhangquanly() {
   const [counttrang, setCounttrang] = useState(0);
   const [dataallctgh, setDataallctgh] = useState([]);
   const [nguoidung, setNguoidung] = useState([]);
+  const [datangh, setDatangh] = useState([]);
 
   const handleChangetrangthai = (event) => {
     setTrangthai(event.target.value); setCount((e) => e + 1);console.log(event.target.value);
@@ -86,6 +87,8 @@ export default function Donhangquanly() {
     const dlctdh = await donhangAPI.getallctdh();
     setDatadh(dl);    setDatactdh(dlctdh);
     const alllctgh = await donhangAPI.allctgh();setDataallctgh(alllctgh);
+    const ngh = await donhangAPI.ttngh();setDatangh(ngh);console.log(ngh);
+
       const nd = await nguoidungApi.login(); setNguoidung(nd); console.log(nd);
     })();
   }, [count]);
@@ -195,7 +198,9 @@ export default function Donhangquanly() {
                       <tbody className="">
                       <tr>
                           <td           colSpan={5}
-                            className="border-[2px] 	border-gray-300		p-4	 border-solid w-[40%] text-base ">Thông tin khách hàng: {aa.nguoi_nhan}. &ensp; &ensp; &ensp; &ensp; Địa chỉ giao: {aa.dia_chi_giao}.  {nguoidung.map((nd)=>(nd.ma_nd==aa.ma_kh && nd.boom >0 ? <p style={{color:'red'}}>Đã boom hàng {nd.boom} lần.</p> : false))}</td>
+                            className="border-[2px] 	border-gray-300		p-4	 border-solid w-[40%] text-base ">Thông tin khách hàng: {aa.nguoi_nhan}. &ensp; &ensp; &ensp; &ensp; Địa chỉ giao: {aa.dia_chi_giao}.  {nguoidung.map((nd)=>(nd.ma_nd==aa.ma_kh && nd.boom >0 ? <p style={{color:'red'}}>Đã boom hàng {nd.boom} lần.</p> : false))}<br/>
+                            {datangh.map((ngh)=>(ngh.ma_dh==aa.ma_dh && ngh.ma_ngh !="NGH1" ? <p>Thông tin người giao hàng: {ngh.ten_ngh}. &ensp;&ensp;&ensp; Số điện thoại: {ngh.sdt}</p>:false))}
+                            </td>
                        </tr>
                         {datactdh?.map((aaa) =>
                           aaa.ma_dh == aa.ma_dh ? (

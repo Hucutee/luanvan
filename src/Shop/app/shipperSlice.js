@@ -28,5 +28,5 @@ const shipperSlice = createSlice({
 });
 
 const {actions, reducer} = shipperSlice;
-export const {logoutshipper} = actions;
+export const {logoutShipper} = actions;
 export default reducer;

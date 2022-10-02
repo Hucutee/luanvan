@@ -1,0 +1,9 @@
+.abcshipper {
+    background-image: url("./bgh.jpg") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 720px;
+  /* optional, center the image */
+    
+  }

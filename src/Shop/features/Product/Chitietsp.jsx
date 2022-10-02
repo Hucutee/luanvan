@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Box, Paper, Typography } from "@mui/material";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { Container } from "@mui/system";
 import { useLocation } from "react-router-dom";
@@ -26,7 +26,7 @@ import Binhluan from "./binhluan";
 import Snackbar from "@mui/material/Snackbar";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { useDispatch, useSelector } from "react-redux";
-import { addtoCart } from "../../app/cartSlide";
+import { addtoCart, removeAllCart } from "../../app/cartSlide";
 import { addquaylai } from "../../app/quaylai";
 
 const useStyles = makeStyles((theme) => ({
@@ -88,6 +88,36 @@ const handleaddcart = () =>{
               gia_ban: giaban,
               type: "cart",
             })); setOpencheckgio(true);
+        }else{ setOpen(true)}
+      }else{
+        setOpencheckslcl(true);}
+    }else{
+      setOpenchecksl(true); }
+  }else{
+    setOpencheckkt(true); } 
+     setCount((e) => e + 1)
+}
+const history = useNavigate();
+
+const handlemuangay = () =>{
+  const check=0;
+  if(makt){
+    if(soluongnhap > 0){
+      if(soluongnhap <= soluong){
+        console.log(dataUser);
+        if(dataUser.length > 0){
+          dispatch(removeAllCart());
+          dispatch(
+            addtoCart({
+              ma_ctsp: mactsp,
+              ma_sp: datasp[0].ma_sp,
+              ten_sp: datasp[0].ten_sp,
+              ten_kt: tenkt,
+              so_luong: soluongnhap,
+              hinh_anh: hinhanh,
+              gia_ban: giaban,
+              type: "cart",
+            })); setOpencheckgio(true); history(`/products/thanhtoan`); goToTop();
         }else{ setOpen(true)}
       }else{
         setOpencheckslcl(true);}
@@ -325,7 +355,7 @@ const goToTop = () => {
                 </Button>
               </Stack>
 
-              <Button
+              <Button onClick={handlemuangay}
               
                 variant="contained"
                 color="success"
@@ -336,7 +366,7 @@ const goToTop = () => {
                   backgroundColor: "#ABD373",
                 }}
               >
-                Mua ngay
+               mua ngay
               </Button>
               <Grid
                 style={{

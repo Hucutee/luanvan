@@ -32,6 +32,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import donhangAPI from '../Manage/api/donhangApi';
 import { useDispatch, useSelector } from "react-redux";
+import { logoutShipper } from '../Shop/app/shipperSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function Donhangshipper() {
   const [open, setOpen] = React.useState(false);
@@ -52,6 +54,7 @@ export default function Donhangshipper() {
   };
 
 
+
   const handleChangepage = (event, value) => {
     setTrang(value);
     setCount((e) => e + 1); };
@@ -60,6 +63,12 @@ export default function Donhangshipper() {
   };
   const handlehuydon = async(madh) => {
     await donhangAPI.huydon(madh);
+    setCount((e) => e + 1);
+  };
+  const history = useNavigate();
+
+  const handledx = () => {
+    dispatch(logoutShipper()); history(`/shipper`)
     setCount((e) => e + 1);
   };
   const handlexacnhandon = async(aa) => {
@@ -85,7 +94,13 @@ export default function Donhangshipper() {
   useEffect(() => {
     (async () => { console.log(dataUser);
     const dl = await donhangAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
-    const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); 
+    if(trangthai == "11"){
+      const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); console.log(dltrang);
+
+    }else {
+      const dltrang = await donhangAPI.gettrangcuangh(trang,trangthai.slice(0,1),trangthai.slice(1),dataUser[0].ma_ngh);setDatadhtrang(dltrang); console.log(dltrang);
+
+    }
     const dlctdh = await donhangAPI.getallctdh();
     const alllctgh = await donhangAPI.allctgh();setDataallctgh(alllctgh);
 
@@ -100,7 +115,9 @@ export default function Donhangshipper() {
          <div
         role="presentation"
         style={{ borderTop: "1px solid #ededed",   borderBottom: "1px solid #ededed",   marginBottom: "40px", height:"52px"}} >
-       <Typography sx={{marginTop:"10px",marginLeft:"10%"}}>{dataUser[0].ten_ngh}</Typography>
+       <Button variant="outlined" color="success" sx={{marginLeft:"10%",marginTop:"5px"}}>{dataUser[0].ten_ngh}</Button>
+       <Button onClick={handledx} variant="contained" color="success" sx={{float:"right",marginTop:"5px",marginRight:"10%"}} >Đăng xuất</Button>
+
         <div className="bg-slate-200">
           
         </div>
@@ -124,7 +141,6 @@ export default function Donhangshipper() {
          <MenuItem value="24"><b>Đơn của bạn</b></MenuItem>
           <MenuItem value="22"><b>Đã nhận</b></MenuItem>
           <MenuItem value="33"><b>Đang giao</b></MenuItem>
-          <MenuItem value="44"><b>Đã hoàn thành</b></MenuItem>
           <MenuItem value="44"><b>Đã hoàn thành</b></MenuItem>
           <MenuItem value="66"><b>Kháchg boom hàng</b></MenuItem>
 
