@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../app/userSlice";
 import { removeAllCart } from "../../app/cartSlide";
 import { removeAllCarttt } from "../../app/cartthanhtoan";
+import nguoidungApi from "../../../Manage/api/nguoidungApi";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -47,6 +48,8 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [avt,setAvt]= React.useState("");
+
   const [anchorEldx, setAnchorEldx] = useState(false);
   const opendx = Boolean(anchorEldx);
   const handleClickdx = (event) => {
@@ -63,6 +66,15 @@ function Header() {
 
 
   }
+  useEffect(() => {
+    (async () => {
+      try {
+        const avt = await nguoidungApi.getavt(dataUser[0].ma_nd); if(avt.length != 0) {setAvt(avt[0].ten_avt);}
+      } catch (error) {
+        console.log("loi", error);
+      }
+    })();
+  }, []);
   
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -129,21 +141,25 @@ function Header() {
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined} onClick={handleClickdx}
                 >
+               {avt == "" ?
                 <Avatar
-                    size="small"
-                    sx={{ bgcolor: green[500], width: 24, height: 24 }}
-                    alt="Remy Sharp"
-                    src="/broken-image.jpg"
-                  >
-                    <span style={{ fontSize: "14px" }}>
-                      {dataUser.map((aa) =>
-                        aa.ten_nd.slice(
-                          aa.ten_nd.lastIndexOf(" ") + 1,
-                          aa.ten_nd.lastIndexOf(" ") + 2
-                        )
-                      )}
-                    </span>
-                  </Avatar>
+                size="small"
+                sx={{ bgcolor: green[500], width: 24, height: 24 }}
+                alt="Remy Sharp"
+                src="/broken-image.jpg"
+              >
+                <span style={{ fontSize: "14px" }}>
+                  {dataUser.map((aa) =>
+                    aa.ten_nd.slice(
+                      aa.ten_nd.lastIndexOf(" ") + 1,
+                      aa.ten_nd.lastIndexOf(" ") + 2
+                    )
+                  )}
+                </span>
+              </Avatar>:
+              <Avatar
+              src={require("../../../imageuser/"+ avt )}
+              sx={{ width: 24, height: 24,fontSize:"140px", bgcolor: green[500] }}/>}
                 </Button>
               ) : (
                 <Button

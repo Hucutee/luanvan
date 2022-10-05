@@ -30,69 +30,299 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import Menucanhan from "./nenu";
+import Axios from "axios";
+import ListSubheader from "@mui/material/ListSubheader";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import SendIcon from "@mui/icons-material/Send";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import StarBorder from "@mui/icons-material/StarBorder";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import { green, pink } from "@mui/material/colors";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
-
-Thongtincanhan.propTypes={
-
-};
- function Thongtincanhan() {
-
-  const dataUser = useSelector((state) => state?.user?.userItem);
-  const handledx = ()=>{
+Thongtincanhan.propTypes = {};
+function Thongtincanhan() {
+  const dataUser = useSelector((state) => state?.user?.current);
+  const handledx = () => {
     dispatch(logout());
-setCount((e) => e + 1);
-  }
+    setCount((e) => e + 1);
+  };
 
   const dispatch = useDispatch();
   const navigation = useNavigate();
+  const [open, setOpen] = React.useState(false);
 
-const [email,setEmail]= React.useState("");
-const [count,setCount]= React.useState(0);
-const [data,setData]= React.useState([]);
-const [trangthai,setTrangthai]= React.useState(0);
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
+  const [file, setFile] = React.useState();
+  const send = async () => {
+    setLoadding(true);
+    const data = new FormData();
+    data.append("file", file);
+    console.log(file);
+    data.append("mand", dataUser[0].ma_nd);
+    await nguoidungApi.upload(data);
+    setCount((e) => e + 1);
+    setLoadding(false);
+  };
+  const [count, setCount] = React.useState(0);
+  const [datand, setDatand] = React.useState([]);
+  const [avt, setAvt] = React.useState("");
+  const [loadding, setLoadding] = React.useState(false);
+  const [openha, setOpenha] = React.useState(false);
+
+  const handleClickOpenha = () => {
+    setOpenha(true);
+  };
+
+  const handleCloseha = () => {
+    setOpenha(false);
+  };
   useEffect(() => {
     (async () => {
       try {
-        
-          
-        
-        
-       
+        const avt = await nguoidungApi.getavt(dataUser[0].ma_nd);
+        if (avt.length != 0) {
+          setAvt(avt[0].ten_avt);
+        }
+        const nd = await nguoidungApi.getttnd(dataUser[0].ma_nd);
+        setDatand(nd);
       } catch (error) {
         console.log("loi", error);
-      }             
-
+      }
     })();
   }, [count]);
   return (
     <Box>
-        <div
-        role="presentation" style={{ borderTop: "1px solid #ededed",  borderBottom: "1px solid #ededed",  marginBottom: "40px", }}
+      <div
+        role="presentation"
+        style={{
+          borderTop: "1px solid #ededed",
+          borderBottom: "1px solid #ededed",
+          marginBottom: "40px",
+        }}
       >
-        <Breadcrumbs id="123"
-          separator="&ensp; › &ensp; " aria-label="breadcrumb" style={{ marginLeft: "13%", fontSize: "13px", lineHeight: "40px" }}
+        <Breadcrumbs
+          id="123"
+          separator="&ensp; › &ensp; "
+          aria-label="breadcrumb"
+          style={{ marginLeft: "13%", fontSize: "13px", lineHeight: "40px" }}
         >
           <Link underline="hover" color="inherit" to="/app">
-            {" "} Trang chủ{" "}
+            {" "}
+            Trang chủ{" "}
           </Link>
-          <Link to="#" underline="hover"  value="1" >
-            {" "}  Tài khoản{" "}
+          <Link to="#" underline="hover" value="1">
+            {" "}
+            Tài khoản{" "}
           </Link>
-          <Link to="#" underline="hover" style={{color:"#339900"}} value="1" >
-            {" "}  Thông tin cá nhân{" "}
+          <Link to="#" underline="hover" style={{ color: "#339900" }} value="1">
+            {" "}
+            Thông tin cá nhân{" "}
           </Link>
         </Breadcrumbs>
       </div>
       <Grid className="w-[74%] mx-[13%] ">
-        <Grid sx={{width:"20%", float:"left" }}>
-        <Menucanhan/>
+        <Grid sx={{ width: "20%", float: "left" }}>
+          <Menucanhan />
         </Grid>
-        <Grid sx={{width:"80%", float:"left"}}></Grid>
+        <Grid sx={{ width: "80%", float: "left" }}>
+          {datand.map((nd) => (
+            <div>
+              <div style={{ width: "45%", float: "left" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{
+                    display: "flex",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    height: "auto",
+                  }}
+                >
+                  {avt == "" ? (
+                    <Avatar
+                      sx={{
+                        width: 250,
+                        height: 250,
+                        fontSize: "140px",
+                        bgcolor: green[500],
+                      }}
+                    >
+                      {nd.ten_nd.slice(
+                        nd.ten_nd.lastIndexOf(" ") + 1,
+                        nd.ten_nd.lastIndexOf(" ") + 2
+                      )}
+                    </Avatar>
+                  ) : (
+                    <Avatar
+                      src={require("../../../imageuser/" + avt)}
+                      sx={{
+                        width: 250,
+                        height: 250,
+                        fontSize: "140px",
+                        bgcolor: green[500],
+                      }}
+                    />
+                  )}
+                </Stack>
+                <div
+                  id="nested-list-subheader"
+                  style={{
+                    fontSize: "20px",
+                    color: "#333",
+                    fontWeight: "500",
+                    padding: 7,
+                    display: "flex",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    height: "auto",
+                  }}
+                >
+                  {" "}
+                  Ảnh đại diện (<span onClick={handleClickOpenha} ><ModeEditIcon     className="a1"             sx={{ width: 16, height: 16 }}
+/></span>){" "}
+                </div>
+                <div>
+                   
+                    <Dialog color="success"
+                      open={openha}
+                      onClose={handleCloseha}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        {"Thay đổi ảnh đại diện"}
+                      </DialogTitle>
+                      <DialogContent color="success">
+                        <DialogContentText id="alert-dialog-description">
+                          <form action="#">
+                            <div class="form-group">
+                              <input color="success"
+                                type="file"
+                                id="file"
+                                name="file"
+                                accept=".jpg"
+                                onChange={(event) => {
+                                  const file = event.target.files[0];
+                                  setFile(file);
+                                }}
+                              />
+                            </div>
+                          </form>
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button color="success" variant="contained" onClick={handleCloseha}>Quay lại</Button>
+                        <Button  color="success" variant="contained" onClick={send} autoFocus>
+                          Thực hiện
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                  </div>
+              </div>
+              <div style={{ width: "50%", float: "left" }}>
+                <List
+                  sx={{ width: "100%", bgcolor: "background.paper" }}
+                  component="nav"
+                  aria-labelledby="nested-list-subheader"
+                  subheader={
+                    <ListSubheader
+                      component="div"
+                      id="nested-list-subheader"
+                      sx={{ fontSize: "20px", color: "#333" }}
+                    >
+                      {" "}
+                      Thông tin cá nhân{" "}
+                    </ListSubheader>
+                  }
+                >
+                  
+                </List>
+                <List>
+                  <ListItemButton>
+                    <ListItemText primary="Tên:" />{" "}
+                    <ListItemText sx={{ textAlign: "right" }}>
+                      {nd.ten_nd}
+                    </ListItemText>
+                  </ListItemButton>
+                </List>
+                <Divider />
+                <List>
+                  <ListItemButton>
+                    <ListItemText primary="Giới tính:" />{" "}
+                    <ListItemText sx={{ textAlign: "right" }}>
+                      {nd.gioi_tinh}
+                    </ListItemText>
+                  </ListItemButton>
+                </List>
+                <Divider />
+                <List>
+                  <ListItemButton>
+                    <ListItemText primary="Ngày sinh:" />{" "}
+                    <ListItemText sx={{ textAlign: "right" }}>
+                      {nd.ngay_sinh.slice(0, 10)}
+                    </ListItemText>
+                  </ListItemButton>
+                </List>
+                <Divider />
+                <List>
+                  <ListItemButton>
+                    <ListItemText primary="Email:" />{" "}
+                    <ListItemText sx={{ textAlign: "right" }}>
+                      {nd.email}
+                    </ListItemText>
+                  </ListItemButton>
+                </List>
+                <Divider />
+                <List>
+                  <ListItemButton>
+                    <ListItemText primary="Số điện thoai:" />{" "}
+                    <ListItemText sx={{ textAlign: "right" }}>
+                      {nd.sdt_nd}
+                    </ListItemText>
+                  </ListItemButton>
+                </List>
+                <Divider />
+                <List>
+                  <ListItemButton onClick={handleClick}>
+                    <ListItemText primary="Đổi mật khẩu" />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemIcon>
+                          <StarBorder />
+                        </ListItemIcon>
+                        <ListItemText primary="Starred" />
+                      </ListItemButton>
+                    </List>
+                  </Collapse>
+                </List>
+                <Divider />
+              </div>
+            </div>
+          ))}
         </Grid>
+      </Grid>
     </Box>
   );
 }
-
 
 export default Thongtincanhan;

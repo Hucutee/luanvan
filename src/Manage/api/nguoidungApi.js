@@ -42,7 +42,18 @@ const nguoidungApi = {
     const API_URL = `/nhacungcap/suatrung/${ma}&&${ten}`;
     return axiosClient.get(API_URL);
   },
- 
+  upload(data) {
+    const API_URL = `/upload`;
+    return axiosClient.post(API_URL,data);
+  },
+  getttnd(idnd) {
+    const API_URL = `/nguoidung/getttnd/${idnd}`;
+    return axiosClient.get(API_URL);
+  },
+  getavt(idnd) {
+    const API_URL = `/nguoidung/getavt/${idnd}`;
+    return axiosClient.get(API_URL);
+  },
 };
 
 export default nguoidungApi;

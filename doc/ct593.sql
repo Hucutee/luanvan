@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 02, 2022 lúc 08:50 AM
+-- Thời gian đã tạo: Th10 05, 2022 lúc 04:10 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -20,6 +20,53 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `ct593`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `anh_dai_dien`
+--
+
+CREATE TABLE `anh_dai_dien` (
+  `ma_avt` varchar(50) NOT NULL,
+  `ten_avt` varchar(255) NOT NULL,
+  `ma_nd` varchar(50) NOT NULL,
+  `ngay_them` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `anh_dai_dien`
+--
+
+INSERT INTO `anh_dai_dien` (`ma_avt`, `ten_avt`, `ma_nd`, `ngay_them`) VALUES
+('AVT1', '1664971734790.jpg', 'ND09', '2022-10-05 19:08:54'),
+('AVT10', '1664974680843.jpg', 'ND08', '2022-10-05 19:58:00'),
+('AVT11', '1664975054906.jpg', 'ND08', '2022-10-05 20:04:14'),
+('AVT2', '1664971881063.jpg', 'ND09', '2022-10-05 19:11:21'),
+('AVT3', '1664971915834.jpg', 'ND09', '2022-10-05 19:11:55'),
+('AVT4', '1664972811876.jpg', 'ND08', '2022-10-05 19:26:51'),
+('AVT5', '1664972839070.jpg', 'ND08', '2022-10-05 19:27:19'),
+('AVT6', '1664973139702.jpg', 'ND08', '2022-10-05 19:32:19'),
+('AVT7', '1664973852518.jpg', 'ND08', '2022-10-05 19:44:12'),
+('AVT8', '1664973879409.jpg', 'ND08', '2022-10-05 19:44:39'),
+('AVT9', '1664973989490.jpg', 'ND08', '2022-10-05 19:46:29');
+
+--
+-- Bẫy `anh_dai_dien`
+--
+DELIMITER $$
+CREATE TRIGGER `them_avt` BEFORE INSERT ON `anh_dai_dien` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("AVT",SUBSTRING(ma_avt,4)+1) FROM anh_dai_dien ORDER BY SUBSTRING(ma_avt,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_avt = 'AVT1';
+ELSE SET NEW.ma_avt = id;
+END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -72,6 +119,8 @@ INSERT INTO `chi_tiet_dh` (`ma_ctdh`, `ma_ctsp`, `ma_dh`, `so_luong`, `gia`) VAL
 ('CTD40', 'CT034', 'DH029', 1, 20000),
 ('CTD41', 'CT043', 'DH030', 1, 36000),
 ('CTD42', 'CT026', 'DH031', 1, 9600),
+('CTD43', 'CT051', 'DH032', 1, 90000),
+('CTD44', 'CT018', 'DH032', 1, 27000),
 ('CTD5', 'CT022', 'DH03', 1, 27000),
 ('CTD6', 'CT051', 'DH03', 1, 90000),
 ('CTD7', 'CT048', 'DH03', 1, 67500),
@@ -254,7 +303,8 @@ INSERT INTO `dia_chi` (`ma_dc`, `ten_dc`, `ma_nd`) VALUES
 ('DC02', 'AAAA', 'ND01'),
 ('DC03', 'â', 'ND07'),
 ('DC04', 'Cần Thơ', 'ND02'),
-('DC05', 'p.An Khánh, q.Ninh Kiều,tp.Cần Thơ', 'ND09');
+('DC05', 'p.An Khánh, q.Ninh Kiều,tp.Cần Thơ', 'ND09'),
+('DC06', 'p.trung kiên , q. thốt nốt , tp.cần thơ', 'ND08');
 
 --
 -- Bẫy `dia_chi`
@@ -346,6 +396,7 @@ INSERT INTO `don_hang` (`ma_dh`, `ma_kh`, `ma_pgg`, `ma_nv`, `ngay_dat_hang`, `d
 ('DH03', 'ND01', 'PGG1', 'ND01', '2022-09-29 20:12:27', 'a', 1, 184500, 6, 'aa a, 04874737477'),
 ('DH030', 'ND09', 'PGG1', 'ND01', '2022-10-02 13:07:40', 'p.An Khánh, q.Ninh Kiều,tp.Cần Thơ', 1, 36000, 4, 'Phan Hậu, 03874646364'),
 ('DH031', 'ND09', 'PGG1', 'ND01', '2022-10-02 13:08:10', 'p.An Khánh, q.Ninh Kiều,tp.Cần Thơ', 1, 9600, 6, 'Phan Hậu, 0283747575'),
+('DH032', 'ND08', 'PGG1', 'ND01', '2022-10-05 19:34:28', 'p.trung kiên , q. thốt nốt , tp.cần thơ', 1, 117000, 0, 'Phan Trung Hậu, 0968483854'),
 ('DH04', 'ND01', 'PGG1', 'ND01', '2022-09-29 20:13:27', 'a', 0, 36000, 4, 'aa a, 0484757644'),
 ('DH05', 'ND02', 'PGG1', 'ND01', '2022-09-30 23:36:28', 'Cần Thơ', 1, 27000, 4, 'a a, 0848484844'),
 ('DH06', 'ND02', 'PGG1', 'ND01', '2022-09-30 23:37:40', 'Cần Thơ', 1, 90000, 6, 'a a, 0384747333'),
@@ -917,9 +968,43 @@ END
 $$
 DELIMITER ;
 
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
+  `fullname` varchar(255) DEFAULT NULL,
+  `credential` varchar(255) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `gender` tinyint(1) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `verify` tinyint(1) DEFAULT 0,
+  `active` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`id`, `user_id`, `email`, `fullname`, `credential`, `phone`, `gender`, `birthday`, `verify`, `active`) VALUES
+(100, '114872046152355360109', 'nvnhan.dev@gmail.com', 'Nhẫn', '$2a$10$okmL2DBF5k0aGK1DofQnB.2qSG6OpKE8iBtiNu2/lggoxdzfdW/pO', NULL, NULL, NULL, 0, 1),
+(103, '114872046152355360109', 'nvnhan.dev@gmail.com', 'Nhẫn', '$2a$10$dYtiqR8l6.a5yQ1V2PzE5uFErCW7CEZgdTlz0Av.unHagjzaLclLG', NULL, NULL, NULL, 0, 1),
+(104, '114872046152355360109', 'nvnhan.dev@gmail.com', 'Nhẫn', '$2a$10$6JzivuK8aZgO5NOJcUJVuOPx0Gw9S4RAZKY2IOAe489ucerQigr6q', NULL, NULL, NULL, 0, 1);
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `anh_dai_dien`
+--
+ALTER TABLE `anh_dai_dien`
+  ADD PRIMARY KEY (`ma_avt`);
 
 --
 -- Chỉ mục cho bảng `chi_tiet_dh`
@@ -1027,6 +1112,22 @@ ALTER TABLE `phieu_giam_gia`
 ALTER TABLE `san_pham`
   ADD PRIMARY KEY (`ma_sp`),
   ADD KEY `loai_san_pham` (`loai_sp`);
+
+--
+-- Chỉ mục cho bảng `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

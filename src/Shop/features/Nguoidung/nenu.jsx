@@ -51,10 +51,9 @@ Menucanhan.propTypes={
               alignItems: "center",
               fontSize: "16px",  fontWeight: "500",}}
                 >
-                  <Grid sx={{margin:"10px"}}><Link to="/products/thongtincanhan">Thông tin</Link></Grid> 
+                  <Grid sx={{margin:"20px"}}><Link to="/products/thongtincanhan">Thông tin</Link></Grid> 
                   <Grid sx={{margin:"10px"}}><Link to="/products/donhang">Đơn hàng</Link></Grid> 
-                  <Grid sx={{margin:"10px"}}><Link to="/products/lichsumuahang">Lịch sử</Link></Grid> 
-                  <Grid sx={{margin:"10px"}}>Tích lũy</Grid> 
+                  <Grid sx={{margin:"20px"}}>Tích lũy</Grid> 
                   <Grid sx={{margin:"10px"}}>Đăng xuất</Grid> 
 
                 </Grid>
