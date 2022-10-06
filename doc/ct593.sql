@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 06, 2022 lúc 05:28 AM
+-- Thời gian đã tạo: Th10 06, 2022 lúc 04:52 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -42,6 +42,7 @@ INSERT INTO `anh_dai_dien` (`ma_avt`, `ten_avt`, `ma_nd`, `ngay_them`) VALUES
 ('AVT1', '1664971734790.jpg', 'ND09', '2022-10-05 19:08:54'),
 ('AVT10', '1664974680843.jpg', 'ND08', '2022-10-05 19:58:00'),
 ('AVT11', '1664975054906.jpg', 'ND08', '2022-10-05 20:04:14'),
+('AVT12', '1665045959816.jpg', 'ND08', '2022-10-06 15:45:59'),
 ('AVT2', '1664971881063.jpg', 'ND09', '2022-10-05 19:11:21'),
 ('AVT3', '1664971915834.jpg', 'ND09', '2022-10-05 19:11:55'),
 ('AVT4', '1664972811876.jpg', 'ND08', '2022-10-05 19:26:51'),
@@ -89,7 +90,11 @@ CREATE TABLE `binh_luan` (
 
 INSERT INTO `binh_luan` (`ma_bl`, `ma_kh`, `noi_dung`, `trang_thai`, `ngay_bl`, `ma_sp`) VALUES
 ('BL03', 'ND09', 'dep', '0', '2022-10-06 04:06:20', 'SP010'),
-('BL04', 'ND08', 'Cây này dể trồng không shop', '0', '2022-10-06 05:11:26', 'SP010');
+('BL04', 'ND08', 'Cây này dể trồng không shop', '0', '2022-10-06 05:11:26', 'SP010'),
+('BL05', 'ND08', 'Giao hàng bao lâu tới v shop', '0', '2022-10-06 00:00:00', 'SP010'),
+('BL06', 'ND08', 'Loại này dể trồng ko ạ', '0', '2022-10-06 00:00:00', 'SP023'),
+('BL07', 'ND08', 'Sản phẩm này đẹp', '0', '2022-10-06 00:00:00', 'SP010'),
+('BL08', 'ND08', 'Loại này dể trồng ko shop', '0', '2022-10-06 00:00:00', 'SP010');
 
 --
 -- Bẫy `binh_luan`
@@ -926,6 +931,45 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `rep_bl`
+--
+
+CREATE TABLE `rep_bl` (
+  `ma_rbl` varchar(50) NOT NULL,
+  `ma_bl` varchar(50) NOT NULL,
+  `ma_nv` varchar(50) NOT NULL,
+  `noi_dung` varchar(255) NOT NULL,
+  `ngay` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `rep_bl`
+--
+
+INSERT INTO `rep_bl` (`ma_rbl`, `ma_bl`, `ma_nv`, `noi_dung`, `ngay`) VALUES
+('RBL1', 'BL05', 'ND08', 'Dạ hihi', '2022-10-06 15:32:49'),
+('RBL2', 'BL06', 'ND08', 'Dạ loại này dể trồng,cây ưa mát và cần nhiều nước ạ', '2022-10-06 15:50:44');
+
+--
+-- Bẫy `rep_bl`
+--
+DELIMITER $$
+CREATE TRIGGER `them_rep_bl` BEFORE INSERT ON `rep_bl` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("RBL",SUBSTRING(ma_rbl,4)+1) FROM rep_bl ORDER BY SUBSTRING(ma_rbl,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_rbl = 'RBL1';
+ELSE SET NEW.ma_rbl = id;
+END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `san_pham`
 --
 
@@ -1151,6 +1195,12 @@ ALTER TABLE `nha_cung_cap`
 --
 ALTER TABLE `phieu_giam_gia`
   ADD PRIMARY KEY (`ma_pgg`);
+
+--
+-- Chỉ mục cho bảng `rep_bl`
+--
+ALTER TABLE `rep_bl`
+  ADD PRIMARY KEY (`ma_rbl`);
 
 --
 -- Chỉ mục cho bảng `san_pham`

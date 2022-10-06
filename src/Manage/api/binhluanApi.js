@@ -6,13 +6,13 @@ const binhluanApi = {
     return axiosClient.get(API_URL);
   },
 
-  getList(trang) {
-    const API_URL = `/hoadonnhap/${trang}`;
+  addbinhluan(bl,masp,mand) {
+    const API_URL = `/binhluan/add/${bl}&&${masp}&&${mand}`;
     return axiosClient.get(API_URL);
   },
-  delete(id) {
-    const API_URL = `/hoadonnhap/delete/${id}`;
-    return axiosClient.get(API_URL,id);
+  getlistrblid(masp) {
+    const API_URL = `/binhluan/getlistrep/${masp}`;
+    return axiosClient.get(API_URL);
   },
   getid(ten,trang) {
     const API_URL = `/hoadonnhap/get/${ten}&&${trang}`;
