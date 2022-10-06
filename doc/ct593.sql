@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 05, 2022 lúc 04:10 PM
+-- Thời gian đã tạo: Th10 06, 2022 lúc 05:28 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -63,6 +63,46 @@ SET id = (SELECT CONCAT("AVT",SUBSTRING(ma_avt,4)+1) FROM anh_dai_dien ORDER BY 
 IF id IS NULL 
 THEN SET NEW.ma_avt = 'AVT1';
 ELSE SET NEW.ma_avt = id;
+END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `binh_luan`
+--
+
+CREATE TABLE `binh_luan` (
+  `ma_bl` varchar(50) NOT NULL,
+  `ma_kh` varchar(50) NOT NULL,
+  `noi_dung` varchar(255) NOT NULL,
+  `trang_thai` varchar(20) NOT NULL,
+  `ngay_bl` datetime NOT NULL,
+  `ma_sp` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `binh_luan`
+--
+
+INSERT INTO `binh_luan` (`ma_bl`, `ma_kh`, `noi_dung`, `trang_thai`, `ngay_bl`, `ma_sp`) VALUES
+('BL03', 'ND09', 'dep', '0', '2022-10-06 04:06:20', 'SP010'),
+('BL04', 'ND08', 'Cây này dể trồng không shop', '0', '2022-10-06 05:11:26', 'SP010');
+
+--
+-- Bẫy `binh_luan`
+--
+DELIMITER $$
+CREATE TRIGGER `them_bl` BEFORE INSERT ON `binh_luan` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("BL0",SUBSTRING(ma_bl,4)+1) FROM binh_luan ORDER BY SUBSTRING(ma_bl,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_bl = 'BL01';
+ELSE SET NEW.ma_bl = id;
 END IF;
 END
 $$
@@ -1005,6 +1045,12 @@ INSERT INTO `users` (`id`, `user_id`, `email`, `fullname`, `credential`, `phone`
 --
 ALTER TABLE `anh_dai_dien`
   ADD PRIMARY KEY (`ma_avt`);
+
+--
+-- Chỉ mục cho bảng `binh_luan`
+--
+ALTER TABLE `binh_luan`
+  ADD PRIMARY KEY (`ma_bl`);
 
 --
 -- Chỉ mục cho bảng `chi_tiet_dh`

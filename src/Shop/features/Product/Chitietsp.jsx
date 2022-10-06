@@ -67,6 +67,8 @@ function Chitietsp() {
   const handleCloseTop = () => {  setOpen(false); goToTop(); dispatch(addquaylai({link: params.pathname}))  };
   const handleTruyenn = (aaa,hinhanh) =>{   console.log(aaa);setHinhanh(hinhanh);    setCount((e) => e + 1); }
   const handleTruyensl = (aaa) =>{ setSoluongnhap(aaa);  setCount((e) => e + 1);} 
+  const handleTruyenbl = () =>{   setCount((e) => e + 1);} 
+
   const handleChangeha = (mactsp,ha,makt,tenkt,sl,gb) => {
     setMactsp(mactsp);  setMakt(makt); setTenkt(tenkt); setSoluong(sl); setGiaban(gb);  setHinhanh(ha); setCount((e) => e + 1);  
   };
@@ -423,7 +425,9 @@ const goToTop = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Binhluan/>
+          {datasp.map((aa)=>(
+              <Binhluan data={aa} handleTruyenn={handleTruyenbl}/>              ))}
+         
           <Box>
             <Paper elevation={0}>
               <Grid id="hau"

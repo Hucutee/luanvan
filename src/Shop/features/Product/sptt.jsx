@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Paper, Typography } from "@mui/material";
+import { Link, Paper, Typography } from "@mui/material";
 import { Box, Grid, Skeleton } from "@mui/material";
 import textt from "./text.png";
 import "./stylesp.css";
@@ -11,7 +11,7 @@ import Fab from '@mui/material/Fab';
 import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
 import sanphamAPI from "../../../Manage/api/sanphamApi";
 import Product from "./Product";
-import { Link } from "react-router-dom";
+import { Link as Lin } from "react-router-dom";
 
 Sptt.propTypes = {
   product: PropTypes.object,
@@ -51,7 +51,7 @@ function Sptt(product) {
       <Grid  sm={4}>
                     
                    <Typography sx={{width: "25%", float:"left"}}>
-                   <Link style={{textDecoration: "none"}} to={`/products/${aa.ma_sp}`} ><Product data={aa} handleTruyen={handleTruyen}  /></Link>
+                   <Link style={{textDecoration: "none"}} href={`/products/${aa.ma_sp}`} ><Product data={aa} handleTruyen={handleTruyen}  /></Link>
                    </Typography>
                    
                

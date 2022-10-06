@@ -23,14 +23,32 @@ import Texthinh from "./texthinh";
 import khuyenmaiAPI from "../../../Manage/api/khuyenmaiApi";
 import Sptt from "./sptt";
 import Checksl from "./checksl";
+import binhluanApi from "../../../Manage/api/binhluanApi";
 
+Binhluan.propTypes = {
+  product: PropTypes.object,
+  
+};
+function Binhluan(product){
 
-function Binhluan(){
-    const [value, setValue] = React.useState("1");
+  const [count, setCount] = useState(0);
+  const [databl, setDatabl] = useState([]);
+
+    const [value, setValue] = React.useState("2");
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+    useEffect(() => {
+      (async () => {
+        try {
+          const bl = await binhluanApi.getlistblid(product.data.ma_sp); setDatabl(bl);
+         
+        } catch (error) {
+          console.log("loi", error);
+        }
+      })(); 
+    }, [count]);
     return (
         <Box sx={{ width: "100%", typography: "body1", marginTop: "50px" }}>
             <TabContext value={value}>
@@ -48,7 +66,6 @@ function Binhluan(){
                   aria-label="lab API tabs example"
                   indicatorColor="none"
                 >
-                  <Tab label="Mô tả" value="1" style={{ fontSize: "20px" }} />
                   <Tab
                     label="Đánh giá"
                     value="2"
@@ -61,43 +78,7 @@ function Binhluan(){
                   />
                 </TabList>
               </Box>
-              <TabPanel
-                value="1"
-                style={{
-                  fontFamily: "IBM Plex Sans,sans-serif",
-                  fontSize: "16px",
-                  fontWeight: "300",
-                  lineHeight: "24px",
-                  padding: "23px",
-                  color: "rgb(128,128,128)",
-                  borderTop: "1px solid #f0f0f0",
-                  borderBottom: "1px solid #f0f0f0",
-                }}
-              >
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                blanditiis praesentium voluptatum deleniti atque corrupti quos
-                dolores et quas molestias excepturi sint occaecati cupiditate
-                non provident, similique sunt in culpa qui officia deserunt
-                mollitia animi, id est laborum et dolorum fuga. Et harum quidem
-                rerum facilis est et expedita distinctio. Nam libero tempore,
-                cum soluta nobis est eligendi optio cumque nihil impedit quo
-                minus id quod maxime placeat facere possimus, omnis voluptas
-                assumenda est, omnis dolor repellendus. Temporibus autem
-                quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-                eveniet ut et voluptates repudiandae sint et molestiae non
-                recusandae. Itaque earum rerum hic tenetur a sapiente delectus,
-                ut aut reiciendis voluptatibus maiores alias consequatur aut
-                perferendis doloribus asperiores repellat. In a free hour, when
-                our power of choice is untrammelled and when nothing prevents
-                our being able to do what we like best, every pleasure is to be
-                welcomed and every pain avoided. But in certain circumstances
-                and owing to the claims of duty or the obligations of business
-                it will frequently occur that pleasures have to be repudiated
-                and annoyances accepted. The wise man therefore always holds in
-                these matters to this principle of selection: he rejects
-                pleasures to secure other greater pleasures, or else he endures
-                pains to avoid worse pains.
-              </TabPanel>
+            
               <TabPanel value="2">
                 <Grid sx={{ p: 4, border: "1px solid #ededed" }}>
                   <Grid>
@@ -110,6 +91,7 @@ function Binhluan(){
                       }}
                     >
                       Phản hồi của khách hàng
+                      
                     </Typography>
                     <Grid style={{ marginTop: "15px" }}>
                       <Rating 
@@ -166,42 +148,8 @@ function Binhluan(){
                       </i>
                     </Typography>
                   </Grid>
-                  <Grid
-                    style={{
-                      borderBottom: "1px solid #ededed",
-                      marginTop: "30px",
-                      marginBottom: "30px",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    }}
-                  ></Grid>
-                  <Grid>
-                    <Grid style={{ marginTop: "15px" }}>
-                      <Rating size="big" name="read-only" value={5} readOnly />{" "}
-                    </Grid>
-                    <Typography
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: "400",
-                        lineHeight: "40px",
-                        color: "#333",
-                      }}
-                    >
-                      Nội dung đánh giá
-                    </Typography>
-                    <Typography
-                      style={{
-                        color: "#333333",
-                        fontSize: "15px",
-                        fontWeight: "300",
-                      }}
-                    >
-                      <i>
-                        {" "}
-                        Được thêm bởi <b> hậu </b>{" "}
-                      </i>
-                    </Typography>
-                  </Grid>
+                 
+                 
                   <Grid
                     style={{
                       borderBottom: "1px solid #ededed",
@@ -237,27 +185,29 @@ function Binhluan(){
                       marginRight: "auto",
                     }}
                   ></Grid>
-                  <Grid>
+                  {databl.map((bl)=>(
+                        <Grid>
+                             <Grid>
                     <Typography
                       style={{
-                        fontSize: "16px",
+                        fontSize: "20px",
                         fontWeight: "400",
                         lineHeight: "40px",
                         color: "#333",
                       }}
                     >
-                      Nội dung bình luận
+                      {bl.noi_dung}
                     </Typography>
                     <Typography
                       style={{
                         color: "#333333",
-                        fontSize: "15px",
+                        fontSize: "14px",
                         fontWeight: "300",
                       }}
                     >
                       <i>
                         {" "}
-                        Được thêm bởi <b> hậu </b> ngày <b> 11-11-2022</b>
+                        Được thêm bởi <b> {bl.ten_nd} </b> ngày <b> {bl.ngay_bl.slice(0,10)}</b>
                       </i>
                     </Typography>
                   </Grid>
@@ -270,39 +220,10 @@ function Binhluan(){
                       marginRight: "auto",
                     }}
                   ></Grid>
-                  <Grid>
-                    <Typography
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: "400",
-                        lineHeight: "40px",
-                        color: "#333",
-                      }}
-                    >
-                      Nội dung đánh giá
-                    </Typography>
-                    <Typography
-                      style={{
-                        color: "#333333",
-                        fontSize: "15px",
-                        fontWeight: "300",
-                      }}
-                    >
-                      <i>
-                        {" "}
-                        Được thêm bởi <b> hậu </b>{" "}
-                      </i>
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    style={{
-                      borderBottom: "1px solid #ededed",
-                      marginTop: "30px",
-                      marginBottom: "30px",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    }}
-                  ></Grid>
+                        </Grid>
+                      ))}
+               
+                 
                 </Grid>
               </TabPanel>
             </TabContext>
