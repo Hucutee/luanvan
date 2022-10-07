@@ -38,6 +38,8 @@ function Binhluan(product){
   const [count, setCount] = useState(0);
   const [databl, setDatabl] = useState([]);
   const [datarbl, setDatarbl] = useState([]);
+  const [datadg, setDatadg] = useState([]);
+  const [sosao, setSosao] = useState(0);
 
   const [binhluan, setBinhluan] = useState("");
 
@@ -57,6 +59,17 @@ function Binhluan(product){
         try {
           const bl = await binhluanApi.getlistblid(product.data.ma_sp); setDatabl(bl);
           const rbl = await binhluanApi.getlistrblid(product.data.ma_sp); setDatarbl(rbl); 
+          const dg = await binhluanApi.getlistdgid(product.data.ma_sp); setDatadg(dg); console.log(dg);
+          let trungbinh=0;
+
+              if(dg.length > 0){
+                for (let i = 0; i < dg.length; i++){
+                  trungbinh = trungbinh + dg[i].so_sao;
+                }
+                trungbinh = parseFloat(trungbinh/dg.length).toFixed(1);
+
+              }
+              setSosao(trungbinh);
 
         } catch (error) {
           console.log("loi", error);
@@ -107,12 +120,12 @@ function Binhluan(product){
                       Phản hồi của khách hàng
                       
                     </Typography>
-                    <Grid style={{ marginTop: "15px" }}>
+                    {datadg.length ? <Grid style={{ marginTop: "15px" }}>
                       <Rating 
                         style={{ float: "left", marginRight: "10px" }}
                         size="big"
                         name="read-only"
-                        value={4}
+                        value={sosao} precision={0.1}
                         readOnly
                       />{" "}
                       <Typography
@@ -122,9 +135,9 @@ function Binhluan(product){
                           fontWeight: "300",
                         }}
                       >
-                        2 lượt đánh giá
+                        {sosao} sao với {datadg.length} lượt đánh giá 
                       </Typography>
-                    </Grid>
+                    </Grid>: <Typography>Chưa có phản hồi nào</Typography>}
                   </Grid>
                   <Grid
                     style={{
@@ -135,9 +148,24 @@ function Binhluan(product){
                       marginRight: "auto",
                     }}
                   ></Grid>
-                  <Grid>
+                 <Grid sx={{overflowY: 'scroll',maxHeight:"600px",pl:4,pr:4}}>
+                 {datadg.map((dg)=>(
+                    <Grid>
+                      <Grid>
+                      <Typography
+                      style={{
+                        color: "#333333",
+                        fontSize: "15px",
+                        fontWeight: "300",
+                      }}
+                    >
+                      <i>
+                        {" "}
+                        Được thêm bởi <b> {dg.ten_nd}</b> ngày <b>{dg.ngay.slice(0,10)}</b>
+                      </i>
+                    </Typography>
                     <Grid style={{ marginTop: "15px" }}>
-                      <Rating size="big" name="read-only" value={3} readOnly />{" "}
+                      <Rating size="big" name="read-only" value={dg.so_sao} readOnly />{" "}
                     </Grid>
                     <Typography
                       style={{
@@ -147,20 +175,14 @@ function Binhluan(product){
                         color: "#333",
                       }}
                     >
-                      Nội dung đánh giá
+                      {dg.noi_dung}
                     </Typography>
-                    <Typography
-                      style={{
-                        color: "#333333",
-                        fontSize: "15px",
-                        fontWeight: "300",
-                      }}
-                    >
-                      <i>
-                        {" "}
-                        Được thêm bởi <b> hậu </b> ngày <b> 11-11-2022</b>
-                      </i>
-                    </Typography>
+                    {dg.hinh_anh ? <Zoom
+                    img={require("../../../imageuser/"+dg.hinh_anh)}
+                    height={200} 
+                    width={200}
+                  />:false}
+                   
                   </Grid>
                  
                  
@@ -173,6 +195,9 @@ function Binhluan(product){
                       marginRight: "auto",
                     }}
                   ></Grid>
+                    </Grid>
+                  ))}
+                 </Grid>
                 </Grid>
               </TabPanel>
               <TabPanel value="3" >
@@ -199,10 +224,22 @@ function Binhluan(product){
                       marginRight: "auto",
                     }}
                   ></Grid>
-                  <Grid sx={{overflowY: 'scroll',maxHeight:"600px",pl:18,pr:18}}>
+                  <Grid sx={{overflowY: 'scroll',maxHeight:"600px",pl:4,pr:4}}>
                   {databl.map((bl)=>(
                         <Grid>
                              <Grid>
+                             <Typography
+                      style={{
+                        color: "#333333",
+                        fontSize: "14px",
+                        fontWeight: "300", textAlign: "right"
+                      }}
+                    >
+                      <i>
+                        {" "}
+                        <b> {bl.ten_nd} </b> ngày <b> {bl.ngay_bl.slice(0,10)}</b>
+                      </i>
+                    </Typography>
                     <Typography
                       style={{
                         fontSize: "20px",
@@ -213,32 +250,19 @@ function Binhluan(product){
                     >
                       {bl.noi_dung}
                     </Typography>
-                    <Typography
-                      style={{
-                        color: "#333333",
-                        fontSize: "14px",
-                        fontWeight: "300", textAlign: "right"
-                      }}
-                    >
-                      <i>
-                        {" "}
-                        Được thêm bởi <b> {bl.ten_nd} </b> ngày <b> {bl.ngay_bl.slice(0,10)}</b>
-                      </i>
-                    </Typography>
+                    
                   </Grid>
                   {datarbl.map((rbl)=>(
                     rbl.ma_bl== bl.ma_bl ? (<Grid height="70px">
-                                          <Typography sx={{width:"38%",float:"right"}}><SubdirectoryArrowLeftIcon sx={{width:30,height:30}}/></Typography>
 
                       <Typography
                       style={{
-                        fontSize: "20px",
+                        fontSize: "18px",
                         fontWeight: "400",
                         lineHeight: "50px",
                         color: "#333",width:"60%"
                       }}
                     >
-                      {rbl.noi_dung}
                       <Typography
                      style={{
                        color: "#333333",
@@ -248,9 +272,11 @@ function Binhluan(product){
                    >
                      <i>
                        {" "}
-                       Được thêm bởi <b> Hau' Garden </b> ngày <b> {rbl.ngay.slice(0,10)}</b>
+                       Trả lời từ <b> Hau' Garden </b> ngày <b> {rbl.ngay.slice(0,10)}</b>
                      </i>
                    </Typography>
+                   {rbl.noi_dung}
+
                     </Typography>
 
                     

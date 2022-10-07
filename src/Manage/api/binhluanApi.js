@@ -14,12 +14,17 @@ const binhluanApi = {
     const API_URL = `/binhluan/getlistrep/${masp}`;
     return axiosClient.get(API_URL);
   },
-  getid(ten,trang) {
-    const API_URL = `/hoadonnhap/get/${ten}&&${trang}`;
+  getlistdgid(masp) {
+    const API_URL = `/danhgia/getlistdg/${masp}`;
     return axiosClient.get(API_URL);
   },
-  sua(id,ghichu,mancc,manv,nbd) {
-    const API_URL = `/hoadonnhap/sua/${id}&&${ghichu}&&${mancc}&&${manv}&&${nbd}`;
+  danhgia(data) {
+    const API_URL = "/danhgia";
+    return axiosClient.post(API_URL,data);
+  },
+
+  settrangthaictdh(mactdh) {
+    const API_URL = `/chitietdonhang/suatrangthai/${mactdh}`;
     return axiosClient.get(API_URL);
   },
   getCount() {

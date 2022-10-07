@@ -37,6 +37,13 @@ import donhangAPI from "../../../Manage/api/donhangApi";
 import Zoom from "react-img-zoom";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Rating from "@mui/material/Rating";
+import binhluanApi from "../../../Manage/api/binhluanApi";
 
 Donhang.propTypes = {};
 function Donhang() {
@@ -44,7 +51,7 @@ function Donhang() {
   const dispatch = useDispatch();
   const navigation = useNavigate();
 
-  const [email, setEmail] = React.useState("");
+  const [mactdh, setMactdh] = React.useState("");
   const [count, setCount] = React.useState(0);
   const [datadh, setDatadh] = React.useState([]);
   const [datactgh, setDatactgh] = React.useState([]);
@@ -52,12 +59,18 @@ function Donhang() {
   const [datactdh, setDatactdh] = React.useState([]);
   const [loc, setLoc] = React.useState('07');
   const [trangthai, setTrangthai] = React.useState(0);
+  const [file, setFile] = React.useState();
+  const [noidung, setNoidung] = React.useState("");
+  const [sosao, setSosao] = React.useState(5);
+
 const handlehuy = async (madh) =>{
   await donhangAPI.huy(madh); (setCount((e) => e + 1));
 }
+
   useEffect(() => {
     (async () => {
       try {
+        console.log(noidung);
         const dh = await donhangAPI.getdhkh(dataUser[0].ma_nd,loc.slice(0,1),loc.slice(1));
         const ctdh = await donhangAPI.getctdhkh(dataUser[0].ma_nd);
         const ctgh = await donhangAPI.getctgh(dataUser[0].ma_nd);
@@ -72,6 +85,31 @@ const handlehuy = async (madh) =>{
 
   const handleChangeloc = (event) => {
     setLoc(event.target.value); setCount((e) => e + 1);
+  };
+  const handledg = (ma) => {
+    setMactdh(ma);    setOpen(true);
+    setCount((e) => e + 1);
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false); setFile();setSosao(5); setNoidung("");setMactdh("");
+  };
+  const send = async () => {
+    const data = new FormData();
+    data.append("file",file);
+    data.append("sosao", sosao);
+    data.append("noidung", noidung);
+    data.append("mactdh", mactdh);
+    data.append("makh", dataUser[0].ma_nd);
+
+
+    if( noidung != ""){
+      await binhluanApi.danhgia(data);
+      await binhluanApi.settrangthaictdh(mactdh);
+      setOpen(false);  setFile();setSosao(5); setNoidung("");setMactdh("");
+    }
+    setCount((e) => e + 1);
+  
   };
   return (
     <Box>
@@ -264,7 +302,8 @@ const handlehuy = async (madh) =>{
                               <td className="text-base ">{new Intl.NumberFormat("vi-VN", {
                           style: "currency",
                           currency: "VND",
-                        }).format(aaa.so_luong*aaa.gia)}</td>
+                        }).format(aaa.so_luong*aaa.gia)} {aa.trang_thai == 4 && aaa.trang_thai == 0 ? (<span> <br/> <Button onClick={(e)=>handledg(aaa.ma_ctdh)} size="small" variant="outlined" color="secondary" sx={{fontSize:"12px"}}>Đánh giá</Button></span>):false}
+                                                        {aa.trang_thai == 4 && aaa.trang_thai == 1 ? (<span> <br/> <Button onClick={(e)=>handledg(aaa.ma_ctdh)} size="small" variant="contained" color="secondary" sx={{fontSize:"12px"}}>Đã đánh giá</Button></span>):false}</td>
                             </tr>
                           ) : (
                             false
@@ -288,6 +327,48 @@ const handlehuy = async (madh) =>{
           )}
         </Grid>
       </Grid>
+      <Dialog
+        open={open}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Cảm nhận của bạn về sản phẩm"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          <form action="#">
+                            <div class="form-group"> Hình ảnh: &ensp;
+                              <input color="success"
+                                type="file"
+                                id="file"
+                                name="file"
+                                accept=".jpg"
+                                onChange={(event) => {
+                                  const file = event.target.files[0];
+                                  setFile(file);
+                                }}
+                              />
+                              <Typography sx={{lineHeight:"80px"}} ><Typography sx={{float:"left", marginTop:"22px"}}>Số sao: </Typography>&ensp;&ensp; <Rating 
+                        style={{  marginTop: "10px" }}
+                        size="big"
+                        name="sosao" id="sosao"
+                        defaultValue={sosao} onChange={(e)=>setSosao(e.target.value)}
+                      
+                      /></Typography>
+                                   <TextField fullWidth color="success" label="Cảm nhận của bạn" variant="outlined" onChange={(e)=>setNoidung(e.target.value)} />
+
+                            </div>
+                          </form>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="success" variant="contained" onClick={handleClose}>Quay lại</Button>
+          <Button color="success" variant="contained" onClick={send} autoFocus>
+            Đánh giá
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

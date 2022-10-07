@@ -28,6 +28,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { useDispatch, useSelector } from "react-redux";
 import { addtoCart, removeAllCart } from "../../app/cartSlide";
 import { addquaylai } from "../../app/quaylai";
+import binhluanApi from "../../../Manage/api/binhluanApi";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -68,6 +69,8 @@ function Chitietsp() {
   const handleTruyenn = (aaa,hinhanh) =>{   console.log(aaa);setHinhanh(hinhanh);    setCount((e) => e + 1); }
   const handleTruyensl = (aaa) =>{ setSoluongnhap(aaa);  setCount((e) => e + 1);} 
   const handleTruyenbl = () =>{   setCount((e) => e + 1);} 
+  const [sosao, setSosao] = useState(0);
+  const [datadg, setDatadg] = useState([]);
 
   const handleChangeha = (mactsp,ha,makt,tenkt,sl,gb) => {
     setMactsp(mactsp);  setMakt(makt); setTenkt(tenkt); setSoluong(sl); setGiaban(gb);  setHinhanh(ha); setCount((e) => e + 1);  
@@ -144,6 +147,17 @@ const goToTop = () => {
         const kmm = await khuyenmaiAPI.getkm(productId); setKm(kmm);
         setData(dataa);
         setDatasp(dataaa); 
+        const dg = await binhluanApi.getlistdgid(productId);setDatadg(dg);
+          let trungbinh=0;
+
+              if(dg.length > 0){
+                for (let i = 0; i < dg.length; i++){
+                  trungbinh = trungbinh + dg[i].so_sao;
+                }
+                trungbinh = parseFloat(trungbinh/dg.length).toFixed(1);
+
+              }
+              setSosao(trungbinh);
        
       } catch (error) {
         console.log("loi", error);
@@ -228,16 +242,37 @@ const goToTop = () => {
               >
                 {datasp.map((aa) => aa.ten_sp)}
               </Typography>
-              <Typography>
+              {sosao ? <Grid  style={{ lineHeight: "60px", }}>
                 {" "}
-                <Rating
-                  style={{ marginTop: "10px" }}
-                  size="small"
-                  name="half-rating-read" defaultValue={2.6} precision={0.1}
+              <Typography sx={{float:"left"}}>
+              <Rating sx={{marginTop:"10px",marginRight:"10px"}}
+                  
+                  name="half-rating-read" value={sosao} precision={0.1}
                   
                   readOnly
-                />
-              </Typography>
+                /> </Typography> <Typography   style={{
+                  fontSize: "16px",
+                  fontWeight: "300",
+                  padding: "10px",
+                  color: "#333",
+             
+                }}>{sosao} sao với {datadg.length} lượt đánh giá</Typography>
+              </Grid>:<Grid  style={{ lineHeight: "60px", }}>
+                {" "}
+              <Typography sx={{float:"left"}}>
+              <Rating sx={{marginTop:"10px",marginRight:"10px"}}
+                  
+                  name="half-rating-read" value={0} precision={0.1}
+                  
+                  readOnly
+                /> </Typography> <Typography   style={{
+                  fontSize: "16px",
+                  fontWeight: "300",
+                  padding: "10px",
+                  color: "#333",
+             
+                }}>Chưa có đánh giá</Typography>
+              </Grid>}
               <Typography
                
               >

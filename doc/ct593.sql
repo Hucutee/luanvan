@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 06, 2022 lúc 04:52 PM
+-- Thời gian đã tạo: Th10 07, 2022 lúc 12:24 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -43,6 +43,7 @@ INSERT INTO `anh_dai_dien` (`ma_avt`, `ten_avt`, `ma_nd`, `ngay_them`) VALUES
 ('AVT10', '1664974680843.jpg', 'ND08', '2022-10-05 19:58:00'),
 ('AVT11', '1664975054906.jpg', 'ND08', '2022-10-05 20:04:14'),
 ('AVT12', '1665045959816.jpg', 'ND08', '2022-10-06 15:45:59'),
+('AVT13', '1665128637459.jpg', 'ND02', '2022-10-07 14:43:57'),
 ('AVT2', '1664971881063.jpg', 'ND09', '2022-10-05 19:11:21'),
 ('AVT3', '1664971915834.jpg', 'ND09', '2022-10-05 19:11:55'),
 ('AVT4', '1664972811876.jpg', 'ND08', '2022-10-05 19:26:51'),
@@ -124,53 +125,55 @@ CREATE TABLE `chi_tiet_dh` (
   `ma_ctsp` varchar(50) NOT NULL,
   `ma_dh` varchar(50) NOT NULL,
   `so_luong` int(20) NOT NULL,
-  `gia` int(20) NOT NULL
+  `gia` int(20) NOT NULL,
+  `trang_thai` int(10) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `chi_tiet_dh`
 --
 
-INSERT INTO `chi_tiet_dh` (`ma_ctdh`, `ma_ctsp`, `ma_dh`, `so_luong`, `gia`) VALUES
-('CTD10', 'CT051', 'DH06', 1, 90000),
-('CTD11', 'CT043', 'DH07', 1, 36000),
-('CTD12', 'CT046', 'DH07', 1, 136000),
-('CTD13', 'CT045', 'DH08', 1, 136000),
-('CTD14', 'CT044', 'DH08', 1, 12000),
-('CTD15', 'CT031', 'DH09', 1, 25000),
-('CTD16', 'CT089', 'DH09', 1, 20000),
-('CTD17', 'CT070', 'DH010', 1, 40000),
-('CTD18', 'CT035', 'DH010', 1, 50000),
-('CTD19', 'CT045', 'DH011', 1, 136000),
-('CTD20', 'CT018', 'DH012', 1, 27000),
-('CTD21', 'CT080', 'DH013', 1, 30000),
-('CTD22', 'CT022', 'DH014', 1, 27000),
-('CTD23', 'CT033', 'DH015', 1, 15000),
-('CTD24', 'CT040', 'DH016', 1, 16000),
-('CTD25', 'CT041', 'DH016', 1, 32000),
-('CTD26', 'CT027', 'DH017', 1, 50000),
-('CTD27', 'CT048', 'DH018', 1, 67500),
-('CTD28', 'CT052', 'DH019', 1, 13500),
-('CTD29', 'CT026', 'DH020', 1, 9600),
-('CTD31', 'CT051', 'DH022', 1, 90000),
-('CTD32', 'CT046', 'DH023', 1, 136000),
-('CTD33', 'CT022', 'DH024', 1, 27000),
-('CTD34', 'CT034', 'DH025', 1, 20000),
-('CTD35', 'CT035', 'DH025', 1, 50000),
-('CTD36', 'CT018', 'DH026', 1, 27000),
-('CTD37', 'CT051', 'DH026', 1, 90000),
-('CTD38', 'CT048', 'DH027', 1, 67500),
-('CTD39', 'CT018', 'DH028', 1, 27000),
-('CTD40', 'CT034', 'DH029', 1, 20000),
-('CTD41', 'CT043', 'DH030', 1, 36000),
-('CTD42', 'CT026', 'DH031', 1, 9600),
-('CTD43', 'CT051', 'DH032', 1, 90000),
-('CTD44', 'CT018', 'DH032', 1, 27000),
-('CTD5', 'CT022', 'DH03', 1, 27000),
-('CTD6', 'CT051', 'DH03', 1, 90000),
-('CTD7', 'CT048', 'DH03', 1, 67500),
-('CTD8', 'CT043', 'DH04', 1, 36000),
-('CTD9', 'CT022', 'DH05', 1, 27000);
+INSERT INTO `chi_tiet_dh` (`ma_ctdh`, `ma_ctsp`, `ma_dh`, `so_luong`, `gia`, `trang_thai`) VALUES
+('CTD10', 'CT051', 'DH06', 1, 90000, 0),
+('CTD11', 'CT043', 'DH07', 1, 36000, 0),
+('CTD12', 'CT046', 'DH07', 1, 136000, 0),
+('CTD13', 'CT045', 'DH08', 1, 136000, 0),
+('CTD14', 'CT044', 'DH08', 1, 12000, 0),
+('CTD15', 'CT031', 'DH09', 1, 25000, 0),
+('CTD16', 'CT089', 'DH09', 1, 20000, 0),
+('CTD17', 'CT070', 'DH010', 1, 40000, 0),
+('CTD18', 'CT035', 'DH010', 1, 50000, 0),
+('CTD19', 'CT045', 'DH011', 1, 136000, 0),
+('CTD20', 'CT018', 'DH012', 1, 27000, 0),
+('CTD21', 'CT080', 'DH013', 1, 30000, 0),
+('CTD22', 'CT022', 'DH014', 1, 27000, 0),
+('CTD23', 'CT033', 'DH015', 1, 15000, 0),
+('CTD24', 'CT040', 'DH016', 1, 16000, 1),
+('CTD25', 'CT041', 'DH016', 1, 32000, 1),
+('CTD26', 'CT027', 'DH017', 1, 50000, 0),
+('CTD27', 'CT048', 'DH018', 1, 67500, 0),
+('CTD28', 'CT052', 'DH019', 1, 13500, 0),
+('CTD29', 'CT026', 'DH020', 1, 9600, 0),
+('CTD31', 'CT051', 'DH022', 1, 90000, 1),
+('CTD32', 'CT046', 'DH023', 1, 136000, 1),
+('CTD33', 'CT022', 'DH024', 1, 27000, 0),
+('CTD34', 'CT034', 'DH025', 1, 20000, 0),
+('CTD35', 'CT035', 'DH025', 1, 50000, 0),
+('CTD36', 'CT018', 'DH026', 1, 27000, 0),
+('CTD37', 'CT051', 'DH026', 1, 90000, 0),
+('CTD38', 'CT048', 'DH027', 1, 67500, 0),
+('CTD39', 'CT018', 'DH028', 1, 27000, 0),
+('CTD40', 'CT034', 'DH029', 1, 20000, 0),
+('CTD41', 'CT043', 'DH030', 1, 36000, 0),
+('CTD42', 'CT026', 'DH031', 1, 9600, 0),
+('CTD43', 'CT051', 'DH032', 1, 90000, 0),
+('CTD44', 'CT018', 'DH032', 1, 27000, 0),
+('CTD45', 'CT022', 'DH033', 1, 27000, 0),
+('CTD5', 'CT022', 'DH03', 1, 27000, 0),
+('CTD6', 'CT051', 'DH03', 1, 90000, 0),
+('CTD7', 'CT048', 'DH03', 1, 67500, 0),
+('CTD8', 'CT043', 'DH04', 1, 36000, 0),
+('CTD9', 'CT022', 'DH05', 1, 27000, 1);
 
 --
 -- Bẫy `chi_tiet_dh`
@@ -330,6 +333,50 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `danh_gia`
+--
+
+CREATE TABLE `danh_gia` (
+  `ma_dg` varchar(50) NOT NULL,
+  `ma_kh` varchar(50) NOT NULL,
+  `so_sao` int(10) NOT NULL,
+  `ngay` datetime NOT NULL,
+  `noi_dung` varchar(255) NOT NULL,
+  `hinh_anh` varchar(255) NOT NULL,
+  `ma_ctdh` varchar(50) DEFAULT NULL,
+  `trang_thai` int(10) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `danh_gia`
+--
+
+INSERT INTO `danh_gia` (`ma_dg`, `ma_kh`, `so_sao`, `ngay`, `noi_dung`, `hinh_anh`, `ma_ctdh`, `trang_thai`) VALUES
+('DG01', 'ND02', 5, '2022-10-07 16:03:46', 'Sản phẩm đẹp, giao hàng nhanh', '1665133426835.jpg', 'CTD32', 0),
+('DG03', 'ND02', 4, '2022-10-07 16:10:12', 'Hàng đẹp nhưng giao hơi lâu', '1665133812180.jpg', 'CTD25', 0),
+('DG04', 'ND02', 5, '2022-10-07 16:14:08', 'Cây đẹp lắm shop ơi', '1665134048233.jpg', 'CTD31', 0),
+('DG05', 'ND02', 4, '2022-10-07 16:25:23', 'Cây đẹp lắm nhưng giao hàng hơi lâu', '', 'CTD9', 0);
+
+--
+-- Bẫy `danh_gia`
+--
+DELIMITER $$
+CREATE TRIGGER `them_danh_gia` BEFORE INSERT ON `danh_gia` FOR EACH ROW BEGIN
+DECLARE id varchar(50);
+
+SET id = (SELECT CONCAT("DG0",SUBSTRING(ma_dg,4)+1) FROM danh_gia ORDER BY SUBSTRING(ma_dg,4)*1 DESC LIMIT 1);
+
+IF id IS NULL 
+THEN SET NEW.ma_dg = 'DG01';
+ELSE SET NEW.ma_dg = id;
+END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `dia_chi`
 --
 
@@ -349,7 +396,8 @@ INSERT INTO `dia_chi` (`ma_dc`, `ten_dc`, `ma_nd`) VALUES
 ('DC03', 'â', 'ND07'),
 ('DC04', 'Cần Thơ', 'ND02'),
 ('DC05', 'p.An Khánh, q.Ninh Kiều,tp.Cần Thơ', 'ND09'),
-('DC06', 'p.trung kiên , q. thốt nốt , tp.cần thơ', 'ND08');
+('DC06', 'p.trung kiên , q. thốt nốt , tp.cần thơ', 'ND08'),
+('DC07', 'p,trung kien, q,thot not, tp. can tho', 'ND02');
 
 --
 -- Bẫy `dia_chi`
@@ -442,6 +490,7 @@ INSERT INTO `don_hang` (`ma_dh`, `ma_kh`, `ma_pgg`, `ma_nv`, `ngay_dat_hang`, `d
 ('DH030', 'ND09', 'PGG1', 'ND01', '2022-10-02 13:07:40', 'p.An Khánh, q.Ninh Kiều,tp.Cần Thơ', 1, 36000, 4, 'Phan Hậu, 03874646364'),
 ('DH031', 'ND09', 'PGG1', 'ND01', '2022-10-02 13:08:10', 'p.An Khánh, q.Ninh Kiều,tp.Cần Thơ', 1, 9600, 6, 'Phan Hậu, 0283747575'),
 ('DH032', 'ND08', 'PGG1', 'ND01', '2022-10-05 19:34:28', 'p.trung kiên , q. thốt nốt , tp.cần thơ', 1, 117000, 0, 'Phan Trung Hậu, 0968483854'),
+('DH033', 'ND02', 'PGG1', 'ND01', '2022-10-07 13:23:56', 'p,trung kien, q,thot not, tp. can tho', 1, 27000, 0, 'Phan Anh, 0987654221'),
 ('DH04', 'ND01', 'PGG1', 'ND01', '2022-09-29 20:13:27', 'a', 0, 36000, 4, 'aa a, 0484757644'),
 ('DH05', 'ND02', 'PGG1', 'ND01', '2022-09-30 23:36:28', 'Cần Thơ', 1, 27000, 4, 'a a, 0848484844'),
 ('DH06', 'ND02', 'PGG1', 'ND01', '2022-09-30 23:37:40', 'Cần Thơ', 1, 90000, 6, 'a a, 0384747333'),
@@ -1088,13 +1137,16 @@ INSERT INTO `users` (`id`, `user_id`, `email`, `fullname`, `credential`, `phone`
 -- Chỉ mục cho bảng `anh_dai_dien`
 --
 ALTER TABLE `anh_dai_dien`
-  ADD PRIMARY KEY (`ma_avt`);
+  ADD PRIMARY KEY (`ma_avt`),
+  ADD KEY `ma_nd` (`ma_nd`);
 
 --
 -- Chỉ mục cho bảng `binh_luan`
 --
 ALTER TABLE `binh_luan`
-  ADD PRIMARY KEY (`ma_bl`);
+  ADD PRIMARY KEY (`ma_bl`),
+  ADD KEY `bl_boi` (`ma_kh`),
+  ADD KEY `ma_kh` (`ma_kh`);
 
 --
 -- Chỉ mục cho bảng `chi_tiet_dh`
@@ -1120,6 +1172,13 @@ ALTER TABLE `chi_tiet_san_pham`
   ADD KEY `chi_tiet_san_pham` (`ma_sp`),
   ADD KEY `thuoc_san_pham` (`ma_sp`),
   ADD KEY `thuoc_kich_thuoc` (`ma_kt`);
+
+--
+-- Chỉ mục cho bảng `danh_gia`
+--
+ALTER TABLE `danh_gia`
+  ADD PRIMARY KEY (`ma_dg`),
+  ADD KEY `ma_ctdh` (`ma_ctdh`);
 
 --
 -- Chỉ mục cho bảng `dia_chi`
@@ -1200,7 +1259,8 @@ ALTER TABLE `phieu_giam_gia`
 -- Chỉ mục cho bảng `rep_bl`
 --
 ALTER TABLE `rep_bl`
-  ADD PRIMARY KEY (`ma_rbl`);
+  ADD PRIMARY KEY (`ma_rbl`),
+  ADD KEY `ma_bl` (`ma_bl`);
 
 --
 -- Chỉ mục cho bảng `san_pham`
@@ -1230,6 +1290,18 @@ ALTER TABLE `users`
 --
 
 --
+-- Các ràng buộc cho bảng `anh_dai_dien`
+--
+ALTER TABLE `anh_dai_dien`
+  ADD CONSTRAINT `co_avt` FOREIGN KEY (`ma_nd`) REFERENCES `nguoi_dung` (`ma_nd`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `binh_luan`
+--
+ALTER TABLE `binh_luan`
+  ADD CONSTRAINT `bl_boikh` FOREIGN KEY (`ma_kh`) REFERENCES `nguoi_dung` (`ma_nd`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Các ràng buộc cho bảng `chi_tiet_dh`
 --
 ALTER TABLE `chi_tiet_dh`
@@ -1249,6 +1321,12 @@ ALTER TABLE `chi_tiet_hdn`
 ALTER TABLE `chi_tiet_san_pham`
   ADD CONSTRAINT `thuoc_kich_thuoc` FOREIGN KEY (`ma_kt`) REFERENCES `kich_thuoc` (`ma_kt`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `thuoc_san_pham` FOREIGN KEY (`ma_sp`) REFERENCES `san_pham` (`ma_sp`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `danh_gia`
+--
+ALTER TABLE `danh_gia`
+  ADD CONSTRAINT `thuoc_ctdh` FOREIGN KEY (`ma_ctdh`) REFERENCES `chi_tiet_dh` (`ma_ctdh`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `dia_chi`
@@ -1283,6 +1361,12 @@ ALTER TABLE `hoa_don_nhap`
 --
 ALTER TABLE `khuyen_mai`
   ADD CONSTRAINT `khuyen_mai_loai_san_pham` FOREIGN KEY (`sanpham_km`) REFERENCES `loai_san_pham` (`ma_lsp`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `rep_bl`
+--
+ALTER TABLE `rep_bl`
+  ADD CONSTRAINT `thuoc_bl` FOREIGN KEY (`ma_bl`) REFERENCES `binh_luan` (`ma_bl`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `san_pham`
