@@ -32,8 +32,13 @@ import NativeSelect from '@mui/material/NativeSelect';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import nguoidungApi from '../../api/nguoidungApi';
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export default function Donhangquanly() {
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
+
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [count, setCount] = useState(0);
   const [datadh, setDatadh] = useState([]);
@@ -59,7 +64,7 @@ export default function Donhangquanly() {
     setOpen(!open); setShow(madh)
   };
   const handlehuydon = async(madh) => {
-    await donhangAPI.huydon(madh);
+    await donhangAPI.huydon(madh,dataNhanvien[0].ma_nd);
     setCount((e) => e + 1);
   };
   const handlexacnhandon = async(madh) => {
@@ -77,7 +82,7 @@ export default function Donhangquanly() {
         if(dlctdh[i].ma_dh==madh){
           await donhangAPI.setslctsp(dlctdh[i].ma_ctsp,dlctdh[i].so_luong); console.log(dlctdh[i].ma_ctsp,dlctdh[i].so_luong);
         }
-  } await donhangAPI.daxacnhan(madh);
+  } await donhangAPI.daxacnhan(madh,dataNhanvien[0].ma_nd);
     
   } setCount((e) => e + 1);}
   useEffect(() => {
@@ -157,9 +162,9 @@ export default function Donhangquanly() {
         <ListItemText sx={{width:"16%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa.ma_dh)}>Xác nhận</Button><Button onClick={(e)=>handlehuydon(aa.ma_dh)} variant="outlined" color="error">Hủy đơn</Button></ListItemText>
        ):false}
         {aa.trang_thai ==5 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="warning">Đã hủy đơn</Button></ListItemText>):false}
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="warning">Đã hủy đơn bởi: {aa.ma_nv}</Button></ListItemText>):false}
         {aa.trang_thai > 0 && aa.trang_thai <4 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" >Đã xác nhận</Button></ListItemText>):false}
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" >Đã xác nhận bởi: {aa.ma_nv}</Button></ListItemText>):false}
        {aa.trang_thai ==4 ? (
        <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="success">ĐÃ GIAO NGÀY: {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
            {aa.trang_thai >5 ? (

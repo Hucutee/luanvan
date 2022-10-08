@@ -260,7 +260,7 @@ export default function Listcthdn() {
                 <DialogContentText
                   id="scroll-dialog-description" ref={descriptionElementRef}   >
                   <div>
-                    <div>  
+                    <div style={{width:"300px"}}>  
                     <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
                         <InputLabel htmlFor="grouped-native-select">* Hóa đơn nhập</InputLabel>
                         <Select defaultValue="" id="grouped-select" label="Groupingppppp" onChange={(e) => setMahdn(e.target.value)}>

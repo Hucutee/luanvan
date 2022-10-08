@@ -240,8 +240,8 @@ export default function Listctsp() {
           <button
             onClick={handleClickOpenadd("paper")}   className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg" >
             Thêm mới  </button>
-          <form onSubmit={handleAddSubmit}>
-            <Dialog
+          <form onSubmit={handleAddSubmit} style={{width:"400px"}}>
+            <Dialog 
               className=""    open={openadd}
               onClose={handleCloseadd}  scroll={scroll}
               aria-labelledby="scroll-dialog-title"  aria-describedby="scroll-dialog-description" >

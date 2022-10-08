@@ -25,14 +25,20 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export default function Listhdn() {
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
+
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
   const [dsncc, setDsncc] = useState([]);
   const [mahdn, setMahdn] = useState("");
   const [mancc, setMancc] = useState("");
   const [ghichu, setGhichu] = useState("");
-  const [manv, setManv] = useState("NV01");
+  const [manv, setManv] = useState("");
   const [ngaynhap, setNgaynhap] = React.useState(null);
   const [tenget, setTenget] = useState("");
   const [trangthai, setTrangthai] = useState("1");
@@ -105,18 +111,18 @@ export default function Listhdn() {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
  
-    if (ghichu && manv &&mancc && ngaynhap) {
+    if (ghichu  &&mancc && ngaynhap) {
           const bd = ngaynhap.$y + "-" + (ngaynhap.$M + 1) + "-" + ngaynhap.$D;
               await hoadonnhapAPI.create(
                 ghichu,
                 mancc,
-                manv,
+                dataNhanvien[0].ma_nd,
                 ngaynhap.$y + "-" + (ngaynhap.$M + 1) + "-" + ngaynhap.$D,
               );
               setOpenadd(false);  setOpenalert(true);  setGhichu(""); setMancc("");  setNgaynhap("");   setCount((e) => e + 1);
            
       } 
-    if ((!ghichu || !manv || !mancc || !ngaynhap ) && !openxoa) {
+    if ((!ghichu  || !mancc || !ngaynhap ) && !openxoa) {
       setOpenloi(true); }
   };
 
@@ -145,8 +151,8 @@ export default function Listhdn() {
   const handlesua = async (e) => {
     e.preventDefault();
 
-    if (ghichu && ngaynhap && manv && mancc) {
-      await hoadonnhapAPI.sua( mahdn,  ghichu,mancc, manv,
+    if (ghichu && ngaynhap  && mancc) {
+      await hoadonnhapAPI.sua( mahdn,  ghichu,mancc, dataNhanvien[0].ma_nd,
         ngaynhap.$y + "-" + (ngaynhap.$M + 1) + "-" + ngaynhap.$D );
       setCount((e) => e + 1); setOpensua(false); setOpenalert(true); setGhichu("");setMancc(""); setNgaynhap(""); setMahdn(""); 
 
