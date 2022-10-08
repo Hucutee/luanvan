@@ -21,15 +21,12 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useEffect } from "react";
-import nguoidungApi from "../../../Manage/api/nguoidungApi";
 import { propsToClassKey } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addtoUser, login, logout } from "../../app/userSlice";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import Menucanhan from "./nenu";
 import Axios from "axios";
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
@@ -52,14 +49,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import nguoidungApi from "../../api/nguoidungApi";
 
-Thongtincanhan.propTypes = {};
-function Thongtincanhan() {
-  const dataUser = useSelector((state) => state?.user?.current);
-  const handledx = () => {
-    dispatch(logout());
-    setCount((e) => e + 1);
-  };
+Thongtinnhanvien.propTypes = {};
+function Thongtinnhanvien() {
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
 
   const dispatch = useDispatch();
   const navigation = useNavigate();
@@ -75,8 +69,8 @@ function Thongtincanhan() {
     const data = new FormData();
     data.append("file", file);
     console.log(file);
-    data.append("mand", dataUser[0].ma_nd);
-    await nguoidungApi.upload(data);
+    data.append("mand", dataNhanvien[0].ma_nd);
+    await nguoidungApi.uploadnv(data);
     setCount((e) => e + 1);
     setLoadding(false);
   };
@@ -96,11 +90,11 @@ function Thongtincanhan() {
   useEffect(() => {
     (async () => {
       try {
-        const avt = await nguoidungApi.getavt(dataUser[0].ma_nd);
-        if (avt.length != 0) { 
+        const avt = await nguoidungApi.getavtnv(dataNhanvien[0].ma_nd);
+        if (avt.length != 0) {
           setAvt(avt[0].ten_avt);
-        } console.log(avt);
-        const nd = await nguoidungApi.getttnd(dataUser[0].ma_nd);
+        }
+        const nd = await nguoidungApi.getttnd(dataNhanvien[0].ma_nd);
         setDatand(nd);
       } catch (error) {
         console.log("loi", error);
@@ -121,16 +115,13 @@ function Thongtincanhan() {
           id="123"
           separator="&ensp; › &ensp; "
           aria-label="breadcrumb"
-          style={{ marginLeft: "13%", fontSize: "13px", lineHeight: "40px" }}
+          style={{ marginLeft: "10%", fontSize: "13px", lineHeight: "46px" }}
         >
-          <Link underline="hover" color="inherit" to="/app">
+          <Link underline="hover" color="inherit" to="#">
             {" "}
-            Trang chủ{" "}
+            Quản lý{" "}
           </Link>
-          <Link to="#" underline="hover" value="1">
-            {" "}
-            Tài khoản{" "}
-          </Link>
+         
           <Link to="#" underline="hover" style={{ color: "#339900" }} value="1">
             {" "}
             Thông tin cá nhân{" "}
@@ -138,7 +129,8 @@ function Thongtincanhan() {
         </Breadcrumbs>
       </div>
       <Grid className="w-[74%] mx-[13%] ">
-        <Grid >
+        
+        <Grid>
           {datand.map((nd) => (
             <div>
               <div style={{ width: "45%", float: "left" }}>
@@ -323,4 +315,4 @@ function Thongtincanhan() {
   );
 }
 
-export default Thongtincanhan;
+export default Thongtinnhanvien;

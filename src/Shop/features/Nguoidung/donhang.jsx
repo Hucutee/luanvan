@@ -162,10 +162,8 @@ const handlehuy = async (madh) =>{
       </div>
       <Grid className="w-[74%] mx-[13%] ">
 
-        <Grid sx={{ width: "20%", float: "left" }}>
-          <Menucanhan />
-        </Grid>
-        <Grid sx={{ width: "80%", float: "left" }}>
+        
+        <Grid >
           {datadh.length > 0 ? (
             datadh.map((aa) => (
               <Box sx={{ width: "100%" }}>

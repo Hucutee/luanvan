@@ -1,20 +1,24 @@
 import axiosClient from "./axiosClient";
 
 const nguoidungApi = {
-  add(ten,gt,ns,email,sdt,pass) {
-    const API_URL = `/nguoidung/add/${ten}&&${gt}&&${ns}&&${email}&&${sdt}&&${pass}`;
+  add(ten,gt,ns,tk,pass) {
+    const API_URL = `/nguoidung/add/${ten}&&${gt}&&${ns}&&${tk}&&${pass}`;
     return axiosClient.get(API_URL);
   },
-  getemail(email){
-    const API_URL = `/nguoidung/checkemail/${email}`;
+  gettaikhoan(tk){
+    const API_URL = `/nguoidung/checktk/${tk}`;
     return axiosClient.get(API_URL);
   },
-  checkdn(email,mk) {
-    const API_URL = `/nguoidung/checkdn/${email}&&${mk}`;
+  checkdn(tk,mk) {
+    const API_URL = `/nguoidung/checkdn/${tk}&&${mk}`;
     return axiosClient.get(API_URL);
   },
   checkdnshipper(email,mk) {
     const API_URL = `/nguoidung/checkdnshipper/${email}&&${mk}`;
+    return axiosClient.get(API_URL);
+  },
+  checkdnnhanvien(email,mk) {
+    const API_URL = `/nguoidung/checkdnnhanvien/${email}&&${mk}`;
     return axiosClient.get(API_URL);
   },
   getList(trang) {
@@ -46,12 +50,20 @@ const nguoidungApi = {
     const API_URL = `/upload`;
     return axiosClient.post(API_URL,data);
   },
+  uploadnv(data) {
+    const API_URL = `/uploadnv`;
+    return axiosClient.post(API_URL,data);
+  },
   getttnd(idnd) {
     const API_URL = `/nguoidung/getttnd/${idnd}`;
     return axiosClient.get(API_URL);
   },
   getavt(idnd) {
     const API_URL = `/nguoidung/getavt/${idnd}`;
+    return axiosClient.get(API_URL);
+  },
+  getavtnv(idnd) {
+    const API_URL = `/nguoidung/getavtnv/${idnd}`;
     return axiosClient.get(API_URL);
   },
 };

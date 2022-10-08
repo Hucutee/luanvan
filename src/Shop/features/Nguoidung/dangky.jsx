@@ -50,7 +50,6 @@ function Dangky() {
   const dataUser = useSelector((state) => state?.user?.userItem);
   const [count, setCount] = React.useState(0);
   const [trung, setTrung] = React.useState(0);
-
   const [trangthai, setTrangthai] = React.useState(0);
   const [matkhau, setMatkhau] = React.useState({
     password: "",
@@ -82,10 +81,10 @@ function Dangky() {
   const handleChangesdt = (event) => {
     setSdt({ ...sdt, [event.target.name]: event.target.value }); setCount((e) => e + 1);
   };
-  const [emaill, setEmaill] = React.useState({ textmask: "" });
-  const handleChangeEmaill = async (event) => {
-    setEmaill({ ...emaill, [event.target.name]: event.target.value });
-    const dl=  await nguoidungApi.getemail(event.target.value);
+  const [taikhoan, setTaikhoan] = React.useState({ textmask: "" });
+  const handleChangetaikhoan = async (event) => {
+    setTaikhoan({ ...taikhoan, [event.target.name]: event.target.value });
+    const dl=  await nguoidungApi.gettaikhoan(event.target.value);
     if(dl.length >0){ setTrung(1);}else { setTrung(0);}
     setCount((e) => e + 1);
   };
@@ -112,11 +111,11 @@ function Dangky() {
       && ngaysinh !=null && gioitinh != ""
       && matkhau.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/) 
       && matkhau2.password == matkhau.password
-      && emaill.textmask.length !=0 &&  emaill.textmask.match(/(([^<>()\[\]\\.,;:\s+@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gm) 
-        &&  (sdt.textmask.length <= 12 && sdt.textmask.length > 9) && sdt.textmask.match(/[a-zA-Z1-9]+$/) ){
-      const dl = await nguoidungApi.getemail(emaill.textmask);
+      && taikhoan.textmask.length !=0 &&  taikhoan.textmask.match( /^[A-Za-z\d]{8,}$/) 
+       ){
+      const dl = await nguoidungApi.gettaikhoan(taikhoan.textmask);
       if(dl.length == 0){
-        await nguoidungApi.add(ho.textmask +" "+ten.textmask,gioitinh,ngaysinh.$y + "-" + (ngaysinh.$M + 1) + "-" + ngaysinh.$D,emaill.textmask,sdt.textmask,matkhau.password);
+        await nguoidungApi.add(ho.textmask +" "+ten.textmask,gioitinh,ngaysinh.$y + "-" + (ngaysinh.$M + 1) + "-" + ngaysinh.$D,taikhoan.textmask,matkhau.password);
       setOpendnn(true);
       } else {
         console.log("aaaaaaaa");
@@ -127,7 +126,7 @@ function Dangky() {
   useEffect(() => {
     (async () => {
       try {
-        console.log(ho.textmask,ten.textmask,gioitinh,sdt.textmask,ngaysinh,emaill.textmask,matkhau.password);
+        console.log(ho.textmask,ten.textmask,gioitinh,sdt.textmask,ngaysinh,taikhoan.textmask,matkhau.password);
 
       } catch (error) {
       }
@@ -293,60 +292,34 @@ function Dangky() {
               </Grid>
               <FormControl variant="outlined" sx={{ m: 1, width: "95%" }}>
                 <InputLabel color="success" htmlFor="formatted-text-mask-input">
-                  Địa chỉ email
+                  Tên tài khoản
                 </InputLabel>
                 <OutlinedInput
                   color="success"
-                  value={emaill.textmask}
-                  onChange={handleChangeEmaill}
-                  name="textmask"                   label="                  Địa chỉ email"
+                  value={taikhoan.textmask}
+                  onChange={handleChangetaikhoan}
+                  name="textmask"                   label="                 Tên tài khoản"
                   id="formatted-text-mask-input" 
                 />
                 {trung ? (<FormHelperText error id="component-error-text"  sx={{ m: 0}}>
-                      Email này đã được đăng kí - vui lòng nhập email khác.
-                    </FormHelperText>):(trangthai && emaill.textmask.length == 0 ? (
+                      Tên này đã được đăng kí - vui lòng nhập tên khác.
+                    </FormHelperText>):(trangthai && taikhoan.textmask.length == 0 ? (
                    <FormHelperText error id="component-error-text"  sx={{ m: 0}}>
-                   Email không được để trống
+                   Tên tài khoản không được để trống
                  </FormHelperText>
                 ):(
-                  emaill.textmask.match(
-                    /(([^<>()\[\]\\.,;:\s+@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gm
-                  ) || emaill.textmask.length == 0 ? (
+                  taikhoan.textmask.match(
+                    /^[A-Za-z\d]{8,}$/
+                   ) || taikhoan.textmask.length == 0 ? (
                     <></>
                   ) : (
                     <FormHelperText error id="component-error-text"  sx={{ m: 0}}>
-                      Email phải có dạng x@xx.xx
+                      Tên tài khoản bao gồm số và chữ cái và ít nhất 8 kí tự
                     </FormHelperText>
                   )
                 ))}
               </FormControl>
-              <FormControl variant="outlined" sx={{ m: 1, width: "95%" }}>
-                <InputLabel color="success" htmlFor="formatted-text-mask-input">
-                  Số điện thoại
-                </InputLabel>
-                <OutlinedInput
-                  color="success"
-                  value={sdt.textmask}
-                  onChange={handleChangesdt}
-                  name="textmask" label="so dien thoai"
-                  id="formatted-text-mask-input"
-                  inputComponent={TextMaskCustom}
-                />
-                {trangthai && sdt.textmask.length == 0 ? (
-                  <FormHelperText error id="component-error-text"  sx={{ m: 0}}>
-                  Số điện thoại không được để trống
-                </FormHelperText>
-                ):(
-                  (sdt.textmask.length < 10 && sdt.textmask.length > 0) ||
-                  sdt.textmask.match(/^[^a-zA-Z1-9]+$/) ? (
-                    <FormHelperText error id="component-error-text"  sx={{ m: 0}}>
-                      Số điện thoại gồm 10 đến 12 chữ số
-                    </FormHelperText>
-                  ) : (
-                    <></>
-                  )
-                )}
-              </FormControl>
+             
               <FormControl
                 color="success"
                 sx={{ m: 1, width: "95%" }}

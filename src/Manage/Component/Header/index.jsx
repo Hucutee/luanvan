@@ -15,7 +15,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import logo from "../../../Shop/Components/Header/logo.jpg";
 import ListIcon from '@mui/icons-material/List';
 import StoreIcon from '@mui/icons-material/Store';
@@ -39,6 +38,15 @@ import PercentIcon from '@mui/icons-material/Percent';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
+import { useDispatch, useSelector } from "react-redux";
+import { logoutNhanvien } from '../../../Shop/app/nhanvienSlice';
+import Avatar from "@mui/material/Avatar";
+import { deepOrange, green } from "@mui/material/colors";
+import { useEffect } from "react";
+import nguoidungApi from '../../api/nguoidungApi';
+import Link  from "@mui/material/Link";
+import { BrowserRouter as Router, Route, Link as Lin, Routes } from "react-router-dom";
+
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     top: false,
@@ -47,6 +55,8 @@ export default function TemporaryDrawer() {
     right: false,
   });
 
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
+  const dispatch = useDispatch();
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -80,6 +90,10 @@ export default function TemporaryDrawer() {
   const handleClicksp = () => {
     setOpensp(!opensp);
   };
+  const [opencskh, setOpencskh] = React.useState(false);
+  const handleClickcskh = () => {
+    setOpencskh(!opencskh);
+  };
   const [openkho, setOpenkho] = React.useState(false);
   const handleClickkho = () => {
     setOpenkho(!openkho);
@@ -92,6 +106,32 @@ export default function TemporaryDrawer() {
   const handleClickhd = () => {
     setOpenhd(!openhd);
   };
+  const [avt,setAvt]= React.useState("");
+
+  const [anchorEldx, setAnchorEldx] = React.useState(null);
+  const opendx = Boolean(anchorEldx);
+  const handleClickdx = (event) => {
+    setAnchorEldx(event.currentTarget);
+  };
+  const handleClosedx = () => {
+    setAnchorEldx(null);
+  };
+
+  const handledx = ()=>{
+    
+    dispatch(logoutNhanvien());
+
+
+  }
+  useEffect(() => {
+    (async () => {
+      try {
+        const avt = await nguoidungApi.getavtnv(dataNhanvien[0].ma_nd); if(avt.length != 0) {setAvt(avt[0].ten_avt);}
+      } catch (error) {
+        console.log("loi", error);
+      }
+    })();
+  }, []);
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -100,7 +140,7 @@ export default function TemporaryDrawer() {
     >
       <List>
 
-      <ListItemButton onClick={handleClicksp}>
+      {dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 3 || dataNhanvien[0].quyen == 4 ?<span><ListItemButton onClick={handleClicksp}>
         <ListItemIcon>
           <YardIcon />
         </ListItemIcon>
@@ -113,40 +153,40 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <AutoAwesomeMotionIcon />}
               </ListItemIcon>
-              <ListItemText > <Link to="/Manager/loaisanpham" className="">
+              <ListItemText > <Lin to="/Manager/loaisanpham" className="">
               Loại sản phẩm
-            </Link></ListItemText>
+            </Lin></ListItemText>
             </ListItemButton>
           <ListItemButton sx={{ pl: 6 }} >
               <ListItemIcon >
                 {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
               </ListItemIcon>
-              <ListItemText > <Link to="/Manager/sanpham" className="">
+              <ListItemText > <Lin to="/Manager/sanpham" className="">
               Sản phẩm
-            </Link></ListItemText>
+            </Lin></ListItemText>
             </ListItemButton>
             <ListItemButton sx={{ pl: 6 }}>
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <StraightenIcon />}
               </ListItemIcon>
-              <ListItemText > <Link to="/Manager/kichthuoc" className="">
+              <ListItemText > <Lin to="/Manager/kichthuoc" className="">
               Kích thước
-            </Link></ListItemText>
+            </Lin></ListItemText>
             </ListItemButton>
             <ListItemButton sx={{ pl: 6 }}>
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <StorageIcon />}
               </ListItemIcon>
-              <ListItemText > <Link to="/Manager/chitietsanpham" className="">
+              <ListItemText > <Lin to="/Manager/chitietsanpham" className="">
               Chi tiết sản phẩm
-            </Link></ListItemText>
+            </Lin></ListItemText>
             </ListItemButton>
            
             
         </List>
-      </Collapse>
+      </Collapse></span>:false}
 
-      <ListItemButton onClick={handleClickkho}>
+      {dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 3 ?<span><ListItemButton onClick={handleClickkho}>
         <ListItemIcon>
           <GiteIcon />
         </ListItemIcon>
@@ -159,58 +199,31 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <StoreIcon />}
               </ListItemIcon>
-              <ListItemText  ><Link to="/Manager/nhacungcap" className="">
+              <ListItemText  ><Lin to="/Manager/nhacungcap" className="">
               Nhà cung cấp
-            </Link> </ListItemText>
+            </Lin> </ListItemText>
             </ListItemButton>
             <ListItemButton sx={{ pl: 6 }}>
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <ReceiptIcon />}
               </ListItemIcon>
-              <ListItemText > <Link to="/Manager/hoadonnhap" className="">
+              <ListItemText > <Lin to="/Manager/hoadonnhap" className="">
               Hóa đơn nhập
-            </Link></ListItemText>
+            </Lin></ListItemText>
             </ListItemButton>
             <ListItemButton sx={{ pl: 6 }}>
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <ReceiptLongIcon />}
               </ListItemIcon>
-              <ListItemText > <Link to="/Manager/chitiethoadonnhap" className="">
+              <ListItemText > <Lin to="/Manager/chitiethoadonnhap" className="">
               Chi tiết hóa đơn nhập
-            </Link></ListItemText>
+            </Lin></ListItemText>
             </ListItemButton>
         </List>
       </Collapse>
-
-      <ListItemButton onClick={handleClickgg}>
-        <ListItemIcon>
-          <LocalAtmIcon />
-        </ListItemIcon>
-        <ListItemText primary="Ưu đãi" />
-        {opengg ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={opengg} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-        <ListItemButton sx={{ pl: 6 }}>
-              <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <AccountBalanceWalletIcon />}
-              </ListItemIcon>
-              <ListItemText > <Link to="/Manager/phieugiamgia" className="">
-              Phiếu giảm giá
-            </Link></ListItemText>
-            </ListItemButton>
-            <ListItemButton sx={{ pl: 6 }}>
-              <ListItemIcon>
-                {"A" % 2 === 0 ? <InboxIcon /> : <PercentIcon />}
-              </ListItemIcon>
-              <ListItemText > <Link to="/Manager/khuyenmai" className="">
-              Khuyến mãi
-            </Link></ListItemText>
-            </ListItemButton>
-        </List>
-      </Collapse>
-           
-      <ListItemButton onClick={handleClickhd}>
+      </span>:false}
+      
+      {dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 4 ?<span> <ListItemButton onClick={handleClickhd}>
         <ListItemIcon>
           <UnarchiveIcon />
         </ListItemIcon>
@@ -223,18 +236,65 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <ShoppingBasketIcon />}
               </ListItemIcon>
-              <ListItemText > <Link to="/Manager/donhang" className="">
+              <ListItemText > <Lin to="/Manager/donhang" className="">
               Đơn hàng
-            </Link></ListItemText>
+            </Lin></ListItemText>
             </ListItemButton>
             
         </List>
+      </Collapse></span>:false} 
+      {dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 5 ?<span><ListItemButton onClick={handleClickgg}>
+        <ListItemIcon>
+          <LocalAtmIcon />
+        </ListItemIcon>
+        <ListItemText primary="Ưu đãi" />
+        {opengg ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={opengg} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 6 }}>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <AccountBalanceWalletIcon />}
+              </ListItemIcon>
+              <ListItemText > <Lin to="/Manager/phieugiamgia" className="">
+              Phiếu giảm giá
+            </Lin></ListItemText>
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 6 }}>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <PercentIcon />}
+              </ListItemIcon>
+              <ListItemText > <Lin to="/Manager/khuyenmai" className="">
+              Khuyến mãi
+            </Lin></ListItemText>
+            </ListItemButton>
+        </List>
       </Collapse>
+      </span>:false}  
+      {dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 5 ?<span> <ListItemButton onClick={handleClickcskh}>
+        <ListItemIcon>
+          <UnarchiveIcon />
+        </ListItemIcon>
+        <ListItemText primary="CS-KH" />
+        {opencskh ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={opencskh} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 6 }}>
+              <ListItemIcon>
+                {"A" % 2 === 0 ? <InboxIcon /> : <ShoppingBasketIcon />}
+              </ListItemIcon>
+              <ListItemText > <Lin to="/Manager/donhang" className="">
+              Đơn hàng
+            </Lin></ListItemText>
+            </ListItemButton>
+            
+        </List>
+      </Collapse></span>:false} 
            
           
             
       </List>
-      <Divider />
       
     </Box>
   );
@@ -265,29 +325,62 @@ export default function TemporaryDrawer() {
         </div>
         <div  className="w-[65%]"></div>
         <div  className="mr-[1%]">
-            <div size="large" aria-label="account of current user" aria-controls="menu-appbar"  aria-haspopup="true" onClick={handleMenu} className="a1 ">
-              <AccountCircle />
-            </div>
-            <Menu
-              style={{ marginTop: "30px" }}
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClickOpen}>Thông tin tin cá nhân</MenuItem>
-              <MenuItem onClick={handleClickOpen}>Đăng nhập</MenuItem>
+            <div size="large" aria-label="account of current user" aria-controls="menu-appbar"  aria-haspopup="true"  className="a1 ">
+    
+              {dataNhanvien.length > 0 ? (
+                <Button
+                id="demo-positioned-button"
+                aria-controls={opendx ? 'demo-positioned-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={opendx ? 'true' : undefined}
+                onClick={handleClickdx}
+                >
+               {avt == "" ?
+                <Avatar
+                size="small"
+                sx={{ bgcolor: green[500], width: 24, height: 24 }}
+                alt="Remy Sharp"
+                src="/broken-image.jpg"
+              >
+                <span style={{ fontSize: "14px" }}>
+                  {dataNhanvien.map((aa) =>
+                    aa.ten_nd.slice(
+                      aa.ten_nd.lastIndexOf(" ") + 1,
+                      aa.ten_nd.lastIndexOf(" ") + 2
+                    )
+                  )}
+                </span>
+              </Avatar>:
+              <Avatar
+              src={require("../../../imageuser/"+ avt )}
+              sx={{ width: 30, height: 30,fontSize:"140px", bgcolor: green[500] }}/>}
+                </Button>
+              ) :(false)}
+               <Menu                             sx={{marginTop: "40px"}}
 
-            </Menu>
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEldx}
+        open={opendx}
+        onClose={handleClosedx}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+                <MenuItem onClick={handleClosedx}><Lin sx={{textDecoration: "none", color:"#333"}} to="/Manager/thongtincanhan">Thông tin cá nhân</Lin></MenuItem>
+
+        <MenuItem onClick={handledx}><Link sx={{textDecoration: "none", color:"#333"}} href="/Managerdn">Đăng xuất</Link></MenuItem>
+
+      </Menu>
+       
+            
+            </div>
+          
           </div>
         </div>  
     </div>

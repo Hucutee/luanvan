@@ -106,23 +106,7 @@ export default function Donhangquanly() {
           <Link underline="hover" color="inherit">   Chi tiết sản phẩm </Link>
           <Link  value="1"  underline="hover"  color="#339900" >  Danh sách </Link>
         </Breadcrumbs>
-        <div className="bg-slate-200">
-          <Paper
-            elevation={0} component="form"
-            className="my-1 mr-[4%] border-[1px] 	border-slate-300	bg-slate-200		 border-solid hover:bg-slate-300"
-            sx={{ p: "0px 4px", display: "flex",  alignItems: "center",  width: "15%",  float: "left",  marginLeft: "39%",
-              backgroundColor: " rgb(229 231 235);",  }} >
-            <InputBase
-               sx={{ ml: 1, flex: 1 }}
-              placeholder="Tìm theo sản phẩm"  inputProps={{ "aria-label": "search google maps" }} />
-              
-            <IconButton
-                type="button"
-              sx={{ p: 1 }}  aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </Paper>
-        </div>
+        
         <div className="my-1   ">
           
         </div>

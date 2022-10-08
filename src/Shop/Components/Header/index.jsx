@@ -159,7 +159,7 @@ function Header() {
               </Avatar>:
               <Avatar
               src={require("../../../imageuser/"+ avt )}
-              sx={{ width: 24, height: 24,fontSize:"140px", bgcolor: green[500] }}/>}
+              sx={{ width: 30, height: 30,fontSize:"140px", bgcolor: green[500] }}/>}
                 </Button>
               ) : (
                 <Button
@@ -193,6 +193,7 @@ function Header() {
                   <Lin to="/products/thongtincanhan">Thông tin cá nhân</Lin>
 
                 </MenuItem>
+                <MenuItem onClick={handleClosedx}>                  <Lin to="/products/donhang">Đơn hàng</Lin></MenuItem>
                 <MenuItem onClick={handledx}>   <Link sx={{textDecoration: "none", color:"#333"}} href="/app">Đăng xuất</Link></MenuItem>
               </Menu>
               <Menu

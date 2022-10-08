@@ -21,11 +21,9 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useEffect } from "react";
-import nguoidungApi from "../../../Manage/api/nguoidungApi";
 import { propsToClassKey } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { addtoUser, login } from "../../app/userSlice";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -33,21 +31,22 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { ConstructionOutlined } from "@mui/icons-material";
-import { removequaylai } from "../../app/quaylai";
+import './a.css'
+import { loginNhanvien } from "../../../Shop/app/nhanvienSlice";
+import nguoidungApi from "../../api/nguoidungApi";
 const Transitiondnn = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-Dangnhap.propTypes={
+Dangnhapnhanvien.propTypes={
 
 };
- function Dangnhap() {
-  const dataquaylai = useSelector((state) => state?.quaylai?.quaylaiItem);
-
+ function Dangnhapnhanvien() {
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
 
   const dispatch = useDispatch();
   const navigation = useNavigate();
 
-const [taikhoan,setTaikhoan]= React.useState("");
+const [email,setEmail]= React.useState("");
 const [count,setCount]= React.useState(0);
 const [data,setData]= React.useState([]);
 const [trangthai,setTrangthai]= React.useState(0);
@@ -60,18 +59,18 @@ const [trangthai,setTrangthai]= React.useState(0);
     showPassword: false,
   });
 const handleChangetk = (value) => {
-    setTaikhoan(value);
+    setEmail(value);
 }
   const handleChange = (prop) => (event) => {
     setMatkhau({ ...matkhau, [prop]: event.target.value }); console.log(event.target.value);
   };
   const handledangnhap= async () => {
 
-    if(taikhoan && matkhau.password){
-      console.log(taikhoan,matkhau.password);
-      dispatch(login({email: taikhoan,mat_khau: matkhau.password}));
+    if(email && matkhau.password){
+      console.log(email,matkhau.password);
+      dispatch(loginNhanvien({email: email,mat_khau: matkhau.password}));
 
-      const dl = await nguoidungApi.checkdn(taikhoan,matkhau.password);
+      const dl = await nguoidungApi.checkdnnhanvien(email,matkhau.password);
       if(dl.length > 0) {setOpendnn(true);}
     }
     setCount((e)=> e + 1);
@@ -109,12 +108,12 @@ const handleChangetk = (value) => {
   };
 
   const handleClosednn = () => {
-    setOpendnn(false); dispatch(removequaylai())
+    setOpendnn(false);
   };
   return (
     <Box>
       <Grid
-        className="abc"
+        className="abcshipper"
         sx={{
           display: "flex",
           alignContent: "center",
@@ -122,7 +121,7 @@ const handleChangetk = (value) => {
         }}
       >
         <Grid
-          marginTop="50px"
+          marginTop="100px"
           height="500px"
           sx={{ borderRadius: "5px" }}
           width="27%"
@@ -194,18 +193,7 @@ const handleChangetk = (value) => {
               >
                 Đăng Nhập
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link to="" style={{textDecoration:"none", color:"#333"}}  variant="body2">
-                    Quên mật khẩu?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link style={{textDecoration:"none", color:"#333"}} to="" variant="body2">
-                    {"Bạn chưa có tài khoản? Đăng ký"}
-                  </Link>
-                </Grid>
-              </Grid>
+              
             </Box>
           </Box>
         </Grid>
@@ -223,9 +211,8 @@ const handleChangetk = (value) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        {dataquaylai.length >0 ? <Button variant="contained" color="success"  onClick={handleClosednn} ><Link  to={`${dataquaylai[0].link}`}>Quay lại mua hàng</Link></Button> : <></>}
 
-          <Button variant="contained" color="success"  onClick={handleClosednn}><Link  to="/products/thongtincanhan" >Thông tin cá nhân</Link></Button>
+          <Button variant="contained" color="success"  onClick={handleClosednn}><Link  to="/Manager/thongtincanhan" >Tiếp tục</Link></Button>
         </DialogActions>
       </Dialog>
     </Box>
@@ -233,4 +220,4 @@ const handleChangetk = (value) => {
 }
 
 
-export default Dangnhap;
+export default Dangnhapnhanvien;

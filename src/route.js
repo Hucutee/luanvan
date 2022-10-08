@@ -28,6 +28,8 @@ import Donhangquanly from "./Manage/Pages/donhang/donhang";
 import Dangnhapshipper from "./Shipper/dangnhap";
 import HomeShipper from "./Shipper";
 import Donhangshipper from "./Shipper/donhang";
+import Dangnhapnhanvien from "./Manage/Component/dangnhap/dangnhap";
+import Thongtinnhanvien from "./Manage/Component/dangnhap/thongtincanhan";
 export default function Router() {
     // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
@@ -81,6 +83,9 @@ export default function Router() {
        
 
         },{
+            path: '/Managerdn',
+            element: <Dangnhapnhanvien/> 
+        },{
             path: '/Manager',
             element: <HomeManagePage/>,
             children: [{
@@ -113,6 +118,9 @@ export default function Router() {
             },{
                 path: '/Manager/donhang',
                 element: <Donhangquanly/>
+            },{
+                path: '/Manager/thongtincanhan',
+                element: <Thongtinnhanvien/>
             }
         ]
         },{
