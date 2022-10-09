@@ -22,7 +22,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect } from 'react';
 import { useState } from 'react';
-import donhangAPI from '../../api/donhangApi';
+import repblAPI from '../../api/repblApi';
 import Zoom from "react-img-zoom";
 import Divider from '@mui/material/Divider';
 import Pagination from "@mui/material/Pagination";
@@ -34,7 +34,8 @@ import Select from '@mui/material/Select';
 import nguoidungApi from '../../api/nguoidungApi';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-export default function Donhangquanly() {
+import binhluanApi from '../../api/binhluanApi';
+export default function Repbl() {
   const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
 
   const dispatch = useDispatch();
@@ -46,12 +47,20 @@ export default function Donhangquanly() {
   const [datactdh, setDatactdh] = useState([]);
   const [trang, setTrang] = React.useState(1);
   const [datadhtrang, setDatadhtrang] = useState([]);
-  const [trangthai, setTrangthai ] = React.useState('06');
+  const [trangthai, setTrangthai ] = React.useState('01');
   const [counttrang, setCounttrang] = useState(0);
   const [dataallctgh, setDataallctgh] = useState([]);
   const [nguoidung, setNguoidung] = useState([]);
   const [datangh, setDatangh] = useState([]);
-
+  const [binhluan, setBinhluan] = useState("");
+  const handlebl = async (aa) => {
+    if(binhluan != "" && dataNhanvien[0].ma_nd){ 
+      console.log(aa);
+      await repblAPI.addrepbinhluan(binhluan,dataNhanvien[0].ma_nd,aa.ma_sp,aa.ma_bl);
+      await repblAPI.settrangthai(aa.ma_bl);
+    } setBinhluan("");
+    setCount((e) => e + 1);
+  };
   const handleChangetrangthai = (event) => {
     setTrangthai(event.target.value); setCount((e) => e + 1);console.log(event.target.value);
   };
@@ -64,11 +73,11 @@ export default function Donhangquanly() {
     setOpen(!open); setShow(madh)
   };
   const handlehuydon = async(madh) => {
-    await donhangAPI.huydon(madh,dataNhanvien[0].ma_nd);
+    await repblAPI.huydon(madh,dataNhanvien[0].ma_nd);
     setCount((e) => e + 1);
   };
   const handlexacnhandon = async(madh) => {
-    const dlctdh = await donhangAPI.getallctdh();console.log(dlctdh);
+    const dlctdh = await repblAPI.getallctdh();console.log(dlctdh);
     let a =0;
     if (dlctdh.length !== 0) {
       for (let i = 0; i < dlctdh.length; i++) {
@@ -80,19 +89,19 @@ export default function Donhangquanly() {
     if (dlctdh.length !== 0 && a<1) {
       for (let i = 0; i < dlctdh.length; i++) {
         if(dlctdh[i].ma_dh==madh){
-          await donhangAPI.setslctsp(dlctdh[i].ma_ctsp,dlctdh[i].so_luong); console.log(dlctdh[i].ma_ctsp,dlctdh[i].so_luong);
+          await repblAPI.setslctsp(dlctdh[i].ma_ctsp,dlctdh[i].so_luong); console.log(dlctdh[i].ma_ctsp,dlctdh[i].so_luong);
         }
-  } await donhangAPI.daxacnhan(madh,dataNhanvien[0].ma_nd);
+  } await repblAPI.daxacnhan(madh,dataNhanvien[0].ma_nd);
     
   } setCount((e) => e + 1);}
   useEffect(() => {
     (async () => {
-    const dl = await donhangAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
-    const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); 
-    const dlctdh = await donhangAPI.getallctdh();
-    setDatadh(dl);    setDatactdh(dlctdh);
-    const alllctgh = await donhangAPI.allctgh();setDataallctgh(alllctgh);
-    const ngh = await donhangAPI.ttngh();setDatangh(ngh);console.log(ngh);
+    const dl = await repblAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
+    const dltrang = await repblAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); console.log(dltrang);
+    const dltl = await repblAPI.gettlbl(); setDatactdh(dltl);
+    setDatadh(dl);    
+    const alllctgh = await repblAPI.allctgh();setDataallctgh(alllctgh);
+    const ngh = await repblAPI.ttngh();setDatangh(ngh);console.log(ngh);
 
       const nd = await nguoidungApi.login(); setNguoidung(nd); console.log(nd);
     })();
@@ -108,7 +117,7 @@ export default function Donhangquanly() {
           separator="&ensp; › &ensp;" aria-label="breadcrumb" 
            style={{    fontSize: "13px",    lineHeight: "50px",   marginLeft: "9.5%",   float: "left", }}  >
           <Link underline="hover" color="inherit" href="">  Quản lý </Link>
-          <Link underline="hover" color="inherit">   Đơn hàng </Link>
+          <Link underline="hover" color="inherit">   Bình luận </Link>
           <Link  value="1"  underline="hover"  color="#339900" >  Danh sách </Link>
         </Breadcrumbs>
         
@@ -117,9 +126,9 @@ export default function Donhangquanly() {
         </div>
       </div>
       <div className="w-[84%] mx-[8%] ">
-        <div style={{backgroundColor:"#3333", height:"50px",}}><ListItemText sx={{width:"23%",fontWeight:"500",float:"left",paddingTop:"10px" }}><b>&ensp; Mã đơn hàng</b></ListItemText>
-        <ListItemText sx={{width:"27%",float:"left",paddingTop:"10px"}}><b>Ngày đặt hàng</b></ListItemText>
-        <ListItemText sx={{width:"25%",float:"left",paddingTop:"10px"}}><b>Tổng đơn</b></ListItemText> 
+        <div style={{backgroundColor:"#3333", height:"50px",}}><ListItemText sx={{width:"23%",fontWeight:"500",float:"left",paddingTop:"10px" }}><b>&ensp; Tên sản phẩm</b></ListItemText>
+        <ListItemText sx={{width:"27%",float:"left",paddingTop:"10px"}}><b>Ngày bình luận</b></ListItemText>
+        <ListItemText sx={{width:"25%",float:"left",paddingTop:"10px"}}><b>Nội dung</b></ListItemText> 
        <ListItemText sx={{width:"23%",float:"left" ,paddingTop:"8px"}} >  <FormControl variant="standard" color="success" size="small" sx={{  minWidth: 120 }}>
         <Select
           labelId="demo-simple-select-standard-label"
@@ -128,12 +137,9 @@ export default function Donhangquanly() {
           onChange={handleChangetrangthai}
           label="Age"
         >
-                    <MenuItem value="06"><b>Tất cả đơn hàng</b></MenuItem>
-          <MenuItem value="00"><b>Chưa xác nhận</b></MenuItem>
-          <MenuItem value="13"><b>Đã xác nhận</b></MenuItem>
-          <MenuItem value="44"><b>Đã hoàn thành</b></MenuItem>
-          <MenuItem value="55"><b>Đơn đã hủy</b></MenuItem>
-          <MenuItem value="66"><b>Khách boom hàng</b></MenuItem>
+                    <MenuItem value="01"><b>Tất cả bình luận</b></MenuItem>
+          <MenuItem value="00"><b>Chưa trả lời</b></MenuItem>
+          <MenuItem value="13"><b>Đã trả lời</b></MenuItem>
 
         </Select>
       </FormControl></ListItemText> </div>
@@ -150,31 +156,21 @@ export default function Donhangquanly() {
             
             <ListItemButton >
        
-        <ListItemText sx={{width:"16%"}}>{aa.ma_dh}</ListItemText>
-         <ListItemText sx={{width:"22%"}}>{aa.ngay_dat_hang.slice(0,10)}</ListItemText>
-         <ListItemText sx={{width:"20%"}}>{new Intl.NumberFormat("vi-VN", {
-                                style: "currency",
-                                currency: "VND",
-                              }).format(
-                                aa.tong_tien
-                              )}</ListItemText> 
+        <ListItemText sx={{width:"16%"}}>{aa.ten_sp}</ListItemText>
+         <ListItemText sx={{width:"22%"}}>{aa.ngay_bl.slice(0,10)}</ListItemText>
+         <ListItemText sx={{width:"20%"}}>{aa.noi_dung}</ListItemText> 
+        
         {aa.trang_thai ==0 ? (
-        <ListItemText sx={{width:"16%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa.ma_dh)}>Xác nhận</Button><Button onClick={(e)=>handlehuydon(aa.ma_dh)} variant="outlined" color="error">Hủy đơn</Button></ListItemText>
-       ):false}
-        {aa.trang_thai ==5 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="warning">Đã hủy đơn bởi: {aa.ma_nv}</Button></ListItemText>):false}
-        {aa.trang_thai > 0 && aa.trang_thai <4 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" >Đã xác nhận bởi: {aa.ma_nv}</Button></ListItemText>):false}
-       {aa.trang_thai ==4 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="success">ĐÃ GIAO NGÀY: {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
-           {aa.trang_thai >5 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}
-        {open ? <ExpandLess onClick={(e)=>handleClick(aa.ma_dh)} /> : <ExpandMore onClick={(e)=>handleClick(aa.ma_dh)} />}
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="warning">Chưa trả lời</Button></ListItemText>):false}
+        {aa.trang_thai > 0 ? (
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" >Đã trả lời</Button></ListItemText>):false}
+       
+        {open ? <ExpandLess onClick={(e)=>handleClick(aa.ma_bl)} /> : <ExpandMore onClick={(e)=>handleClick(aa.ma_bl)} />}
         
       </ListItemButton>
       <Divider />
 
-     {aa.ma_dh == show ? (<span>
+     {aa.ma_bl == show ? (<span>
          <Collapse in={open} timeout="auto" unmountOnExit>
          <List component="div" disablePadding sx={{ bgcolor: "#f8f8f8"}}>
            <ListItemButton sx={{ pl: 4 }}>
@@ -186,29 +182,16 @@ export default function Donhangquanly() {
                     <table className=" w-[100%] rounded-lg border-1	 	">
                       <tbody className="">
                       <tr>
-                          <td           colSpan={5}
-                            className="border-[2px] 	border-gray-300		p-4	 border-solid w-[40%] text-base ">Thông tin khách hàng: {aa.nguoi_nhan}. &ensp; &ensp; &ensp; &ensp; Địa chỉ giao: {aa.dia_chi_giao}.  {nguoidung.map((nd)=>(nd.ma_nd==aa.ma_kh && nd.boom >0 ? <p style={{color:'red'}}>Đã boom hàng {nd.boom} lần.</p> : false))}<br/>
-                            {datangh.map((ngh)=>(ngh.ma_dh==aa.ma_dh && ngh.ma_ngh !="NGH1" ? <p>Thông tin người giao hàng: {ngh.ten_ngh}. &ensp;&ensp;&ensp; Số điện thoại: {ngh.sdt}</p>:false))}
-                            </td>
+                          
                        </tr>
                         {datactdh?.map((aaa) =>
-                          aaa.ma_dh == aa.ma_dh ? (
+                          aaa.rep == aa.ma_bl ? (
                             <tr className="h-10 ">
-                              <td className=" w-[8%] p-2 ">
-                                <Zoom
-                                  img={require("../../../images/" +
-                                    aaa.hinhanh)}
-                                  height={50} width={50}
-                                />
-                              </td>
-                              <td className="text-base">{aaa.ten_sp} <p className="text-xs">Giá: {aaa.gia}</p></td>
-                              <td className="text-base">Số lượng mua: {aaa.so_luong}</td>
+                              
+                              <td className="text-base">Trả lời bởi: {aaa.ma_nd} <p className="text-xs">ngày: {aaa.ngay_bl.slice(0,10)}</p></td>
+                              <td className="text-base">Nội dung: {aaa.noi_dung}</td>
 
-                              <td className="text-base ">Tổng: {new Intl.NumberFormat("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        }).format(aaa.so_luong*aaa.gia)}</td>
-                        <td className="text-base ">Số lượng trong kho: {aaa.soluong}</td>
+                        
                             </tr>
                           ) : (
                             false
@@ -218,11 +201,14 @@ export default function Donhangquanly() {
                     </table>
                   </Grid>
                 </Grid>
+
               </Box>
             
-          
+
              </ListItemText>
            </ListItemButton>
+           <Grid sx={{paddingLeft:6,paddingRight:6,paddingBottom:2}}><TextField sx={{width:"92%", backgroundColor:"white"}} id="outlined-basic" label="Nhập nội dung bình luận" color="success" variant="outlined" onChange={(e)=>setBinhluan(e.target.value)} /> <Button  onClick={(e)=>handlebl(aa)}  sx={{ width:"7%",height:"50px"}}><SendIcon className="a1"  /></Button> </Grid>
+
          </List>
          <Divider />
 

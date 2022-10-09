@@ -58,7 +58,6 @@ function Binhluan(product){
       (async () => {
         try {
           const bl = await binhluanApi.getlistblid(product.data.ma_sp); setDatabl(bl);
-          const rbl = await binhluanApi.getlistrblid(product.data.ma_sp); setDatarbl(rbl); 
           const dg = await binhluanApi.getlistdgid(product.data.ma_sp); setDatadg(dg); console.log(dg);
           let trungbinh=0;
 
@@ -70,6 +69,7 @@ function Binhluan(product){
 
               }
               setSosao(trungbinh);
+           const rbl = await binhluanApi.getlistrblid(product.data.ma_sp); setDatarbl(rbl); console.log(rbl);
 
         } catch (error) {
           console.log("loi", error);
@@ -252,8 +252,10 @@ function Binhluan(product){
                     </Typography>
                     
                   </Grid>
-                  {datarbl.map((rbl)=>(
-                    rbl.ma_bl== bl.ma_bl ? (<Grid height="70px">
+
+                  {datarbl.length > 0 ? (
+                    datarbl.map((rbl)=>(
+                    rbl.rep == bl.ma_bl ? (<Grid height="70px">
 
                       <Typography
                       style={{
@@ -272,7 +274,7 @@ function Binhluan(product){
                    >
                      <i>
                        {" "}
-                       Trả lời từ <b> Hau' Garden </b> ngày <b> {rbl.ngay.slice(0,10)}</b>
+                       Trả lời từ <b> Hau' Garden </b> ngày <b> {rbl.ngay_bl.slice(0,10)}</b>
                      </i>
                    </Typography>
                    {rbl.noi_dung}
@@ -281,7 +283,7 @@ function Binhluan(product){
 
                     
                     </Grid>):false
-                  ))}
+                  ))):false}
                   <Grid
                     style={{
                       borderBottom: "1px solid #ededed",

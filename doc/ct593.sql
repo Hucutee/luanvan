@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 08, 2022 lúc 02:53 PM
+-- Thời gian đã tạo: Th10 09, 2022 lúc 06:49 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -70,19 +70,27 @@ DELIMITER ;
 
 CREATE TABLE `binh_luan` (
   `ma_bl` varchar(50) NOT NULL,
-  `ma_kh` varchar(50) NOT NULL,
+  `ma_nd` varchar(50) NOT NULL,
   `noi_dung` varchar(255) NOT NULL,
   `trang_thai` varchar(20) NOT NULL,
   `ngay_bl` datetime NOT NULL,
-  `ma_sp` varchar(50) DEFAULT NULL
+  `ma_sp` varchar(50) DEFAULT NULL,
+  `rep` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `binh_luan`
 --
 
-INSERT INTO `binh_luan` (`ma_bl`, `ma_kh`, `noi_dung`, `trang_thai`, `ngay_bl`, `ma_sp`) VALUES
-('BL01', 'ND01', 'Loại này dể trồng ko ạ', '0', '2022-10-08 00:00:00', 'SP019');
+INSERT INTO `binh_luan` (`ma_bl`, `ma_nd`, `noi_dung`, `trang_thai`, `ngay_bl`, `ma_sp`, `rep`) VALUES
+('BL01', 'ND01', 'loại này dể sống ko shop', '1', '2022-10-09 00:00:00', 'SP019', NULL),
+('BL02', 'ND01', 'Dạ loại này dể trồng lắm ạ', '0', '2022-10-09 00:00:00', 'SP019', 'BL01'),
+('BL03', 'ND01', 'Loại này ưa nước ko shop', '1', '2022-10-09 00:00:00', 'SP02', NULL),
+('BL04', 'ND01', 'Dạ loại này tưới ít thoi ạ, 1 tuần tưới 1 lần', '0', '2022-10-09 11:46:20', 'SP02', 'BL03'),
+('BL05', 'ND01', 'loại này ưa nắng ko shop', '1', '2022-10-09 00:00:00', 'SP018', NULL),
+('BL06', 'ND01', 'Dạ loại này ưa nắng ạ', '0', '2022-10-09 11:47:53', 'SP018', 'BL05'),
+('BL07', 'ND01', 'Loại này dể bị sốc nhiệt ko shop', '1', '2022-10-09 00:00:00', 'SP016', NULL),
+('BL08', 'ND01', 'Dạ loại này bên shop đã thuần khí hậu rồi ạ', '0', '2022-10-09 11:49:23', 'SP016', 'BL07');
 
 --
 -- Bẫy `binh_luan`
@@ -853,37 +861,6 @@ INSERT INTO `quyen` (`ma_q`, `ten_q`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `rep_bl`
---
-
-CREATE TABLE `rep_bl` (
-  `ma_rbl` varchar(50) NOT NULL,
-  `ma_bl` varchar(50) NOT NULL,
-  `ma_nv` varchar(50) NOT NULL,
-  `noi_dung` varchar(255) NOT NULL,
-  `ngay` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Bẫy `rep_bl`
---
-DELIMITER $$
-CREATE TRIGGER `them_rep_bl` BEFORE INSERT ON `rep_bl` FOR EACH ROW BEGIN
-DECLARE id varchar(50);
-
-SET id = (SELECT CONCAT("RBL",SUBSTRING(ma_rbl,4)+1) FROM rep_bl ORDER BY SUBSTRING(ma_rbl,4)*1 DESC LIMIT 1);
-
-IF id IS NULL 
-THEN SET NEW.ma_rbl = 'RBL1';
-ELSE SET NEW.ma_rbl = id;
-END IF;
-END
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `san_pham`
 --
 
@@ -1010,8 +987,9 @@ ALTER TABLE `anh_dai_dien`
 --
 ALTER TABLE `binh_luan`
   ADD PRIMARY KEY (`ma_bl`),
-  ADD KEY `bl_boi` (`ma_kh`),
-  ADD KEY `ma_kh` (`ma_kh`);
+  ADD KEY `bl_boi` (`ma_nd`),
+  ADD KEY `ma_kh` (`ma_nd`),
+  ADD KEY `rep` (`rep`);
 
 --
 -- Chỉ mục cho bảng `chi_tiet_dh`
@@ -1127,13 +1105,6 @@ ALTER TABLE `quyen`
   ADD PRIMARY KEY (`ma_q`);
 
 --
--- Chỉ mục cho bảng `rep_bl`
---
-ALTER TABLE `rep_bl`
-  ADD PRIMARY KEY (`ma_rbl`),
-  ADD KEY `ma_bl` (`ma_bl`);
-
---
 -- Chỉ mục cho bảng `san_pham`
 --
 ALTER TABLE `san_pham`
@@ -1170,7 +1141,8 @@ ALTER TABLE `anh_dai_dien`
 -- Các ràng buộc cho bảng `binh_luan`
 --
 ALTER TABLE `binh_luan`
-  ADD CONSTRAINT `bl_boikh` FOREIGN KEY (`ma_kh`) REFERENCES `nguoi_dung` (`ma_nd`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `bl_boikh` FOREIGN KEY (`ma_nd`) REFERENCES `nguoi_dung` (`ma_nd`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rep_bl` FOREIGN KEY (`rep`) REFERENCES `binh_luan` (`ma_bl`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `chi_tiet_dh`
@@ -1232,12 +1204,6 @@ ALTER TABLE `hoa_don_nhap`
 --
 ALTER TABLE `khuyen_mai`
   ADD CONSTRAINT `khuyen_mai_loai_san_pham` FOREIGN KEY (`sanpham_km`) REFERENCES `loai_san_pham` (`ma_lsp`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Các ràng buộc cho bảng `rep_bl`
---
-ALTER TABLE `rep_bl`
-  ADD CONSTRAINT `thuoc_bl` FOREIGN KEY (`ma_bl`) REFERENCES `binh_luan` (`ma_bl`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `san_pham`
