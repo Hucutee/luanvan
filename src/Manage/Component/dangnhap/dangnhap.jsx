@@ -50,6 +50,7 @@ const [email,setEmail]= React.useState("");
 const [count,setCount]= React.useState(0);
 const [data,setData]= React.useState([]);
 const [trangthai,setTrangthai]= React.useState(0);
+const [loi,setLoi]= React.useState(false);
 
   const [matkhau, setMatkhau] = React.useState({
     amount: "",
@@ -71,7 +72,7 @@ const handleChangetk = (value) => {
       dispatch(loginNhanvien({email: email,mat_khau: matkhau.password}));
 
       const dl = await nguoidungApi.checkdnnhanvien(email,matkhau.password);
-      if(dl.length > 0) {setOpendnn(true);}
+      if(dl.length > 0) {setOpendnn(true);}else{setLoi(true);}
     }
     setCount((e)=> e + 1);
   }
@@ -157,6 +158,9 @@ const handleChangetk = (value) => {
                 variant="standard"
                 onChange={(e)=>handleChangetk(e.target.value)}
               />
+              {loi == true ? (<FormHelperText error id="component-error-text"  sx={{ ml: 1}}>
+                      Tài khoản hoặc mật khẩu không chính xác
+                    </FormHelperText>):(<></>)}
               <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">
                   Mật khẩu

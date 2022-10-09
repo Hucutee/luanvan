@@ -41,7 +41,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-
 const Transitiondnn = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -145,18 +144,20 @@ function Dangky() {
   return (
     <Box>
       <Grid
-        className="abc"
+        className="abcdn"
         sx={{
           display: "flex",
           alignContent: "center",
           justifyContent: "center",
-          height: "auto"
+          height: "665px"
         }}
       >
         <Grid
           marginTop="20px"
           sx={{ borderRadius: "5px" }}
-          width="35%"
+          width="32%"
+          height="600px"
+
           item
           xs={10}
           sm={8}
@@ -253,7 +254,7 @@ function Dangky() {
                 <FormControl
                   variant="outlined"
                   color="success"
-                  sx={{ width: "35%", marginRight: "8.5%", float: "left" ,marginBottom: 1}}
+                  sx={{ width: "35%", marginRight: "7%", float: "left" ,marginBottom: 1}}
                 >
                   <InputLabel id="demo-simple-select-standard-label">
                     Giới tính
@@ -272,7 +273,7 @@ function Dangky() {
                     </FormHelperText>):(<></>)}
                 </FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}  sx={{ m: 1   }}>
-                  <div style={{ m: 1,  float: "left" }}>
+                  <div style={{ width:"56.5%",  float: "left" }}>
                     <DatePicker 
                       maxDate={dayjs()}
                       inputFormat="YYYY-MM-DD"

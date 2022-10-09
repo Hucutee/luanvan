@@ -84,7 +84,7 @@ export default function Router() {
        
 
         },{
-            path: '/Managerdn',
+            path: '/Manage',
             element: <Dangnhapnhanvien/> 
         },{
             path: '/Manager',

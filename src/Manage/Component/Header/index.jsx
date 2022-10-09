@@ -153,7 +153,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <AutoAwesomeMotionIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/loaisanpham" className="">
+              <ListItemText > <Lin onClick={toggleDrawer("left", false)} to="/Manager/loaisanpham" className="">
               Loại sản phẩm
             </Lin></ListItemText>
             </ListItemButton>
@@ -161,7 +161,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon >
                 {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/sanpham" className="">
+              <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/sanpham" className="">
               Sản phẩm
             </Lin></ListItemText>
             </ListItemButton>
@@ -169,7 +169,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <StraightenIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/kichthuoc" className="">
+              <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/kichthuoc" className="">
               Kích thước
             </Lin></ListItemText>
             </ListItemButton>
@@ -177,7 +177,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <StorageIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/chitietsanpham" className="">
+              <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/chitietsanpham" className="">
               Chi tiết sản phẩm
             </Lin></ListItemText>
             </ListItemButton>
@@ -190,7 +190,7 @@ export default function TemporaryDrawer() {
         <ListItemIcon>
           <GiteIcon />
         </ListItemIcon>
-        <ListItemText primary="Nhập kho" />
+        <ListItemText  primary="Nhập kho" />
         {openkho ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={openkho} timeout="auto" unmountOnExit>
@@ -199,7 +199,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <StoreIcon />}
               </ListItemIcon>
-              <ListItemText  ><Lin to="/Manager/nhacungcap" className="">
+              <ListItemText  ><Lin  onClick={toggleDrawer("left", false)} to="/Manager/nhacungcap" className="">
               Nhà cung cấp
             </Lin> </ListItemText>
             </ListItemButton>
@@ -207,7 +207,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <ReceiptIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/hoadonnhap" className="">
+              <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/hoadonnhap" className="">
               Hóa đơn nhập
             </Lin></ListItemText>
             </ListItemButton>
@@ -215,7 +215,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <ReceiptLongIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/chitiethoadonnhap" className="">
+              <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/chitiethoadonnhap" className="">
               Chi tiết hóa đơn nhập
             </Lin></ListItemText>
             </ListItemButton>
@@ -236,7 +236,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <ShoppingBasketIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/donhang" className="">
+              <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/donhang" className="">
               Đơn hàng
             </Lin></ListItemText>
             </ListItemButton>
@@ -256,7 +256,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <AccountBalanceWalletIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/phieugiamgia" className="">
+              <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/phieugiamgia" className="">
               Phiếu giảm giá
             </Lin></ListItemText>
             </ListItemButton>
@@ -264,7 +264,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <PercentIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/khuyenmai" className="">
+              <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/khuyenmai" className="">
               Khuyến mãi
             </Lin></ListItemText>
             </ListItemButton>
@@ -284,7 +284,7 @@ export default function TemporaryDrawer() {
               <ListItemIcon>
                 {"A" % 2 === 0 ? <InboxIcon /> : <ShoppingBasketIcon />}
               </ListItemIcon>
-              <ListItemText > <Lin to="/Manager/donhang" className="">
+              <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/donhang" className="">
               Đơn hàng
             </Lin></ListItemText>
             </ListItemButton>
@@ -374,7 +374,7 @@ export default function TemporaryDrawer() {
       >
                 <MenuItem onClick={handleClosedx}><Lin sx={{textDecoration: "none", color:"#333"}} to="/Manager/thongtincanhan">Thông tin cá nhân</Lin></MenuItem>
 
-        <MenuItem onClick={handledx}><Link sx={{textDecoration: "none", color:"#333"}} href="/Managerdn">Đăng xuất</Link></MenuItem>
+        <MenuItem onClick={handledx}><Link sx={{textDecoration: "none", color:"#333"}} href="/Manage">Đăng xuất</Link></MenuItem>
 
       </Menu>
        

@@ -24,7 +24,7 @@ import { useEffect } from "react";
 import nguoidungApi from "../../../Manage/api/nguoidungApi";
 import { propsToClassKey } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link as Lin, useNavigate } from "react-router-dom";
 import { addtoUser, login } from "../../app/userSlice";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -34,6 +34,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { ConstructionOutlined } from "@mui/icons-material";
 import { removequaylai } from "../../app/quaylai";
+import './dangnhap.css'
+import { Link } from "@mui/material";
 const Transitiondnn = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -50,7 +52,7 @@ Dangnhap.propTypes={
 const [taikhoan,setTaikhoan]= React.useState("");
 const [count,setCount]= React.useState(0);
 const [data,setData]= React.useState([]);
-const [trangthai,setTrangthai]= React.useState(0);
+const [loi,setLoi]= React.useState(false);
 
   const [matkhau, setMatkhau] = React.useState({
     amount: "",
@@ -72,7 +74,7 @@ const handleChangetk = (value) => {
       dispatch(login({email: taikhoan,mat_khau: matkhau.password}));
 
       const dl = await nguoidungApi.checkdn(taikhoan,matkhau.password);
-      if(dl.length > 0) {setOpendnn(true);}
+      if(dl.length > 0) {setOpendnn(true);}else{setLoi(true);}
     }
     setCount((e)=> e + 1);
   }
@@ -114,11 +116,13 @@ const handleChangetk = (value) => {
   return (
     <Box>
       <Grid
-        className="abc"
+        className="abcdn"
         sx={{
           display: "flex",
           alignContent: "center",
           justifyContent: "center",
+          height:"665px"
+
         }}
       >
         <Grid
@@ -158,6 +162,9 @@ const handleChangetk = (value) => {
                 variant="standard"
                 onChange={(e)=>handleChangetk(e.target.value)}
               />
+              {loi == true ? (<FormHelperText error id="component-error-text"  sx={{ ml: 1}}>
+                      Tài khoản hoặc mật khẩu không chính xác
+                    </FormHelperText>):(<></>)}
               <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">
                   Mật khẩu
@@ -196,14 +203,14 @@ const handleChangetk = (value) => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link to="" style={{textDecoration:"none", color:"#333"}}  variant="body2">
+                  <Lin to="" style={{textDecoration:"none", color:"#333"}}  variant="body2">
                     Quên mật khẩu?
-                  </Link>
+                  </Lin>
                 </Grid>
                 <Grid item>
-                  <Link style={{textDecoration:"none", color:"#333"}} to="" variant="body2">
-                    {"Bạn chưa có tài khoản? Đăng ký"}
-                  </Link>
+                  <Lin style={{textDecoration:"none", color:"#333"}} to="/products/dangky" variant="body2">
+                    {" Đăng ký"}
+                  </Lin>
                 </Grid>
               </Grid>
             </Box>
@@ -223,9 +230,9 @@ const handleChangetk = (value) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        {dataquaylai.length >0 ? <Button variant="contained" color="success"  onClick={handleClosednn} ><Link  to={`${dataquaylai[0].link}`}>Quay lại mua hàng</Link></Button> : <></>}
+        {dataquaylai.length >0 ? <Button variant="contained" color="success"  onClick={handleClosednn} ><Lin  to={`${dataquaylai[0].link}`}>Quay lại mua hàng</Lin></Button> : <></>}
 
-          <Button variant="contained" color="success"  onClick={handleClosednn}><Link  to="/products/thongtincanhan" >Thông tin cá nhân</Link></Button>
+          <Button variant="contained" color="success"  onClick={handleClosednn}><Link sx={{textDecoration: "none"}}  href="/products/thongtincanhan" >Thông tin cá nhân</Link></Button>
         </DialogActions>
       </Dialog>
     </Box>

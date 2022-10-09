@@ -45,6 +45,7 @@ Dangnhapshipper.propTypes={
 
   const dispatch = useDispatch();
   const navigation = useNavigate();
+  const [loi,setLoi]= React.useState(false);
 
 const [email,setEmail]= React.useState("");
 const [count,setCount]= React.useState(0);
@@ -71,7 +72,7 @@ const handleChangetk = (value) => {
       dispatch(loginShipper({email: email,mat_khau: matkhau.password}));
 
       const dl = await nguoidungApi.checkdnshipper(email,matkhau.password);
-      if(dl.length > 0) {setOpendnn(true);}
+      if(dl.length > 0) {setOpendnn(true);}else{setLoi(true);}
     }
     setCount((e)=> e + 1);
   }
@@ -113,7 +114,7 @@ const handleChangetk = (value) => {
   return (
     <Box>
       <Grid
-        className="abcshipper"
+        className="abcshipperr"
         sx={{
           display: "flex",
           alignContent: "center",
@@ -157,6 +158,9 @@ const handleChangetk = (value) => {
                 variant="standard"
                 onChange={(e)=>handleChangetk(e.target.value)}
               />
+              {loi == true ? (<FormHelperText error id="component-error-text"  sx={{ ml: 1}}>
+                      Tài khoản hoặc mật khẩu không chính xác
+                    </FormHelperText>):(<></>)}
               <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">
                   Mật khẩu
