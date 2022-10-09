@@ -52,6 +52,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import MuiAlert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 
 Thongtincanhan.propTypes = {};
 function Thongtincanhan() {
@@ -107,6 +109,49 @@ function Thongtincanhan() {
       }
     })();
   }, [count]);
+
+  const [matkhau, setMatkhau] = React.useState({  amount: "",  password: "", weight: "", weightRange: "", showPassword: false, });
+  const handleChangemk = (prop) => (event) => { setSaimk(false);
+    setMatkhau({ ...matkhau, [prop]: event.target.value }); console.log(event.target.value); };
+  const handleClickShowPassword = () => {
+    setMatkhau({  ...matkhau,  showPassword: !matkhau.showPassword, });};
+    const handleMouseDownPassword = (event) => {  event.preventDefault();};
+
+    const [matkhau1, setMatkhau1] = React.useState({  amount: "",  password: "", weight: "", weightRange: "", showPassword: false, });
+  const handleChangemk1 = (prop) => (event) => {
+    setMatkhau1({ ...matkhau1, [prop]: event.target.value }); console.log(event.target.value); };
+  const handleClickShowPassword1 = () => {
+    setMatkhau1({  ...matkhau1,  showPassword: !matkhau1.showPassword, });};
+  const handleMouseDownPassword1 = (event) => {  event.preventDefault();};
+
+  const [matkhau2, setMatkhau2] = React.useState({  amount: "",  password: "", weight: "", weightRange: "", showPassword: false, });
+  const handleChangemk2 = (prop) => (event) => {
+    setMatkhau2({ ...matkhau2, [prop]: event.target.value }); console.log(event.target.value); };
+  const handleClickShowPassword2 = () => {
+    setMatkhau2({  ...matkhau2,  showPassword: !matkhau2.showPassword, });};
+    const handleMouseDownPassword2 = (event) => {  event.preventDefault();};
+const [saimk,setSaimk] = React.useState(false);
+const [trong,setTrong] = React.useState(false);
+
+    const handledoimatkhau = async ()=>{
+    if(matkhau.password  && matkhau1.password && matkhau1.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/) &&matkhau2.password && matkhau2.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/) 
+    && matkhau2.password == matkhau1.password ){
+      const kt = await nguoidungApi.ktmatkhau(dataUser[0].ma_nd,matkhau.password); 
+      if(kt.length >0){
+        await nguoidungApi.doimatkhau(dataUser[0].ma_nd,matkhau1.password);
+        setSaimk(false);setTrong(false); setOpencheckthanhcong(true);    setOpen(!open);
+        setMatkhau({  amount: "",  password: "", weight: "", weightRange: "", showPassword: false,});
+        setMatkhau1({  amount: "",  password: "", weight: "", weightRange: "", showPassword: false,});
+        setMatkhau2({  amount: "",  password: "", weight: "", weightRange: "", showPassword: false,});
+      }else{
+        setSaimk(true);
+      }
+    }else{setTrong(true);}
+    }
+    const Alert = React.forwardRef(function Alert(props, ref) {return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />; });
+ 
+    const [opencheckthanhcong, setOpencheckthanhcong] = React.useState(false);
+    const handleClosecheckthanhcong = () => {setOpencheckthanhcong(false); };
   return (
     <Box>
       <div
@@ -305,12 +350,142 @@ function Thongtincanhan() {
                   <Collapse in={open} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemIcon>
-                          <StarBorder />
-                        </ListItemIcon>
-                        <ListItemText primary="Starred" />
+                       
+                        <ListItemText>
+                        <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
+                <InputLabel htmlFor="standard-adornment-password">
+                  Mật khẩu hiện tại
+                </InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  type={matkhau.showPassword ? "text" : "password"}
+                  value={matkhau.password}
+                  onChange={handleChangemk("password")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {matkhau.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                {trong && matkhau.password.length == 0 ?(
+                   <FormHelperText error id="component-error-text">
+                   Mật khẩu không được để trống!
+                 </FormHelperText>
+                ):(
+                  saimk ==false  ? (
+                    <></>
+                  ) : (
+                    <FormHelperText error id="component-error-text">
+                      Mật khẩu không chính xác!
+                    </FormHelperText>
+                  )
+                )}
+              </FormControl>
+              </ListItemText>
                       </ListItemButton>
                     </List>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                       
+                        <ListItemText>
+              <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
+                <InputLabel htmlFor="standard-adornment-password">
+                  Mật khẩu mới
+                </InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  type={matkhau1.showPassword ? "text" : "password"}
+                  value={matkhau1.password}
+                  onChange={handleChangemk1("password")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword1}
+                        onMouseDown={handleMouseDownPassword1}
+                      >
+                        {matkhau1.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                {trong && matkhau1.password.length == 0 ?(
+                   <FormHelperText error id="component-error-text">
+                   Mật khẩu mới không được để trống!
+                 </FormHelperText>
+                ):(
+                  matkhau1.password.match(
+                    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+                  ) || matkhau1.password.length == 0 ? (
+                    <></>
+                  ) : (
+                    <FormHelperText error id="component-error-text">
+                      Mật khẩu ít nhất 8 kí tự, ít nhất 1 chữ cái và 1 số và không
+                      chứa kí tự đặc biệt!
+                    </FormHelperText>
+                  )
+                )}
+              </FormControl>
+              </ListItemText>
+                      </ListItemButton>
+                    </List>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                       
+                        <ListItemText>
+              <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
+                <InputLabel htmlFor="standard-adornment-password">
+                  Nhập lại mật khẩu mới
+                </InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  type={matkhau2.showPassword ? "text" : "password"}
+                  value={matkhau2.password}
+                  onChange={handleChangemk2("password")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword2}
+                        onMouseDown={handleMouseDownPassword2}
+                      >
+                        {matkhau2.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                /> {trong && matkhau2.password.length == 0 ?(
+                  <FormHelperText error id="component-error-text">
+                  Mật khẩu mới không được để trống!
+                </FormHelperText>
+               ):(
+                matkhau1.password != matkhau2.password && matkhau2.password.length >0 ? (<FormHelperText error id="component-error-text"  sx={{ ml: 1}}>
+                      Mật khẩu mới và nhập lại mật khẩu mới không giống nhau!
+                    </FormHelperText>):(<></>)
+               )}
+                 
+              </FormControl>
+                        </ListItemText>
+                      </ListItemButton>
+                    </List>
+                    <Button onClick={handledoimatkhau} style={{marginLeft:"40px",marginTop:"5px"}} variant="contained" color="success">Thay đổi</Button>
                   </Collapse>
                 </List>
                 <Divider />
@@ -319,6 +494,9 @@ function Thongtincanhan() {
           ))}
         </Grid>
       </Grid>
+      <Snackbar  open={opencheckthanhcong} autoHideDuration={6000} onClose={handleClosecheckthanhcong} >
+        <Alert  onClose={handleClosecheckthanhcong}  severity="success"  sx={{ width: "100%" }}>  Đổi mật khẩu thành công!</Alert>
+      </Snackbar>
     </Box>
   );
 }

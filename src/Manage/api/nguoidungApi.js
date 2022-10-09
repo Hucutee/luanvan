@@ -66,6 +66,14 @@ const nguoidungApi = {
     const API_URL = `/nguoidung/getavtnv/${idnd}`;
     return axiosClient.get(API_URL);
   },
+  ktmatkhau(mand,mk) {
+    const API_URL = `/nguoidung/ktmatkhau/${mand}&&${mk}`;
+    return axiosClient.get(API_URL);
+  },
+  doimatkhau(mand,mk) {
+    const API_URL = `/nguoidung/doimatkhau/${mand}&&${mk}`;
+    return axiosClient.get(API_URL);
+  },
 };
 
 export default nguoidungApi;
