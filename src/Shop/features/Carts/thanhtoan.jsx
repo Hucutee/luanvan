@@ -22,6 +22,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import donhangAPI from "../../../Manage/api/donhangApi";
 import { useNavigate } from "react-router-dom";
+import payOnlineAPI from "../../../Manage/api/payOnlineAPI";
 
 function Thanhtoan() {
   const history = useNavigate();
@@ -176,6 +177,15 @@ function Thanhtoan() {
     }
   } dispatch(removeAllCarttt());dispatch(removeAllCart());    history(`/products/donhang`);
 
+    }
+    if(loaitt == 2){
+      const data = await payOnlineAPI.create_payment_url({
+        orderType: "billpayment",
+        amount: gia,
+        bankCode: "",
+        language: "vn",
+      });
+      window.location = data;
     }
   }
   return (
