@@ -4,6 +4,7 @@ import quaylaiReducer  from './quaylai';
 import cartttReducer  from './cartthanhtoan';
 import shipperReducer  from './shipperSlice';
 import nhanvienReducer  from './nhanvienSlice';
+import ttkhreducer  from './ttkh';
 
 
 const { configureStore } = require('@reduxjs/toolkit');
@@ -15,7 +16,7 @@ const rootReducerr = {
     carttt: cartttReducer,
     userShipper: shipperReducer,
     userNhanvien: nhanvienReducer,
-
+    ttkh: ttkhreducer,
 };
 const storee = configureStore({
     reducer: rootReducerr,

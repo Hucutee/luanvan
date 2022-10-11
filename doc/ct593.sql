@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 09, 2022 lúc 04:14 PM
+-- Thời gian đã tạo: Th10 11, 2022 lúc 05:18 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -137,8 +137,31 @@ INSERT INTO `chi_tiet_dh` (`ma_ctdh`, `ma_ctsp`, `ma_dh`, `so_luong`, `gia`, `tr
 ('CTD13', 'CT022', 'DH07', 1, 27000, 0),
 ('CTD14', 'CT044', 'DH08', 1, 12000, 0),
 ('CTD15', 'CT040', 'DH08', 1, 16000, 0),
+('CTD16', 'CT022', 'DH09', 5, 27000, 0),
+('CTD17', 'CT027', 'DH09', 1, 50000, 0),
+('CTD18', 'CT034', 'DH010', 1, 20000, 0),
+('CTD19', 'CT027', 'DH011', 6, 50000, 0),
 ('CTD2', 'CT039', 'DH02', 4, 82000, 0),
+('CTD20', 'CT073', 'DH012', 12, 70000, 0),
+('CTD21', 'CT039', 'DH013', 11, 82000, 0),
+('CTD22', 'CT047', 'DH014', 1, 13500, 0),
+('CTD23', 'CT048', 'DH014', 1, 67500, 0),
+('CTD24', 'CT051', 'DH014', 1, 90000, 0),
+('CTD25', 'CT047', 'DH017', 1, 13500, 0),
+('CTD26', 'CT048', 'DH017', 1, 67500, 0),
+('CTD27', 'CT082', 'DH018', 15, 25000, 0),
+('CTD28', 'CT070', 'DH019', 1, 40000, 0),
+('CTD29', 'CT035', 'DH019', 1, 50000, 0),
 ('CTD3', 'CT075', 'DH02', 4, 65000, 0),
+('CTD30', 'CT022', 'DH020', 1, 27000, 0),
+('CTD31', 'CT034', 'DH021', 1, 20000, 0),
+('CTD32', 'CT070', 'DH022', 1, 40000, 0),
+('CTD33', 'CT035', 'DH023', 1, 50000, 0),
+('CTD34', 'CT022', 'DH024', 1, 27000, 0),
+('CTD35', 'CT022', 'DH025', 1, 27000, 0),
+('CTD36', 'CT022', 'DH026', 1, 27000, 0),
+('CTD37', 'CT089', 'DH026', 1, 20000, 0),
+('CTD38', 'CT089', 'DH027', 1, 20000, 0),
 ('CTD4', 'CT048', 'DH03', 1, 67500, 0),
 ('CTD5', 'CT051', 'DH03', 1, 90000, 0),
 ('CTD6', 'CT043', 'DH04', 1, 36000, 1),
@@ -419,7 +442,7 @@ DELIMITER ;
 CREATE TABLE `don_hang` (
   `ma_dh` varchar(50) NOT NULL,
   `ma_kh` varchar(50) NOT NULL,
-  `ma_pgg` varchar(50) NOT NULL,
+  `ma_pgg` varchar(50) DEFAULT NULL,
   `ma_nv` varchar(50) NOT NULL,
   `ngay_dat_hang` datetime NOT NULL,
   `dia_chi_giao` varchar(255) NOT NULL,
@@ -435,13 +458,30 @@ CREATE TABLE `don_hang` (
 
 INSERT INTO `don_hang` (`ma_dh`, `ma_kh`, `ma_pgg`, `ma_nv`, `ngay_dat_hang`, `dia_chi_giao`, `hinh_thuc_thanh_toan`, `tong_tien`, `trang_thai`, `nguoi_nhan`) VALUES
 ('DH01', 'ND02', 'PGG1', 'ND01', '2022-10-08 13:33:10', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 27000, 4, 'Bùi Công Minh, 0987654321'),
+('DH010', 'ND03', 'PGG1', 'ND01', '2022-10-11 14:18:19', 'an khánh, ninh kiều, cần thơ', 1, 50000, 0, 'Bùi Công minh, 09848757485'),
+('DH011', 'ND03', 'PGG2', 'ND01', '2022-10-11 14:20:04', 'an khánh, ninh kiều, cần thơ', 1, 320000, 0, 'Bùi Công minh, 0984885856'),
+('DH012', 'ND03', 'PGG2', 'ND01', '2022-10-11 14:21:18', 'an khánh, ninh kiều, cần thơ', 1, 830000, 0, 'Bùi Công Minh, 09485858585'),
+('DH013', 'ND03', 'PGG1', 'ND01', '2022-10-11 14:21:55', 'an khánh, ninh kiều, cần thơ', 1, 902000, 0, 'Bùi Công Minh, 0947574785'),
+('DH014', 'ND03', 'PGG1', 'ND01', '2022-10-11 15:12:21', 'an khánh, ninh kiều, cần thơ', 1, 201000, 0, 'Bùi Công Minh, 0948848433'),
+('DH017', 'ND03', 'PGG1', 'ND01', '2022-10-11 20:20:02', 'an khánh, ninh kiều, cần thơ', 2, 111000, 0, 'Bùi Công Minh, 0987654321'),
+('DH018', 'ND03', 'PGG2', 'ND01', '2022-10-11 21:03:58', 'an khánh, ninh kiều, cần thơ', 2, 395000, 0, 'Bùi Công Minh, 0987654321'),
+('DH019', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:31:56', 'an khánh, ninh kiều, cần thơ', 2, 120000, 0, 'Bùi Công Minh, 0987654321'),
 ('DH02', 'ND02', 'PGG2', 'ND01', '2022-10-08 13:34:15', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 578000, 4, 'Bùi Công Minh, 0924778854'),
+('DH020', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:49:16', 'an khánh, ninh kiều, cần thơ', 2, 57000, 0, 'Bùi Công Minh, 0987654321'),
+('DH021', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:51:29', 'an khánh, ninh kiều, cần thơ', 2, 50000, 0, 'Bùi Công a, 0987654321'),
+('DH022', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:55:02', 'an khánh, ninh kiều, cần thơ', 2, 70000, 0, 'Bùi Công Minh, 0987654321'),
+('DH023', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:56:49', 'an khánh, ninh kiều, cần thơ', 2, 80000, 0, 'Bùi Công a, 0987654321'),
+('DH024', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:58:24', 'an khánh, ninh kiều, cần thơ', 2, 57000, 0, 'Trần Minh a, 0987654321'),
+('DH025', 'ND03', 'PGG1', 'ND01', '2022-10-11 22:00:01', 'an khánh, ninh kiều, cần thơ', 2, 57000, 0, 'Bùi Công a, 0987654321'),
+('DH026', 'ND03', 'PGG1', 'ND01', '2022-10-11 22:04:23', 'an khánh, ninh kiều, cần thơ', 2, 77000, 0, 'Bùi Công a, 0987654321'),
+('DH027', 'ND03', 'PGG1', 'ND01', '2022-10-11 22:12:18', 'an khánh, ninh kiều, cần thơ', 2, 50000, 0, 'Bùi Công a, 0987654321'),
 ('DH03', 'ND01', 'PGG2', 'ND01', '2022-10-08 16:10:02', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 147500, 6, 'Phan Trung Hậu, 0934737645'),
 ('DH04', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:01:30', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 162000, 4, 'Phan Trung Hậu, 09094874394'),
 ('DH05', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:44:08', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 543500, 5, 'Phan Trung Hậu, 0337474374'),
 ('DH06', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:49:11', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 115000, 4, 'Phan Trung Hậu, 0947475753'),
 ('DH07', 'ND03', 'PGG2', 'ND01', '2022-10-09 14:08:30', 'an khánh, ninh kiều, cần thơ', 1, 98000, 5, 'Trần Thị Diểm Ly, 0987654334'),
-('DH08', 'ND03', 'PGG1', 'ND01', '2022-10-09 14:09:29', 'an khánh, ninh kiều, cần thơ', 1, 28000, 4, 'Trần Thị Diểm  Ly, 0965545434');
+('DH08', 'ND03', 'PGG1', 'ND01', '2022-10-09 14:09:29', 'an khánh, ninh kiều, cần thơ', 1, 28000, 4, 'Trần Thị Diểm  Ly, 0965545434'),
+('DH09', 'ND03', 'PGG1', 'ND01', '2022-10-11 14:08:38', 'an khánh, ninh kiều, cần thơ', 1, 185000, 0, 'Bùi Công Minh, 0948484875');
 
 --
 -- Bẫy `don_hang`

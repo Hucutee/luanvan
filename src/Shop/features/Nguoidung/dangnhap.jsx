@@ -230,9 +230,9 @@ const handleChangetk = (value) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        {dataquaylai.length >0 ? <Button variant="contained" color="success"  onClick={handleClosednn} ><Lin  to={`${dataquaylai[0].link}`}>Quay lại mua hàng</Lin></Button> : <></>}
+        {dataquaylai.length >0 ? <Button style={{textDecoration: "none", color:"white"}} variant="contained" color="success"  onClick={handleClosednn} ><Lin  to={`${dataquaylai[0].link}`}>Quay lại mua hàng</Lin></Button> : <></>}
 
-          <Button variant="contained" color="success"  onClick={handleClosednn}><Link sx={{textDecoration: "none"}}  href="/products/thongtincanhan" >Thông tin cá nhân</Link></Button>
+          <Button variant="contained" color="success"  onClick={handleClosednn}><Link style={{textDecoration: "none", color:"white"}}  href="/products/thongtincanhan" >Thông tin cá nhân</Link></Button>
         </DialogActions>
       </Dialog>
     </Box>

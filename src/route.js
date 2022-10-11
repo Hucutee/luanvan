@@ -33,7 +33,6 @@ import Thongtinnhanvien from "./Manage/Component/dangnhap/thongtincanhan";
 import Repbl from "./Manage/Pages/cskh/repbl";
 import Kttt from "./Shop/features/Carts/kttt";
 export default function Router() {
-    // https://github.com/nvnhann/nlcn/blob/main/frontend/src/Router/Router.js
     return useRoutes([
         {
             path: '/',

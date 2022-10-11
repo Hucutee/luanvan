@@ -3,7 +3,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Zoom from "react-img-zoom";
-import { Button, ButtonGroup, FormHelperText, Typography } from "@mui/material";
+import { Button, ButtonGroup, FormHelperText, getImageListItemBarUtilityClass, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -23,6 +23,7 @@ import MuiAlert from "@mui/material/Alert";
 import donhangAPI from "../../../Manage/api/donhangApi";
 import { useNavigate } from "react-router-dom";
 import payOnlineAPI from "../../../Manage/api/payOnlineAPI";
+import { addtottkh, removeAllttkh } from "../../app/ttkh";
 
 function Thanhtoan() {
   const history = useNavigate();
@@ -41,7 +42,8 @@ function Thanhtoan() {
 
   const [datapgg, setDatapgg] = React.useState([]);
   const handleChangepgg = (event) => {
-    setPgg(event.target.value); setGiam(event.target.value.so_tien_giam);
+    setPgg(event.target.value);
+    setGiam(event.target.value.so_tien_giam);
     console.log(event.target.value);
   };
   const [diachi, setDiachi] = React.useState("");
@@ -66,7 +68,8 @@ function Thanhtoan() {
   useEffect(() => {
     (async () => {
       try {
-        const dc = await diachiAPI.getid(dataUser[0].ma_nd); console.log(loaitt);
+        const dc = await diachiAPI.getid(dataUser[0].ma_nd);
+        console.log(loaitt);
         setDatadiachi(dc);
         const dataa = await chitietsanphamApi.getCount();
         const km = await khuyenmaiAPI.getCount();
@@ -164,30 +167,147 @@ function Thanhtoan() {
     }
     setOpenloi(false);
   };
-  const handlemua = async () =>{
-    console.log(ho.textmask+" "+ten.textmask +", "+sdt.textmask,diachi,pgg.ma_pgg,gia-giam,loaitt,dataUser[0].ma_nd);
-    if(ho.textmask && ten.textmask && sdt.textmask && diachi  &&  loaitt ==1){
-      if(pgg){
-        await donhangAPI.create(ho.textmask+" "+ten.textmask +", "+sdt.textmask,diachi,pgg.ma_pgg,gia-giam,loaitt,dataUser[0].ma_nd); console.log(pgg);
-      }else{        await donhangAPI.create(ho.textmask+" "+ten.textmask +", "+sdt.textmask,diachi,"PGG1",gia-giam,loaitt,dataUser[0].ma_nd);console.log(pgg); }
-      const maa = await donhangAPI.getdh(dataUser[0].ma_nd);console.log(maa);
+  const handlemua = async () => {
+    
+    if (ho.textmask && ten.textmask && sdt.textmask && diachi && loaitt == 1) {
+      if (pgg) {
+        if (gia >= 500000) {
+          await donhangAPI.create(
+            ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+            diachi,
+            pgg.ma_pgg,
+            gia - giam,
+            loaitt,
+            dataUser[0].ma_nd
+          );
+        } else {
+          await donhangAPI.create(
+            ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+            diachi,
+            pgg.ma_pgg,
+            gia - giam + 30000,
+            loaitt,
+            dataUser[0].ma_nd
+          );
+        }
+      } else {
+        if (gia >= 500000) {
+          await donhangAPI.create(
+            ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+            diachi,
+            "PGG1",
+            gia - giam,
+            loaitt,
+            dataUser[0].ma_nd
+          );
+        } else {
+          await donhangAPI.create(
+            ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+            diachi,
+            "PGG1",
+            gia - giam + 30000,
+            loaitt,
+            dataUser[0].ma_nd
+          );
+        }
+      }
+      const maa = await donhangAPI.getdh(dataUser[0].ma_nd);
+      console.log(maa);
       if (dataCarttt.length !== 0) {
         for (let i = 0; i < dataCarttt.length; i++) {
-          await donhangAPI.addctdh(dataCarttt[i].ma_ctsp,maa[0].ma_dh,dataCarttt[i].so_luong,dataCarttt[i].gia);
+          await donhangAPI.addctdh(
+            dataCarttt[i].ma_ctsp,
+            maa[0].ma_dh,
+            dataCarttt[i].so_luong,
+            dataCarttt[i].gia
+          );
+        }
+      }
+      dispatch(removeAllCarttt());
+      dispatch(removeAllCart());
+      history(`/products/donhang`);
     }
-  } dispatch(removeAllCarttt());dispatch(removeAllCart());    history(`/products/donhang`);
 
+    if (ho.textmask && ten.textmask && sdt.textmask && diachi && loaitt == 2) {
+      if (gia >= 500000) {
+        if (pgg) {
+          dispatch(removeAllttkh());
+          dispatch(
+            addtottkh({
+              ten: ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+              diachi: diachi,
+              pgg: pgg.ma_pgg,
+              gia: gia - giam,
+              loaitt: loaitt,
+              mand: dataUser[0].ma_nd,
+            })
+          );
+          const data = await payOnlineAPI.create_payment_url({
+            orderType: "billpayment",
+            amount: gia-giam,
+            bankCode: "",
+            language: "vn",
+          });      window.location = data;
+        } else {
+          dispatch(removeAllttkh());
+          dispatch(
+            addtottkh({
+              ten: ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+              diachi: diachi,
+              pgg: "PGG1",
+              gia: gia - giam,
+              loaitt: loaitt,
+              mand: dataUser[0].ma_nd,
+            })
+          );
+          const data = await payOnlineAPI.create_payment_url({
+            orderType: "billpayment",
+            amount: gia-giam,
+            bankCode: "",
+            language: "vn",
+          });      window.location = data;
+        }
+      } else {
+        if (pgg) {
+          dispatch(removeAllttkh());
+          dispatch(
+            addtottkh({
+              ten: ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+              diachi: diachi,
+              pgg: pgg.ma_pgg,
+              gia: gia - giam + 30000,
+              loaitt: loaitt,
+              mand: dataUser[0].ma_nd,
+            })
+          );
+          const data = await payOnlineAPI.create_payment_url({
+            orderType: "billpayment",
+            amount: gia-giam+30000,
+            bankCode: "",
+            language: "vn",
+          });      window.location = data;
+        } else {
+          dispatch(removeAllttkh());
+          dispatch(
+            addtottkh({
+              ten: ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+              diachi: diachi,
+              pgg: "PGG1",
+              gia: gia - giam + 30000,
+              loaitt: loaitt,
+              mand: dataUser[0].ma_nd,
+            })
+          );
+          const data = await payOnlineAPI.create_payment_url({
+            orderType: "billpayment",
+            amount: gia-giam+30000,
+            bankCode: "",
+            language: "vn",
+          });      window.location = data;
+        }
+      }
     }
-    if(loaitt == 2){
-      const data = await payOnlineAPI.create_payment_url({
-        orderType: "billpayment",
-        amount: gia,
-        bankCode: "",
-        language: "vn",
-      });
-      window.location = data;
-    }
-  }
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <div
@@ -221,7 +341,9 @@ function Thanhtoan() {
       <div className="w-[74%] mx-[13%] ">
         <div style={{ width: "50%", float: "left", paddingRight: "5%" }}>
           <Box component="form" noValidate sx={{ mt: 0, padding: 2 }}>
-            <Typography sx={{marginBottom:"5px"}}>Thông tin liên lạc</Typography>
+            <Typography sx={{ marginBottom: "5px" }}>
+              Thông tin liên lạc
+            </Typography>
             <FormControl
               variant="outlined"
               sx={{ m: 1, width: "95%" }}
@@ -313,106 +435,114 @@ function Thanhtoan() {
                 </FormHelperText>
               )}
             </FormControl>
-            <Typography sx={{ marginTop: "30px" ,marginBottom:"5px"}}>
+            <Typography sx={{ marginTop: "30px", marginBottom: "5px" }}>
               Địa chỉ giao hàng
             </Typography>
-            
-              <FormControl sx={{m:1}} size="small" color="success" fullWidth>
-                <InputLabel id="demo-simple-select-helper-label">
-                  {" "}
-                  Chọn địa chỉ
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={diachi}
-                  label="Chon dia chi"
-                  onChange={handleChangediachi}
-                  sx={{ width: "95%" }}
-                >
-                  {datadiachi.length > 0 ? (
-                    datadiachi.map((aa) => (
-                      <MenuItem value={aa.ten_dc}>{aa.ten_dc} </MenuItem>
-                    ))
-                  ) : (
-                    <MenuItem>Bạn chưa có địa chỉ</MenuItem>
-                  )}
-                </Select>
-              </FormControl>
-            
-           <Box sx={{height:"70px"}}>
-           <Typography sx={{ marginTop: "20px" ,marginBottom:"5px"}}>Thêm địa chỉ mới</Typography>
-            
-            <FormControl
-              size="small"
-              variant="outlined"
-              sx={{ m: 1, width: "70%", marginRight: "2%", float: "left" }}
-            >
-              <InputLabel
-                color="success"
-                htmlFor="outlined-weight-helper-text"
-              >
-                Nhập địa chỉ mới
+
+            <FormControl sx={{ m: 1 }} size="small" color="success" fullWidth>
+              <InputLabel id="demo-simple-select-helper-label">
+                {" "}
+                Chọn địa chỉ
               </InputLabel>
-              <OutlinedInput
-                color="success"
-                onChange={(e) => setDiachimoi(e.target.value)}
-                name="textmask"
-                id="outlined-weight-helper-text"
-                label="Nhập địa chỉ mới"
-              />
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={diachi}
+                label="Chon dia chi"
+                onChange={handleChangediachi}
+                sx={{ width: "95%" }}
+              >
+                {datadiachi.length > 0 ? (
+                  datadiachi.map((aa) => (
+                    <MenuItem value={aa.ten_dc}>{aa.ten_dc} </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem>Bạn chưa có địa chỉ</MenuItem>
+                )}
+              </Select>
             </FormControl>
 
-            <Button
-              variant="contained"
-              color="success"
-              sx={{
-                backgroundColor: "#ABD373",
-                m: 1,
-                width: "20%",
-                float: "left",
-              }}
-              onClick={handleadddc}
-            >
-              Thêm
-            </Button>
-           </Box>
+            <Box sx={{ height: "70px" }}>
+              <Typography sx={{ marginTop: "20px", marginBottom: "5px" }}>
+                Thêm địa chỉ mới
+              </Typography>
 
+              <FormControl
+                size="small"
+                variant="outlined"
+                sx={{ m: 1, width: "70%", marginRight: "2%", float: "left" }}
+              >
+                <InputLabel
+                  color="success"
+                  htmlFor="outlined-weight-helper-text"
+                >
+                  Nhập địa chỉ mới
+                </InputLabel>
+                <OutlinedInput
+                  color="success"
+                  onChange={(e) => setDiachimoi(e.target.value)}
+                  name="textmask"
+                  id="outlined-weight-helper-text"
+                  label="Nhập địa chỉ mới"
+                />
+              </FormControl>
+
+              <Button
+                variant="contained"
+                color="success"
+                sx={{
+                  backgroundColor: "#ABD373",
+                  m: 1,
+                  width: "20%",
+                  float: "left",
+                }}
+                onClick={handleadddc}
+              >
+                Thêm
+              </Button>
+            </Box>
           </Box>
-          <Typography sx={{pt:2, pl:2 ,marginBottom:"5px" }}>
+          <Typography sx={{ pt: 2, pl: 2, marginBottom: "5px" }}>
             Phương thức thanh toán
           </Typography>
-          <FormControl sx={{m:1,ml:3}} size="small" color="success" fullWidth>
-                <InputLabel id="demo-simple-select-helper-label">
-                  {" "}
-                  Chọn phương thứng thanh toán
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  label="Chọn phương thứng thanh toán"
-                  onChange={handleloaitt}
-                  sx={{ width: "89%" }}
-                >
-                  
-                      <MenuItem value={1}>Thanh toán khi nhận hàng </MenuItem>
-                      <MenuItem value={2}>Thanh toán online </MenuItem>
-
-                </Select>
-              </FormControl>
-              
-        <Box >
-          <div style={{ marginTop: "15px", padding:"23px" }}>
-            <Button
-              variant="contained"
-              color="success"
-              sx={{ backgroundColor: "#ABD373", height: "55px", width:"98%" }}
-              onClick={handlemua}
+          <FormControl
+            sx={{ m: 1, ml: 3 }}
+            size="small"
+            color="success"
+            fullWidth
+          >
+            <InputLabel id="demo-simple-select-helper-label">
+              {" "}
+              Chọn phương thứng thanh toán
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              label="Chọn phương thứng thanh toán"
+              onChange={handleloaitt}
+              sx={{ width: "89%" }}
             >
-              <Link to="#">Mua hàng</Link>
-            </Button>
-          </div>
-        </Box>
+              <MenuItem value={1}>Thanh toán khi nhận hàng </MenuItem>
+              <MenuItem value={2}>Thanh toán online </MenuItem>
+            </Select>
+          </FormControl>
+
+          <Box>
+            <div style={{ marginTop: "15px", padding: "23px" }}>
+              <Button
+                variant="contained"
+                color="success"
+                sx={{
+                  backgroundColor: "#ABD373",
+                  height: "55px",
+                  width: "98%",
+                }}
+                onClick={handlemua}
+              >
+                <Link to="#">Mua hàng</Link>
+              </Button>
+            </div>
+          </Box>
         </div>
         <div
           style={{
@@ -459,7 +589,7 @@ function Thanhtoan() {
                       </td>
                     </tr>
                   ))}
- <tr
+                  <tr
                     style={{ height: "100px" }}
                     className="border-t-[2px] 	border-gray-300			 border-solid "
                   >
@@ -476,14 +606,13 @@ function Thanhtoan() {
                         paddingTop: "10px",
                       }}
                     >
-                        <p>
-                          {" "}
-                          {new Intl.NumberFormat("vi-VN", {
-                            style: "currency",
-                            currency: "VND",
-                          }).format(gia)}{" "}
-                        </p>
-                      
+                      <p>
+                        {" "}
+                        {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(gia)}{" "}
+                      </p>
                     </td>
                   </tr>
                   <tr
@@ -631,7 +760,6 @@ function Thanhtoan() {
             false
           )}
         </div>
-
       </div>
       <Snackbar open={openloi} autoHideDuration={6000} onClose={handleCloseloi}>
         <Alert
