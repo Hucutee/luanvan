@@ -45,8 +45,16 @@ const donhangAPI = {
     const API_URL = `/donhang/huydon/${id}&&${manv}`;
     return axiosClient.get(API_URL);
   },
+  huydonnd(id) {
+    const API_URL = `/donhang/huydonnd/${id}`;
+    return axiosClient.get(API_URL);
+  },
   setslctsp(idctsp,slg) {
     const API_URL = `/donhang/setslctsp/${idctsp}&&${slg}`;
+    return axiosClient.get(API_URL);
+  },
+  hoantien(id) {
+    const API_URL = `/donhang/hoantien/${id}`;
     return axiosClient.get(API_URL);
   },
   daxacnhan(madh,manv) {

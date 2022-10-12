@@ -63,9 +63,11 @@ function Donhang() {
   const [noidung, setNoidung] = React.useState("");
   const [sosao, setSosao] = React.useState(5);
 
-const handlehuy = async (madh) =>{
-  await donhangAPI.huy(madh); (setCount((e) => e + 1));
-}
+
+const handlehuy = async(madh) => {
+  await donhangAPI.huydonnd(madh);
+  setCount((e) => e + 1);
+};
 
   useEffect(() => {
     (async () => {
@@ -160,7 +162,7 @@ const handlehuy = async (madh) =>{
       </Select>
     </FormControl>
       </div>
-      <Grid className="w-[74%] mx-[13%] ">
+      <Grid className="w-[78%] ml-[10%] ">
 
         
         <Grid >
