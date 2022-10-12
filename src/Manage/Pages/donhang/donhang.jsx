@@ -117,10 +117,12 @@ export default function Donhangquanly() {
         </div>
       </div>
       <div className="w-[84%] mx-[8%] ">
-        <div style={{backgroundColor:"#3333", height:"50px",}}><ListItemText sx={{width:"23%",fontWeight:"500",float:"left",paddingTop:"10px" }}><b>&ensp; Mã đơn hàng</b></ListItemText>
-        <ListItemText sx={{width:"27%",float:"left",paddingTop:"10px"}}><b>Ngày đặt hàng</b></ListItemText>
-        <ListItemText sx={{width:"25%",float:"left",paddingTop:"10px"}}><b>Tổng đơn</b></ListItemText> 
-       <ListItemText sx={{width:"23%",float:"left" ,paddingTop:"8px"}} >  <FormControl variant="standard" color="success" size="small" sx={{  minWidth: 120 }}>
+        <div style={{backgroundColor:"#3333", height:"50px",}}><ListItemText sx={{width:"17%",fontWeight:"500",float:"left",paddingTop:"10px" }}><b>&ensp; Mã đơn hàng</b></ListItemText>
+        <ListItemText sx={{width:"20%",float:"left",paddingTop:"10px"}}><b>Ngày đặt hàng</b></ListItemText>
+        <ListItemText sx={{width:"17%",float:"left",paddingTop:"10px"}}><b>Tổng đơn</b></ListItemText> 
+        <ListItemText sx={{width:"25%",float:"left",paddingTop:"10px"}}><b>Hình thức thanh toán</b></ListItemText> 
+
+       <ListItemText sx={{width:"20%",float:"left" ,paddingTop:"8px"}} >  <FormControl variant="standard" color="success" size="small" sx={{  minWidth: 120 }}>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -150,25 +152,28 @@ export default function Donhangquanly() {
             
             <ListItemButton >
        
-        <ListItemText sx={{width:"16%"}}>{aa.ma_dh}</ListItemText>
-         <ListItemText sx={{width:"22%"}}>{aa.ngay_dat_hang.slice(0,10)}</ListItemText>
-         <ListItemText sx={{width:"20%"}}>{new Intl.NumberFormat("vi-VN", {
+        <ListItemText sx={{width:"17%"}}>{aa.ma_dh}</ListItemText>
+         <ListItemText sx={{width:"21%"}}>{aa.ngay_dat_hang.slice(0,10)}</ListItemText>
+         <ListItemText sx={{width:"18%"}}>{new Intl.NumberFormat("vi-VN", {
                                 style: "currency",
                                 currency: "VND",
                               }).format(
                                 aa.tong_tien
                               )}</ListItemText> 
+        {aa.hinh_thuc_thanh_toan==1 ?          <ListItemText sx={{width:"25%"}}>Thanh toán khi nhận hàng</ListItemText>:         <ListItemText sx={{width:"25%"}}>Thanh toán Online</ListItemText>
+
+}
         {aa.trang_thai ==0 ? (
-        <ListItemText sx={{width:"16%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa.ma_dh)}>Xác nhận</Button><Button onClick={(e)=>handlehuydon(aa.ma_dh)} variant="outlined" color="error">Hủy đơn</Button></ListItemText>
+        <ListItemText sx={{width:"20%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa.ma_dh)}>Xác nhận</Button><Button onClick={(e)=>handlehuydon(aa.ma_dh)} variant="outlined" color="error">Hủy đơn</Button></ListItemText>
        ):false}
         {aa.trang_thai ==5 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="warning">Đã hủy đơn bởi: {aa.ma_nv}</Button></ListItemText>):false}
+       <ListItemText sx={{width:"20%"}}> <Button variant="contained" color="warning">Đã hủy đơn bởi: {aa.ma_nv}</Button></ListItemText>):false}
         {aa.trang_thai > 0 && aa.trang_thai <4 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" >Đã xác nhận bởi: {aa.ma_nv}</Button></ListItemText>):false}
+       <ListItemText sx={{width:"20%"}}> <Button variant="contained" >Đã xác nhận bởi: {aa.ma_nv}</Button></ListItemText>):false}
        {aa.trang_thai ==4 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="success">ĐÃ GIAO NGÀY: {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
+       <ListItemText sx={{width:"20%"}}> <Button variant="contained" color="success">ĐÃ GIAO NGÀY: {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
            {aa.trang_thai >5 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}
+       <ListItemText sx={{width:"20%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}
         {open ? <ExpandLess onClick={(e)=>handleClick(aa.ma_dh)} /> : <ExpandMore onClick={(e)=>handleClick(aa.ma_dh)} />}
         
       </ListItemButton>
