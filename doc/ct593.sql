@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 12, 2022 lúc 04:36 PM
+-- Thời gian đã tạo: Th10 14, 2022 lúc 07:58 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -167,11 +167,8 @@ INSERT INTO `chi_tiet_dh` (`ma_ctdh`, `ma_ctsp`, `ma_dh`, `so_luong`, `gia`, `tr
 ('CTD40', 'CT043', 'DH029', 1, 36000, 0),
 ('CTD41', 'CT026', 'DH030', 4, 9600, 0),
 ('CTD42', 'CT046', 'DH031', 1, 136000, 0),
-('CTD43', 'CT035', 'DH032', 1, 50000, 0),
-('CTD44', 'CT034', 'DH032', 1, 20000, 0),
 ('CTD45', 'CT026', 'DH033', 3, 9600, 0),
 ('CTD46', 'CT026', 'DH034', 8, 9600, 0),
-('CTD47', 'CT045', 'DH035', 1, 136000, 0),
 ('CTD49', 'CT031', 'DH037', 1, 25000, 0),
 ('CTD5', 'CT051', 'DH03', 1, 90000, 0),
 ('CTD50', 'CT077', 'DH038', 4, 40000, 0),
@@ -352,23 +349,21 @@ DELIMITER ;
 
 CREATE TABLE `danh_gia` (
   `ma_dg` varchar(50) NOT NULL,
-  `ma_kh` varchar(50) NOT NULL,
   `so_sao` int(10) NOT NULL,
   `ngay` datetime NOT NULL,
   `noi_dung` varchar(255) NOT NULL,
   `hinh_anh` varchar(255) NOT NULL,
-  `ma_ctdh` varchar(50) DEFAULT NULL,
-  `trang_thai` int(10) DEFAULT 0
+  `ma_ctdh` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `danh_gia`
 --
 
-INSERT INTO `danh_gia` (`ma_dg`, `ma_kh`, `so_sao`, `ngay`, `noi_dung`, `hinh_anh`, `ma_ctdh`, `trang_thai`) VALUES
-('DG01', 'ND01', 5, '2022-10-08 19:39:25', 'Giao hàng nhanh, cây đẹp lắm ạ', '', 'CTD6', 0),
-('DG02', 'ND01', 4, '2022-10-08 19:40:07', 'Cây đẹp lắm nhưng giao hoi lâu', '1665232807879.jpg', 'CTD7', 0),
-('DG03', 'ND03', 5, '2022-10-12 21:35:47', 'Sản phẩm đẹp , giao hàng nhanh', '1665585346997.jpg', 'CTD54', 0);
+INSERT INTO `danh_gia` (`ma_dg`, `so_sao`, `ngay`, `noi_dung`, `hinh_anh`, `ma_ctdh`) VALUES
+('DG01', 5, '2022-10-08 19:39:25', 'Giao hàng nhanh, cây đẹp lắm ạ', '', 'CTD6'),
+('DG02', 4, '2022-10-08 19:40:07', 'Cây đẹp lắm nhưng giao hoi lâu', '1665232807879.jpg', 'CTD7'),
+('DG03', 5, '2022-10-12 21:35:47', 'Sản phẩm đẹp , giao hàng nhanh', '1665585346997.jpg', 'CTD54');
 
 --
 -- Bẫy `danh_gia`
@@ -499,10 +494,8 @@ INSERT INTO `don_hang` (`ma_dh`, `ma_kh`, `ma_pgg`, `ma_nv`, `ngay_dat_hang`, `d
 ('DH03', 'ND01', 'PGG2', 'ND01', '2022-10-08 16:10:02', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 147500, 6, 'Phan Trung Hậu, 0934737645', 0),
 ('DH030', 'ND03', 'PGG1', 'ND01', '2022-10-12 10:29:55', 'an khánh, ninh kiều, cần thơ', 2, 68400, 4, 'a a, 0987654321', 0),
 ('DH031', 'ND03', 'PGG1', 'ND01', '2022-10-12 11:26:08', 'an khánh, ninh kiều, cần thơ', 2, 166000, 5, 'Bùi Công a, 0987654321', 0),
-('DH032', 'ND03', 'PGG1', 'ND01', '2022-10-12 11:28:56', 'an khánh, ninh kiều, cần thơ', 2, 100000, 4, 'Trần Minh a, 0987654321', 0),
 ('DH033', 'ND03', 'PGG1', 'ND01', '2022-10-12 11:32:34', 'an khánh, ninh kiều, cần thơ', 2, 58800, 5, 'Bùi Công a, 0987654321', 1),
 ('DH034', 'ND03', 'PGG1', 'ND01', '2022-10-12 11:40:46', 'an khánh, ninh kiều, cần thơ', 2, 106800, 5, 'Trần Minh a, 0987654321', 1),
-('DH035', 'ND03', 'PGG1', 'ND01', '2022-10-12 14:46:20', 'an khánh, ninh kiều, cần thơ', 2, 166000, 4, 'Bùi Công Minh, 0987654321', 0),
 ('DH037', 'ND03', 'PGG1', 'ND01', '2022-10-12 14:49:32', 'an khánh, ninh kiều, cần thơ', 2, 55000, 4, 'Bùi Công Minh, 0987654321', 0),
 ('DH038', 'ND03', 'PGG1', 'ND01', '2022-10-12 15:02:18', 'an khánh, ninh kiều, cần thơ', 2, 190000, 4, 'Bùi Công Minh, 0987654321', 0),
 ('DH04', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:01:30', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 162000, 4, 'Phan Trung Hậu, 09094874394', 0),
@@ -570,13 +563,7 @@ INSERT INTO `giao_hang` (`ma_gh`, `ngay_gh`, `ma_ngh`, `ma_dh`, `ghi_chu`, `tran
 ('GH022', '2022-10-12', 'NGH1', 'DH038', '', 2),
 ('GH023', '2022-10-12', 'NGH1', 'DH037', '', 2),
 ('GH024', '2022-10-12', 'NGH1', 'DH037', '', 2),
-('GH025', '2022-10-12', 'NGH1', 'DH035', '', 2),
-('GH026', '2022-10-12', 'NGH1', 'DH035', '', 2),
-('GH027', '2022-10-12', 'NGH1', 'DH035', '', 2),
-('GH028', '2022-10-12', 'NGH1', 'DH032', '', 2),
-('GH029', '2022-10-12', 'NGH1', 'DH032', '', 2),
 ('GH03', '2022-10-08', 'NGH3', 'DH02', '', 2),
-('GH030', '2022-10-12', 'NGH1', 'DH032', '', 2),
 ('GH031', '2022-10-12', 'NGH1', 'DH031', '', 2),
 ('GH032', '2022-10-12', 'NGH1', 'DH031', '', 2),
 ('GH033', '2022-10-12', 'NGH1', 'DH030', '', 2),
