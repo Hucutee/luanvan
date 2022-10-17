@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 14, 2022 lúc 07:58 AM
+-- Thời gian đã tạo: Th10 17, 2022 lúc 03:00 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -827,17 +827,19 @@ CREATE TABLE `nguoi_dung` (
   `sdt_nd` varchar(50) DEFAULT NULL,
   `boom` int(20) DEFAULT NULL,
   `tai_khoan` varchar(50) DEFAULT NULL,
-  `quyen` int(20) DEFAULT 1
+  `quyen` int(20) DEFAULT 1,
+  `xac_thuc` int(5) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `nguoi_dung`
 --
 
-INSERT INTO `nguoi_dung` (`ma_nd`, `ten_nd`, `gioi_tinh`, `ngay_sinh`, `email`, `mat_khau`, `dia_chi`, `sdt_nd`, `boom`, `tai_khoan`, `quyen`) VALUES
-('ND01', 'Phan Trung Hậu', 'Nam', '2000-04-19', '', 'c58b9950249e71310c62cc1a8c060d26', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', NULL, NULL, 'hau12345', 2),
-('ND02', 'Bùi Công Minh', 'Nam', '2000-10-08', '', '616a1287fd70fd0e5feecef121abb685', '', NULL, NULL, 'minh1234', 1),
-('ND03', 'Trần Thị Diểm  Ly', 'Nữ', '2000-10-09', '', 'd2e6fb1c22da59492f0ded58b4f9c2de', '', NULL, NULL, 'ly123456', 1);
+INSERT INTO `nguoi_dung` (`ma_nd`, `ten_nd`, `gioi_tinh`, `ngay_sinh`, `email`, `mat_khau`, `dia_chi`, `sdt_nd`, `boom`, `tai_khoan`, `quyen`, `xac_thuc`) VALUES
+('ND01', 'Phan Trung Hậu', 'Nam', '2000-04-19', 'hau@gmail.com', 'c58b9950249e71310c62cc1a8c060d26', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', NULL, NULL, 'hau12345', 2, 0),
+('ND02', 'Bùi Công Minh', 'Nam', '2000-10-08', '', '616a1287fd70fd0e5feecef121abb685', '', NULL, NULL, 'minh1234', 1, 0),
+('ND03', 'Trần Thị Diểm  Ly', 'Nữ', '2000-10-09', '', 'd2e6fb1c22da59492f0ded58b4f9c2de', '', NULL, NULL, 'ly123456', 1, 0),
+('ND04', 'Trần Minh a', 'Nam', '2022-09-23', 'pthau123123@gmail.com', 'ef209c9343ca8c715265781876657b18', '', NULL, NULL, NULL, 1, 1);
 
 --
 -- Bẫy `nguoi_dung`
@@ -1113,7 +1115,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `user_id`, `email`, `fullname`, `credential`, `phone`, `gender`, `birthday`, `verify`, `active`) VALUES
 (100, '114872046152355360109', 'nvnhan.dev@gmail.com', 'Nhẫn', '$2a$10$okmL2DBF5k0aGK1DofQnB.2qSG6OpKE8iBtiNu2/lggoxdzfdW/pO', NULL, NULL, NULL, 0, 1),
 (103, '114872046152355360109', 'nvnhan.dev@gmail.com', 'Nhẫn', '$2a$10$dYtiqR8l6.a5yQ1V2PzE5uFErCW7CEZgdTlz0Av.unHagjzaLclLG', NULL, NULL, NULL, 0, 1),
-(104, '114872046152355360109', 'nvnhan.dev@gmail.com', 'Nhẫn', '$2a$10$6JzivuK8aZgO5NOJcUJVuOPx0Gw9S4RAZKY2IOAe489ucerQigr6q', NULL, NULL, NULL, 0, 1);
+(104, '114872046152355360109', 'nvnhan.dev@gmail.com', 'Nhẫn', '$2a$10$6JzivuK8aZgO5NOJcUJVuOPx0Gw9S4RAZKY2IOAe489ucerQigr6q', NULL, NULL, NULL, 0, 1),
+(124, NULL, 'pthau123123@gmail.com', 'Trần Minh a', 'a1111111', NULL, NULL, NULL, 1, 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -1269,7 +1272,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

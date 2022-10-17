@@ -41,11 +41,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import { LoadingButton } from "@mui/lab";
 const Transitiondnn = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 Dangky.propTypes = {};
 function Dangky() {
+  const navigate = useNavigate();
   const dataUser = useSelector((state) => state?.user?.userItem);
   const [count, setCount] = React.useState(0);
   const [trung, setTrung] = React.useState(0);
@@ -80,11 +82,11 @@ function Dangky() {
   const handleChangesdt = (event) => {
     setSdt({ ...sdt, [event.target.name]: event.target.value }); setCount((e) => e + 1);
   };
-  const [taikhoan, setTaikhoan] = React.useState({ textmask: "" });
-  const handleChangetaikhoan = async (event) => {
-    setTaikhoan({ ...taikhoan, [event.target.name]: event.target.value });
+  const [email, setEmail] = React.useState({ textmask: "" });
+  const handleChangeemail = async (event) => {
+    setEmail({ ...email, [event.target.name]: event.target.value });
     const dl=  await nguoidungApi.gettaikhoan(event.target.value);
-    if(dl.length >0){ setTrung(1);}else { setTrung(0);}
+    if(dl.length >0){ setTrung(1);}else { setTrung(0);} console.log(dl);
     setCount((e) => e + 1);
   };
   const [ho, setHo] = React.useState({ textmask: "" });
@@ -110,12 +112,12 @@ function Dangky() {
       && ngaysinh !=null && gioitinh != ""
       && matkhau.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/) 
       && matkhau2.password == matkhau.password
-      && taikhoan.textmask.length !=0 &&  taikhoan.textmask.match( /^[A-Za-z\d]{8,}$/) 
+      && email.textmask.length !=0
        ){
-      const dl = await nguoidungApi.gettaikhoan(taikhoan.textmask);
+      const dl = await nguoidungApi.gettaikhoan(email.textmask);
       if(dl.length == 0){
-        await nguoidungApi.add(ho.textmask +" "+ten.textmask,gioitinh,ngaysinh.$y + "-" + (ngaysinh.$M + 1) + "-" + ngaysinh.$D,taikhoan.textmask,matkhau.password);
-      setOpendnn(true);
+        await nguoidungApi.add(ho.textmask +" "+ten.textmask,gioitinh,ngaysinh.$y + "-" + (ngaysinh.$M + 1) + "-" + ngaysinh.$D,email.textmask,matkhau.password);
+        navigate(`/auth/verify?email=${email.textmask}`)
       } else {
         console.log("aaaaaaaa");
       }
@@ -125,7 +127,7 @@ function Dangky() {
   useEffect(() => {
     (async () => {
       try {
-        console.log(ho.textmask,ten.textmask,gioitinh,sdt.textmask,ngaysinh,taikhoan.textmask,matkhau.password);
+        console.log(ho.textmask,ten.textmask,gioitinh,sdt.textmask,ngaysinh,email.textmask,matkhau.password);
 
       } catch (error) {
       }
@@ -293,29 +295,29 @@ function Dangky() {
               </Grid>
               <FormControl variant="outlined" sx={{ m: 1, width: "95%" }}>
                 <InputLabel color="success" htmlFor="formatted-text-mask-input">
-                  Tên tài khoản
+                  Email
                 </InputLabel>
                 <OutlinedInput
                   color="success"
-                  value={taikhoan.textmask}
-                  onChange={handleChangetaikhoan}
-                  name="textmask"                   label="                 Tên tài khoản"
+                  value={email.textmask}
+                  onChange={handleChangeemail}
+                  name="textmask"                   label=" email"
                   id="formatted-text-mask-input" 
                 />
                 {trung ? (<FormHelperText error id="component-error-text"  sx={{ m: 0}}>
-                      Tên này đã được đăng kí - vui lòng nhập tên khác.
-                    </FormHelperText>):(trangthai && taikhoan.textmask.length == 0 ? (
+                      Email này đã được đăng kí - vui lòng nhập email khác.
+                    </FormHelperText>):(trangthai && email.textmask.length == 0 ? (
                    <FormHelperText error id="component-error-text"  sx={{ m: 0}}>
-                   Tên tài khoản không được để trống
+                   Email không được để trống
                  </FormHelperText>
                 ):(
-                  taikhoan.textmask.match(
-                    /^[A-Za-z\d]{8,}$/
-                   ) || taikhoan.textmask.length == 0 ? (
+                  email.textmask.match(
+                    /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/
+                   ) || email.textmask.length == 0 ? (
                     <></>
                   ) : (
                     <FormHelperText error id="component-error-text"  sx={{ m: 0}}>
-                      Tên tài khoản bao gồm số và chữ cái và ít nhất 8 kí tự
+                    Email không đúng định dạng
                     </FormHelperText>
                   )
                 ))}
@@ -433,10 +435,26 @@ function Dangky() {
         <DialogTitle>{"Đăng ký tài khoản thành công"}</DialogTitle>
         <DialogContent >
           <DialogContentText id="alert-dialog-slide-description" >
-            Bạn đã có tài khoản. Hãy đăng nhập đễ xem thông tin cá nhân  và trải nghiệm các dịch vụ của chúng tôi nhé!
+          <Typography sx={{color: '#333'}}>
+                        Chúc mừng bạn đã đăng ký tài khoản thành công, để có thể tiếp tục
+                        mua sắm xin vui lòng xác thực email: 
+                        <span style={{fontWeight: 'bold'}}> {email.textmask} </span> của bạn.
+                    </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
+        <LoadingButton
+                        fullWidth
+                        size="large"
+                        type="button"
+                        variant="contained"
+                        sx={{mt: 3}}
+                        onClick={() => {
+                            window.open("https://mail.google.com", "_blank");
+                        }}
+                    >
+                        Mở email
+                    </LoadingButton>
           <Button variant="contained" color="success"><Link  to="/products/dangnhap">Đăng nhập</Link></Button>
         </DialogActions>
       </Dialog>
