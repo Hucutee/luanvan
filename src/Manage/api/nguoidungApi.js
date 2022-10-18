@@ -10,8 +10,8 @@ const nguoidungApi = {
     return axiosClient.get(API_URL);
   },
   checkdn(tk,mk) {
-    const API_URL = `/nguoidung/checkdn/${tk}&&${mk}`;
-    return axiosClient.get(API_URL);
+    const API_URL = `/nguoidung/login/${tk}&&${mk}`;
+    return axiosClient.post(API_URL);
   },
   checkdnshipper(email,mk) {
     const API_URL = `/nguoidung/checkdnshipper/${email}&&${mk}`;

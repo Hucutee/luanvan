@@ -52,7 +52,7 @@ Dangnhap.propTypes={
 const [taikhoan,setTaikhoan]= React.useState("");
 const [count,setCount]= React.useState(0);
 const [data,setData]= React.useState([]);
-const [loi,setLoi]= React.useState(false);
+const [loi,setLoi]= React.useState("");
 
   const [matkhau, setMatkhau] = React.useState({
     amount: "",
@@ -68,15 +68,18 @@ const handleChangetk = (value) => {
     setMatkhau({ ...matkhau, [prop]: event.target.value }); console.log(event.target.value);
   };
   const handledangnhap= async () => {
-
+    try {
     if(taikhoan && matkhau.password){
       console.log(taikhoan,matkhau.password);
       dispatch(login({email: taikhoan,mat_khau: matkhau.password}));
 
-      const dl = await nguoidungApi.checkdn(taikhoan,matkhau.password);
+      const dl = await nguoidungApi.checkdn(taikhoan,matkhau.password); 
       if(dl.length > 0) {setOpendnn(true);}else{setLoi(true);}
     }
     setCount((e)=> e + 1);
+  } catch (error) {
+    console.log("loi", error.response.data);setLoi(error.response.data);
+  } 
   }
   const handleClickShowPassword = () => {
     setMatkhau({
@@ -121,13 +124,12 @@ const handleChangetk = (value) => {
           display: "flex",
           alignContent: "center",
           justifyContent: "center",
-          height:"665px"
 
         }}
       >
         <Grid
           marginTop="50px"
-          height="500px"
+          height="550px"
           sx={{ borderRadius: "5px" }}
           width="27%"
           item
@@ -135,7 +137,7 @@ const handleChangetk = (value) => {
           sm={8}
           md={5}
           component={Paper}
-          elevation={10}
+          elevation={10} 
           square
         >
           <Box
@@ -143,7 +145,7 @@ const handleChangetk = (value) => {
               mx: 4,
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "center",height: "auto"
             }}
           >
             <Avatar sx={{ m: 2, mt: 4, bgcolor: "#339900" }}>
@@ -156,14 +158,14 @@ const handleChangetk = (value) => {
             </Typography>
             <Box component="form" noValidate sx={{ mt: 1, padding: 2 }}>
               <TextField color="success"
-                label="Tài khoản"
+                label="Email"
                 id="outlined-start-adornment"
                 sx={{ m: 1, width: "95%" }}
                 variant="standard"
                 onChange={(e)=>handleChangetk(e.target.value)}
               />
-              {loi == true ? (<FormHelperText error id="component-error-text"  sx={{ ml: 1}}>
-                      Tài khoản hoặc mật khẩu không chính xác
+              {loi  ? (<FormHelperText error id="component-error-text"  sx={{ ml: 1}}>
+                    {loi}
                     </FormHelperText>):(<></>)}
               <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">
@@ -196,12 +198,25 @@ const handleChangetk = (value) => {
                  color="success"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 4, mb: 4,height:"40px" }}
+                sx={{ mt: 4, mb: 2,height:"40px" }}
                 onClick={handledangnhap}
               >
                 Đăng Nhập
               </Button>
-              <Grid container>
+              <Button
+                    fullWidth
+                    size="large"
+                    sx={{mt: 1,mb:2}}
+                    color="inherit"
+                    type="button"
+                    variant="contained"
+                    onClick={() => {
+                      window.location.href = 'http://localhost:4000/auth/google';
+                  }}
+                >
+                    Đăng nhập bằng google
+                </Button>
+              <Grid container >
                 <Grid item xs>
                   <Lin to="" style={{textDecoration:"none", color:"#333"}}  variant="body2">
                     Quên mật khẩu?
