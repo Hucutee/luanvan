@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addtoUser, login, logout } from "../../app/userSlice";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link as Lin, Routes } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import Menucanhan from "./nenu";
 import Axios from "axios";
@@ -54,13 +54,21 @@ import DialogTitle from "@mui/material/DialogTitle";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+import { removeAllCarttt } from "../../app/cartthanhtoan";
+import { removeAllCart } from "../../app/cartSlide";
+import { Link } from "@mui/material";
 
 Thongtincanhan.propTypes = {};
 function Thongtincanhan() {
+  const navigate = useNavigate();
+
   const dataUser = useSelector((state) => state?.user?.current);
   const handledx = () => {
-    dispatch(logout());
+    dispatch(logout());  dispatch(removeAllCarttt());dispatch(removeAllCart());
+    
     setCount((e) => e + 1);
+  
+
   };
 
   const dispatch = useDispatch();
@@ -168,18 +176,18 @@ const [trong,setTrong] = React.useState(false);
           aria-label="breadcrumb"
           style={{ marginLeft: "13%", fontSize: "13px", lineHeight: "40px" }}
         >
-          <Link underline="hover" color="inherit" to="/app">
+          <Lin underline="hover" color="inherit" to="/app">
             {" "}
             Trang chủ{" "}
-          </Link>
-          <Link to="#" underline="hover" value="1">
+          </Lin>
+          <Lin to="#" underline="hover" value="1">
             {" "}
             Tài khoản{" "}
-          </Link>
-          <Link to="#" underline="hover" style={{ color: "#339900" }} value="1">
+          </Lin>
+          <Lin to="#" underline="hover" style={{ color: "#339900" }} value="1">
             {" "}
             Thông tin cá nhân{" "}
-          </Link>
+          </Lin>
         </Breadcrumbs>
       </div>
       <Grid className="w-[74%] mx-[13%] ">
@@ -223,22 +231,14 @@ const [trong,setTrong] = React.useState(false);
                     />
                   )}
                 </Stack>
-                <div
-                  id="nested-list-subheader"
-                  style={{
-                    fontSize: "20px",
-                    color: "#333",
-                    fontWeight: "500",
-                    padding: 7,
-                    display: "flex",
-                    alignContent: "center",
-                    justifyContent: "center",
-                    height: "auto",
-                  }}
-                >
-                  {" "}
-                  Ảnh đại diện (<span onClick={handleClickOpenha} ><ModeEditIcon     className="a1"             sx={{ width: 16, height: 16 }}
-/></span>){" "}
+                <div id="nested-list-subheader"  style={{    fontSize: "20px",  color: "#333",  fontWeight: "500",  padding: 7,
+                    display: "flex",  alignContent: "center",  justifyContent: "center",  height: "auto",  }}
+                >  {" "}
+                  Ảnh đại diện (<span onClick={handleClickOpenha} ><ModeEditIcon     className="a1"             sx={{ width: 16, height: 16 }}/></span>){" "} 
+                </div>
+                <div id="nested-list-subheader"  style={{    fontSize: "20px",  color: "#333",  fontWeight: "500",  padding: 7,
+                    display: "flex",  alignContent: "center",  justifyContent: "center",  height: "auto",  }}
+                > <Link sx={{textDecoration: "none", color:"#333"}} href="/app"><Button variant="outlined" color="success" onClick={handledx}>Đăng xuất</Button></Link>
                 </div>
                 <div>
                    
@@ -305,11 +305,21 @@ const [trong,setTrong] = React.useState(false);
                   </ListItemButton>
                 </List>
                 <Divider />
+              
                 <List>
                   <ListItemButton>
-                    <ListItemText primary="Tài khoản:" />{" "}
+                    <ListItemText primary="Email:" />{" "}
                     <ListItemText sx={{ textAlign: "right" }}>
-                      {nd.tai_khoan}
+                      {nd.email}
+                    </ListItemText>
+                  </ListItemButton>
+                </List>
+                <Divider />
+                <List>
+                  <ListItemButton>
+                    <ListItemText primary="Số điện thoại:" />{" "}
+                    <ListItemText sx={{ textAlign: "right" }}>
+                      {nd.sdt_nd}
                     </ListItemText>
                   </ListItemButton>
                 </List>
@@ -333,15 +343,7 @@ const [trong,setTrong] = React.useState(false);
                 </List>
                 <Divider />
                 
-                <List>
-                  <ListItemButton>
-                    <ListItemText primary="Email:" />{" "}
-                    <ListItemText sx={{ textAlign: "right" }}>
-                      {nd.email}
-                    </ListItemText>
-                  </ListItemButton>
-                </List>
-                <Divider />
+                
                 <List>
                   <ListItemButton onClick={handleClick}>
                     <ListItemText primary="Đổi mật khẩu" />
@@ -489,6 +491,7 @@ const [trong,setTrong] = React.useState(false);
                   </Collapse>
                 </List>
                 <Divider />
+                
               </div>
             </div>
           ))}

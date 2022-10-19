@@ -2,11 +2,16 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import nguoidungApi from "../../Manage/api/nguoidungApi";
 
 export const login = createAsyncThunk("user/login", async (payload) => {
-  const data = await nguoidungApi.checkdn(payload.email, payload.mat_khau);
-
-  localStorage.setItem("user", JSON.stringify(data));
-
-  return data;
+    if(payload.mat_khau){
+      const data = await nguoidungApi.checkdn(payload.email, payload.mat_khau);
+      localStorage.setItem("user", JSON.stringify(data));
+      return data;
+    }else {
+      const data = await nguoidungApi.checkdngg(payload.email);
+      localStorage.setItem("user", JSON.stringify(data));
+      return data;
+    }
+ 
 });
 
 const userSlice = createSlice({

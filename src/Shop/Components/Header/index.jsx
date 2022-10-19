@@ -112,8 +112,12 @@ function Header() {
               Ưu đãi
             </Lin>
           </Typography>
+          
           <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-            <div className="a1"> </div>
+          {dataUser.length > 0 ?  <Lin to="/products/donhang" className="a1">
+              Đơn của bạn
+            </Lin>:             <div className="a1"> </div>
+}
           </Typography>
           <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
             <div className="a1"> </div>
@@ -135,11 +139,12 @@ function Header() {
           <Typography>
             <div>
               {dataUser.length > 0 ? (
-                <Button
+               <Lin to="/products/thongtincanhan">
+                 <Button
                   id="demo-positioned-button"
                   aria-controls={open ? "demo-positioned-menu" : undefined}
                   aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined} onClick={handleClickdx}
+                  aria-expanded={open ? "true" : undefined} 
                 >
                {avt == "" ?
                 <Avatar
@@ -161,6 +166,7 @@ function Header() {
               src={require("../../../imageuser/"+ avt )}
               sx={{ width: 30, height: 30,fontSize:"140px", bgcolor: green[500] }}/>}
                 </Button>
+               </Lin>
               ) : (
                 <Button
                   id="demo-positioned-button"

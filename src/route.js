@@ -35,6 +35,9 @@ import Kttt from "./Shop/features/Carts/kttt";
 import RegisterForm from "./Shop/features/dn/components/authentication/register/RegisterForm";
 import VerifyCode from "./Shop/features/dn/pages/authentication/VerifyCode";
 import Xacthuc from "./Shop/features/Nguoidung/xacthuc";
+import Quenmk from "./Shop/features/Nguoidung/quenmk";
+import Resetmk from "./Shop/features/Nguoidung/resetmk";
+import Dangnhapgg from "./Shop/features/Nguoidung/dangnhapgg";
 export default function Router() {
     return useRoutes([
         {
@@ -61,6 +64,9 @@ export default function Router() {
             },{
                 path: '/products/dangnhap',
                 element: <Dangnhap/>
+            },{
+                path: '/products/dangnhapgg',
+                element: <Dangnhapgg/>
             },{
                 path: '/products/carts',
                 element: <Carts/>
@@ -93,6 +99,12 @@ export default function Router() {
         },{
             path: '/auth/verify',
             element: <Xacthuc/>
+        },{
+            path: '/auth/forgot-password',
+            element: <Quenmk/>
+        },{
+            path: '/auth/reset-password/:token',
+            element: <Resetmk/>
         },{
             path: '/Manage',
             element: <Dangnhapnhanvien/> 

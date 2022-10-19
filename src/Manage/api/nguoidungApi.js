@@ -13,6 +13,10 @@ const nguoidungApi = {
     const API_URL = `/nguoidung/login/${tk}&&${mk}`;
     return axiosClient.post(API_URL);
   },
+  checkdngg(tk) {
+    const API_URL = `/nguoidung/logingg/${tk}`;
+    return axiosClient.post(API_URL);
+  },
   checkdnshipper(email,mk) {
     const API_URL = `/nguoidung/checkdnshipper/${email}&&${mk}`;
     return axiosClient.get(API_URL);
@@ -73,6 +77,14 @@ const nguoidungApi = {
   doimatkhau(mand,mk) {
     const API_URL = `/nguoidung/doimatkhau/${mand}&&${mk}`;
     return axiosClient.get(API_URL);
+  },
+  quenmk(email) {
+    const API_URL = `/auth/forgot-password/${email}`;
+    return axiosClient.post(API_URL);
+  },
+  resetpass(email,pass) {
+    const API_URL = `/auth/reset-password/${email}&&${pass}`;
+    return axiosClient.post(API_URL);
   },
 };
 

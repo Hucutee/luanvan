@@ -13,7 +13,7 @@ export default function Xacthuc() {
     let forgot = searchParams.get('forgot');
     return (
         <div >
-            <Box sx={{maxWidth: 600, mx: 'auto',p:2,pt:4,pb:4}}><Button variant="outlined" ><Link to="/products/dangky">Quay về</Link></Button></Box>
+            <Box sx={{maxWidth: 600, mx: 'auto',p:2,pt:4,pb:4}}><Button variant="outlined" >{!!forgot ? <Link to="/products/dangnhap">Quay về</Link>:<Link to="/products/dangky">Quay về</Link>}</Button></Box>
             <Paper sx={{maxWidth: 600, mx: 'auto',p:5}}>
                 <Box >
                     
@@ -21,11 +21,15 @@ export default function Xacthuc() {
                     <Typography variant="h4" paragraph>
                         Vui lòng kiểm tra email của bạn!
                     </Typography>
-                     <Typography sx={{color: 'text.secondary',marginTop:"10px",marginBottom:"10px",}}>
+                    {!!forgot ? (<Typography sx={{color: 'text.secondary',marginTop:"10px",marginBottom:"10px"}}>
+                        Yêu cầu quên mật khẩu đã được gửi về email:
+                        <span style={{fontWeight: 'bold'}}> {email}. </span>Vui lòng kiểm tra email của bạn để cập nhật mật khẩu.
+                    </Typography>) : <Typography sx={{color: 'text.secondary',marginTop:"10px",marginBottom:"10px",}}>
                         Bạn đã đăng ký tài khoản thành công, để có thể tiếp tục
                         mua sắm và trải nghiệm các dịch vụ của chúng tôi xin vui lòng xác thực email:
                         <span style={{fontWeight: 'bold'}}> {email} </span>của bạn.
-                    </Typography>
+                    </Typography>}
+                     
                     <Button
                                             size="large"
 

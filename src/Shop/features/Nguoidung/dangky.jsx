@@ -155,10 +155,9 @@ function Dangky() {
         }}
       >
         <Grid
-          marginTop="20px"
+          marginTop="20px"  marginBottom="auto"
           sx={{ borderRadius: "5px" }}
           width="32%"
-          height="600px"
 
           item
           xs={10}
@@ -413,14 +412,17 @@ function Dangky() {
                   )
                 )}
               </FormControl>
+              <Box sx={{p:1}}>
               <Button
                 color="success" size="large"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 4, mb: 1, height: "40px" }} onClick={handledangky}
+                sx={{ mt: 1, mb: 2,height:"45px" }}
+                onClick={handledangky}
               >
                 Đăng ký
               </Button>
+              </Box>
             </Box>
           </Box>
         </Grid>

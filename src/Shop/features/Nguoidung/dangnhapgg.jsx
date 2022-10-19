@@ -24,7 +24,7 @@ import { useEffect } from "react";
 import nguoidungApi from "../../../Manage/api/nguoidungApi";
 import { propsToClassKey } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { Link as Lin, useNavigate } from "react-router-dom";
+import { Link as Lin, useNavigate, useParams } from "react-router-dom";
 import { addtoUser, login } from "../../app/userSlice";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -36,14 +36,18 @@ import { ConstructionOutlined } from "@mui/icons-material";
 import { removequaylai } from "../../app/quaylai";
 import './dangnhap.css'
 import { Link } from "@mui/material";
+import Cookies from 'js-cookie';
+
 const Transitiondnn = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-Dangnhap.propTypes={
+
+Dangnhapgg.propTypes={
 
 };
- function Dangnhap() {
+ function Dangnhapgg() {
   const dataquaylai = useSelector((state) => state?.quaylai?.quaylaiItem);
+  const navigate = useNavigate();
 
 
   const dispatch = useDispatch();
@@ -94,11 +98,14 @@ const handleChangetk = (value) => {
   const handlethem = (hau) => {
     console.log(hau);
 }
+
   useEffect(() => {
     (async () => {
       try {
-        
-        
+        console.log(Cookies.get('email'));
+        dispatch(login({email: Cookies.get('email'),mat_khau: ""}));
+        navigate(`/`);
+
         
        
       } catch (error) {
@@ -254,4 +261,4 @@ const handleChangetk = (value) => {
 }
 
 
-export default Dangnhap;
+export default Dangnhapgg;
