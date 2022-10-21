@@ -32,8 +32,6 @@ import Dangnhapnhanvien from "./Manage/Component/dangnhap/dangnhap";
 import Thongtinnhanvien from "./Manage/Component/dangnhap/thongtincanhan";
 import Repbl from "./Manage/Pages/cskh/repbl";
 import Kttt from "./Shop/features/Carts/kttt";
-import RegisterForm from "./Shop/features/dn/components/authentication/register/RegisterForm";
-import VerifyCode from "./Shop/features/dn/pages/authentication/VerifyCode";
 import Xacthuc from "./Shop/features/Nguoidung/xacthuc";
 import Quenmk from "./Shop/features/Nguoidung/quenmk";
 import Resetmk from "./Shop/features/Nguoidung/resetmk";
@@ -86,10 +84,6 @@ export default function Router() {
             ,{
                 path: '/products/donhang',
                 element: <Donhang/>
-            },{
-                path: '/products/dk',
-                element: <RegisterForm/>
-                
             }
             
            

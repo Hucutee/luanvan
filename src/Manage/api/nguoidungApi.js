@@ -78,6 +78,18 @@ const nguoidungApi = {
     const API_URL = `/nguoidung/doimatkhau/${mand}&&${mk}`;
     return axiosClient.get(API_URL);
   },
+  addsdt(mand,sdt) {
+    const API_URL = `/nguoidung/addsdt/${mand}&&${sdt}`;
+    return axiosClient.get(API_URL);
+  },
+  addns(mand,ns) {
+    const API_URL = `/nguoidung/addns/${mand}&&${ns}`;
+    return axiosClient.get(API_URL);
+  },
+  addgt(mand,gt) {
+    const API_URL = `/nguoidung/addgt/${mand}&&${gt}`;
+    return axiosClient.get(API_URL);
+  },
   quenmk(email) {
     const API_URL = `/auth/forgot-password/${email}`;
     return axiosClient.post(API_URL);

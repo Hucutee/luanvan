@@ -195,11 +195,11 @@ const handlehuy = async(madh) => {
                             {aa.trang_thai <4 ?
                             <Stepper
                             sx={{ width: "100%" }}
-                            success
+                            color="success"
                             activeStep={aa.trang_thai}
                             alternativeLabel
                           >
-                            <Step key="aaa">
+                            <Step key="aaa" >
                               <StepLabel>Chờ xác nhận <br/>
                               {aa.trang_thai == 0 ? <Button onClick={(e)=>handlehuy(aa.ma_dh)} sx={{marginTop:"10px"}}variant="outlined" size="small" color="error">Hủy đơn</Button>:false}
                               </StepLabel>

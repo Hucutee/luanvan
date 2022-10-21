@@ -57,6 +57,15 @@ import Snackbar from "@mui/material/Snackbar";
 import { removeAllCarttt } from "../../app/cartthanhtoan";
 import { removeAllCart } from "../../app/cartSlide";
 import { Link } from "@mui/material";
+import PropTypes from "prop-types";
+import { IMaskInput } from "react-imask";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormLabel from '@mui/material/FormLabel';
 
 Thongtincanhan.propTypes = {};
 function Thongtincanhan() {
@@ -74,11 +83,13 @@ function Thongtincanhan() {
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
+  const handleClick = () => { setOpen(!open); };
+  const [opensdt, setOpensdt] = React.useState(false);
+  const handleClicksdt = () => { setOpensdt(!opensdt); };
+  const [opengt, setOpengt] = React.useState(false);
+  const handleClickgt = () => { setOpengt(!opengt); };
+  const [openns, setOpenns] = React.useState(false);
+  const handleClickns = () => { setOpenns(!openns); };
   const [file, setFile] = React.useState();
   const send = async () => {
     setLoadding(true);
@@ -156,6 +167,53 @@ const [trong,setTrong] = React.useState(false);
       }
     }else{setTrong(true);}
     }
+    const handlethemmatkhau = async ()=>{
+      if( matkhau1.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/) &&matkhau2.password && matkhau2.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/) 
+      && matkhau2.password == matkhau1.password ){
+          await nguoidungApi.doimatkhau(dataUser[0].ma_nd,matkhau1.password);
+          setSaimk(false);setTrong(false); setOpencheckthanhcong(true);    setOpen(!open);
+          setMatkhau({  amount: "",  password: "", weight: "", weightRange: "", showPassword: false,});
+          setMatkhau1({  amount: "",  password: "", weight: "", weightRange: "", showPassword: false,});
+          setMatkhau2({  amount: "",  password: "", weight: "", weightRange: "", showPassword: false,});
+        
+      }else{setTrong(true);} setCount((e) => e + 1);
+      }
+    const [sdt, setSdt] = React.useState({ textmask: "" });
+    const handleChangesdt = (event) => {
+      setSdt({ ...sdt, [event.target.name]: event.target.value }); console.log(event.target.name, event.target.value); setCount((e) => e + 1);
+    };
+    const [trangthaisdt, setTrangthaisdt] = React.useState(false);
+
+    const handlethemsdt = async ()=>{
+      setTrangthaisdt(true);
+      if(sdt.textmask >9){
+        const sdtt = await nguoidungApi.addsdt(dataUser[0].ma_nd,sdt.textmask);setOpensdt(false);
+      } setCount((e) => e + 1);
+    }
+    const [ns, setNs] = React.useState(null);
+    const [trangthains, setTrangthains] = React.useState(false);
+
+    const handlethemns = async ()=>{
+      setTrangthains(true);
+      console.log(ns.$y + "-" + (ns.$M + 1) + "-" + ns.$D);
+      if(ns){
+        const nss = await nguoidungApi.addns(dataUser[0].ma_nd,ns.$y + "-" + (ns.$M + 1) + "-" + ns.$D);setCount((e) => e + 1);setOpenns(false);
+      }
+    }
+    const [gt, setGt] = React.useState('');
+
+    const handleChangegt = (event) => {
+      setGt(event.target.value); setCount((e) => e + 1);
+    };
+    const [trangthaigt, setTrangthaigt] = React.useState(false);
+
+    const handlethemgt = async ()=>{
+      setTrangthaigt(true);
+      console.log(gt);
+      if(gt){
+        const nss = await nguoidungApi.addgt(dataUser[0].ma_nd,gt);setCount((e) => e + 1);setOpengt(false);
+      }
+    }
     const Alert = React.forwardRef(function Alert(props, ref) {return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />; });
  
     const [opencheckthanhcong, setOpencheckthanhcong] = React.useState(false);
@@ -212,7 +270,8 @@ const [trong,setTrong] = React.useState(false);
                         height: 250,
                         fontSize: "140px",
                         bgcolor: green[500],
-                      }}
+                      }}                 alt="Remy Sharp"
+
                     >
                       {nd.ten_nd.slice(
                         nd.ten_nd.lastIndexOf(" ") + 1,
@@ -317,37 +376,154 @@ const [trong,setTrong] = React.useState(false);
                 <Divider />
                 <List>
                   <ListItemButton>
-                    <ListItemText primary="Số điện thoại:" />{" "}
-                    <ListItemText sx={{ textAlign: "right" }}>
-                      {nd.sdt_nd}
+                  <ListItemText primary="Số điện thoại" />
+                  <ListItemText sx={{ textAlign: "right" }}>
+                  {nd.sdt_nd ? nd.sdt_nd : (
+                      opensdt ? <span>Thêm <ExpandLess onClick={handleClicksdt}/></span> :<span>Thêm <ExpandMore onClick={handleClicksdt}/></span>
+                    )}
                     </ListItemText>
+                    
                   </ListItemButton>
+                  <Collapse in={opensdt} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                       
+                        <ListItemText>
+                        <ListItemText sx={{ textAlign: "right" }}>
+                      {nd.sdt_nd ? (nd.sdt_nd):(<FormControl
+              variant="outlined"
+              sx={{  width: "100%" }}
+            >
+              <InputLabel color="success" htmlFor="formatted-text-mask-input">
+                Thêm số điện thoại
+              </InputLabel>
+              <OutlinedInput
+                color="success" 
+                value={sdt.textmask}
+                onChange={handleChangesdt}
+                name="textmask"
+                label="them so dien thoai"
+                id="formatted-text-mask-input"
+                inputComponent={TextMaskCustom}
+              />
+              { (sdt.textmask.length < 10 && sdt.textmask.length > 0 || sdt.textmask.length>12)
+               ? (
+                <FormHelperText error id="component-error-text" sx={{ m: 0 }}>
+                  Số điện thoại gồm 10 đến 12 chữ số
+                </FormHelperText>
+              ) : (
+                <></>
+              )}{trangthaisdt && sdt.textmask.length == 0 ? <FormHelperText error id="component-error-text" sx={{ m: 0 }}>
+              Số điện thoại không được để trống
+            </FormHelperText>:false }
+            </FormControl>)}
+                    </ListItemText>
+              </ListItemText>
+                      </ListItemButton>
+                    </List>
+                   
+                   
+                    <Button onClick={handlethemsdt} style={{marginLeft:"40px",marginTop:"5px"}} variant="contained" color="success">Thêm</Button>
+                  </Collapse>
                 </List>
                 <Divider />
                 <List>
                   <ListItemButton>
-                    <ListItemText primary="Giới tính:" />{" "}
-                    <ListItemText sx={{ textAlign: "right" }}>
-                      {nd.gioi_tinh}
+                  <ListItemText primary="Giới tính" />
+                  <ListItemText sx={{ textAlign: "right" }}>
+                  {nd.gioi_tinh ? nd.gioi_tinh : (
+                      opensdt ? <span>Thêm <ExpandLess onClick={handleClickgt}/></span> :<span>Thêm <ExpandMore onClick={handleClickgt}/></span>
+                    )}
                     </ListItemText>
+                    
                   </ListItemButton>
+                  <Collapse in={opengt} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                       
+                        <ListItemText>
+                        <ListItemText sx={{ }}>
+                      {nd.gioi_tinh ? (nd.gioi_tinh):(
+                       <FormControl success>
+                       <FormLabel color="success"  id="demo-row-radio-buttons-group-label">Thêm giới tính</FormLabel>
+                       <RadioGroup 
+                         row
+                         aria-labelledby="demo-row-radio-buttons-group-label"
+                         name="row-radio-buttons-group"  value={gt}
+                         onChange={handleChangegt}
+                       >
+                         <FormControlLabel color="success" value="Nam" control={<Radio color="success" />} label="Nam" />
+                         <FormControlLabel value="Nữ" control={<Radio color="success" />} label="Nữ" />
+                         <FormControlLabel value="Khác" control={<Radio color="success" />} label="Khác" />
+                       </RadioGroup>
+                     </FormControl>)}
+                    </ListItemText>
+              </ListItemText>
+                      </ListItemButton>
+                      { gt == '' && trangthaigt==true ? (<FormHelperText error id="component-error-text"  sx={{ m: 0}}>
+                          Giới tính không được để trống!
+                        </FormHelperText>):(<></>)}
+                    </List>
+                   
+                   
+                    <Button onClick={handlethemgt} style={{marginLeft:"40px",marginTop:"5px"}} variant="contained" color="success">Thêm</Button>
+                  </Collapse>
+                 
                 </List>
                 <Divider />
+               
                 <List>
                   <ListItemButton>
-                    <ListItemText primary="Ngày sinh:" />{" "}
-                    <ListItemText sx={{ textAlign: "right" }}>
-                      {nd.ngay_sinh.slice(0, 10)}
+                  <ListItemText primary="Ngày sinh" />
+                  <ListItemText sx={{ textAlign: "right" }}>
+                  {nd.ngay_sinh != "0000-00-00" ? nd.ngay_sinh.slice(0, 10) : (
+                      opensdt ? <span>Thêm <ExpandLess onClick={handleClickns}/></span> :<span>Thêm <ExpandMore onClick={handleClickns}/></span>
+                    )}
                     </ListItemText>
+                    
                   </ListItemButton>
+                  <Collapse in={openns} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                       
+                        <ListItemText>
+                        <ListItemText sx={{ }}>
+                      {nd.ngay_sinh !="0000-00-00" ? (nd.ngay_sinh):(
+                      <LocalizationProvider dateAdapter={AdapterDayjs}  sx={{ m: 1   }}>
+                      <div >
+                        <DatePicker 
+                          maxDate={dayjs()}
+                          value={ns}
+                          inputFormat="YYYY-MM-DD"
+                          mask="____-__-__"
+                          label="Ngày sinh"
+                          onChange={(newValue) => {
+                            setNs(newValue);
+                          }}
+                          renderInput={(params) => <TextField color="success" {...params} />}
+                        />
+                        { ns == null && trangthains==true ? (<FormHelperText error id="component-error-text"  sx={{ m: 0}}>
+                          Ngày sinh không được để trống!
+                        </FormHelperText>):(<></>)}
+                      </div>
+                    </LocalizationProvider>)}
+                    </ListItemText>
+              </ListItemText>
+                      </ListItemButton>
+                    </List>
+                   
+                   
+                    <Button onClick={handlethemns} style={{marginLeft:"40px",marginTop:"5px"}} variant="contained" color="success">Thêm</Button>
+                  </Collapse>
                 </List>
                 <Divider />
                 
                 
-                <List>
+                {nd.mat_khau ? (<List>
                   <ListItemButton onClick={handleClick}>
-                    <ListItemText primary="Đổi mật khẩu" />
-                    {open ? <ExpandLess /> : <ExpandMore />}
+                    <ListItemText primary="Mật khẩu" />
+                    {                      open ? <span>Thay đổi <ExpandLess/></span> :<span>Thay đổi <ExpandMore /></span>
+}
                   </ListItemButton>
                   <Collapse in={open} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
@@ -487,9 +663,117 @@ const [trong,setTrong] = React.useState(false);
                         </ListItemText>
                       </ListItemButton>
                     </List>
-                    <Button onClick={handledoimatkhau} style={{marginLeft:"40px",marginTop:"5px"}} variant="contained" color="success">Thay đổi</Button>
+                    <Button  onClick={handledoimatkhau} style={{marginLeft:"40px",marginTop:"5px"}} variant="contained" color="success">Thay đổi</Button>
+                    <Button style={{marginLeft:"40px",marginTop:"5px"}} variant="outlined" color="success"><Lin to="/auth/forgot-password" style={{textDecoration:"none"}}  variant="body2">
+                    Quên mật khẩu?
+                  </Lin></Button>
+                  </Collapse>
+                </List>):(
+                  <List>
+                  <ListItemButton onClick={handleClick}>
+                    <ListItemText primary="Mật khẩu" />
+                    <ListItemText sx={{ textAlign: "right" }}>
+                  {
+                      open ? <span>Thêm <ExpandLess/></span> :<span>Thêm <ExpandMore /></span>
+                    }
+                    </ListItemText>
+                  </ListItemButton>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                       
+                        <ListItemText>
+              <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
+                <InputLabel htmlFor="standard-adornment-password">
+                  Mật khẩu mới
+                </InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  type={matkhau1.showPassword ? "text" : "password"}
+                  value={matkhau1.password}
+                  onChange={handleChangemk1("password")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword1}
+                        onMouseDown={handleMouseDownPassword1}
+                      >
+                        {matkhau1.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                {trong && matkhau1.password.length == 0 ?(
+                   <FormHelperText error id="component-error-text">
+                   Mật khẩu mới không được để trống!
+                 </FormHelperText>
+                ):(
+                  matkhau1.password.match(
+                    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+                  ) || matkhau1.password.length == 0 ? (
+                    <></>
+                  ) : (
+                    <FormHelperText error id="component-error-text">
+                      Mật khẩu ít nhất 8 kí tự, ít nhất 1 chữ cái và 1 số và không
+                      chứa kí tự đặc biệt!
+                    </FormHelperText>
+                  )
+                )}
+              </FormControl>
+              </ListItemText>
+                      </ListItemButton>
+                    </List>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                       
+                        <ListItemText>
+              <FormControl color="success" sx={{ m: 1, width: "95%" }} variant="standard">
+                <InputLabel htmlFor="standard-adornment-password">
+                  Nhập lại mật khẩu mới
+                </InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  type={matkhau2.showPassword ? "text" : "password"}
+                  value={matkhau2.password}
+                  onChange={handleChangemk2("password")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword2}
+                        onMouseDown={handleMouseDownPassword2}
+                      >
+                        {matkhau2.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                /> {trong && matkhau2.password.length == 0 ?(
+                  <FormHelperText error id="component-error-text">
+                  Mật khẩu mới không được để trống!
+                </FormHelperText>
+               ):(
+                matkhau1.password != matkhau2.password && matkhau2.password.length >0 ? (<FormHelperText error id="component-error-text"  sx={{ ml: 1}}>
+                      Mật khẩu mới và nhập lại mật khẩu mới không giống nhau!
+                    </FormHelperText>):(<></>)
+               )}
+                 
+              </FormControl>
+                        </ListItemText>
+                      </ListItemButton>
+                    </List>
+                    <Button  onClick={handlethemmatkhau} style={{marginLeft:"40px",marginTop:"5px"}} variant="contained" color="success">Thêm</Button>
                   </Collapse>
                 </List>
+                )}
                 <Divider />
                 
               </div>
@@ -498,10 +782,30 @@ const [trong,setTrong] = React.useState(false);
         </Grid>
       </Grid>
       <Snackbar  open={opencheckthanhcong} autoHideDuration={6000} onClose={handleClosecheckthanhcong} >
-        <Alert  onClose={handleClosecheckthanhcong}  severity="success"  sx={{ width: "100%" }}>  Đổi mật khẩu thành công!</Alert>
+        <Alert  onClose={handleClosecheckthanhcong}  severity="success"  sx={{ width: "100%" }}>  Thay đổi mật khẩu thành công!</Alert>
       </Snackbar>
     </Box>
   );
 }
+const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+  const { onChange, ...other } = props;
+  return (
+    <IMaskInput
+      {...other}
+      mask="$###########"
+      definitions={{
+        "#": /[0-9]/,
+        $: /[0]/,
+      }}
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
 
+TextMaskCustom.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 export default Thongtincanhan;
