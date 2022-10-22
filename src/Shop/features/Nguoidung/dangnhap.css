@@ -7,3 +7,14 @@
   /* optional, center the image */
     
   }
+
+.bentrai {
+  -webkit-align-items: none;
+   align-items: none;
+   -webkit-box-align: none;
+   -webkit-box-pack: none;
+   -ms-flex-pack: none;
+   -webkit-justify-content: none;
+   justify-content: none;
+   text-align: none;
+}

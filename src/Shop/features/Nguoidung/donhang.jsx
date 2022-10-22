@@ -44,6 +44,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Rating from "@mui/material/Rating";
 import binhluanApi from "../../../Manage/api/binhluanApi";
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
 Donhang.propTypes = {};
 function Donhang() {
@@ -85,8 +89,8 @@ const handlehuy = async(madh) => {
     })();
   }, [count]);
 
-  const handleChangeloc = (event) => {
-    setLoc(event.target.value); setCount((e) => e + 1);
+  const handleChangeloc = (event,value) => {
+    setLoc(value); setCount((e) => e + 1);
   };
   const handledg = (ma) => {
     setMactdh(ma);    setOpen(true);
@@ -143,29 +147,30 @@ const handlehuy = async(madh) => {
           </Link>
          
         </Breadcrumbs>
-        <FormControl sx={{ minWidth: 200 , float:"right",marginRight:"15%"}} size="small" color="success">
-      <Select
-        labelId="demo-select-small"
-        id="demo-select-small"
-        value={loc} 
-        onChange={handleChangeloc}
-      >
-          <MenuItem value="07">Tất cả đơn hàng</MenuItem>
-        <MenuItem value="00">Chưa xác nhận</MenuItem>
-          <MenuItem value="11">Đã xác nhận</MenuItem>
-          <MenuItem value="22">Đã có người giao</MenuItem>
-          <MenuItem value="33">Đang giao</MenuItem>
-          <MenuItem value="44">Đã hoàn thành</MenuItem>
-          <MenuItem value="55">Đơn đã bị hủy</MenuItem>
-          <MenuItem value="66">Bạn đã boom</MenuItem>
-
-      </Select>
-    </FormControl>
+      
       </div>
-      <Grid className="w-[78%] ml-[10%] ">
+      <Grid className="w-[76%] ml-[12%] ">
 
-        
-        <Grid >
+        <Grid sx={{width:"16%",float:"left",paddingLeft:1, backgroundColor:"#f8f8f8"}}>
+        <TabContext value={loc}  >
+        <Box  sx={{  }}>
+          <TabList  orientation="vertical"
+        variant="scrollable" onChange={handleChangeloc} aria-label="lab API tabs example">
+            <Tab sx={{alignItems: "flex-start"}} label="Tất cả đơn hàng" value="07" />
+            <Tab sx={{alignItems: "flex-start"}} label="Chưa xác nhận" value="00" />
+            <Tab sx={{alignItems: "flex-start"}} label="Đã xác nhận" value="11" />
+            <Tab sx={{alignItems: "flex-start"}} label="Chờ lấy hàng" value="22" />
+            <Tab sx={{alignItems: "flex-start"}} label="Đang giao" value="33" />
+            <Tab sx={{alignItems: "flex-start"}} label="Đã giao" value="44" />
+            <Tab sx={{alignItems: "flex-start"}} label="Đơn bị hủy" value="55" />
+            <Tab sx={{alignItems: "flex-start"}} label="Đơn bị boom" value="66" />
+
+          </TabList>
+        </Box>
+      </TabContext>
+ 
+        </Grid>
+        <Grid sx={{width:"84%",float:"right"}} >
           {datadh.length > 0 ? (
             datadh.map((aa) => (
               <Box sx={{ width: "100%" }}>
@@ -205,7 +210,7 @@ const handlehuy = async(madh) => {
                               </StepLabel>
                             </Step>
                             <Step key="aaa">
-                              <StepLabel>Tìm người giao hàng</StepLabel>
+                              <StepLabel></StepLabel>
                             </Step>
                             <Step key="aaa">
                               <StepLabel>Đang giao</StepLabel>
@@ -227,7 +232,7 @@ const handlehuy = async(madh) => {
                                 </StepLabel>
                               </Step>
                               <Step key="aaa">
-                                <StepLabel>Tìm người giao hàng</StepLabel>
+                                <StepLabel>Chờ lấy hàng</StepLabel>
                               </Step>
                               <Step key="aaa">
                                 <StepLabel>Đang giao</StepLabel>

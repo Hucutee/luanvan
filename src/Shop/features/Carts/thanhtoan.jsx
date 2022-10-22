@@ -24,6 +24,11 @@ import donhangAPI from "../../../Manage/api/donhangApi";
 import { useNavigate } from "react-router-dom";
 import payOnlineAPI from "../../../Manage/api/payOnlineAPI";
 import { addtottkh, removeAllttkh } from "../../app/ttkh";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormLabel from '@mui/material/FormLabel';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import nguoidungApi from "../../../Manage/api/nguoidungApi";
 
 function Thanhtoan() {
   const history = useNavigate();
@@ -47,7 +52,6 @@ function Thanhtoan() {
     console.log(event.target.value);
   };
   const [diachi, setDiachi] = React.useState("");
-  const [diachimoi, setDiachimoi] = React.useState("");
   const handleChangediachi = (event) => {
     setDiachi(event.target.value);
     console.log(event.target.value);
@@ -62,12 +66,19 @@ function Thanhtoan() {
   const [datadiachi, setDatadiachi] = React.useState([]);
   const [datakm, setDatakm] = React.useState([]);
   const [openchecksl, setOpenchecksl] = React.useState(false);
+  const [datand, setDatand] = React.useState([]);
+
   const handlechecksl = () => {
     setOpenchecksl(false);
   };
   useEffect(() => {
     (async () => {
       try {
+        const nd = await nguoidungApi.getttnd(dataUser[0].ma_nd);
+        setDatand(nd);
+        if(nd[0].sdt_nd){
+          setSdt({ ...sdt, textmask: nd[0].sdt_nd });
+        }
         const dc = await diachiAPI.getid(dataUser[0].ma_nd);
         console.log(loaitt);
         setDatadiachi(dc);
@@ -130,8 +141,8 @@ function Thanhtoan() {
       }
     })();
   }, [count]);
-  const [trangthai, setTrangthai] = React.useState(0);
 
+  const [trangthai, setTrangthai] = React.useState(0);
   const [ho, setHo] = React.useState({ textmask: "" });
   const handleChangeho = (event) => {
     setHo({ ...ho, [event.target.name]: event.target.value });
@@ -152,28 +163,44 @@ function Thanhtoan() {
     setLoaitt(event.target.value);
     setCount((e) => e + 1);
   };
-  const handledangky = async () => {};
-  const handleadddc = async () => {
-    if (diachimoi != "") {
-      await diachiAPI.create(dataUser[0].ma_nd, diachimoi);
-      setCount((e) => e + 1);
-      setOpenloi(true);
-    }
+  const [sonha, setSonha] = React.useState("");
+  const [xa, setXa] = React.useState("");
+  const [quan, setQuan] = React.useState("");
+  const [thanhpho, setThanhpho] = React.useState("");
+  const [thieudc, setThieudc] = React.useState(false);
+  const [themdc, setThemdc] = React.useState(false);
+  const handlethemdc = () => {
+    setThemdc(!themdc);
+    setCount((e) => e + 1);
   };
+
+  const handleadddc = async () => {
+    if (sonha != "" && xa != "" && quan !="" && thanhpho != "") {
+      await diachiAPI.create(dataUser[0].ma_nd, sonha +", "+ xa+", "+quan+", "+thanhpho);
+      setCount((e) => e + 1);
+      setOpenloi(true);     setThemdc(!themdc);
+    }else{ setThieudc(true);}      setCount((e) => e + 1);
+  };
+  const [themsdt, setThemsdt] = React.useState(false);
+
+  const handleaddsdt = async ()=>{
+      if(sdt.textmask >9){
+        const sdtt = await nguoidungApi.addsdt(dataUser[0].ma_nd,sdt.textmask);setThemsdt(true);
+      } setCount((e) => e + 1);
+    }
   const [openloi, setOpenloi] = React.useState(false);
   const handleCloseloi = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpenloi(false);
+    setOpenloi(false);setThemsdt(false);
   };
   const handlemua = async () => {
-    
-    if (ho.textmask && ten.textmask && sdt.textmask && diachi && loaitt == 1) {
+    if ( datand[0]?.sdt_nd && diachi && loaitt == 1) {
       if (pgg) {
         if (gia >= 500000) {
           await donhangAPI.create(
-            ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+            datand[0]?.ten_nd +", "+datand[0]?.sdt_nd,
             diachi,
             pgg.ma_pgg,
             gia - giam,
@@ -182,7 +209,7 @@ function Thanhtoan() {
           );
         } else {
           await donhangAPI.create(
-            ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+            datand[0]?.ten_nd + ", " + datand[0]?.sdt_nd,
             diachi,
             pgg.ma_pgg,
             gia - giam + 30000,
@@ -193,7 +220,7 @@ function Thanhtoan() {
       } else {
         if (gia >= 500000) {
           await donhangAPI.create(
-            ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+            datand[0]?.ten_nd + ", " + datand[0]?.sdt_nd,
             diachi,
             "PGG1",
             gia - giam,
@@ -202,7 +229,7 @@ function Thanhtoan() {
           );
         } else {
           await donhangAPI.create(
-            ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+            datand[0]?.ten_nd + ", " + datand[0]?.sdt_nd,
             diachi,
             "PGG1",
             gia - giam + 30000,
@@ -228,13 +255,13 @@ function Thanhtoan() {
       history(`/products/donhang`);
     }
 
-    if (ho.textmask && ten.textmask && sdt.textmask && diachi && loaitt == 2) {
+    if ( datand[0]?.sdt_nd && diachi && loaitt == 2) {
       if (gia >= 500000) {
         if (pgg) {
           dispatch(removeAllttkh());
           dispatch(
             addtottkh({
-              ten: ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+              ten: datand[0]?.ten_nd + ", " + datand[0]?.sdt_nd,
               diachi: diachi,
               pgg: pgg.ma_pgg,
               gia: gia - giam,
@@ -252,7 +279,7 @@ function Thanhtoan() {
           dispatch(removeAllttkh());
           dispatch(
             addtottkh({
-              ten: ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+              ten: datand[0]?.ten_nd + ", " + datand[0]?.sdt_nd,
               diachi: diachi,
               pgg: "PGG1",
               gia: gia - giam,
@@ -272,7 +299,7 @@ function Thanhtoan() {
           dispatch(removeAllttkh());
           dispatch(
             addtottkh({
-              ten: ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+              ten: datand[0]?.ten_nd + ", " + datand[0]?.sdt_nd,
               diachi: diachi,
               pgg: pgg.ma_pgg,
               gia: gia - giam + 30000,
@@ -290,7 +317,7 @@ function Thanhtoan() {
           dispatch(removeAllttkh());
           dispatch(
             addtottkh({
-              ten: ho.textmask + " " + ten.textmask + ", " + sdt.textmask,
+              ten: datand[0]?.ten_nd + ", " + datand[0]?.sdt_nd,
               diachi: diachi,
               pgg: "PGG1",
               gia: gia - giam + 30000,
@@ -341,13 +368,15 @@ function Thanhtoan() {
       <div className="w-[74%] mx-[13%] ">
         <div style={{ width: "50%", float: "left", paddingRight: "5%" }}>
           <Box component="form" noValidate sx={{ mt: 0, padding: 2 }}>
-            <Typography sx={{ marginBottom: "5px" }}>
+            <Typography sx={{ marginBottom: "5px" ,fontWeight:500}}>
               Thông tin liên lạc
             </Typography>
-            <FormControl
+            <Typography sx={{paddingLeft:2,paddingTop:1,paddingBottom:1,}} >Họ tên: {dataUser[0].ten_nd}</Typography>
+            {datand[0]?.sdt_nd ? ( <Typography sx={{paddingLeft:2}} >Số điện thoại: {datand[0].sdt_nd}</Typography>):(
+             <span>
+               <FormControl
               variant="outlined"
               sx={{ m: 1, width: "95%" }}
-              size="small"
             >
               <InputLabel color="success" htmlFor="formatted-text-mask-input">
                 Số điện thoại
@@ -374,72 +403,16 @@ function Thanhtoan() {
                 <></>
               )}
             </FormControl>
-            <FormControl
-              size="small"
-              variant="outlined"
-              sx={{ m: 1, width: "55%", marginRight: "5%" }}
-            >
-              <InputLabel color="success" htmlFor="outlined-weight-helper-text">
-                Họ và tên đệm
-              </InputLabel>
-              <OutlinedInput
-                color="success"
-                value={ho.textmask}
-                onChange={handleChangeho}
-                name="textmask"
-                id="outlined-weight-helper-text"
-                label="Họ vàn tên đệm"
-              />
-              {trangthai && ho.textmask.length == 0 ? (
-                <FormHelperText error id="component-error-text" sx={{ m: 0 }}>
-                  Họ và tên đệm không được để trống
-                </FormHelperText>
-              ) : ho.textmask.match(
-                  /^[a-zA-Z_ ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéẾếêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*$/u
-                ) || ho.textmask.length == 0 ? (
-                <></>
-              ) : (
-                <FormHelperText error id="component-error-text" sx={{ m: 0 }}>
-                  Họ và tên đệm chỉ gồm chữ cái và khoảng trắng
-                </FormHelperText>
-              )}
-            </FormControl>
+            <Button onClick={handleaddsdt} sx={{mx:1}} color="success" variant="outlined">Thêm</Button>
 
-            <FormControl
-              variant="outlined"
-              sx={{ m: 1, width: "33%" }}
-              size="small"
-            >
-              <InputLabel color="success" htmlFor="formatted-text-mask-input">
-                Tên
-              </InputLabel>
-              <OutlinedInput
-                color="success"
-                value={ten.textmask}
-                onChange={handleChangeten}
-                name="textmask"
-                label="ten"
-                id="formatted-text-mask-input"
-              />
-              {trangthai && ten.textmask.length == 0 ? (
-                <FormHelperText error id="component-error-text" sx={{ m: 0 }}>
-                  Tên không được để trống
-                </FormHelperText>
-              ) : ten.textmask.match(
-                  /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêéẾìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*$/u
-                ) || ten.textmask.length == 0 ? (
-                <></>
-              ) : (
-                <FormHelperText error id="component-error-text" sx={{ m: 0 }}>
-                  Tên chỉ gồm chữ cái
-                </FormHelperText>
-              )}
-            </FormControl>
-            <Typography sx={{ marginTop: "30px", marginBottom: "5px" }}>
+             </span>
+            ) }
+
+            <Typography sx={{ marginTop: "30px", marginBottom: "5px" ,fontWeight:500}}>
               Địa chỉ giao hàng
             </Typography>
 
-            <FormControl sx={{ m: 1 }} size="small" color="success" fullWidth>
+            <FormControl sx={{ m: 1 }}  color="success" fullWidth>
               <InputLabel id="demo-simple-select-helper-label">
                 {" "}
                 Chọn địa chỉ
@@ -461,71 +434,52 @@ function Thanhtoan() {
                 )}
               </Select>
             </FormControl>
-
-            <Box sx={{ height: "70px" }}>
-              <Typography sx={{ marginTop: "20px", marginBottom: "5px" }}>
+            <Button sx={{marginLeft:"10px"}} color="success" variant="outlined" onClick={handlethemdc}>Thêm mới </Button>
+            {themdc ? <Box>
+              <Typography sx={{ marginTop: "20px", marginBottom: "5px",fontWeight:500 }}>
                 Thêm địa chỉ mới
               </Typography>
 
-              <FormControl
-                size="small"
-                variant="outlined"
-                sx={{ m: 1, width: "70%", marginRight: "2%", float: "left" }}
-              >
-                <InputLabel
-                  color="success"
-                  htmlFor="outlined-weight-helper-text"
-                >
-                  Nhập địa chỉ mới
-                </InputLabel>
-                <OutlinedInput
-                  color="success"
-                  onChange={(e) => setDiachimoi(e.target.value)}
-                  name="textmask"
-                  id="outlined-weight-helper-text"
-                  label="Nhập địa chỉ mới"
-                />
+              <FormControl   size="small"   variant="outlined"   sx={{ m: 1, width: "70%", marginRight: "2%",  }} >
+                <InputLabel  color="success"   htmlFor="outlined-weight-helper-text"  >  Số nhà, tên đường  </InputLabel>
+                <OutlinedInput color="success"  label="Số nhà, tên đường" onChange={(e) => setSonha(e.target.value)} name="textmask" id="outlined-weight-helper-text" />
+                {thieudc && sonha == "" ? ( <FormHelperText error id="component-error-text">  Số nhà không được để trống! </FormHelperText>): false}
               </FormControl>
-
-              <Button
-                variant="contained"
-                color="success"
-                sx={{
-                  backgroundColor: "#ABD373",
-                  m: 1,
-                  width: "20%",
-                  float: "left",
-                }}
-                onClick={handleadddc}
-              >
+              <FormControl   size="small"   variant="outlined"   sx={{ m: 1, width: "70%", marginRight: "2%",  }} >
+                <InputLabel  color="success"   htmlFor="outlined-weight-helper-text"  >  Xã, phường, thị trấn  </InputLabel>
+                <OutlinedInput color="success"  label="Xã, phường, thị trấn" onChange={(e) => setXa(e.target.value)} name="textmask" id="outlined-weight-helper-text" />
+                {thieudc && xa == "" ? ( <FormHelperText error id="component-error-text">  Xã, phường không được để trống! </FormHelperText>): false}
+              </FormControl>
+              <FormControl   size="small"   variant="outlined"   sx={{ m: 1, width: "70%", marginRight: "2%",  }} >
+                <InputLabel  color="success"   htmlFor="outlined-weight-helper-text"  >  Quận, huyện  </InputLabel>
+                <OutlinedInput color="success"  label="Quận, huyện" onChange={(e) => setQuan(e.target.value)} name="textmask" id="outlined-weight-helper-text" />
+                {thieudc && quan == "" ? ( <FormHelperText error id="component-error-text">  Quận, huyện không được để trống! </FormHelperText>): false}
+              </FormControl>
+              <FormControl   size="small"   variant="outlined"   sx={{ m: 1, width: "70%", marginRight: "2%",  }} >
+                <InputLabel  color="success"   htmlFor="outlined-weight-helper-text"  >  Thành phố  </InputLabel>
+                <OutlinedInput color="success"  label="Thành phố" onChange={(e) => setThanhpho(e.target.value)} name="textmask" id="outlined-weight-helper-text" />
+                {thieudc && thanhpho == "" ? ( <FormHelperText error id="component-error-text">  Thành phố không được để trống! </FormHelperText>): false}
+              </FormControl>
+             <div> <Button   variant="contained" color="success"
+                sx={{   backgroundColor: "#ABD373", m: 1, width: "20%"}} onClick={handleadddc}   >
                 Thêm
-              </Button>
-            </Box>
+              </Button></div>
+            </Box>: false}
           </Box>
-          <Typography sx={{ pt: 2, pl: 2, marginBottom: "5px" }}>
+          <Typography sx={{ pt: 2, pl: 2, marginBottom: "5px",fontWeight:500 }}>
             Phương thức thanh toán
           </Typography>
-          <FormControl
-            sx={{ m: 1, ml: 3 }}
-            size="small"
-            color="success"
-            fullWidth
-          >
-            <InputLabel id="demo-simple-select-helper-label">
-              {" "}
-              Chọn phương thứng thanh toán
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              label="Chọn phương thứng thanh toán"
-              onChange={handleloaitt}
-              sx={{ width: "89%" }}
-            >
-              <MenuItem value={1}>Thanh toán khi nhận hàng </MenuItem>
-              <MenuItem value={2}>Thanh toán online </MenuItem>
-            </Select>
-          </FormControl>
+          <FormControl sx={{ pt: 1, pl: 4, marginBottom: "5px" }} success>
+                       <RadioGroup 
+                         row
+                         aria-labelledby="demo-row-radio-buttons-group-label"
+                         name="row-radio-buttons-group"  value={loaitt}
+                         onChange={handleloaitt}
+                       >
+                         <FormControlLabel color="success" value="1" control={<Radio color="success" />} label="Thanh toán khi nhận hàng" />
+                         <FormControlLabel value="2" control={<Radio color="success" />} label="Thanh toán online" />
+                       </RadioGroup>
+                     </FormControl>
 
           <Box>
             <div style={{ marginTop: "15px", padding: "23px" }}>
@@ -768,6 +722,15 @@ function Thanhtoan() {
           sx={{ width: "100%" }}
         >
           Thêm địa chỉ mới thành công!
+        </Alert>
+      </Snackbar>
+      <Snackbar open={themsdt} autoHideDuration={6000} onClose={handleCloseloi}>
+        <Alert
+          onClose={handleCloseloi}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Thêm số điện thoại thành công!
         </Alert>
       </Snackbar>
     </Box>
