@@ -20,7 +20,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Listmanager from "../list";
+
 export default function Listpgg() {
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
+  const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
   const [mapgg, setMapgg] = useState("");
@@ -51,6 +57,9 @@ export default function Listpgg() {
     setCount((e) => e + 1); };
   useEffect(() => {
     (async () => {
+      if(dataNhanvien.length==0){
+        navigate("/Manage");
+      }
       if (trangthai) {
         try {
           const data = await phieugiamgiaAPI.getList(trang);
@@ -264,12 +273,16 @@ export default function Listpgg() {
           </form>
         </div>
       </div>
-      <div className="w-[84%] mx-[8%] ">
+      <div className="w-[88%] mx-[6%] ">
+      <div style={{width:"18%",float:"left" , backgroundColor:"#f8f8f8"}}>
+          <Listmanager/>
+        </div>
+        <div  style={{width:"79%",float:"right"}}>
         <table className=" w-[100%] text-center rounded-lg	 	">
           <thead className="h-14  text-white 	">
             <tr>
               <th className="w-[15%] border-[1px] 	border-white			 border-solid">
-                <div className="rounded-tl-2xl  bg-green-700 h-[57px] pt-4 mr-[-3px]">  Mã phiếu giảm giá</div>
+                <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">  Mã phiếu giảm giá</div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-6px]">   Tên phiếu giảm giá   </div>
@@ -290,7 +303,7 @@ export default function Listpgg() {
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">    Xóa  </div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
-                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] rounded-tr-2xl">    Sửa  </div>
+                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] ">    Sửa  </div>
               </th>
             </tr>
           </thead>
@@ -343,7 +356,7 @@ export default function Listpgg() {
             )}
             <tr>
               <th  colspan="8"  className=" border-[1px] 	border-white			 border-solid">
-                <div className="rounded-bl-2xl rounded-br-2xl   bg-gray-100 h-[57px] pt-4">
+                <div className="  bg-gray-100 h-[57px] pt-4">
                   {" "}
                   <Pagination    style={{      display: "flex", flexFlow: "row nowrap", justifyContent: "center",}}
                     color="success" count={counttrang}  page={trang}   onChange={handleChangepage}
@@ -353,6 +366,7 @@ export default function Listpgg() {
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
       <Snackbar open={openalert} autoHideDuration={6000}  onClose={handleClosealert}>
         <Alert    onClose={handleClosealert}    severity="success"    sx={{ width: "100%" }}  >

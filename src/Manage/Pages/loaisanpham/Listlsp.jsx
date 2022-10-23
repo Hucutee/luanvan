@@ -17,8 +17,13 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Pagination from "@mui/material/Pagination";
 import InputAdornment from "@mui/material/InputAdornment";
+import Listmanager from "../list";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Listlsp() {
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
+  const navigation = useNavigate();
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
   const [malsp, setMalsp] = useState("");
@@ -53,26 +58,32 @@ export default function Listlsp() {
   };
   useEffect(() => {
     (async () => {
-      if (trangthai) {
-        try {
-          const data = await loaisanphamAPI.getList(trang);
-          setData(data);
-          console.log(data);
-        } catch (e) {
-          console.log("loi lay dl", e);
-        }
-      } else {
-        try {
-          const data = await loaisanphamAPI.getid(tenget, trang);
-          setData(data);
-        } catch (e) {
-          console.log("loi lay dl", e);
-        }
+      if(dataNhanvien.length==0){
+      
+          navigation("/Manage");
+       
       }
-      const datacount = await loaisanphamAPI.getCount("a");
-      const sotrang = Math.ceil(datacount.length / 10);
-
-      setCounttrang(sotrang);
+        if (trangthai) {
+          try {
+            const data = await loaisanphamAPI.getList(trang);
+            setData(data);
+            console.log(data);
+          } catch (e) {
+            console.log("loi lay dl", e);
+          }
+        } else {
+          try {
+            const data = await loaisanphamAPI.getid(tenget, trang);
+            setData(data);
+          } catch (e) {
+            console.log("loi lay dl", e);
+          }
+        }
+        const datacount = await loaisanphamAPI.getCount("a");
+        const sotrang = Math.ceil(datacount.length / 10);
+  
+        setCounttrang(sotrang);
+     
     })();
   }, [count]);
 
@@ -325,11 +336,15 @@ export default function Listlsp() {
         </div>
       </div>
       <div className="w-[84%] mx-[8%] ">
+        <div style={{width:"18%",float:"left" , backgroundColor:"#f8f8f8"}}>
+          <Listmanager/>
+        </div>
+        <div  style={{width:"79%",float:"right"}}>
         <table className=" w-[100%] text-center rounded-lg	 	">
           <thead className="h-14  text-white 	">
             <tr>
               <th className="w-[20%] border-[1px] 	border-white			 border-solid">
-                <div className="rounded-tl-2xl  bg-green-700 h-[57px] pt-4 mr-[-3px]">
+                <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">
                   Mã loại sản phẩm
                 </div>
               </th>
@@ -345,7 +360,7 @@ export default function Listlsp() {
                 </div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
-                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] rounded-tr-2xl">
+                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] ">
                   Sửa
                 </div>
               </th>
@@ -409,7 +424,7 @@ export default function Listlsp() {
                 colspan="6"
                 className=" border-[1px] 	border-white			 border-solid"
               >
-                <div className="rounded-bl-2xl rounded-br-2xl   bg-gray-100 h-[57px] pt-4">
+                <div className="   bg-gray-100 h-[57px] pt-4">
                   {" "}
                   <Pagination
                     style={{
@@ -427,6 +442,7 @@ export default function Listlsp() {
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
       <Snackbar
         open={openalert}

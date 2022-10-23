@@ -25,7 +25,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Listmanager from "../list";
+
 export default function Listkm() {
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
+  const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
   const [loaisp, setLoaisp] = useState([]);
@@ -55,6 +61,11 @@ export default function Listkm() {
     setCount((e) => e + 1); };
   useEffect(() => {
     (async () => {
+      if(dataNhanvien.length==0){
+      
+        navigate("/Manage");
+     
+    }
       const loai = await loaisanphamAPI.getCount();
           setLoaisp(loai);
       if (trangthai) {
@@ -256,13 +267,17 @@ export default function Listkm() {
         </div>
       </div>
       <div className="w-[84%] mx-[8%] ">
+      <div style={{width:"18%",float:"left" , backgroundColor:"#f8f8f8"}}>
+          <Listmanager/>
+        </div>
+        <div style={{width:"79%",float:"right"}}>
         <table className=" w-[100%] text-center rounded-lg	 	">
           <thead className="h-14  text-white 	">
             <tr>
               <th className=" border-[1px] 	border-white			 border-solid">
-                <div className="rounded-tl-2xl  bg-green-700 h-[57px] pt-4 mr-[-3px]">  Mã sản phẩm</div>
+                <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">  Mã sản phẩm</div>
               </th>
-              <th className="border-[1px] w-[20%]	border-white	border-solid">
+              <th className="border-[1px] w-[30%]	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-6px]">   Tên sản phẩm   </div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
@@ -272,7 +287,7 @@ export default function Listkm() {
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">    Xóa  </div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
-                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] rounded-tr-2xl">    Sửa  </div>
+                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] ">    Sửa  </div>
               </th>
             </tr>
           </thead>
@@ -312,7 +327,7 @@ export default function Listkm() {
             )}
             <tr>
               <th  colspan="5"  className=" border-[1px] 	border-white			 border-solid">
-                <div className="rounded-bl-2xl rounded-br-2xl   bg-gray-100 h-[57px] pt-4">
+                <div className="  bg-gray-100 h-[57px] pt-4">
                   {" "}
                   <Pagination    style={{      display: "flex", flexFlow: "row nowrap", justifyContent: "center",}}
                     color="success" count={counttrang}  page={trang}   onChange={handleChangepage}
@@ -322,6 +337,7 @@ export default function Listkm() {
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
       <Snackbar open={openalert} autoHideDuration={6000}  onClose={handleClosealert}>
         <Alert    onClose={handleClosealert}    severity="success"    sx={{ width: "100%" }}  >

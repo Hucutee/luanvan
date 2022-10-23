@@ -126,7 +126,9 @@ export default function TemporaryDrawer() {
   useEffect(() => {
     (async () => {
       try {
-        const avt = await nguoidungApi.getavtnv(dataNhanvien[0].ma_nd); if(avt.length != 0) {setAvt(avt[0].ten_avt);}
+        if(dataNhanvien.length > 0) {
+          const avt = await nguoidungApi.getavtnv(dataNhanvien[0].ma_nd); if(avt.length != 0) {setAvt(avt[0].ten_avt);}
+        }
       } catch (error) {
         console.log("loi", error);
       }
@@ -301,88 +303,89 @@ export default function TemporaryDrawer() {
 
   return (
     <div className="">
+      {dataNhanvien.length>0 ?
       <div className="flex  justify-between  items-center w-[84%]  m-auto py-3  ">
-        <div>
-        <span style={{ float: "left"  , marginTop: "-5px" }}>
-              <img src={logo} width="60px" heigh="60px" />
-            </span>
-        <span className=" font-bold bg-clip-text text-[26px] text-transparent bg-gradient-to-r from-green-900 to-green-500 ">
-          Hau's Garden
+      <div>
+      <span style={{ float: "left"  , marginTop: "-5px" }}>
+            <img src={logo} width="60px" heigh="60px" />
           </span>
-        </div>
+      <span className=" font-bold bg-clip-text text-[26px] text-transparent bg-gradient-to-r from-green-900 to-green-500 ">
+        Hau's Garden
+        </span>
+      </div>
 
-        <div className="flex gap-8">
-          <React.Fragment key={"left"}>
-          <button className="text-[24px]  a1" onClick={toggleDrawer("left", true)}> <ListIcon/> </button>
-          <Drawer
-            anchor={"left"}
-            open={state["left"]}
-            onClose={toggleDrawer("left", false)}
-          >
-            {list("left")}
-          </Drawer>
-        </React.Fragment>
-        </div>
-        <div  className="w-[65%]"></div>
-        <div  className="mr-[1%]">
-            <div size="large" aria-label="account of current user" aria-controls="menu-appbar"  aria-haspopup="true"  className="a1 ">
-    
-              {dataNhanvien.length > 0 ? (
-                <Button
-                id="demo-positioned-button"
-                aria-controls={opendx ? 'demo-positioned-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={opendx ? 'true' : undefined}
-                onClick={handleClickdx}
-                >
-               {avt == "" ?
-                <Avatar
-                size="small"
-                sx={{ bgcolor: green[500], width: 24, height: 24 }}
-                alt="Remy Sharp"
-                src="/broken-image.jpg"
+      <div className="flex gap-8">
+        <React.Fragment key={"left"}>
+        <button className="text-[24px]  a1" onClick={toggleDrawer("left", true)}> <ListIcon/> </button>
+        <Drawer
+          anchor={"left"}
+          open={state["left"]}
+          onClose={toggleDrawer("left", false)}
+        >
+          {list("left")}
+        </Drawer>
+      </React.Fragment>
+      </div>
+      <div  className="w-[65%]"></div>
+      <div  className="mr-[1%]">
+          <div size="large" aria-label="account of current user" aria-controls="menu-appbar"  aria-haspopup="true"  className="a1 ">
+  
+            {dataNhanvien.length > 0 ? (
+              <Button
+              id="demo-positioned-button"
+              aria-controls={opendx ? 'demo-positioned-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={opendx ? 'true' : undefined}
+              onClick={handleClickdx}
               >
-                <span style={{ fontSize: "14px" }}>
-                  {dataNhanvien.map((aa) =>
-                    aa.ten_nd.slice(
-                      aa.ten_nd.lastIndexOf(" ") + 1,
-                      aa.ten_nd.lastIndexOf(" ") + 2
-                    )
-                  )}
-                </span>
-              </Avatar>:
+             {avt == "" ?
               <Avatar
-              src={require("../../../imageuser/"+ avt )}
-              sx={{ width: 30, height: 30,fontSize:"140px", bgcolor: green[500] }}/>}
-                </Button>
-              ) :(false)}
-               <Menu                             sx={{marginTop: "40px"}}
+              size="small"
+              sx={{ bgcolor: green[500], width: 24, height: 24 }}
+              alt="Remy Sharp"
+              src="/broken-image.jpg"
+            >
+              <span style={{ fontSize: "14px" }}>
+                {dataNhanvien.map((aa) =>
+                  aa.ten_nd.slice(
+                    aa.ten_nd.lastIndexOf(" ") + 1,
+                    aa.ten_nd.lastIndexOf(" ") + 2
+                  )
+                )}
+              </span>
+            </Avatar>:
+            <Avatar
+            src={require("../../../imageuser/"+ avt )}
+            sx={{ width: 30, height: 30,fontSize:"140px", bgcolor: green[500] }}/>}
+              </Button>
+            ) :(false)}
+             <Menu                             sx={{marginTop: "40px"}}
 
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        anchorEl={anchorEldx}
-        open={opendx}
-        onClose={handleClosedx}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-                <MenuItem onClick={handleClosedx}><Lin sx={{textDecoration: "none", color:"#333"}} to="/Manager/thongtincanhan">Thông tin cá nhân</Lin></MenuItem>
+      id="demo-positioned-menu"
+      aria-labelledby="demo-positioned-button"
+      anchorEl={anchorEldx}
+      open={opendx}
+      onClose={handleClosedx}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}
+    >
+              <MenuItem onClick={handleClosedx}><Lin sx={{textDecoration: "none", color:"#333"}} to="/Manager/thongtincanhan">Thông tin cá nhân</Lin></MenuItem>
 
-        <MenuItem onClick={handledx}><Link sx={{textDecoration: "none", color:"#333"}} href="/Manage">Đăng xuất</Link></MenuItem>
+      <MenuItem onClick={handledx}><Link sx={{textDecoration: "none", color:"#333"}} href="/Manage">Đăng xuất</Link></MenuItem>
 
-      </Menu>
-       
-            
-            </div>
+    </Menu>
+     
           
           </div>
-        </div>  
+        
+        </div>
+      </div>  : false}
     </div>
   );
 }

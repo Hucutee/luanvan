@@ -24,8 +24,13 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import kichthuocApi from "../../api/kichthuocApi";
 import hoadonnhapApi from "../../api/hoadonnhapApi";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Listmanager from "../list";
 
 export default function Listcthdn() {
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
+  const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
   const [listsp, setListsp] = useState([]);
@@ -67,6 +72,9 @@ export default function Listcthdn() {
     setCount((e) => e + 1); };
   useEffect(() => {
     (async () => {
+      if(dataNhanvien.length==0){
+        navigate("/Manage");
+      }
       const dshdn =await hoadonnhapApi.getCountDESC();
           setListhdn(dshdn); 
       if(getloaiii){
@@ -319,11 +327,15 @@ export default function Listcthdn() {
         </div>
       </div>
       <div className="w-[84%] mx-[8%] ">
+      <div style={{width:"18%",float:"left" , backgroundColor:"#f8f8f8"}}>
+          <Listmanager/>
+        </div>
+        <div  style={{width:"79%",float:"right"}}>
         <table className=" w-[100%] text-center rounded-lg	 	">
           <thead className="h-14  text-white 	">
             <tr>
               <th className=" border-[1px] 	border-white			 border-solid">
-                <div className="rounded-tl-2xl  bg-green-700 h-[57px] pt-4 mr-[-3px]">  Mã CT HĐN</div>
+                <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">  Mã CT HĐN</div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">   Mã hóa đơn nhập  </div>
@@ -343,7 +355,7 @@ export default function Listcthdn() {
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">    Xóa  </div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
-                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] rounded-tr-2xl">    Sửa  </div>
+                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px]">    Sửa  </div>
               </th>
             </tr>
           </thead>
@@ -388,7 +400,7 @@ export default function Listcthdn() {
             )}
             <tr>
               <th  colspan="9"  className=" border-[1px] 	border-white			 border-solid">
-                <div className="rounded-bl-2xl rounded-br-2xl   bg-gray-100 h-[57px] pt-4">
+                <div className=" bg-gray-100 h-[57px] pt-4">
                   {" "}
                   <Pagination    style={{      display: "flex", flexFlow: "row nowrap", justifyContent: "center",}}
                     color="success" count={counttrang}  page={trang}   onChange={handleChangepage}
@@ -398,6 +410,7 @@ export default function Listcthdn() {
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
       <Snackbar open={openalert} autoHideDuration={6000}  onClose={handleClosealert}>
         <Alert    onClose={handleClosealert}    severity="success"    sx={{ width: "100%" }}  >

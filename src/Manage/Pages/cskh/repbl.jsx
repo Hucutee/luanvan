@@ -35,9 +35,10 @@ import nguoidungApi from '../../api/nguoidungApi';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import binhluanApi from '../../api/binhluanApi';
+import Listmanager from '../list';
 export default function Repbl() {
   const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
@@ -96,6 +97,9 @@ export default function Repbl() {
   } setCount((e) => e + 1);}
   useEffect(() => {
     (async () => {
+      if(dataNhanvien.length==0){
+        navigate("/Manage");
+      }
     const dl = await repblAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
     const dltrang = await repblAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); console.log(dltrang);
     const dltl = await repblAPI.gettlbl(); setDatactdh(dltl);
@@ -126,6 +130,10 @@ export default function Repbl() {
         </div>
       </div>
       <div className="w-[84%] mx-[8%] ">
+      <div style={{width:"18%",float:"left" , backgroundColor:"#f8f8f8"}}>
+          <Listmanager/>
+        </div>
+        <div  style={{width:"79%",float:"right"}}>
         <div style={{backgroundColor:"#3333", height:"50px",}}><ListItemText sx={{width:"23%",fontWeight:"500",float:"left",paddingTop:"10px" }}><b>&ensp; Tên sản phẩm</b></ListItemText>
         <ListItemText sx={{width:"27%",float:"left",paddingTop:"10px"}}><b>Ngày bình luận</b></ListItemText>
         <ListItemText sx={{width:"25%",float:"left",paddingTop:"10px"}}><b>Nội dung</b></ListItemText> 
@@ -143,6 +151,7 @@ export default function Repbl() {
 
         </Select>
       </FormControl></ListItemText> </div>
+     
       <List
       sx={{ width: '100%',marginTop:"-10px"  }}
       component="nav"
@@ -219,13 +228,15 @@ export default function Repbl() {
         </span>
       ))}
     </List>
-      </div>
-      <div className=" h-[57px] pt-4">
+    <div className=" h-[57px] pt-4">
                   {" "}
                   <Pagination    style={{      display: "flex", flexFlow: "row nowrap", justifyContent: "center",}}
                     color="success" count={counttrang}  page={trang}   onChange={handleChangepage}
                   ></Pagination>
                 </div>
+    </div>
+      </div>
+     
     </div>
    
   );

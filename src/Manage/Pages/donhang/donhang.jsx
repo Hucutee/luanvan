@@ -34,9 +34,10 @@ import Select from '@mui/material/Select';
 import nguoidungApi from '../../api/nguoidungApi';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Listmanager from '../list';
 export default function Donhangquanly() {
   const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
@@ -91,6 +92,9 @@ export default function Donhangquanly() {
   } setCount((e) => e + 1);}
   useEffect(() => {
     (async () => {
+      if(dataNhanvien.length==0){
+        navigate("/Manage");
+      }
     const dl = await donhangAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
     const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); 
     const dlctdh = await donhangAPI.getallctdh();
@@ -121,12 +125,16 @@ export default function Donhangquanly() {
         </div>
       </div>
       <div className="w-[84%] mx-[8%] ">
+        <div style={{width:"18%",float:"left", backgroundColor:"#f8f8f8"}}>
+          <Listmanager/>
+        </div>
+      <div style={{width:"79%",float:"right"}}>
         <div style={{backgroundColor:"#3333", height:"50px",}}><ListItemText sx={{width:"15%",fontWeight:"500",float:"left",paddingTop:"10px" }}><b>&ensp; Mã đơn hàng</b></ListItemText>
         <ListItemText sx={{width:"18%",float:"left",paddingTop:"10px"}}><b>Ngày đặt hàng</b></ListItemText>
-        <ListItemText sx={{width:"19%",float:"left",paddingTop:"10px"}}><b>Tổng đơn</b></ListItemText> 
+        <ListItemText sx={{width:"16%",float:"left",paddingTop:"10px"}}><b>Tổng đơn</b></ListItemText> 
         <ListItemText sx={{width:"24%",float:"left",paddingTop:"10px"}}><b>Hình thức thanh toán</b></ListItemText> 
 
-       <ListItemText sx={{width:"24%",float:"left" ,paddingTop:"8px"}} >  <FormControl variant="standard" color="success" size="small" sx={{  minWidth: 120 }}>
+       <ListItemText sx={{width:"27%",float:"left" ,paddingTop:"8px"}} >  <FormControl variant="standard" color="success" size="small" sx={{  minWidth: 120 }}>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -158,7 +166,7 @@ export default function Donhangquanly() {
        
         <ListItemText sx={{width:"15%"}}>{aa.ma_dh}</ListItemText>
          <ListItemText sx={{width:"18%"}}>{aa.ngay_dat_hang.slice(0,10)}</ListItemText>
-         <ListItemText sx={{width:"20%"}}>{new Intl.NumberFormat("vi-VN", {
+         <ListItemText sx={{width:"17%"}}>{new Intl.NumberFormat("vi-VN", {
                                 style: "currency",
                                 currency: "VND",
                               }).format(
@@ -168,16 +176,16 @@ export default function Donhangquanly() {
 
 }
         {aa.trang_thai ==0 ? (
-        <ListItemText sx={{width:"22%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa.ma_dh)}>Xác nhận</Button><Button onClick={(e)=>handlehuydon(aa.ma_dh)} variant="outlined" color="error">Hủy đơn</Button></ListItemText>
+        <ListItemText sx={{width:"25%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa.ma_dh)}>Xác nhận</Button><Button onClick={(e)=>handlehuydon(aa.ma_dh)} variant="outlined" color="error">Hủy đơn</Button></ListItemText>
        ):false}
         {aa.trang_thai ==5 ? (
-       <ListItemText sx={{width:"22%"}}> <Button variant="contained" color="warning">Đã hủy đơn bởi: {aa.ma_nv ? aa.ma_nv : <span> Khách Hàng</span>}</Button></ListItemText>):false}
+       <ListItemText sx={{width:"25%"}}> <Button variant="contained" color="warning">Đã hủy đơn bởi: {aa.ma_nv ? aa.ma_nv : <span> Khách Hàng</span>}</Button></ListItemText>):false}
         {aa.trang_thai > 0 && aa.trang_thai <4 ? (
-       <ListItemText sx={{width:"22%"}}> <Button variant="contained" >Đã xác nhận bởi: {aa.ma_nv}</Button></ListItemText>):false}
+       <ListItemText sx={{width:"25%"}}> <Button variant="contained" >Đã xác nhận bởi: {aa.ma_nv}</Button></ListItemText>):false}
        {aa.trang_thai ==4 ? (
-       <ListItemText sx={{width:"22%"}}> <Button variant="contained" color="success">ĐÃ GIAO NGÀY: {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
+       <ListItemText sx={{width:"25%"}}> <Button variant="contained" color="success">ĐÃ GIAO NGÀY: {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
            {aa.trang_thai >5 ? (
-       <ListItemText sx={{width:"22%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}
+       <ListItemText sx={{width:"25%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}
         {open ? <ExpandLess onClick={(e)=>handleClick(aa.ma_dh)} /> : <ExpandMore onClick={(e)=>handleClick(aa.ma_dh)} />}
         
       </ListItemButton>
@@ -242,13 +250,17 @@ export default function Donhangquanly() {
         </span>
       ))}
     </List>
-      </div>
-      <div className=" h-[57px] pt-4">
+    <div className=" h-[57px] pt-4">
                   {" "}
                   <Pagination    style={{      display: "flex", flexFlow: "row nowrap", justifyContent: "center",}}
                     color="success" count={counttrang}  page={trang}   onChange={handleChangepage}
                   ></Pagination>
                 </div>
+  
+      </div>
+      </div>
+      
+      
     </div>
    
   );

@@ -17,8 +17,13 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Pagination from "@mui/material/Pagination";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Listmanager from "../list";
 
 export default function Listncc() {
+  const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
+  const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
   const [mancc, setMancc] = useState("");
@@ -55,6 +60,9 @@ const [counttrang,setCounttrang] = useState("");
   };
   useEffect(() => {
     (async () => {
+      if(dataNhanvien.length==0){
+        navigate("/Manage");
+      }
       if (trangthai) {
         try {
           const data = await nhacungcapAPI.getList(trang);
@@ -342,11 +350,15 @@ const [counttrang,setCounttrang] = useState("");
         </div>
       </div>
       <div className="w-[84%] mx-[8%] ">
+      <div style={{width:"18%",float:"left" , backgroundColor:"#f8f8f8"}}>
+          <Listmanager/>
+        </div>
+        <div style={{width:"79%",float:"right"}}>
         <table className=" w-[100%] text-center rounded-lg	 	">
           <thead className="h-14  text-white 	">
             <tr>
               <th className="w-[20%] border-[1px] 	border-white			 border-solid">
-                <div className="rounded-tl-2xl  bg-green-700 h-[57px] pt-4 mr-[-3px]">
+                <div className=" bg-green-700 h-[57px] pt-4 mr-[-3px]">
                   Mã nhà cung cấp
                 </div>
               </th>
@@ -371,7 +383,7 @@ const [counttrang,setCounttrang] = useState("");
                 </div>
               </th>
               <th className="border-[1px] 	border-white	border-solid">
-                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] rounded-tr-2xl">
+                <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] ">
                   Sửa
                 </div>
               </th>
@@ -442,7 +454,7 @@ const [counttrang,setCounttrang] = useState("");
                 colspan="6"
                 className=" border-[1px] 	border-white			 border-solid"
               >
-                <div className="rounded-bl-2xl rounded-br-2xl   bg-gray-100 h-[57px] pt-4">
+                <div className="  bg-gray-100 h-[57px] pt-4">
                   {" "}
                   <Pagination
                     style={{
@@ -460,6 +472,7 @@ const [counttrang,setCounttrang] = useState("");
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
       <Snackbar
         open={openalert}
