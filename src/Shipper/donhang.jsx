@@ -76,7 +76,10 @@ export default function Donhangshipper() {
    await donhangAPI.addctgh(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
 
     setCount((e) => e + 1);}
-
+    const handletuchoidon = async(aa) => {
+      await donhangAPI.tuchoigiaohang(aa.ma_dh);
+   
+       setCount((e) => e + 1);}
     const handlexacnhandon1 = async(aa) => {
       await donhangAPI.setttngh1(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
       await donhangAPI.addctgh1(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
@@ -95,7 +98,7 @@ export default function Donhangshipper() {
     (async () => { console.log(dataUser);
     const dl = await donhangAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
     if(trangthai == "11"){
-      const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); console.log(dltrang);
+      const dltrang = await donhangAPI.gettrangnhangiao(trang,trangthai.slice(0,1),trangthai.slice(1),dataUser[0].ma_ngh);setDatadhtrang(dltrang); console.log(dltrang);
 
     }else {
       const dltrang = await donhangAPI.gettrangcuangh(trang,trangthai.slice(0,1),trangthai.slice(1),dataUser[0].ma_ngh);setDatadhtrang(dltrang); console.log(dltrang);
@@ -170,7 +173,8 @@ export default function Donhangshipper() {
                                 aa.tong_tien
                               )}</ListItemText> 
         {aa.trang_thai ==1 ? (
-        <ListItemText sx={{width:"16%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa)}>Nhận đơn</Button></ListItemText>
+        <ListItemText sx={{width:"16%"}}><Button variant="outlined" color="success" sx={{marginRight:"5%"}} onClick={(e)=>handlexacnhandon(aa)}>Nhận đơn</Button>
+                                          <Button variant="outlined" color="error" sx={{}} onClick={(e)=>handletuchoidon(aa)}>từ chối</Button></ListItemText>
        ):false}
         {aa.trang_thai >5 ? (
        <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}

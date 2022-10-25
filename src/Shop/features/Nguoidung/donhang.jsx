@@ -209,9 +209,7 @@ const handlehuy = async(madh) => {
                               {aa.trang_thai == 0 ? <Button onClick={(e)=>handlehuy(aa.ma_dh)} sx={{marginTop:"10px"}}variant="outlined" size="small" color="error">Hủy đơn</Button>:false}
                               </StepLabel>
                             </Step>
-                            <Step key="aaa">
-                              <StepLabel></StepLabel>
-                            </Step>
+                          
                             <Step key="aaa">
                               <StepLabel>Đang giao</StepLabel>
                             </Step>
@@ -231,9 +229,7 @@ const handlehuy = async(madh) => {
                                 <StepLabel>Chờ xác nhận
                                 </StepLabel>
                               </Step>
-                              <Step key="aaa">
-                                <StepLabel>Chờ lấy hàng</StepLabel>
-                              </Step>
+                            
                               <Step key="aaa">
                                 <StepLabel>Đang giao</StepLabel>
                               </Step>
@@ -255,9 +251,7 @@ const handlehuy = async(madh) => {
                                 <StepLabel><Button  variant="contained" size="small" color="warning">Đã bị hủy </Button>
                                 </StepLabel>
                               </Step>
-                              <Step key="aaa">
-                                <StepLabel>Tìm người giao hàng</StepLabel>
-                              </Step>
+                             
                               <Step key="aaa">
                                 <StepLabel>Đang giao</StepLabel>
                               </Step>

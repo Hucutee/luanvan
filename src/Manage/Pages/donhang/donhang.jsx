@@ -52,6 +52,18 @@ export default function Donhangquanly() {
   const [dataallctgh, setDataallctgh] = useState([]);
   const [nguoidung, setNguoidung] = useState([]);
   const [datangh, setDatangh] = useState([]);
+  const [listngh, setListngh] = useState([]);
+  const [chonngh, setChonngh] = useState("");
+  const handleChonngh = (event) => {
+    setChonngh(event.target.value); setCount((e) => e + 1);console.log(event.target.value);
+  };
+  const handlesetngh = async(madh) => {
+    console.log(madh);
+    if(chonngh){
+      await donhangAPI.setchonngh(madh,chonngh);setChonngh("");
+    }
+    setCount((e) => e + 1);
+  };
 
   const handleChangetrangthai = (event) => {
     setTrangthai(event.target.value); setCount((e) => e + 1);console.log(event.target.value);
@@ -101,7 +113,7 @@ export default function Donhangquanly() {
     setDatadh(dl);    setDatactdh(dlctdh);
     const alllctgh = await donhangAPI.allctgh();setDataallctgh(alllctgh);
     const ngh = await donhangAPI.ttngh();setDatangh(ngh);console.log(ngh);
-
+    const listnghh = await donhangAPI.listngh();setListngh(listnghh);console.log(ngh);
       const nd = await nguoidungApi.login(); setNguoidung(nd); console.log(nd);
     })();
   }, [count]);
@@ -144,7 +156,8 @@ export default function Donhangquanly() {
         >
                     <MenuItem value="06"><b>Tất cả đơn hàng</b></MenuItem>
           <MenuItem value="00"><b>Chưa xác nhận</b></MenuItem>
-          <MenuItem value="13"><b>Đã xác nhận</b></MenuItem>
+          <MenuItem value="11"><b>Chưa có người giao</b></MenuItem>
+          <MenuItem value="23"><b>Đã có người giao</b></MenuItem>
           <MenuItem value="44"><b>Đã hoàn thành</b></MenuItem>
           <MenuItem value="55"><b>Đơn đã hủy</b></MenuItem>
           <MenuItem value="66"><b>Khách boom hàng</b></MenuItem>
@@ -204,8 +217,30 @@ export default function Donhangquanly() {
                       <tbody className="">
                       <tr>
                           <td           colSpan={5}
-                            className="border-[2px] 	border-gray-300		p-4	 border-solid w-[40%] text-base ">Thông tin khách hàng: {aa.nguoi_nhan}. &ensp; &ensp; &ensp; &ensp; Địa chỉ giao: {aa.dia_chi_giao}.  {nguoidung.map((nd)=>(nd.ma_nd==aa.ma_kh && nd.boom >0 ? <p style={{color:'red'}}>Đã boom hàng {nd.boom} lần.</p> : false))}<br/>
+                            className="border-[2px] 	border-gray-300		p-4	 border-solid w-[40%] text-base ">
+                              {aa.trang_thai==1 &&  aa.chon_nguoi_giao == null ? (<div>
+                              <FormControl size="medium" color="warning" sx={{width:"30%",marginBottom:"20px", marginRight:"10px"}}>
+                              <InputLabel id="demo-simple-select-label">Chọn người giao hàng</InputLabel>
+                            
+                               <Select
+                                value={chonngh}
+                                onChange={handleChonngh}
+                               labelId="demo-simple-select-standard-label"
+                               id="demo-simple-select-standard"
+                               label="Chọn người giao hàng"
+                             >
+                               {listngh.map((ngh)=>( <MenuItem value={ngh.ma_ngh}>{ngh.ten_ngh}</MenuItem>))} 
+                             </Select>
+                             </FormControl>
+                             <Button onClick={(e)=>handlesetngh(aa.ma_dh)}  sx={{height:"55px"}} variant="contained" color="warning">Chọn</Button>
+                             </div>
+                             
+                            ):false}
+                                                           {aa.trang_thai ==1 && aa.chon_nguoi_giao != null ? <p>Chờ xác nhận từ người giao hàng {listngh.map((ngh)=>(aa.chon_nguoi_giao==ngh.ma_ngh ? <b>{ngh.ten_ngh}</b>:false))}</p>:false}    
+
+                            <p>  Thông tin khách hàng: {aa.nguoi_nhan}. &ensp; &ensp; &ensp; &ensp; Địa chỉ giao: {aa.dia_chi_giao}.  {nguoidung.map((nd)=>(nd.ma_nd==aa.ma_kh && nd.boom >0 ? <p style={{color:'red'}}>Đã boom hàng {nd.boom} lần.</p> : false))}<br/></p>
                             {datangh.map((ngh)=>(ngh.ma_dh==aa.ma_dh && ngh.ma_ngh !="NGH1" ? <p>Thông tin người giao hàng: {ngh.ten_ngh}. &ensp;&ensp;&ensp; Số điện thoại: {ngh.sdt}</p>:false))}
+                            
                             </td>
                        </tr>
                         {datactdh?.map((aaa) =>
