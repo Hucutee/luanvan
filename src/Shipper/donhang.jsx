@@ -72,9 +72,12 @@ export default function Donhangshipper() {
     setCount((e) => e + 1);
   };
   const handlexacnhandon = async(aa) => {
+    if(aa.trang_thai == 3){
+      await donhangAPI.guimailnhanhang(aa.ma_kh,aa.ma_dh);
+     }
    await donhangAPI.setttngh(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
    await donhangAPI.addctgh(aa.ma_dh,dataUser[0].ma_ngh,aa.trang_thai);
-
+  
     setCount((e) => e + 1);}
     const handletuchoidon = async(aa) => {
       await donhangAPI.tuchoigiaohang(aa.ma_dh);
@@ -111,7 +114,15 @@ export default function Donhangshipper() {
 
     })();
   }, [count]);
-
+  const [file, setFile] = React.useState();
+  const send = async (madh) => {
+    const data = new FormData();
+    data.append("file", file);
+    console.log(file);
+    data.append("madh", madh);
+    await donhangAPI.hinhdonhang(data);
+    setCount((e) => e + 1);
+  };
   return (
     <div>
        
@@ -202,7 +213,23 @@ export default function Donhangshipper() {
                       <tbody className="">
                        <tr>
                <td             colSpan={4} 
-                            className="border-[2px] 	border-gray-300		p-4	 border-solid w-[40%] text-base ">Thông tin khách hàng: {aa.nguoi_nhan}. &ensp;  &ensp;  &ensp; &ensp; Địa chỉ giao: {aa.dia_chi_giao}</td>
+                            className="border-[2px] 	border-gray-300		p-4	 border-solid w-[40%] text-base ">
+                               {aa.trang_thai == 4 && aa.anh == null ?  <div class="form-group" style={{marginBottom:"20px"}}>
+                              <input color="success"
+                                type="file"
+                                id="file"
+                                name="file"
+                                accept=".jpg"
+                                onChange={(event) => {
+                                  const file = event.target.files[0];
+                                  setFile(file);
+                                }}
+                              />
+                              <Button  color="success" variant="contained" onClick={(e)=>send(aa.ma_dh)} >Thực hiện</Button>
+
+                            </div>:false}
+                              <p>                              Thông tin khách hàng: {aa.nguoi_nhan}. &ensp;  &ensp;  &ensp; &ensp; Địa chỉ giao: {aa.dia_chi_giao}</p>
+                              </td>
                        </tr>
                         {datactdh?.map((aaa) =>
                           aaa.ma_dh == aa.ma_dh ? (
@@ -230,6 +257,17 @@ export default function Donhangshipper() {
                             false
                           )
                         )}
+                       {aa.anh != null ?
+                        <tr >
+                        <td colSpan={4} ><p  style={{margin: "20px" }}><b>Ảnh xác nhận</b></p>
+                        <div style={{margin: "20px" }}> <Zoom
+                  img={require("./../imageuser/" + aa.anh )}
+                  height={300}
+                  width={200}
+                /></div>
+                          
+                        </td>
+                      </tr>:false}
                       </tbody>
                     </table>
                   </Grid>

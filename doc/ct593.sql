@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 25, 2022 lúc 02:45 PM
+-- Thời gian đã tạo: Th10 26, 2022 lúc 11:15 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -40,11 +40,9 @@ CREATE TABLE `anh_dai_dien` (
 --
 
 INSERT INTO `anh_dai_dien` (`ma_avt`, `ten_avt`, `ma_nd`, `ngay_them`, `trang_thai`) VALUES
-('AVT1', '1665200672343.jpg', 'ND02', '2022-10-08 10:44:32', 0),
 ('AVT2', '1665217893582.jpg', 'ND01', '2022-10-08 15:31:33', 1),
 ('AVT3', '1665218004794.jpg', 'ND01', '2022-10-08 15:33:24', 1),
-('AVT4', '1665218410283.jpg', 'ND01', '2022-10-08 15:40:10', 0),
-('AVT5', '1665299207433.jpg', 'ND03', '2022-10-09 14:06:47', 0);
+('AVT4', '1665218410283.jpg', 'ND01', '2022-10-08 15:40:10', 0);
 
 --
 -- Bẫy `anh_dai_dien`
@@ -130,57 +128,17 @@ CREATE TABLE `chi_tiet_dh` (
 --
 
 INSERT INTO `chi_tiet_dh` (`ma_ctdh`, `ma_ctsp`, `ma_dh`, `so_luong`, `gia`, `trang_thai`) VALUES
-('CTD1', 'CT022', 'DH01', 1, 27000, 0),
 ('CTD10', 'CT031', 'DH06', 5, 25000, 0),
-('CTD11', 'CT047', 'DH07', 1, 13500, 0),
-('CTD12', 'CT048', 'DH07', 1, 67500, 0),
-('CTD13', 'CT022', 'DH07', 1, 27000, 0),
-('CTD14', 'CT044', 'DH08', 1, 12000, 0),
-('CTD15', 'CT040', 'DH08', 1, 16000, 0),
-('CTD16', 'CT022', 'DH09', 5, 27000, 0),
-('CTD17', 'CT027', 'DH09', 1, 50000, 0),
-('CTD18', 'CT034', 'DH010', 1, 20000, 0),
-('CTD19', 'CT027', 'DH011', 6, 50000, 0),
-('CTD2', 'CT039', 'DH02', 4, 82000, 0),
-('CTD20', 'CT073', 'DH012', 12, 70000, 0),
-('CTD21', 'CT039', 'DH013', 11, 82000, 0),
-('CTD22', 'CT047', 'DH014', 1, 13500, 0),
-('CTD23', 'CT048', 'DH014', 1, 67500, 0),
-('CTD24', 'CT051', 'DH014', 1, 90000, 0),
-('CTD25', 'CT047', 'DH017', 1, 13500, 0),
-('CTD26', 'CT048', 'DH017', 1, 67500, 0),
-('CTD27', 'CT082', 'DH018', 15, 25000, 0),
-('CTD28', 'CT070', 'DH019', 1, 40000, 0),
-('CTD29', 'CT035', 'DH019', 1, 50000, 0),
-('CTD3', 'CT075', 'DH02', 4, 65000, 0),
-('CTD30', 'CT022', 'DH020', 1, 27000, 0),
-('CTD31', 'CT034', 'DH021', 1, 20000, 0),
-('CTD32', 'CT070', 'DH022', 1, 40000, 0),
-('CTD33', 'CT035', 'DH023', 1, 50000, 0),
-('CTD34', 'CT022', 'DH024', 1, 27000, 0),
-('CTD35', 'CT022', 'DH025', 1, 27000, 0),
-('CTD36', 'CT022', 'DH026', 1, 27000, 0),
-('CTD37', 'CT089', 'DH026', 1, 20000, 0),
-('CTD38', 'CT089', 'DH027', 1, 20000, 0),
-('CTD39', 'CT075', 'DH028', 1, 65000, 0),
 ('CTD4', 'CT048', 'DH03', 1, 67500, 0),
-('CTD40', 'CT043', 'DH029', 1, 36000, 0),
-('CTD41', 'CT026', 'DH030', 4, 9600, 0),
-('CTD42', 'CT046', 'DH031', 1, 136000, 0),
-('CTD45', 'CT026', 'DH033', 3, 9600, 0),
-('CTD46', 'CT026', 'DH034', 8, 9600, 0),
-('CTD49', 'CT031', 'DH037', 1, 25000, 0),
 ('CTD5', 'CT051', 'DH03', 1, 90000, 0),
-('CTD50', 'CT077', 'DH038', 4, 40000, 0),
-('CTD52', 'CT075', 'DH040', 1, 65000, 0),
-('CTD53', 'CT052', 'DH041', 5, 13500, 0),
-('CTD54', 'CT046', 'DH042', 1, 136000, 1),
-('CTD55', 'CT043', 'DH042', 1, 36000, 0),
-('CTD56', 'CT045', 'DH043', 1, 136000, 0),
-('CTD57', 'CT041', 'DH043', 1, 32000, 0),
 ('CTD58', 'CT022', 'DH044', 1, 27000, 0),
 ('CTD59', 'CT045', 'DH045', 1, 136000, 0),
 ('CTD6', 'CT043', 'DH04', 1, 36000, 1),
+('CTD60', 'CT022', 'DH046', 1, 27000, 0),
+('CTD61', 'CT031', 'DH047', 1, 25000, 0),
+('CTD62', 'CT033', 'DH048', 1, 15000, 0),
+('CTD63', 'CT027', 'DH049', 1, 50000, 0),
+('CTD64', 'CT033', 'DH050', 1, 15000, 0),
 ('CTD7', 'CT046', 'DH04', 1, 136000, 1),
 ('CTD8', 'CT047', 'DH05', 1, 13500, 0),
 ('CTD9', 'CT048', 'DH05', 8, 67500, 0);
@@ -268,12 +226,12 @@ CREATE TABLE `chi_tiet_san_pham` (
 
 INSERT INTO `chi_tiet_san_pham` (`ma_ctsp`, `ma_sp`, `ma_kt`, `soluong`, `giaban`, `thongtin`, `ten_sp`, `ten_kt`, `hinhanh`, `da_ban`) VALUES
 ('CT018', 'SP01', 'KT03', 13, 30000, 'Sen đá xứ lạnh', 'Sen đá hoa hồng', 'Trung', '4-sen-da-hoa-hong-xanh-lon.jpg', 5),
-('CT022', 'SP010', 'KT03', 85, 30000, 'Sen đá xứ lạnh', 'Sen đá hồng phấn', 'Trung', 'hong phan trung.jpg', 26),
+('CT022', 'SP010', 'KT03', 84, 30000, 'Sen đá xứ lạnh', 'Sen đá hồng phấn', 'Trung', 'hong phan trung.jpg', 27),
 ('CT024', 'SP03', 'KT02', 110, 20000, 'Xương rồng ', 'Xương rồng thanh sơn', 'Vừa', 'xuong-rong-thanh-son-nho.jpg', 0),
 ('CT026', 'SP02', 'KT01', 105, 12000, 'Xương rồng', 'Xương rồng tay thỏ', 'Nhỏ', 'xuong-rong-tai-tho-nho.jpg', 6),
-('CT027', 'SP011', 'KT02', 107, 50000, 'Chậu tiểu cảnh sen đá', 'Chậu tiểu cảnh sen đá', 'Vừa', 'chau cay van phong 1.jpg', 9),
-('CT031', 'SP012', 'KT01', 117, 25000, 'Đá rải mặt Masato trọng lượng 1 kí', 'Đá Masato (1kg)', 'Nhỏ', 'masato.jpg', 11),
-('CT033', 'SP014', 'KT03', 105, 15000, 'Thuốc tím túi 1kg', 'Thuốc tím', 'Trung', 'thuoc-tim-thai-lan.jpg', 5),
+('CT027', 'SP011', 'KT02', 106, 50000, 'Chậu tiểu cảnh sen đá', 'Chậu tiểu cảnh sen đá', 'Vừa', 'chau cay van phong 1.jpg', 10),
+('CT031', 'SP012', 'KT01', 116, 25000, 'Đá rải mặt Masato trọng lượng 1 kí', 'Đá Masato (1kg)', 'Nhỏ', 'masato.jpg', 12),
+('CT033', 'SP014', 'KT03', 103, 15000, 'Thuốc tím túi 1kg', 'Thuốc tím', 'Trung', 'thuoc-tim-thai-lan.jpg', 7),
 ('CT034', 'SP013', 'KT01', 1020, 20000, 'Thuốc Coc85 bịch 20g', 'Thuốc trị nấm Coc85', 'Nhỏ', 'coc85 nho.jpg', 10),
 ('CT035', 'SP013', 'KT03', 105, 50000, 'Thuốc Coc85 bịch 100g', 'Thuốc trị nấm Coc85', 'Trung', 'COC-85-01.jpg', 4),
 ('CT036', 'SP015', 'KT01', 40, 75000, 'Chậu tiểu cảnh xương rồng nhiều loại', 'Mix xương rồng', 'Nhỏ', 'mix a.jpg', 0),
@@ -364,8 +322,7 @@ CREATE TABLE `danh_gia` (
 
 INSERT INTO `danh_gia` (`ma_dg`, `so_sao`, `ngay`, `noi_dung`, `hinh_anh`, `ma_ctdh`) VALUES
 ('DG01', 5, '2022-10-08 19:39:25', 'Giao hàng nhanh, cây đẹp lắm ạ', '', 'CTD6'),
-('DG02', 4, '2022-10-08 19:40:07', 'Cây đẹp lắm nhưng giao hoi lâu', '1665232807879.jpg', 'CTD7'),
-('DG03', 5, '2022-10-12 21:35:47', 'Sản phẩm đẹp , giao hàng nhanh', '1665585346997.jpg', 'CTD54');
+('DG02', 4, '2022-10-08 19:40:07', 'Cây đẹp lắm nhưng giao hoi lâu', '1665232807879.jpg', 'CTD7');
 
 --
 -- Bẫy `danh_gia`
@@ -401,9 +358,7 @@ CREATE TABLE `dia_chi` (
 --
 
 INSERT INTO `dia_chi` (`ma_dc`, `ten_dc`, `ma_nd`) VALUES
-('DC01', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 'ND02'),
 ('DC02', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 'ND01'),
-('DC03', 'an khánh, ninh kiều, cần thơ', 'ND03'),
 ('DC04', 'a, aa, a, a', 'ND04');
 
 --
@@ -467,53 +422,26 @@ CREATE TABLE `don_hang` (
   `trang_thai` int(20) NOT NULL,
   `nguoi_nhan` varchar(255) DEFAULT NULL,
   `hoan_tien` int(5) DEFAULT 0,
-  `chon_nguoi_giao` varchar(50) DEFAULT NULL
+  `chon_nguoi_giao` varchar(50) DEFAULT NULL,
+  `anh` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `don_hang`
 --
 
-INSERT INTO `don_hang` (`ma_dh`, `ma_kh`, `ma_pgg`, `ma_nv`, `ngay_dat_hang`, `dia_chi_giao`, `hinh_thuc_thanh_toan`, `tong_tien`, `trang_thai`, `nguoi_nhan`, `hoan_tien`, `chon_nguoi_giao`) VALUES
-('DH01', 'ND02', 'PGG1', 'ND01', '2022-10-08 13:33:10', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 27000, 4, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH010', 'ND03', 'PGG1', 'ND01', '2022-10-11 14:18:19', 'an khánh, ninh kiều, cần thơ', 1, 50000, 2, 'Bùi Công minh, 09848757485', 0, NULL),
-('DH011', 'ND03', 'PGG2', 'ND01', '2022-10-11 14:20:04', 'an khánh, ninh kiều, cần thơ', 1, 320000, 6, 'Bùi Công minh, 0984885856', 0, NULL),
-('DH012', 'ND03', 'PGG2', 'ND01', '2022-10-11 14:21:18', 'an khánh, ninh kiều, cần thơ', 1, 830000, 6, 'Bùi Công Minh, 09485858585', 0, NULL),
-('DH013', 'ND03', 'PGG1', 'ND01', '2022-10-11 14:21:55', 'an khánh, ninh kiều, cần thơ', 1, 902000, 3, 'Bùi Công Minh, 0947574785', 0, NULL),
-('DH014', 'ND03', 'PGG1', 'ND01', '2022-10-11 15:12:21', 'an khánh, ninh kiều, cần thơ', 1, 201000, 4, 'Bùi Công Minh, 0948848433', 0, NULL),
-('DH017', 'ND03', 'PGG1', 'ND01', '2022-10-11 20:20:02', 'an khánh, ninh kiều, cần thơ', 2, 111000, 4, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH018', 'ND03', 'PGG2', 'ND01', '2022-10-11 21:03:58', 'an khánh, ninh kiều, cần thơ', 2, 395000, 6, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH019', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:31:56', 'an khánh, ninh kiều, cần thơ', 2, 120000, 6, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH02', 'ND02', 'PGG2', 'ND01', '2022-10-08 13:34:15', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 578000, 4, 'Bùi Công Minh, 0924778854', 0, NULL),
-('DH020', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:49:16', 'an khánh, ninh kiều, cần thơ', 2, 57000, 6, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH021', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:51:29', 'an khánh, ninh kiều, cần thơ', 2, 50000, 4, 'Bùi Công a, 0987654321', 0, NULL),
-('DH022', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:55:02', 'an khánh, ninh kiều, cần thơ', 2, 70000, 0, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH023', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:56:49', 'an khánh, ninh kiều, cần thơ', 2, 80000, 5, 'Bùi Công a, 0987654321', 1, NULL),
-('DH024', 'ND03', 'PGG1', 'ND01', '2022-10-11 21:58:24', 'an khánh, ninh kiều, cần thơ', 2, 57000, 4, 'Trần Minh a, 0987654321', 0, NULL),
-('DH025', 'ND03', 'PGG1', 'ND01', '2022-10-11 22:00:01', 'an khánh, ninh kiều, cần thơ', 2, 57000, 4, 'Bùi Công a, 0987654321', 0, NULL),
-('DH026', 'ND03', 'PGG1', 'ND01', '2022-10-11 22:04:23', 'an khánh, ninh kiều, cần thơ', 2, 77000, 2, 'Bùi Công a, 0987654321', 0, NULL),
-('DH027', 'ND03', 'PGG1', 'ND01', '2022-10-11 22:12:18', 'an khánh, ninh kiều, cần thơ', 2, 50000, 5, 'Bùi Công a, 0987654321', 1, NULL),
-('DH028', 'ND03', 'PGG1', 'ND01', '2022-10-12 10:05:23', 'an khánh, ninh kiều, cần thơ', 2, 95000, 4, 'as as, 0734758443', 0, NULL),
-('DH029', 'ND03', 'PGG1', 'ND01', '2022-10-12 10:18:31', 'an khánh, ninh kiều, cần thơ', 2, 66000, 4, 'Trần Minh a, 0987654321', 0, NULL),
-('DH03', 'ND01', 'PGG2', 'ND01', '2022-10-08 16:10:02', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 147500, 6, 'Phan Trung Hậu, 0934737645', 0, NULL),
-('DH030', 'ND03', 'PGG1', 'ND01', '2022-10-12 10:29:55', 'an khánh, ninh kiều, cần thơ', 2, 68400, 4, 'a a, 0987654321', 0, NULL),
-('DH031', 'ND03', 'PGG1', 'ND01', '2022-10-12 11:26:08', 'an khánh, ninh kiều, cần thơ', 2, 166000, 5, 'Bùi Công a, 0987654321', 0, NULL),
-('DH033', 'ND03', 'PGG1', 'ND01', '2022-10-12 11:32:34', 'an khánh, ninh kiều, cần thơ', 2, 58800, 5, 'Bùi Công a, 0987654321', 1, NULL),
-('DH034', 'ND03', 'PGG1', 'ND01', '2022-10-12 11:40:46', 'an khánh, ninh kiều, cần thơ', 2, 106800, 5, 'Trần Minh a, 0987654321', 1, NULL),
-('DH037', 'ND03', 'PGG1', 'ND01', '2022-10-12 14:49:32', 'an khánh, ninh kiều, cần thơ', 2, 55000, 4, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH038', 'ND03', 'PGG1', 'ND01', '2022-10-12 15:02:18', 'an khánh, ninh kiều, cần thơ', 2, 190000, 4, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH04', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:01:30', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 162000, 4, 'Phan Trung Hậu, 09094874394', 0, NULL),
-('DH040', 'ND03', 'PGG1', 'ND01', '2022-10-12 15:44:21', 'an khánh, ninh kiều, cần thơ', 2, 95000, 5, 'Bùi Công Minh, 0987654321', 1, NULL),
-('DH041', 'ND03', 'PGG1', 'ND01', '2022-10-12 15:48:54', 'an khánh, ninh kiều, cần thơ', 2, 97500, 4, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH042', 'ND03', 'PGG2', 'ND01', '2022-10-12 20:31:26', 'an khánh, ninh kiều, cần thơ', 2, 192000, 4, 'Bùi Công Minh, 0987654321', 1, NULL),
-('DH043', 'ND03', 'PGG1', 'ND01', '2022-10-12 20:33:32', 'an khánh, ninh kiều, cần thơ', 1, 198000, 4, 'Bùi Công Minh, 0987654321', 0, NULL),
-('DH044', 'ND04', 'PGG1', 'ND01', '2022-10-22 14:58:37', 'a, aa, a, a', 1, 57000, 2, 'Hau Hau, 03984848334', 0, 'NGH3'),
-('DH045', 'ND04', 'PGG1', NULL, '2022-10-22 14:59:57', 'a, aa, a, a', 2, 166000, 5, 'Hau Hau, 03984848334', 0, NULL),
-('DH05', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:44:08', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 543500, 5, 'Phan Trung Hậu, 0337474374', 0, NULL),
-('DH06', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:49:11', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 115000, 4, 'Phan Trung Hậu, 0947475753', 0, NULL),
-('DH07', 'ND03', 'PGG2', 'ND01', '2022-10-09 14:08:30', 'an khánh, ninh kiều, cần thơ', 1, 98000, 5, 'Trần Thị Diểm Ly, 0987654334', 0, NULL),
-('DH08', 'ND03', 'PGG1', 'ND01', '2022-10-09 14:09:29', 'an khánh, ninh kiều, cần thơ', 1, 28000, 4, 'Trần Thị Diểm  Ly, 0965545434', 0, NULL),
-('DH09', 'ND03', 'PGG1', 'ND01', '2022-10-11 14:08:38', 'an khánh, ninh kiều, cần thơ', 1, 185000, 1, 'Bùi Công Minh, 0948484875', 0, 'NGH5');
+INSERT INTO `don_hang` (`ma_dh`, `ma_kh`, `ma_pgg`, `ma_nv`, `ngay_dat_hang`, `dia_chi_giao`, `hinh_thuc_thanh_toan`, `tong_tien`, `trang_thai`, `nguoi_nhan`, `hoan_tien`, `chon_nguoi_giao`, `anh`) VALUES
+('DH03', 'ND01', 'PGG2', 'ND01', '2022-10-08 16:10:02', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 147500, 6, 'Phan Trung Hậu, 0934737645', 0, NULL, NULL),
+('DH04', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:01:30', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 162000, 4, 'Phan Trung Hậu, 09094874394', 0, NULL, NULL),
+('DH044', 'ND04', 'PGG1', 'ND01', '2022-10-22 14:58:37', 'a, aa, a, a', 1, 57000, 4, 'Hau Hau, 03984848334', 0, 'NGH3', NULL),
+('DH045', 'ND04', 'PGG1', NULL, '2022-10-22 14:59:57', 'a, aa, a, a', 2, 166000, 5, 'Hau Hau, 03984848334', 0, NULL, NULL),
+('DH046', 'ND04', 'PGG1', 'ND01', '2022-10-26 14:50:38', 'a, aa, a, a', 1, 57000, 5, 'Hau Hau, 03984848334', 0, 'NGH3', NULL),
+('DH047', 'ND04', 'PGG1', 'ND01', '2022-10-26 14:54:04', 'a, aa, a, a', 1, 55000, 2, 'Hau Hau, 03984848334', 0, 'NGH3', NULL),
+('DH048', 'ND04', 'PGG1', 'ND01', '2022-10-26 14:56:19', 'a, aa, a, a', 1, 45000, 4, 'Hau Hau, 03984848334', 0, 'NGH3', NULL),
+('DH049', 'ND04', 'PGG1', 'ND01', '2022-10-26 15:06:56', 'a, aa, a, a', 1, 80000, 4, 'Hau Hau, 03984848334', 0, 'NGH3', NULL),
+('DH05', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:44:08', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 543500, 5, 'Phan Trung Hậu, 0337474374', 0, NULL, NULL),
+('DH050', 'ND04', 'PGG1', 'ND01', '2022-10-26 15:11:11', 'a, aa, a, a', 1, 45000, 4, 'Hau Hau, 03984848334', 0, 'NGH3', '1666774509708.jpg'),
+('DH06', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:49:11', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 115000, 4, 'Phan Trung Hậu, 0947475753', 0, NULL, NULL);
 
 --
 -- Bẫy `don_hang`
@@ -553,86 +481,31 @@ CREATE TABLE `giao_hang` (
 
 INSERT INTO `giao_hang` (`ma_gh`, `ngay_gh`, `ma_ngh`, `ma_dh`, `ghi_chu`, `trang_thai`) VALUES
 ('GH01', '2022-10-08', 'NGH3', 'DH04', '', 2),
-('GH010', '2022-10-08', 'NGH3', 'DH02', '', 4),
-('GH011', '2022-10-08', 'NGH3', 'DH01', '', 3),
-('GH012', '2022-10-08', 'NGH3', 'DH01', '', 4),
+('GH0100', '2022-10-26', 'NGH3', 'DH049', '', 4),
+('GH0101', '2022-10-26', 'NGH3', 'DH050', '', 2),
+('GH0102', '2022-10-26', 'NGH3', 'DH050', '', 3),
+('GH0103', '2022-10-26', 'NGH3', 'DH050', '', 4),
 ('GH013', '2022-10-09', 'NGH3', 'DH06', '', 2),
 ('GH014', '2022-10-09', 'NGH3', 'DH06', '', 3),
 ('GH015', '2022-10-09', 'NGH3', 'DH06', '', 4),
-('GH016', '2022-10-09', 'NGH3', 'DH08', '', 2),
-('GH017', '2022-10-09', 'NGH3', 'DH08', '', 3),
-('GH018', '2022-10-09', 'NGH3', 'DH08', '', 4),
-('GH019', '2022-10-12', 'NGH3', 'DH043', '', 2),
 ('GH02', '2022-10-08', 'NGH3', 'DH03', '', 2),
-('GH020', '2022-10-12', 'NGH3', 'DH042', '', 2),
-('GH021', '2022-10-12', 'NGH3', 'DH041', '', 2),
-('GH022', '2022-10-12', 'NGH3', 'DH038', '', 2),
-('GH023', '2022-10-12', 'NGH3', 'DH037', '', 2),
-('GH024', '2022-10-12', 'NGH3', 'DH037', '', 2),
-('GH03', '2022-10-08', 'NGH3', 'DH02', '', 2),
-('GH031', '2022-10-12', 'NGH3', 'DH031', '', 2),
-('GH032', '2022-10-12', 'NGH3', 'DH031', '', 2),
-('GH033', '2022-10-12', 'NGH3', 'DH030', '', 2),
-('GH034', '2022-10-12', 'NGH3', 'DH029', '', 2),
-('GH035', '2022-10-12', 'NGH3', 'DH028', '', 2),
-('GH036', '2022-10-12', 'NGH3', 'DH025', '', 2),
-('GH037', '2022-10-12', 'NGH3', 'DH024', '', 2),
-('GH038', '2022-10-12', 'NGH3', 'DH021', '', 2),
-('GH039', '2022-10-12', 'NGH3', 'DH020', '', 2),
-('GH04', '2022-10-08', 'NGH3', 'DH01', '', 2),
-('GH040', '2022-10-12', 'NGH3', 'DH019', '', 2),
-('GH041', '2022-10-12', 'NGH3', 'DH018', '', 2),
-('GH042', '2022-10-12', 'NGH3', 'DH017', '', 2),
-('GH043', '2022-10-12', 'NGH3', 'DH014', '', 2),
-('GH044', '2022-10-12', 'NGH3', 'DH013', '', 2),
-('GH045', '2022-10-12', 'NGH3', 'DH012', '', 2),
-('GH046', '2022-10-12', 'NGH3', 'DH011', '', 2),
-('GH047', '2022-10-12', 'NGH3', 'DH043', '', 3),
-('GH048', '2022-10-12', 'NGH3', 'DH042', '', 3),
-('GH049', '2022-10-12', 'NGH3', 'DH041', '', 3),
 ('GH05', '2022-10-08', 'NGH3', 'DH04', '', 3),
-('GH050', '2022-10-12', 'NGH3', 'DH038', '', 3),
-('GH051', '2022-10-12', 'NGH3', 'DH030', '', 3),
-('GH052', '2022-10-12', 'NGH3', 'DH029', '', 3),
-('GH053', '2022-10-12', 'NGH3', 'DH028', '', 3),
-('GH054', '2022-10-12', 'NGH3', 'DH025', '', 3),
-('GH055', '2022-10-12', 'NGH3', 'DH024', '', 3),
-('GH056', '2022-10-12', 'NGH3', 'DH021', '', 3),
-('GH057', '2022-10-12', 'NGH3', 'DH020', '', 3),
-('GH058', '2022-10-12', 'NGH3', 'DH019', '', 3),
-('GH059', '2022-10-12', 'NGH3', 'DH018', '', 3),
 ('GH06', '2022-10-08', 'NGH3', 'DH04', '', 4),
-('GH060', '2022-10-12', 'NGH3', 'DH017', '', 3),
-('GH061', '2022-10-12', 'NGH3', 'DH014', '', 3),
-('GH062', '2022-10-12', 'NGH3', 'DH013', '', 3),
-('GH063', '2022-10-12', 'NGH3', 'DH043', '', 4),
-('GH064', '2022-10-12', 'NGH3', 'DH041', '', 4),
-('GH065', '2022-10-12', 'NGH3', 'DH042', '', 4),
-('GH066', '2022-10-12', 'NGH3', 'DH038', '', 4),
-('GH067', '2022-10-12', 'NGH3', 'DH037', '', 4),
-('GH068', '2022-10-12', 'NGH3', 'DH031', '', 4),
-('GH069', '2022-10-12', 'NGH3', 'DH031', '', 4),
 ('GH07', '2022-10-08', 'NGH3', 'DH03', '', 3),
-('GH070', '2022-10-12', 'NGH3', 'DH030', '', 4),
-('GH071', '2022-10-12', 'NGH3', 'DH029', '', 4),
-('GH072', '2022-10-12', 'NGH3', 'DH028', '', 4),
-('GH073', '2022-10-12', 'NGH3', 'DH025', '', 4),
-('GH074', '2022-10-12', 'NGH3', 'DH024', '', 4),
-('GH075', '2022-10-12', 'NGH3', 'DH020', '', 6),
-('GH076', '2022-10-12', 'NGH3', 'DH019', '', 6),
-('GH077', '2022-10-12', 'NGH3', 'DH018', '', 6),
-('GH078', '2022-10-12', 'NGH3', 'DH021', '', 4),
-('GH079', '2022-10-12', 'NGH3', 'DH017', '', 4),
 ('GH08', '2022-10-08', 'NGH3', 'DH03', '', 6),
-('GH080', '2022-10-12', 'NGH3', 'DH014', '', 4),
-('GH081', '2022-10-12', 'NGH3', 'DH026', '', 2),
-('GH082', '2022-10-12', 'NGH3', 'DH010', '', 2),
-('GH083', '2022-10-12', 'NGH3', 'DH012', '', 3),
-('GH084', '2022-10-12', 'NGH3', 'DH012', '', 6),
-('GH085', '2022-10-12', 'NGH3', 'DH011', '', 3),
-('GH086', '2022-10-12', 'NGH3', 'DH011', '', 6),
 ('GH087', '2022-10-25', 'NGH3', 'DH044', '', 2),
-('GH09', '2022-10-08', 'NGH3', 'DH02', '', 3);
+('GH088', '2022-10-26', 'NGH3', 'DH044', '', 3),
+('GH089', '2022-10-26', 'NGH3', 'DH044', '', 4),
+('GH090', '2022-10-26', 'NGH3', 'DH046', '', 2),
+('GH091', '2022-10-26', 'NGH3', 'DH046', '', 3),
+('GH092', '2022-10-26', 'NGH3', 'DH046', '', 4),
+('GH093', '2022-10-26', 'NGH3', 'DH046', '', 4),
+('GH094', '2022-10-26', 'NGH3', 'DH047', '', 2),
+('GH095', '2022-10-26', 'NGH3', 'DH048', '', 2),
+('GH096', '2022-10-26', 'NGH3', 'DH048', '', 3),
+('GH097', '2022-10-26', 'NGH3', 'DH048', '', 4),
+('GH098', '2022-10-26', 'NGH3', 'DH049', '', 2),
+('GH099', '2022-10-26', 'NGH3', 'DH049', '', 3);
 
 --
 -- Bẫy `giao_hang`
@@ -844,8 +717,6 @@ CREATE TABLE `nguoi_dung` (
 
 INSERT INTO `nguoi_dung` (`ma_nd`, `ten_nd`, `gioi_tinh`, `ngay_sinh`, `email`, `mat_khau`, `dia_chi`, `sdt_nd`, `boom`, `tai_khoan`, `quyen`, `xac_thuc`) VALUES
 ('ND01', 'Phan Trung Hậu', 'Nam', '2000-04-19', 'hau@gmail.com', 'c58b9950249e71310c62cc1a8c060d26', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', NULL, NULL, 'hau12345', 2, 1),
-('ND02', 'Bùi Công Minh', 'Nam', '2000-10-08', '', '616a1287fd70fd0e5feecef121abb685', '', NULL, NULL, 'minh1234', 1, 1),
-('ND03', 'Trần Thị Diểm  Ly', 'Nữ', '2000-10-09', '', 'd2e6fb1c22da59492f0ded58b4f9c2de', '', NULL, NULL, 'ly123456', 1, 1),
 ('ND04', 'Hau Hau', '', '0000-00-00', 'pthau123123@gmail.com', '', '', '03984848334', NULL, '106224598044066305684', 1, 1);
 
 --

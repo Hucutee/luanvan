@@ -266,6 +266,17 @@ export default function Donhangquanly() {
                             false
                           )
                         )}
+                         {aa.anh != null ?
+                        <tr >
+                        <td colSpan={4} ><p  style={{margin: "20px" }}><b>Ảnh xác nhận</b></p>
+                        <div style={{margin: "20px" }}> <Zoom
+                  img={require("./../../../imageuser/" + aa.anh )}
+                  height={300}
+                  width={200}
+                /></div>
+                          
+                        </td>
+                      </tr>:false}
                       </tbody>
                     </table>
                   </Grid>

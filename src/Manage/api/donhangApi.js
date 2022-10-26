@@ -118,6 +118,14 @@ const donhangAPI = {
     const API_URL = `/chonngh/${madh}&&${chonngh}`;
     return axiosClient.get(API_URL);
   },
+  guimailnhanhang(makh,madh) {
+    const API_URL = `/guimailnhanhang/${makh}&&${madh}`;
+    return axiosClient.get(API_URL);
+  },
+  hinhdonhang(data) {
+    const API_URL = `/hinhdonhang`;
+    return axiosClient.post(API_URL,data);
+  },
 };
 
 export default donhangAPI;
