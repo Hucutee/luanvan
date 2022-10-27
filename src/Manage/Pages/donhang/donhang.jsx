@@ -66,7 +66,9 @@ export default function Donhangquanly() {
   };
 
   const handleChangetrangthai = (event) => {
-    setTrangthai(event.target.value); setCount((e) => e + 1);console.log(event.target.value);
+    setTrangthai(event.target.value);
+    setTrangthaitk("1");
+    setCount((e) => e + 1);console.log(event.target.value);
   };
 
 
@@ -107,17 +109,38 @@ export default function Donhangquanly() {
       if(dataNhanvien.length==0){
         navigate("/Manage");
       }
-    const dl = await donhangAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
+      if(trangthaitk){
+        const dl = await donhangAPI.getall();setCounttrang(Math.ceil(dl.length / 20));
     const dltrang = await donhangAPI.gettrang(trang,trangthai.slice(0,1),trangthai.slice(1));setDatadhtrang(dltrang); 
     const dlctdh = await donhangAPI.getallctdh();
     setDatadh(dl);    setDatactdh(dlctdh);
     const alllctgh = await donhangAPI.allctgh();setDataallctgh(alllctgh);
     const ngh = await donhangAPI.ttngh();setDatangh(ngh);console.log(ngh);
     const listnghh = await donhangAPI.listngh();setListngh(listnghh);console.log(ngh);
-      const nd = await nguoidungApi.login(); setNguoidung(nd); console.log(nd);
+    const nd = await nguoidungApi.login(); setNguoidung(nd); console.log(nd);
+      }else{
+        const dl = await donhangAPI.getalltimkiem(tenget);setCounttrang(Math.ceil(dl.length / 20));console.log(dl);
+    const dltrang = await donhangAPI.gettrangtimkiem(trang,trangthai.slice(0,1),trangthai.slice(1),tenget);setDatadhtrang(dltrang); console.log(dltrang,trangthai.slice(0,1),trangthai.slice(1),tenget); 
+    const dlctdh = await donhangAPI.getallctdh();
+    setDatadh(dl);    setDatactdh(dlctdh);
+    const alllctgh = await donhangAPI.allctgh();setDataallctgh(alllctgh);
+    const ngh = await donhangAPI.ttngh();setDatangh(ngh);console.log(ngh);
+    const listnghh = await donhangAPI.listngh();setListngh(listnghh);console.log(ngh);
+    const nd = await nguoidungApi.login(); setNguoidung(nd); console.log(nd);
+      }
     })();
   }, [count]);
 
+  const [tenget, setTenget] = useState("");
+  const [trangthaitk, setTrangthaitk] = React.useState("1");
+  const handleTrangthai = () => {
+    setTrangthaitk("1");setTenget("")
+    setCount((e) => e + 1);
+  };
+  const handleTimkim = () => {
+    setTrangthaitk("");setTrangthai("07");
+    setCount((e) => e + 1);
+  };
   return (
     <div>
        
@@ -131,10 +154,38 @@ export default function Donhangquanly() {
           <Link underline="hover" color="inherit">   Đơn hàng </Link>
           <Link  value="1"  underline="hover"  color="#339900" >  Danh sách </Link>
         </Breadcrumbs>
-        
-        <div className="my-1   ">
-          
+        <div className="bg-slate-200">
+          <Paper
+            elevation={0}
+            className="my-1 mr-[4%] border-[1px] 	border-slate-300	bg-slate-200		 border-solid hover:bg-slate-300"
+            component="form"
+            sx={{
+              p: "0px 4px",
+              display: "flex",
+              alignItems: "center",
+              width: "15%",
+              float: "right",
+              marginRight: "10%",
+              backgroundColor: " rgb(229 231 235);",
+            }}
+          >
+            <InputBase
+              onChange={(e) => setTenget(e.target.value)}
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Tìm mã đơn"
+              inputProps={{ "aria-label": "search google maps" }}
+            />
+            <IconButton
+              onClick={handleTimkim}
+              type="button"
+              sx={{ p: 1 }}
+              aria-label="search"
+            >
+              <SearchIcon />
+            </IconButton>
+          </Paper>
         </div>
+        
       </div>
       <div className="w-[84%] mx-[8%] ">
         <div style={{width:"18%",float:"left", backgroundColor:"#f8f8f8"}}>
@@ -161,7 +212,7 @@ export default function Donhangquanly() {
           <MenuItem value="44"><b>Đã hoàn thành</b></MenuItem>
           <MenuItem value="55"><b>Đơn đã hủy</b></MenuItem>
           <MenuItem value="66"><b>Khách boom hàng</b></MenuItem>
-
+            {trangthaitk == "" ?    <MenuItem value="07"><b>Mã đơn: {tenget}</b></MenuItem>:false }
         </Select>
       </FormControl></ListItemText> </div>
       <List

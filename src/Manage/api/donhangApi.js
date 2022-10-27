@@ -17,6 +17,14 @@ const donhangAPI = {
     const API_URL = `/donhang/${trang}&&${t1}&&${t2}`;
     return axiosClient.get(API_URL);
   },
+  getalltimkiem(ten) {
+    const API_URL = `/donhangtimkiem/${ten}`;
+    return axiosClient.get(API_URL);
+  },
+  gettrangtimkiem(trang,t1,t2,ten) {
+    const API_URL = `/donhangtimkiemm/${trang}&&${t1}&&${t2}&&${ten}`;
+    return axiosClient.get(API_URL);
+  },
   tuchoigiaohang(madh) {
     const API_URL = `/donhang/tuchoigiaohang/${madh}`;
     return axiosClient.get(API_URL);
