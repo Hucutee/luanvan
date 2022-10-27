@@ -74,8 +74,16 @@ const nguoidungApi = {
     const API_URL = `/nguoidung/ktmatkhau/${mand}&&${mk}`;
     return axiosClient.get(API_URL);
   },
+  ktmatkhaunv(mand,mk) {
+    const API_URL = `/nguoidung/ktmatkhaunv/${mand}&&${mk}`;
+    return axiosClient.get(API_URL);
+  },
   doimatkhau(mand,mk) {
     const API_URL = `/nguoidung/doimatkhau/${mand}&&${mk}`;
+    return axiosClient.get(API_URL);
+  },
+  doimatkhaunv(mand,mk) {
+    const API_URL = `/nguoidung/doimatkhaunv/${mand}&&${mk}`;
     return axiosClient.get(API_URL);
   },
   addsdt(mand,sdt) {
@@ -90,12 +98,32 @@ const nguoidungApi = {
     const API_URL = `/nguoidung/addgt/${mand}&&${gt}`;
     return axiosClient.get(API_URL);
   },
+  addsdtnv(mand,sdt) {
+    const API_URL = `/nguoidung/addsdtnv/${mand}&&${sdt}`;
+    return axiosClient.get(API_URL);
+  },
+  addnsnv(mand,ns) {
+    const API_URL = `/nguoidung/addnsnv/${mand}&&${ns}`;
+    return axiosClient.get(API_URL);
+  },
+  addgtnv(mand,gt) {
+    const API_URL = `/nguoidung/addgtnv/${mand}&&${gt}`;
+    return axiosClient.get(API_URL);
+  },
   quenmk(email) {
     const API_URL = `/auth/forgot-password/${email}`;
     return axiosClient.post(API_URL);
   },
+  quenmknv(email) {
+    const API_URL = `/authnv/forgot-password/${email}`;
+    return axiosClient.post(API_URL);
+  },
   resetpass(email,pass) {
     const API_URL = `/auth/reset-password/${email}&&${pass}`;
+    return axiosClient.post(API_URL);
+  },
+  resetpassnv(email,pass) {
+    const API_URL = `/authnv/reset-password/${email}&&${pass}`;
     return axiosClient.post(API_URL);
   },
 };

@@ -36,6 +36,9 @@ import Xacthuc from "./Shop/features/Nguoidung/xacthuc";
 import Quenmk from "./Shop/features/Nguoidung/quenmk";
 import Resetmk from "./Shop/features/Nguoidung/resetmk";
 import Dangnhapgg from "./Shop/features/Nguoidung/dangnhapgg";
+import Xacthucnv from "./Manage/Component/dangnhap/xacthuc";
+import Quenmknv from "./Manage/Component/dangnhap/quenmk";
+import Resetmknv from "./Manage/Component/dangnhap/resetmk";
 export default function Router() {
     return useRoutes([
         {
@@ -99,6 +102,16 @@ export default function Router() {
         },{
             path: '/auth/reset-password/:token',
             element: <Resetmk/>
+        },
+        {
+            path: '/authnv/verify',
+            element: <Xacthucnv/>
+        },{
+            path: '/authnv/forgot-password',
+            element: <Quenmknv/>
+        },{
+            path: '/authnv/reset-password/:token',
+            element: <Resetmknv/>
         },{
             path: '/Manage',
             element: <Dangnhapnhanvien/> 
