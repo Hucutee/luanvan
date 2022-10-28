@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 27, 2022 lúc 02:32 PM
+-- Thời gian đã tạo: Th10 28, 2022 lúc 11:18 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -40,9 +40,9 @@ CREATE TABLE `anh_dai_dien` (
 --
 
 INSERT INTO `anh_dai_dien` (`ma_avt`, `ten_avt`, `ma_nd`, `ngay_them`, `trang_thai`) VALUES
-('AVT2', '1665217893582.jpg', 'ND01', '2022-10-08 15:31:33', 1),
-('AVT3', '1665218004794.jpg', 'ND01', '2022-10-08 15:33:24', 1),
-('AVT4', '1665218410283.jpg', 'ND01', '2022-10-08 15:40:10', 0);
+('AVT4', '1665218410283.jpg', 'ND01', '2022-10-08 15:40:10', 0),
+('AVT6', '1666929169214.jpg', 'ND01', '2022-10-28 10:52:49', 1),
+('AVT7', '1666948493178.jpg', 'ND06', '2022-10-28 16:14:53', 1);
 
 --
 -- Bẫy `anh_dai_dien`
@@ -679,16 +679,18 @@ CREATE TABLE `nguoi_dung` (
   `boom` int(20) DEFAULT NULL,
   `tai_khoan` varchar(50) DEFAULT NULL,
   `quyen` int(20) DEFAULT 1,
-  `xac_thuc` int(5) DEFAULT 0
+  `xac_thuc` int(5) DEFAULT 0,
+  `ngay_them` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `nguoi_dung`
 --
 
-INSERT INTO `nguoi_dung` (`ma_nd`, `ten_nd`, `gioi_tinh`, `ngay_sinh`, `email`, `mat_khau`, `dia_chi`, `sdt_nd`, `boom`, `tai_khoan`, `quyen`, `xac_thuc`) VALUES
-('ND01', 'Phan Trung Hậu', 'Nam', '2000-04-19', 'pthau123123@gmail.com', '6d942a6aabc3067557beea213a00ba1f', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', NULL, NULL, 'hau12345', 2, 1),
-('ND05', 'Trần Minh Trí', 'Nam', '2013-10-08', 'pthau123123@gmail.com', 'b7f877db8a1f5ba20016d525ba6c967c', '', '09876543221', NULL, NULL, 1, 1);
+INSERT INTO `nguoi_dung` (`ma_nd`, `ten_nd`, `gioi_tinh`, `ngay_sinh`, `email`, `mat_khau`, `dia_chi`, `sdt_nd`, `boom`, `tai_khoan`, `quyen`, `xac_thuc`, `ngay_them`) VALUES
+('ND01', 'Phan Trung Hậu', 'Nam', '2000-04-19', 'pthau123123@gmail.com', '6d942a6aabc3067557beea213a00ba1f', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', NULL, NULL, 'hau12345', 2, 1, NULL),
+('ND05', 'Trần Minh Trí', 'Nam', '2013-10-08', 'pthau123123@gmail.com', 'b7f877db8a1f5ba20016d525ba6c967c', '', '09876543221', NULL, NULL, 1, 1, NULL),
+('ND06', 'a', 'a', '2022-10-04', 'a', 'c58b9950249e71310c62cc1a8c060d26', '', '0987654321', NULL, NULL, 3, 1, '2022-10-28 16:14:53');
 
 --
 -- Bẫy `nguoi_dung`

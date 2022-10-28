@@ -39,6 +39,7 @@ import Dangnhapgg from "./Shop/features/Nguoidung/dangnhapgg";
 import Xacthucnv from "./Manage/Component/dangnhap/xacthuc";
 import Quenmknv from "./Manage/Component/dangnhap/quenmk";
 import Resetmknv from "./Manage/Component/dangnhap/resetmk";
+import Listnhanvien from "./Manage/Pages/nhanvien/Listnhanvien";
 export default function Router() {
     return useRoutes([
         {
@@ -154,6 +155,9 @@ export default function Router() {
             },{
                 path: '/Manager/repbl',
                 element: <Repbl/>
+            },{
+                path: '/Manager/nhanvien',
+                element: <Listnhanvien/>
             }
         ]
         },{

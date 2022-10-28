@@ -5,13 +5,33 @@ const nguoidungApi = {
     const API_URL = `/nguoidung/add/${ten}&&${gt}&&${ns}&&${tk}&&${pass}`;
     return axiosClient.get(API_URL);
   },
+  createnv( tennv,
+    chucvu,
+    gioitinh,
+    ngaysinh,
+    email,sdt,pass) {
+    const API_URL = `/nguoidung/createnv/${tennv}&&${chucvu}&&${gioitinh}&&${ngaysinh}&&${email}&&${sdt}&&${pass}`;
+    return axiosClient.get(API_URL);
+  },
+  getnvmoi(){
+    const API_URL = `/nguoidung/getnvmoi`;
+    return axiosClient.get(API_URL);
+  },
   gettaikhoan(tk){
     const API_URL = `/nguoidung/checktk/${tk}`;
+    return axiosClient.get(API_URL);
+  },
+  deletenv(manv){
+    const API_URL = `/nguoidung/deletenv/${manv}`;
     return axiosClient.get(API_URL);
   },
   checkdn(tk,mk) {
     const API_URL = `/nguoidung/login/${tk}&&${mk}`;
     return axiosClient.post(API_URL);
+  },
+  suanv(manv,quyen) {
+    const API_URL = `/nguoidung/suanv/${manv}&&${quyen}`;
+    return axiosClient.get(API_URL);
   },
   checkdngg(tk) {
     const API_URL = `/nguoidung/logingg/${tk}`;
@@ -25,16 +45,24 @@ const nguoidungApi = {
     const API_URL = `/nguoidung/checkdnnhanvien/${email}&&${mk}`;
     return axiosClient.get(API_URL);
   },
-  getList(trang) {
-    const API_URL = `/nhacungcap/${trang}`;
+  getListnv(trang) {
+    const API_URL = `/nguoidung/listnv/${trang}`;
+    return axiosClient.get(API_URL);
+  },
+  getcount() {
+    const API_URL = `/nguoidung/getcountnv`;
+    return axiosClient.get(API_URL);
+  },
+  getcounttennv(ten) {
+    const API_URL = `/nguoidung/getcounttennv/${ten}`;
     return axiosClient.get(API_URL);
   },
   delete(id) {
     const API_URL = `/nhacungcap/delete/${id}`;
     return axiosClient.get(API_URL,id);
   },
-  getid(ten,trang) {
-    const API_URL = `/nhacungcap/get/${ten}&&${trang}`;
+  getnv(ten,trang) {
+    const API_URL = `/nguoidung/getnv/${ten}&&${trang}`;
     return axiosClient.get(API_URL);
   },
   sua(id,ten,sdt,dc) {
@@ -125,6 +153,18 @@ const nguoidungApi = {
   resetpassnv(email,pass) {
     const API_URL = `/authnv/reset-password/${email}&&${pass}`;
     return axiosClient.post(API_URL);
+  },
+  listavtnv() {
+    const API_URL = `/listavtnv`;
+    return axiosClient.get(API_URL);
+  },
+  listcvnv() {
+    const API_URL = `/listcvnv`;
+    return axiosClient.get(API_URL);
+  },
+  checktrungemailnv(email) {
+    const API_URL = `/nguoidung/checktknv/${email}`;
+    return axiosClient.get(API_URL);
   },
 };
 
