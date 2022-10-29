@@ -30,7 +30,22 @@ const khuyenmaiAPI = {
     const API_URL = "/hoadonnhapDESC";
     return axiosClient.get(API_URL);
   },
-
+  tongnhapthang(thang) {
+    const API_URL = `/hoadonnhap/tongnhapthang/${thang}`;
+    return axiosClient.get(API_URL);
+  },
+  tongbanthang(thang) {
+    const API_URL = `/hoadonxuat/tongbanthang/${thang}`;
+    return axiosClient.get(API_URL);
+  },
+  tongnhapnam(nam) {
+    const API_URL = `/hoadonnhap/tongnhapnam/${nam}`;
+    return axiosClient.get(API_URL);
+  },
+  tongbannam(nam) {
+    const API_URL = `/hoadonxuat/tongbannam/${nam}`;
+    return axiosClient.get(API_URL);
+  },
  
 };
 
