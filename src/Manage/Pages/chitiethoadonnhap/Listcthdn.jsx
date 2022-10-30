@@ -51,20 +51,20 @@ export default function Listcthdn() {
   const [gianhap, setGianhap] = useState("");
   const [loaiget, setLoaiget] = useState("");
   const [trangthai, setTrangthai] = useState("1");
-  const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
   const [counttrang, setCounttrang] = useState("");
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />; });
-  const [openalert, setOpenalert] = React.useState(false);
-  const handleClosealert = (event, reason) => {
+  const [openalert1, setOpenalert1] = React.useState(false);
+  const handleClosealert1 = (event, reason) => {
     if (reason === "clickaway") {
       return;  }
-    setOpenalert(false);};
-  const [openloi, setOpenloi] = React.useState(false);
-  const handleCloseloi = (event, reason) => {
+    setOpenalert1(false);};
+  const [openloi1, setOpenloi1] = React.useState(false);
+  const handleCloseloi1 = (event, reason) => {
     if (reason === "clickaway") {
       return;  }
-    setOpenloi(false);};
+    setOpenloi1(false);};
   const [trang, setTrang] = useState(1);
   //danh sach
   const handleChangepage = (event, value) => {
@@ -119,63 +119,61 @@ export default function Listcthdn() {
     setTrangthai("");
     setCount((e) => e + 1); };
   //THEM
-  const [opentrung, setOpentrung] = React.useState(false);
-  const handleClosetrung = () => {
-    setOpentrung(false);
+  const [opentrung1, setOpentrung1] = React.useState(false);
+  const handleClosetrung1 = () => {
+    setOpentrung1(false);
   };
-  const [opensonguyen, setOpensonguyen] = React.useState(false);
-  const handleClosesonguyen = () => {
-    setOpensonguyen(false);
+  const [opensonguyen1, setOpensonguyen1] = React.useState(false);
+  const handleClosesonguyen1 = () => {
+    setOpensonguyen1(false);
   };
-  const [opentrungten, setOpentrungten] = React.useState(false);
-  const handleClosetrungten = () => {
-    setOpentrungten(false);
+  const [opentrungten1, setOpentrungten1] = React.useState(false);
+  const handleClosetrungten1 = () => {
+    setOpentrungten1(false);
   };
-  const handleAddSubmit = async (e) => {
+  const handleAddSubmit1 = async (e) => {
     e.preventDefault();
-    
-
     if (gianhap && soluong && mactsp && mahdn) {
     
             if (soluong > 0 && gianhap > 999 && soluong % 1 == 0 && gianhap % 1 == 0) {
               await chitiethoadonnhapApi.create(mahdn,mactsp,soluong,gianhap);
-              setOpenadd(false);  setOpenalert(true); setMalsp(""); setTensp(""); setTenkt(""); setSoluong(""); setGianhap("");setTenkt(""); setTensp("");  setMakt(""); setMactsp("");   setCount((e) => e + 1);
+              setOpenadd1(false);  setOpenalert1(true); setMalsp(""); setTensp(""); setTenkt(""); setSoluong(""); setGianhap("");setTenkt(""); setTensp("");  setMakt(""); setMactsp("");   setCount((e) => e + 1);
               await chitiethoadonnhapApi.congsoluong(mactsp,soluong);
             } else {
-              setOpensonguyen(true); }
+              setOpensonguyen1(true); }
             }
-    if ((!mactsp || !soluong || !mahdn || !gianhap ) && !openxoa) {
-      setOpenloi(true); }
+    if ((!mactsp || !soluong || !mahdn || !gianhap ) && !openxoa1) {
+      setOpenloi1(true); }
   };
 
-  const [openadd, setOpenadd] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
-  const handleClickOpenadd = (scrollType) => () => {
-    setOpenadd(true);
-    setScroll(scrollType);
+  const [openadd1, setOpenadd1] = React.useState(false);
+  const [scroll1, setScroll1] = React.useState("paper");
+  const handleClickOpenadd1 = (scrollType) => () => {
+    setOpenadd1(true);
+    setScroll1(scrollType);
   };
-  const handleCloseadd = () => {
-    setOpenadd(false);
+  const handleCloseadd1 = () => {
+    setOpenadd1(false);
     setMalsp("");
     setMakt("");
     setSoluong(""); setMactsp("");
     setGianhap(""); setGetloaiii("");
     setTensp("");setTenkt(""); setCount((e) => e + 1); 
   };
-  const descriptionElementRef = React.useRef(null);
+  const descriptionElementRef1 = React.useRef(null);
   React.useEffect(() => {
-    if (openadd) {
-      const { current: descriptionElement } = descriptionElementRef;
+    if (openadd1) {
+      const { current: descriptionElement } = descriptionElementRef1;
       if (descriptionElement !== null) {
         descriptionElement.focus();
-      } } }, [openadd]);
+      } } }, [openadd1]);
   //sua
-  const [opensuatrung, setOpensuatrung] = React.useState(false);
-  const handleClosesuatrung = () => {
-    setOpensuatrung(false);  };
-  const [opensua, setOpensua] = React.useState(false);
-  const [scrollsua, setScrollsua] = React.useState("paper");
-  const handlesua = async (e) => {
+  const [opensuatrung1, setOpensuatrung1] = React.useState(false);
+  const handleClosesuatrung1 = () => {
+    setOpensuatrung1(false);  };
+  const [opensua1, setOpensua1] = React.useState(false);
+  const [scrollsua1, setScrollsua1] = React.useState("paper");
+  const handlesua1 = async (e) => {
     e.preventDefault();
     if (macthdn && mactsp && soluong && gianhap) {
       
@@ -184,31 +182,31 @@ export default function Listcthdn() {
           if(soluong){
             await chitiethoadonnhapApi.suasl( macthdn,mactsp,soluongcu, soluong,gianhap);
           }
-          setCount((e) => e + 1); setOpensua(false); setOpenalert(true);setTensp("");setMactsp(""); setTenkt(""); setMacthdn("");setMalsp(""); setMakt(""); setSoluong(""); setGianhap(""); 
+          setCount((e) => e + 1); setOpensua1(false); setOpenalert1(true);setTensp("");setMactsp(""); setTenkt(""); setMacthdn("");setMalsp(""); setMakt(""); setSoluong(""); setGianhap(""); 
         } else {
-          setOpensonguyen(true); }
+          setOpensonguyen1(true); }
       
     } else {
-      setOpenloi(true);}
-    setOpen(false); };
-  const handleClickOpensua = (macthdn,mahdn,mactsp,sl,gn) => () => {
-    setOpensua(true);  setMacthdn(macthdn);  setMahdn(mahdn); setMactsp(mactsp);setSoluong(sl);setSoluongcu(sl);  setGianhap(gn); 
-     setScrollsua("paper"); };
+      setOpenloi1(true);}
+    setOpen1(false); };
+  const handleClickOpensua1 = (macthdn,mahdn,mactsp,sl,gn) => () => {
+    setOpensua1(true);  setMacthdn(macthdn);  setMahdn(mahdn); setMactsp(mactsp);setSoluong(sl);setSoluongcu(sl);  setGianhap(gn); 
+     setScrollsua1("paper"); };
 
-  const handleClosesua = () => { setOpensua(false); setTensp(""); setTenkt("");setMahdn(""); setMactsp(""); setMacthdn("");setMalsp(""); setMakt(""); setSoluong(""); setGianhap(""); };
-  const descriptionElementRefsua = React.useRef(null);
+  const handleClosesua1 = () => { setOpensua1(false); setTensp(""); setTenkt("");setMahdn(""); setMactsp(""); setMacthdn("");setMalsp(""); setMakt(""); setSoluong(""); setGianhap(""); };
+  const descriptionElementRefsua1 = React.useRef(null);
   React.useEffect(() => {
-    if (open) {
-      const { current: descriptionElementsua } = descriptionElementRefsua;
+    if (open1) {
+      const { current: descriptionElementsua } = descriptionElementRefsua1;
       if (descriptionElementsua !== null) {
         descriptionElementsua.focus();
-      } } }, [open]);
+      } } }, [open1]);
   //xoa
-  const [openxoa, setOpenxoa] = React.useState(false);
-  const handleClosexoa = () => {setMacthdn(""); setMactsp(""); setSoluong("");
-    setOpenxoa(false);  };
-  const handleClickOpenxoa = (id,mactsp,sln) => () => {
-    setMacthdn(id); setMactsp(mactsp); setSoluong(sln);  setOpenxoa("true");
+  const [openxoa1, setOpenxoa1] = React.useState(false);
+  const handleClosexoa1 = () => {setMacthdn(""); setMactsp(""); setSoluong("");
+    setOpenxoa1(false);  };
+  const handleClickOpenxoa1 = (id,mactsp,sln) => () => {
+    setMacthdn(id); setMactsp(mactsp); setSoluong(sln);  setOpenxoa1("true");
   };
   const handleGetloai = (id) => () => {
     setGetloaiii(id);  setCount((e) => e + 1);
@@ -216,13 +214,13 @@ export default function Listcthdn() {
   const handleGetkt = (id) => () => {
     setMasp(id);  setCount((e) => e + 1);
   };
-  const handleSubmitxoa = async (e) => {
+  const handleSubmitxoa1 = async (e) => {
     e.preventDefault();
     if (macthdn) {
       await chitiethoadonnhapApi.delete(macthdn);
       await chitiethoadonnhapApi.deletesl(mactsp,soluong);
-      setCount((e) => e + 1);   setOpenalert(true);
-    }  setOpenxoa(false);
+      setCount((e) => e + 1);   setOpenalert1(true);
+    }  setOpenxoa1(false);
   };
 
   return (
@@ -256,17 +254,17 @@ export default function Listcthdn() {
         </div>
         <div className="my-1   ">
           <button
-            onClick={handleClickOpenadd("paper")}   className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg" >
+            onClick={handleClickOpenadd1("paper")}   className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg" >
             Thêm mới  </button>
-          <form onSubmit={handleAddSubmit}>
+          <form onSubmit={handleAddSubmit1}>
             <Dialog
-              className=""    open={openadd}
-              onClose={handleCloseadd}  scroll={scroll}
+              className=""    open={openadd1}
+              onClose={handleCloseadd1}  scroll={scroll1}
               aria-labelledby="scroll-dialog-title"  aria-describedby="scroll-dialog-description" >
               <DialogTitle id="scroll-dialog-title">   Thêm chi tiết hóa đơn nhập mới </DialogTitle>
-              <DialogContent dividers={scroll === "paper"}>
+              <DialogContent dividers={scroll1 === "paper"}>
                 <DialogContentText
-                  id="scroll-dialog-description" ref={descriptionElementRef}   >
+                  id="scroll-dialog-description" ref={descriptionElementRef1}   >
                   <div>
                     <div style={{width:"300px"}}>  
                     <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
@@ -316,10 +314,10 @@ export default function Listcthdn() {
               </DialogContent>
               <DialogActions>
                 <button
-                  onClick={handleCloseadd}  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"  >
+                  onClick={handleCloseadd1}  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"  >
                   Quay lại  </button>
                 <button
-                  onClick={handleAddSubmit}   className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg" >
+                  onClick={handleAddSubmit1}   className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg" >
                   Thêm </button>
               </DialogActions>
             </Dialog>
@@ -377,14 +375,14 @@ export default function Listcthdn() {
                    
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     <div>
-                      <Button   color="success"   variant="outlined"   onClick={handleClickOpenxoa(product.ma_cthdn,product.ma_ctsp,product.so_luong_nhap )} >
+                      <Button   color="success"   variant="outlined"   onClick={handleClickOpenxoa1(product.ma_cthdn,product.ma_ctsp,product.so_luong_nhap )} >
                         {" "}
                         <DeleteOutlineIcon /> </Button>
                     </div>
                   </td>
                   <td className="border-[1px] 	border-white	 bg-gray-100	 border-solid ">
                     <div>
-                      <Button  color="success"  variant="outlined"  onClick={handleClickOpensua(
+                      <Button  color="success"  variant="outlined"  onClick={handleClickOpensua1(
                           product.ma_cthdn, product.ma_hdn, product.ma_ctsp,product.so_luong_nhap,product.gia_nhap)} >
                         {" "}   <ColorizeIcon /> </Button>
                     </div>
@@ -412,36 +410,36 @@ export default function Listcthdn() {
         </table>
         </div>
       </div>
-      <Snackbar open={openalert} autoHideDuration={6000}  onClose={handleClosealert}>
-        <Alert    onClose={handleClosealert}    severity="success"    sx={{ width: "100%" }}  >
+      <Snackbar open={openalert1} autoHideDuration={6000}  onClose={handleClosealert1}>
+        <Alert    onClose={handleClosealert1}    severity="success"    sx={{ width: "100%" }}  >
           Thực hiện thao tác thành công - kiểm tra ngay!</Alert>
       </Snackbar>
-      <Snackbar  open={opentrung}  autoHideDuration={6000}  onClose={handleClosetrung}>
-        <Alert   onClose={handleClosetrung}   severity="error"   sx={{ width: "100%" }} >
+      <Snackbar  open={opentrung1}  autoHideDuration={6000}  onClose={handleClosetrung1}>
+        <Alert   onClose={handleClosetrung1}   severity="error"   sx={{ width: "100%" }} >
           Tên này đã tồn tại - vui lòng nhập tên khác! </Alert>
       </Snackbar>
-      <Snackbar open={opensonguyen} autoHideDuration={6000} onClose={handleClosesonguyen}>
-        <Alert onClose={handleClosesonguyen} severity="error" sx={{ width: "100%" }} >
+      <Snackbar open={opensonguyen1} autoHideDuration={6000} onClose={handleClosesonguyen1}>
+        <Alert onClose={handleClosesonguyen1} severity="error" sx={{ width: "100%" }} >
           Số lượng lớn hơn 0 và giá bán từ 1000 - vui lòng nhập lại! </Alert>
       </Snackbar>
-      <Snackbar open={opentrungten} autoHideDuration={6000} onClose={handleClosetrungten}>
-        <Alert onClose={handleClosetrungten} severity="error" sx={{ width: "100%" }} >
+      <Snackbar open={opentrungten1} autoHideDuration={6000} onClose={handleClosetrungten1}>
+        <Alert onClose={handleClosetrungten1} severity="error" sx={{ width: "100%" }} >
           Sản phẩm có kích thước này đã tồn tại - vui lòng nhập lại! </Alert>
       </Snackbar>
-      <Snackbar open={opensuatrung} autoHideDuration={6000} onClose={handleClosesuatrung}>
-        <Alert onClose={handleClosesuatrung} severity="error" sx={{ width: "100%" }} >
+      <Snackbar open={opensuatrung1} autoHideDuration={6000} onClose={handleClosesuatrung1}>
+        <Alert onClose={handleClosesuatrung1} severity="error" sx={{ width: "100%" }} >
           Sản phẩm có kích thước này đã tồn tại - vui lòng nhập lại! </Alert>
       </Snackbar>
-      <Snackbar open={openloi} autoHideDuration={6000} onClose={handleCloseloi}>
-        <Alert onClose={handleCloseloi} severity="error" sx={{ width: "100%" }}>
+      <Snackbar open={openloi1} autoHideDuration={6000} onClose={handleCloseloi1}>
+        <Alert onClose={handleCloseloi1} severity="error" sx={{ width: "100%" }}>
           Vui lòng nhập đầy đủ thông tin vào các trường có dấu (*)!</Alert>
       </Snackbar>
       <form >
-        <Dialog  open={opensua}  onClose={handleClosesua}  scroll={scrollsua}
+        <Dialog  open={opensua1}  onClose={handleClosesua1}  scroll={scrollsua1}
           aria-labelledby="scroll-dialog-title"   aria-describedby="scroll-dialog-description" >
           <DialogTitle id="scroll-dialog-title">Chỉnh sửa dữ liệu</DialogTitle>
-          <DialogContent dividers={scroll === "paper"}>
-            <DialogContentText   id="scroll-dialog-description"   ref={descriptionElementRef}    >
+          <DialogContent dividers={scroll1 === "paper"}>
+            <DialogContentText   id="scroll-dialog-description"   ref={descriptionElementRef1}    >
            
                 
               <TextField fullWidth label="* Số lượng"  color="success"
@@ -454,13 +452,13 @@ export default function Listcthdn() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <button onClick={handleClosesua} className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">
+            <button onClick={handleClosesua1} className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">
               Quay về </button>
-            <button  onClick={handlesua}  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">
+            <button  onClick={handlesua1}  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">
               Thực hiện  </button>
           </DialogActions>
         </Dialog>
-        <Dialog  open={openxoa}  onClose={handleClosexoa}
+        <Dialog  open={openxoa1}  onClose={handleClosexoa1}
           aria-labelledby="alert-dialog-title"  aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">  {"Bạn có chắc muốn xóa?"}</DialogTitle>
           <DialogContent>
@@ -469,9 +467,9 @@ export default function Listcthdn() {
           </DialogContent>
           
           <DialogActions>
-            <button     className=" px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"     onClick={handleClosexoa}   >
+            <button     className=" px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"     onClick={handleClosexoa1}   >
               Quay lại </button>
-            <form onSubmit={handleSubmitxoa}>
+            <form onSubmit={handleSubmitxoa1}>
               <button  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4"
                 value={macthdn}  onClick={(e) => setMacthdn(e.target.value)} >
                 Thực hiện </button>

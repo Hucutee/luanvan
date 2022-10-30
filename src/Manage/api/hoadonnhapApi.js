@@ -10,6 +10,10 @@ const khuyenmaiAPI = {
     const API_URL = `/hoadonnhap/${trang}`;
     return axiosClient.get(API_URL);
   },
+  dstongdonnhap() {
+    const API_URL = `/dstongdonnhap`;
+    return axiosClient.get(API_URL);
+  },
   delete(id) {
     const API_URL = `/hoadonnhap/delete/${id}`;
     return axiosClient.get(API_URL,id);
@@ -24,6 +28,10 @@ const khuyenmaiAPI = {
   },
   getCount() {
     const API_URL = "/hoadonnhap";
+    return axiosClient.get(API_URL);
+  },
+  getCounttenget(ten) {
+    const API_URL = `/hoadonnhap/getcounttenget/${ten}`;
     return axiosClient.get(API_URL);
   },
   getCountDESC() {

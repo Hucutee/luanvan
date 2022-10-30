@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 29, 2022 lúc 05:13 PM
+-- Thời gian đã tạo: Th10 30, 2022 lúc 02:44 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -174,9 +174,11 @@ CREATE TABLE `chi_tiet_hdn` (
 
 INSERT INTO `chi_tiet_hdn` (`ma_cthdn`, `ma_hdn`, `ma_ctsp`, `so_luong_nhap`, `gia_nhap`) VALUES
 ('CHN1', 'HDN1', 'CT047', 100, 10000),
-('CHN2', 'HDN1', 'CT048', 100, 15000),
+('CHN2', 'HDN1', 'CT048', 1000, 15000),
 ('CHN3', 'HDN2', 'CT043', 100, 20000),
-('CHN4', 'HDN2', 'CT076', 50, 25000);
+('CHN4', 'HDN2', 'CT076', 50, 25000),
+('CHN5', 'HDN9', 'CT034', 111, 1000),
+('CHN6', 'HDN5', 'CT039', 100, 250000);
 
 --
 -- Bẫy `chi_tiet_hdn`
@@ -226,11 +228,11 @@ INSERT INTO `chi_tiet_san_pham` (`ma_ctsp`, `ma_sp`, `ma_kt`, `soluong`, `giaban
 ('CT027', 'SP011', 'KT02', 106, 50000, 'Chậu tiểu cảnh sen đá', 'Chậu tiểu cảnh sen đá', 'Vừa', 'chau cay van phong 1.jpg', 10),
 ('CT031', 'SP012', 'KT01', 116, 25000, 'Đá rải mặt Masato trọng lượng 1 kí', 'Đá Masato (1kg)', 'Nhỏ', 'masato.jpg', 12),
 ('CT033', 'SP014', 'KT03', 103, 15000, 'Thuốc tím túi 1kg', 'Thuốc tím', 'Trung', 'thuoc-tim-thai-lan.jpg', 7),
-('CT034', 'SP013', 'KT01', 1020, 20000, 'Thuốc Coc85 bịch 20g', 'Thuốc trị nấm Coc85', 'Nhỏ', 'coc85 nho.jpg', 10),
+('CT034', 'SP013', 'KT01', 1131, 20000, 'Thuốc Coc85 bịch 20g', 'Thuốc trị nấm Coc85', 'Nhỏ', 'coc85 nho.jpg', 10),
 ('CT035', 'SP013', 'KT03', 105, 50000, 'Thuốc Coc85 bịch 100g', 'Thuốc trị nấm Coc85', 'Trung', 'COC-85-01.jpg', 4),
 ('CT036', 'SP015', 'KT01', 40, 75000, 'Chậu tiểu cảnh xương rồng nhiều loại', 'Mix xương rồng', 'Nhỏ', 'mix a.jpg', 0),
 ('CT037', 'SP015', 'KT03', 30, 100000, 'Chậu tiểu cảnh xương rồng nhiều loại', 'Mix xương rồng', 'Trung', 'mix xuong rong a.jpg', 0),
-('CT039', 'SP017', 'KT03', 15, 82000, 'Mix 10 loai sen đá', 'Sen đá mix 10 loại', 'Trung', 'sen đá.jpg', 15),
+('CT039', 'SP017', 'KT03', 115, 82000, 'Mix 10 loai sen đá', 'Sen đá mix 10 loại', 'Trung', 'sen đá.jpg', 15),
 ('CT040', 'SP018', 'KT01', 1008, 20000, 'Xương rồng gym nhỏ', 'Xương rồng gym', 'Nhỏ', 'gym nho.jpg', 2),
 ('CT041', 'SP018', 'KT02', 53, 40000, 'Xương rồng gym to', 'Xương rồng gym', 'Vừa', 'gym to.jpg', 2),
 ('CT043', 'SP019', 'KT01', 198, 45000, 'Xương rồng gym lem nhỏ', 'Xương rồng gym lem', 'Nhỏ', 'gym lem nho.jpg', 11),
@@ -238,7 +240,7 @@ INSERT INTO `chi_tiet_san_pham` (`ma_ctsp`, `ma_sp`, `ma_kt`, `soluong`, `giaban
 ('CT045', 'SP021', 'KT02', 63, 170000, 'Xương rồng LB lem vừa', 'Xương rồng LB lem', 'Vừa', 'lb lem.jpg', 4),
 ('CT046', 'SP019', 'KT04', 105, 170000, 'Xương rồng gym lem lớn', 'Xương rồng gym lem', 'Lớn', 'gym lem trung.jpg', 5),
 ('CT047', 'SP022', 'KT01', 98, 15000, 'Sen đá xứ lạnh', 'Sen đá phật bà', 'Nhỏ', '0-sen-da-phat-ba-dep.jpg', 2),
-('CT048', 'SP022', 'KT03', 203, 75000, 'Sen đá xứ lạnh', 'Sen đá phật bà', 'Trung', '12c170f0ad9f3257f646260c50bf882a.jpg', 9),
+('CT048', 'SP022', 'KT03', 1103, 75000, 'Sen đá xứ lạnh', 'Sen đá phật bà', 'Trung', '12c170f0ad9f3257f646260c50bf882a.jpg', 9),
 ('CT049', 'SP023', 'KT01', 0, 32000, 'Sen đá xứ lạnh', 'Sen đá pha lê', 'Nhỏ', '23c0266387ce9e142792de1c6e4e07c7.jpg', 0),
 ('CT050', 'SP023', 'KT02', 0, 50000, 'Sen đá xứ lạnh', 'Sen đá pha lê', 'Vừa', 'fbec04112ea3246fddceb252a40a2773.jpg', 0),
 ('CT051', 'SP024', 'KT04', 48, 100000, 'Sen đá xứ lạnh', 'Sen đá hồng điệu', 'Lớn', '69483c7d30644e6edc45e8238881fdad.jpg', 9),
@@ -514,8 +516,17 @@ CREATE TABLE `hoa_don_nhap` (
 --
 
 INSERT INTO `hoa_don_nhap` (`ma_hdn`, `ngay_nhap`, `ma_nv`, `ma_ncc`, `ghi_chu`) VALUES
-('HDN1', '2022-10-08', 'ND01', 'CC01', 'Lô hàng sen đá nhiều loại'),
-('HDN2', '2022-10-07', 'ND01', 'CC02', 'Lô hàng xương rồng nhiều ');
+('HDN1', '0000-00-00', 'ND01', 'CC05', 'Lô hàng sen đá nhiều loại'),
+('HDN10', '2022-10-25', 'ND01', 'CC02', 'a'),
+('HDN11', '2022-10-25', 'ND01', 'CC01', 'a'),
+('HDN12', '2022-10-01', 'ND01', 'CC01', 'a'),
+('HDN13', '2022-10-01', 'ND01', 'CC01', 'a'),
+('HDN2', '2022-10-07', 'ND01', 'CC02', 'Lô hàng xương rồng nhiều '),
+('HDN4', '2022-10-25', 'ND01', 'CC01', 'a'),
+('HDN5', '2022-10-26', 'ND01', 'CC02', 'a'),
+('HDN6', '2022-10-26', 'ND01', 'CC02', 'a'),
+('HDN8', '2022-10-25', 'ND01', 'CC02', 'a'),
+('HDN9', '2022-10-19', 'ND01', 'CC04', 'a');
 
 --
 -- Bẫy `hoa_don_nhap`

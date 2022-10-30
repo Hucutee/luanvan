@@ -134,11 +134,11 @@ export default function Donhangquanly() {
   const [tenget, setTenget] = useState("");
   const [trangthaitk, setTrangthaitk] = React.useState("1");
   const handleTrangthai = () => {
-    setTrangthaitk("1");setTenget("")
+    setTrangthaitk("1");setTenget(""); setTrang(1);
     setCount((e) => e + 1);
   };
   const handleTimkim = () => {
-    setTrangthaitk("");setTrangthai("07");
+    setTrangthaitk("");setTrangthai("07");  setTrang(1);
     setCount((e) => e + 1);
   };
   return (
