@@ -47,7 +47,9 @@ import nguoidungApi from '../../api/nguoidungApi';
 import Link  from "@mui/material/Link";
 import { BrowserRouter as Router, Route, Link as Lin, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import CommentIcon from '@mui/icons-material/Comment';
+import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
 export default function Listmanager() {
   const [state, setState] = React.useState({
     top: false,
@@ -153,17 +155,27 @@ export default function Listmanager() {
      {dataNhanvien.length >0 ? 
       <div className=" ">
       <List>
-
-{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 3 || dataNhanvien[0].quyen == 4 ?<span><ListItemButton onClick={handleClicksp}>
-  <ListItemIcon>
-    <YardIcon />
-  </ListItemIcon>
-  <ListItemText primary="Sản phẩm" />
-  {opensp ? <ExpandLess /> : <ExpandMore />}
-</ListItemButton>
-<Collapse in={opensp} timeout="auto" unmountOnExit>
-  <List component="div" disablePadding>
-  <ListItemButton sx={{ pl: 6 }}>
+      {dataNhanvien[0].quyen == 2  ?<span>
+  <ListItemButton sx={{ pl: 3 }}>
+        <ListItemIcon>
+          {"A" % 2 === 0 ? <InboxIcon /> : <StackedBarChartIcon />}
+        </ListItemIcon>
+        <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/thongke" className="">
+        Thống kê
+      </Lin></ListItemText>
+      </ListItemButton>
+      <ListItemButton sx={{ pl: 3 }}>
+        <ListItemIcon>
+          {"A" % 2 === 0 ? <InboxIcon /> : <PeopleAltIcon />}
+        </ListItemIcon>
+        <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/nhanvien" className="">
+        Nhân viên
+      </Lin></ListItemText>
+      </ListItemButton>
+      <Divider/>
+  </span>:false} 
+{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 3 || dataNhanvien[0].quyen == 4 ?<span>
+  <ListItemButton sx={{ pl: 3 }}>
         <ListItemIcon>
           {"A" % 2 === 0 ? <InboxIcon /> : <AutoAwesomeMotionIcon />}
         </ListItemIcon>
@@ -171,15 +183,7 @@ export default function Listmanager() {
         Loại sản phẩm
       </Lin></ListItemText>
       </ListItemButton>
-    <ListItemButton sx={{ pl: 6 }} >
-        <ListItemIcon >
-          {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
-        </ListItemIcon>
-        <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/sanpham" className="">
-        Sản phẩm
-      </Lin></ListItemText>
-      </ListItemButton>
-      <ListItemButton sx={{ pl: 6 }}>
+      <ListItemButton sx={{ pl: 3 }}>
         <ListItemIcon>
           {"A" % 2 === 0 ? <InboxIcon /> : <StraightenIcon />}
         </ListItemIcon>
@@ -187,29 +191,19 @@ export default function Listmanager() {
         Kích thước
       </Lin></ListItemText>
       </ListItemButton>
-      <ListItemButton sx={{ pl: 6 }}>
-        <ListItemIcon>
-          {"A" % 2 === 0 ? <InboxIcon /> : <StorageIcon />}
+    <ListItemButton sx={{ pl: 3 }} >
+        <ListItemIcon >
+          {"A" % 2 === 0 ? <InboxIcon /> : <YardIcon />}
         </ListItemIcon>
-        <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/chitietsanpham" className="">
-        Chi tiết sản phẩm
+        <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/sanpham" className="">
+        Sản phẩm
       </Lin></ListItemText>
       </ListItemButton>
-     
-      
-  </List>
-</Collapse></span>:false}
+      <Divider/> 
+  </span>:false}
 
-{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 3 ?<span><ListItemButton onClick={handleClickkho}>
-  <ListItemIcon>
-    <GiteIcon />
-  </ListItemIcon>
-  <ListItemText  primary="Nhập kho" />
-  {openkho ? <ExpandLess /> : <ExpandMore />}
-</ListItemButton>
-<Collapse in={openkho} timeout="auto" unmountOnExit>
-  <List component="div" disablePadding>
-  <ListItemButton sx={{ pl: 6 }}>
+{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 3 ?<span>
+  <ListItemButton sx={{ pl: 3 }}>
         <ListItemIcon>
           {"A" % 2 === 0 ? <InboxIcon /> : <StoreIcon />}
         </ListItemIcon>
@@ -217,7 +211,7 @@ export default function Listmanager() {
         Nhà cung cấp
       </Lin> </ListItemText>
       </ListItemButton>
-      <ListItemButton sx={{ pl: 6 }}>
+      <ListItemButton sx={{ pl: 3 }}>
         <ListItemIcon>
           {"A" % 2 === 0 ? <InboxIcon /> : <ReceiptIcon />}
         </ListItemIcon>
@@ -225,28 +219,12 @@ export default function Listmanager() {
         Hóa đơn nhập
       </Lin></ListItemText>
       </ListItemButton>
-      <ListItemButton sx={{ pl: 6 }}>
-        <ListItemIcon>
-          {"A" % 2 === 0 ? <InboxIcon /> : <ReceiptLongIcon />}
-        </ListItemIcon>
-        <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/chitiethoadonnhap" className="">
-        Chi tiết hóa đơn nhập
-      </Lin></ListItemText>
-      </ListItemButton>
-  </List>
-</Collapse>
+      <Divider/> 
+
 </span>:false}
 
-{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 4 ?<span> <ListItemButton onClick={handleClickhd}>
-  <ListItemIcon>
-    <UnarchiveIcon />
-  </ListItemIcon>
-  <ListItemText primary="Xuất kho" />
-  {openhd ? <ExpandLess /> : <ExpandMore />}
-</ListItemButton>
-<Collapse in={openhd} timeout="auto" unmountOnExit>
-  <List component="div" disablePadding>
-  <ListItemButton sx={{ pl: 6 }}>
+{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 4 ?<span>
+  <ListItemButton sx={{ pl: 3 }}>
         <ListItemIcon>
           {"A" % 2 === 0 ? <InboxIcon /> : <ShoppingBasketIcon />}
         </ListItemIcon>
@@ -254,19 +232,10 @@ export default function Listmanager() {
         Đơn hàng
       </Lin></ListItemText>
       </ListItemButton>
-      
-  </List>
-</Collapse></span>:false} 
-{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 5 ?<span><ListItemButton onClick={handleClickgg}>
-  <ListItemIcon>
-    <LocalAtmIcon />
-  </ListItemIcon>
-  <ListItemText primary="Ưu đãi" />
-  {opengg ? <ExpandLess /> : <ExpandMore />}
-</ListItemButton>
-<Collapse in={opengg} timeout="auto" unmountOnExit>
-  <List component="div" disablePadding>
-  <ListItemButton sx={{ pl: 6 }}>
+      <Divider/>
+  </span>:false} 
+{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 5 ?<span>
+  <ListItemButton sx={{ pl: 3 }}>
         <ListItemIcon>
           {"A" % 2 === 0 ? <InboxIcon /> : <AccountBalanceWalletIcon />}
         </ListItemIcon>
@@ -274,7 +243,7 @@ export default function Listmanager() {
         Phiếu giảm giá
       </Lin></ListItemText>
       </ListItemButton>
-      <ListItemButton sx={{ pl: 6 }}>
+      <ListItemButton sx={{ pl: 3 }}>
         <ListItemIcon>
           {"A" % 2 === 0 ? <InboxIcon /> : <PercentIcon />}
         </ListItemIcon>
@@ -282,29 +251,18 @@ export default function Listmanager() {
         Khuyến mãi
       </Lin></ListItemText>
       </ListItemButton>
-  </List>
-</Collapse>
+ <Divider/>
 </span>:false}  
-{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 5 ?<span> <ListItemButton onClick={handleClickcskh}>
-  <ListItemIcon>
-    <UnarchiveIcon />
-  </ListItemIcon>
-  <ListItemText primary="CS-KH" />
-  {opencskh ? <ExpandLess /> : <ExpandMore />}
-</ListItemButton>
-<Collapse in={opencskh} timeout="auto" unmountOnExit>
-  <List component="div" disablePadding>
-  <ListItemButton sx={{ pl: 6 }}>
+{dataNhanvien[0].quyen == 2 || dataNhanvien[0].quyen == 5 ?<span> 
+  <ListItemButton sx={{ pl: 3 }}>
         <ListItemIcon>
-          {"A" % 2 === 0 ? <InboxIcon /> : <ShoppingBasketIcon />}
+          {"A" % 2 === 0 ? <InboxIcon /> : <CommentIcon />}
         </ListItemIcon>
         <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/repbl" className="">
         Bình luận
       </Lin></ListItemText>
       </ListItemButton>
-      
-  </List>
-</Collapse></span>:false} 
+</span>:false} 
      
     
       

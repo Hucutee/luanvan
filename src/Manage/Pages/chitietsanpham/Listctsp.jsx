@@ -48,20 +48,20 @@ export default function Listctsp() {
   const [thongtin, setThongtin] = useState("");
   const [loaiget, setLoaiget] = useState("");
   const [trangthai, setTrangthai] = useState("1");
-  const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
   const [counttrang, setCounttrang] = useState("");
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />; });
-  const [openalert, setOpenalert] = React.useState(false);
-  const handleClosealert = (event, reason) => {
+  const [openalert1, setOpenalert1] = React.useState(false);
+  const handleClosealert1 = (event, reason) => {
     if (reason === "clickaway") {
       return;  }
-    setOpenalert(false);};
-  const [openloi, setOpenloi] = React.useState(false);
-  const handleCloseloi = (event, reason) => {
+    setOpenalert1(false);};
+  const [openloi1, setOpenloi1] = React.useState(false);
+  const handleCloseloi1 = (event, reason) => {
     if (reason === "clickaway") {
       return;  }
-    setOpenloi(false);};
+    setOpenloi1(false);};
   const [trang, setTrang] = useState(1);
   //danh sach
   const handleChangepage = (event, value) => {
@@ -110,109 +110,108 @@ export default function Listctsp() {
     setTrangthai("");
     setCount((e) => e + 1); };
   //THEM
-  const [opentrung, setOpentrung] = React.useState(false);
-  const handleClosetrung = () => {
-    setOpentrung(false);
+  const [opentrung1, setOpentrung1] = React.useState(false);
+  const handleClosetrung1 = () => {
+    setOpentrung1(false);
   };
-  const [opensonguyen, setOpensonguyen] = React.useState(false);
-  const handleClosesonguyen = () => {
-    setOpensonguyen(false);
+  const [opensonguyen1, setOpensonguyen1] = React.useState(false);
+  const handleClosesonguyen1 = () => {
+    setOpensonguyen1(false);
   };
-  const [opentrungten, setOpentrungten] = React.useState(false);
-  const handleClosetrungten = () => {
-    setOpentrungten(false);
+  const [opentrungten1, setOpentrungten1] = React.useState(false);
+  const handleClosetrungten1 = () => {
+    setOpentrungten1(false);
   };
-  const handleAddSubmit = async (e) => {
+  const handleAddSubmit1 = async (e) => {
     e.preventDefault();
     
-
     if (giaban && soluong &&masp && makt && hinhanh && thongtin) {
       const trung = await chitietsanphamApi.checktrung(masp,makt); console.log(trung);//
       if(!(trung.length >0)){
             if (soluong > 0 && giaban > 999 && soluong % 1 == 0 && giaban % 1 == 0) {
               await chitietsanphamApi.create(masp,makt,soluong,giaban,thongtin,hinhanh,tenkt,tensp);
-              setOpenadd(false);  setOpenalert(true); setMasp(""); setTensp(""); setTenkt(""); setSoluong(""); setGiaban("");setTenkt(""); setTensp("");  setMakt("");  setHinhanh("");setThongtin("");   setCount((e) => e + 1);
+              setOpenadd1(false);  setOpenalert1(true); setMasp(""); setTensp(""); setTenkt(""); setSoluong(""); setGiaban("");setTenkt(""); setTensp("");  setMakt("");  setHinhanh("");setThongtin("");   setCount((e) => e + 1);
             } else {
-              setOpensonguyen(true); }
-            } else { setOpentrungten(true)}
+              setOpensonguyen1(true); }
+            } else { setOpentrungten1(true)}
             }
            
-    if ((!masp || !soluong || !makt || !giaban || !thongtin || !hinhanh) && !openxoa) {
-      setOpenloi(true); }
+    if ((!masp || !soluong || !makt || !giaban || !thongtin || !hinhanh) && !openxoa1) {
+      setOpenloi1(true); }
   };
 
-  const [openadd, setOpenadd] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
-  const handleClickOpenadd = (scrollType) => () => {
-    setOpenadd(true);
-    setScroll(scrollType);
+  const [openadd1, setOpenadd1] = React.useState(false);
+  const [scroll1, setScroll1] = React.useState("paper");
+  const handleClickOpenadd1 = (scrollType) => () => {
+    setOpenadd1(true);
+    setScroll1(scrollType);
   };
-  const handleCloseadd = () => {
-    setOpenadd(false);
+  const handleCloseadd1 = () => {
+    setOpenadd1(false);
     setMasp("");
     setMakt("");
     setSoluong("");
     setGiaban(""); setGetloaiii("");
     setHinhanh(""); setThongtin("");setTensp("");setTenkt(""); setCount((e) => e + 1); 
   };
-  const descriptionElementRef = React.useRef(null);
+  const descriptionElementRef1 = React.useRef(null);
   React.useEffect(() => {
-    if (openadd) {
-      const { current: descriptionElement } = descriptionElementRef;
+    if (openadd1) {
+      const { current: descriptionElement } = descriptionElementRef1;
       if (descriptionElement !== null) {
         descriptionElement.focus();
-      } } }, [openadd]);
+      } } }, [openadd1]);
   //sua
-  const [opensuatrung, setOpensuatrung] = React.useState(false);
-  const handleClosesuatrung = () => {
-    setOpensuatrung(false);  };
-  const [opensua, setOpensua] = React.useState(false);
-  const [scrollsua, setScrollsua] = React.useState("paper");
-  const handlesua = async (e) => {
+  const [opensuatrung1, setOpensuatrung1] = React.useState(false);
+  const handleClosesuatrung1 = () => {
+    setOpensuatrung1(false);  };
+  const [opensua1, setOpensua1] = React.useState(false);
+  const [scrollsua1, setScrollsua1] = React.useState("paper");
+  const handlesua1 = async (e) => {
     e.preventDefault();
     if (masp && tensp && makt  && tenkt && soluong && giaban && thongtin && hinhanh ) {
       const checktrung = await chitietsanphamApi.suatrung(mactsp,masp,makt);
       if (checktrung.length==0){
         if (soluong >= 0 && giaban >999 && giaban % 1 ==0 && soluong % 1 == 0) {
           await chitietsanphamApi.sua( mactsp,masp,tensp,makt,tenkt, soluong,giaban,thongtin,hinhanh);
-          setCount((e) => e + 1); setOpensua(false); setOpenalert(true);setTensp(""); setTenkt(""); setMactsp("");setMasp(""); setMakt(""); setSoluong(""); setGiaban(""); setThongtin(""); setHinhanh("");
+          setCount((e) => e + 1); setOpensua1(false); setOpenalert1(true);setTensp(""); setTenkt(""); setMactsp("");setMasp(""); setMakt(""); setSoluong(""); setGiaban(""); setThongtin(""); setHinhanh("");
         } else {
-          setOpensonguyen(true); }
-      } else{setOpensuatrung(true);}
+          setOpensonguyen1(true); }
+      } else{setOpensuatrung1(true);}
          
    
  
     } else {
-      setOpenloi(true);}
-    setOpen(false); };
-  const handleClickOpensua = (id,sp,tensp,kt,tenkt,sl,gb,tt, ha) => () => {
-    setOpensua(true);  setMactsp(id);  setMasp(sp); setTensp(tensp); setMakt(kt);setTenkt(tenkt);  setSoluong(sl);  setGiaban(gb); setThongtin(tt); setHinhanh(ha);
-     setScrollsua("paper"); };
+      setOpenloi1(true);}
+    setOpen1(false); };
+  const handleClickOpensua1 = (id,sp,tensp,kt,tenkt,sl,gb,tt, ha) => () => {
+    setOpensua1(true);  setMactsp(id);  setMasp(sp); setTensp(tensp); setMakt(kt);setTenkt(tenkt);  setSoluong(sl);  setGiaban(gb); setThongtin(tt); setHinhanh(ha);
+     setScrollsua1("paper"); };
 
-  const handleClosesua = () => { setOpensua(false); setTensp(""); setTenkt(""); setMactsp("");setMasp(""); setMakt(""); setSoluong(""); setGiaban(""); setThongtin(""); setHinhanh(""); };
-  const descriptionElementRefsua = React.useRef(null);
+  const handleClosesua1 = () => { setOpensua1(false); setTensp(""); setTenkt(""); setMactsp("");setMasp(""); setMakt(""); setSoluong(""); setGiaban(""); setThongtin(""); setHinhanh(""); };
+  const descriptionElementRefsua1 = React.useRef(null);
   React.useEffect(() => {
-    if (open) {
-      const { current: descriptionElementsua } = descriptionElementRefsua;
+    if (open1) {
+      const { current: descriptionElementsua } = descriptionElementRefsua1;
       if (descriptionElementsua !== null) {
         descriptionElementsua.focus();
-      } } }, [open]);
+      } } }, [open1]);
   //xoa
-  const [openxoa, setOpenxoa] = React.useState(false);
-  const handleClosexoa = () => {
-    setOpenxoa(false);  };
-  const handleClickOpenxoa = (id) => () => {
-    setMactsp(id);   setOpenxoa("true");
+  const [openxoa1, setOpenxoa1] = React.useState(false);
+  const handleClosexoa1 = () => {
+    setOpenxoa1(false);  };
+  const handleClickOpenxoa1 = (id) => () => {
+    setMactsp(id);   setOpenxoa1("true");
   };
-  const handleGetloai = (id) => () => {
+  const handleGetloai1 = (id) => () => {
     setGetloaiii(id);  setCount((e) => e + 1);
   };
-  const handleSubmitxoa = async (e) => {
+  const handleSubmitxoa1 = async (e) => {
     e.preventDefault();
     if (mactsp) {
       await chitietsanphamApi.delete(mactsp);
-      setCount((e) => e + 1);   setOpenalert(true);
-    }  setOpenxoa(false);
+      setCount((e) => e + 1);   setOpenalert1(true);
+    }  setOpenxoa1(false);
   };
 
   return (
@@ -246,24 +245,24 @@ export default function Listctsp() {
         </div>
         <div className="my-1   ">
           <button
-            onClick={handleClickOpenadd("paper")}   className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg" >
+            onClick={handleClickOpenadd1("paper")}   className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg" >
             Thêm mới  </button>
-          <form onSubmit={handleAddSubmit} style={{width:"400px"}}>
+          <form onSubmit={handleAddSubmit1} style={{width:"400px"}}>
             <Dialog 
-              className=""    open={openadd}
-              onClose={handleCloseadd}  scroll={scroll}
+              className=""    open={openadd1}
+              onClose={handleCloseadd1}  scroll={scroll1}
               aria-labelledby="scroll-dialog-title"  aria-describedby="scroll-dialog-description" >
               <DialogTitle id="scroll-dialog-title">   Thêm chi tiết sản phẩm mới </DialogTitle>
-              <DialogContent dividers={scroll === "paper"}>
+              <DialogContent dividers={scroll1 === "paper"}>
                 <DialogContentText
-                  id="scroll-dialog-description" ref={descriptionElementRef}   >
+                  id="scroll-dialog-description" ref={descriptionElementRef1}   >
                   <div>
                     <div>    
                     <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
                         <InputLabel htmlFor="grouped-native-select"> Loại sản phẩm</InputLabel>
                         <Select defaultValue="" id="grouped-select" label="Groupingpppppp" onChange={(e) => setMasp(e.target.value)}>
                        {listlsp.map((tenspp) => (
-                          <MenuItem value={tenspp.ma_lsp} ><button value={tenspp.ten_lsp} onClick={handleGetloai(tenspp.ma_lsp)}>{tenspp.ten_lsp}</button></MenuItem>
+                          <MenuItem value={tenspp.ma_lsp} ><button value={tenspp.ten_lsp} onClick={handleGetloai1(tenspp.ma_lsp)}>{tenspp.ten_lsp}</button></MenuItem>
                         ))}
                       </Select>
                        </FormControl>
@@ -306,10 +305,10 @@ export default function Listctsp() {
               </DialogContent>
               <DialogActions>
                 <button
-                  onClick={handleCloseadd}  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"  >
+                  onClick={handleCloseadd1}  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"  >
                   Quay lại  </button>
                 <button
-                  onClick={handleAddSubmit}   className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg" >
+                  onClick={handleAddSubmit1}   className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg" >
                   Thêm </button>
               </DialogActions>
             </Dialog>
@@ -376,14 +375,14 @@ export default function Listctsp() {
                  
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     <div>
-                      <Button   color="success"   variant="outlined"   onClick={handleClickOpenxoa(product.ma_ctsp)} >
+                      <Button   color="success"   variant="outlined"   onClick={handleClickOpenxoa1(product.ma_ctsp)} >
                         {" "}
                         <DeleteOutlineIcon /> </Button>
                     </div>
                   </td>
                   <td className="border-[1px] 	border-white	 bg-gray-100	 border-solid ">
                     <div>
-                      <Button  color="success"  variant="outlined"  onClick={handleClickOpensua(
+                      <Button  color="success"  variant="outlined"  onClick={handleClickOpensua1(
                           product.ma_ctsp, product.ma_sp, product.ten_sp,product.ma_kt,product.ten_kt,product.soluong, product.giaban, product.thongtin, product.hinhanh)} >
                         {" "}   <ColorizeIcon /> </Button>
                     </div>
@@ -411,36 +410,36 @@ export default function Listctsp() {
         </table>
         </div>
       </div>
-      <Snackbar open={openalert} autoHideDuration={6000}  onClose={handleClosealert}>
-        <Alert    onClose={handleClosealert}    severity="success"    sx={{ width: "100%" }}  >
+      <Snackbar open={openalert1} autoHideDuration={6000}  onClose={handleClosealert1}>
+        <Alert    onClose={handleClosealert1}    severity="success"    sx={{ width: "100%" }}  >
           Thực hiện thao tác thành công - kiểm tra ngay!</Alert>
       </Snackbar>
-      <Snackbar  open={opentrung}  autoHideDuration={6000}  onClose={handleClosetrung}>
-        <Alert   onClose={handleClosetrung}   severity="error"   sx={{ width: "100%" }} >
+      <Snackbar  open={opentrung1}  autoHideDuration={6000}  onClose={handleClosetrung1}>
+        <Alert   onClose={handleClosetrung1}   severity="error"   sx={{ width: "100%" }} >
           Tên này đã tồn tại - vui lòng nhập tên khác! </Alert>
       </Snackbar>
-      <Snackbar open={opensonguyen} autoHideDuration={6000} onClose={handleClosesonguyen}>
-        <Alert onClose={handleClosesonguyen} severity="error" sx={{ width: "100%" }} >
+      <Snackbar open={opensonguyen1} autoHideDuration={6000} onClose={handleClosesonguyen1}>
+        <Alert onClose={handleClosesonguyen1} severity="error" sx={{ width: "100%" }} >
           Số lượng lớn hơn 0 và giá bán từ 1000 - vui lòng nhập lại! </Alert>
       </Snackbar>
-      <Snackbar open={opentrungten} autoHideDuration={6000} onClose={handleClosetrungten}>
-        <Alert onClose={handleClosetrungten} severity="error" sx={{ width: "100%" }} >
+      <Snackbar open={opentrungten1} autoHideDuration={6000} onClose={handleClosetrungten1}>
+        <Alert onClose={handleClosetrungten1} severity="error" sx={{ width: "100%" }} >
           Sản phẩm có kích thước này đã tồn tại - vui lòng nhập lại! </Alert>
       </Snackbar>
-      <Snackbar open={opensuatrung} autoHideDuration={6000} onClose={handleClosesuatrung}>
-        <Alert onClose={handleClosesuatrung} severity="error" sx={{ width: "100%" }} >
+      <Snackbar open={opensuatrung1} autoHideDuration={6000} onClose={handleClosesuatrung1}>
+        <Alert onClose={handleClosesuatrung1} severity="error" sx={{ width: "100%" }} >
           Sản phẩm có kích thước này đã tồn tại - vui lòng nhập lại! </Alert>
       </Snackbar>
-      <Snackbar open={openloi} autoHideDuration={6000} onClose={handleCloseloi}>
-        <Alert onClose={handleCloseloi} severity="error" sx={{ width: "100%" }}>
+      <Snackbar open={openloi1} autoHideDuration={6000} onClose={handleCloseloi1}>
+        <Alert onClose={handleCloseloi1} severity="error" sx={{ width: "100%" }}>
           Vui lòng nhập đầy đủ thông tin vào các trường có dấu (*)!</Alert>
       </Snackbar>
       <form >
-        <Dialog  open={opensua}  onClose={handleClosesua}  scroll={scrollsua}
+        <Dialog  open={opensua1}  onClose={handleClosesua1}  scroll={scrollsua1}
           aria-labelledby="scroll-dialog-title"   aria-describedby="scroll-dialog-description" >
           <DialogTitle id="scroll-dialog-title">Chỉnh sửa dữ liệu</DialogTitle>
-          <DialogContent dividers={scroll === "paper"}>
-            <DialogContentText   id="scroll-dialog-description"   ref={descriptionElementRef}    >
+          <DialogContent dividers={scroll1 === "paper"}>
+            <DialogContentText   id="scroll-dialog-description"   ref={descriptionElementRef1}    >
            
                 <FormControl sx={{ width: "100%" , marginBottom: "20px" }} color="success">
                         <InputLabel htmlFor="grouped-native-select">* Tên sản phẩm</InputLabel>
@@ -474,13 +473,13 @@ export default function Listctsp() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <button onClick={handleClosesua} className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">
+            <button onClick={handleClosesua1} className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">
               Quay về </button>
-            <button  onClick={handlesua}  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">
+            <button  onClick={handlesua1}  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4">
               Thực hiện  </button>
           </DialogActions>
         </Dialog>
-        <Dialog  open={openxoa}  onClose={handleClosexoa}
+        <Dialog  open={openxoa1}  onClose={handleClosexoa1}
           aria-labelledby="alert-dialog-title"  aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">  {"Bạn có chắc muốn xóa?"}</DialogTitle>
           <DialogContent>
@@ -489,9 +488,9 @@ export default function Listctsp() {
           </DialogContent>
           
           <DialogActions>
-            <button     className=" px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"     onClick={handleClosexoa}   >
+            <button     className=" px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg"     onClick={handleClosexoa1}   >
               Quay lại </button>
-            <form onSubmit={handleSubmitxoa}>
+            <form onSubmit={handleSubmitxoa1}>
               <button  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-lg ml-4"
                 value={mactsp}  onClick={(e) => setMactsp(e.target.value)} >
                 Thực hiện </button>

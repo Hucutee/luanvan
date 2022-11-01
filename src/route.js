@@ -121,6 +121,9 @@ export default function Router() {
             path: '/Manager',
             element: <HomeManagePage/>,
             children: [{
+                path: '/Manager',
+                element: <Thongtinnhanvien/>
+            },{
                 path: '/Manager/nhacungcap',
                 element: <Listncc />
             },{

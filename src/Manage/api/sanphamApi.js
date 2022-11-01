@@ -29,6 +29,10 @@ const sanphamAPI = {
     const API_URL = "/sanpham";
     return axiosClient.get(API_URL);
   },
+  getCounttheoten(ten) {
+    const API_URL = `/sanpham/getCounttheoten/${ten}`;
+    return axiosClient.get(API_URL);
+  },
   checkloai(loai) {
     const API_URL = `/sanpham/checkloai/${loai}`;
     return axiosClient.get(API_URL);

@@ -632,7 +632,12 @@ const handleCloseloi1 = (event, reason) => {
                   <td className="">
                     {bb.so_luong_nhap}  </td>
                     <td className="">
-                    {bb.gia_nhap}  </td>
+                    {new Intl.NumberFormat("vi-VN", {
+                                style: "currency",
+                                currency: "VND",
+                              }).format(
+                                bb.gia_nhap
+                              )}  </td>
                    
                   <td className="">
                     <div>
@@ -671,7 +676,10 @@ const handleCloseloi1 = (event, reason) => {
      ): false}
      
         </span>
-      )):false}
+      )):<div className="   h-[57px] pt-4">
+      {" "}
+      <Typography    style={{      display: "flex", flexFlow: "row nowrap", justifyContent: "center",marginTop:"20px", fontWeight:"500"}}>Không tìm thấy hóa đơn nhập bạn muốn tìm! </Typography>
+    </div>}
     </List>
       
       
