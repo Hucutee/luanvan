@@ -331,14 +331,12 @@ export default function TemporaryDrawer() {
           <div size="large" aria-label="account of current user" aria-controls="menu-appbar"  aria-haspopup="true"  className="a1 ">
   
             {dataNhanvien.length > 0 ? (
+              
               <Button
-              id="demo-positioned-button"
-              aria-controls={opendx ? 'demo-positioned-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={opendx ? 'true' : undefined}
-              onClick={handleClickdx}
+          
               >
              {avt == "" ?
+              <Lin to="/Manager/thongtincanhan">
               <Avatar
               size="small"
               sx={{ bgcolor: green[500], width: 24, height: 24 }}
@@ -353,10 +351,12 @@ export default function TemporaryDrawer() {
                   )
                 )}
               </span>
-            </Avatar>:
+            </Avatar></Lin>:
+                          <Lin to="/Manager/thongtincanhan">
+
             <Avatar
             src={require("../../../imageuser/"+ avt )}
-            sx={{ width: 30, height: 30,fontSize:"140px", bgcolor: green[500] }}/>}
+            sx={{ width: 30, height: 30,fontSize:"140px", bgcolor: green[500] }}/></Lin>}
               </Button>
             ) :(false)}
              <Menu                             sx={{marginTop: "40px"}}

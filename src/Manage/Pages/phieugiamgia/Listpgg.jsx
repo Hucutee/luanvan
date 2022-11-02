@@ -62,28 +62,32 @@ export default function Listpgg() {
       }
       if (trangthai) {
         try {
+          const datacount = await phieugiamgiaAPI.getCount("a");
+      const sotrang = Math.ceil(datacount.length / 10);
+      setCounttrang(sotrang);
           const data = await phieugiamgiaAPI.getList(trang);
           setData(data);
         } catch (e) {
           console.log("loi lay dl", e);   }
       } else {
         try {
+          const datacount = await phieugiamgiaAPI.getCountlistten(tenget);
+      const sotrang = Math.ceil(datacount.length / 10);
+      setCounttrang(sotrang);
           const data = await phieugiamgiaAPI.getid(tenget, trang);
           setData(data);
         } catch (e) {
           console.log("loi lay dl", e);
         } }
-      const datacount = await phieugiamgiaAPI.getCount("a");
-      const sotrang = Math.ceil(datacount.length / 10);
-      setCounttrang(sotrang);
+      
     })();
   }, [count]);
 
   const handleTrangthai = () => {
-    setTrangthai("1");
+    setTrangthai("1"); setTrang(1);
     setCount((e) => e + 1); };
   const handleTimkim = () => {
-    setTrangthai("");
+    setTrangthai("");setTrang(1);
     setCount((e) => e + 1); };
   //THEM
   const [opentrung, setOpentrung] = React.useState(false);

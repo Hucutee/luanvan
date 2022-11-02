@@ -28,7 +28,10 @@ const kichthuocAPI = {
     const API_URL = "/kichthuoc";
     return axiosClient.get(API_URL);
   },
-
+  getCountlistkt(ten) {
+    const API_URL = `/kichthuoc/getCountlistkt/${ten}`;
+    return axiosClient.get(API_URL);
+  },
   suatrung(makt,tenkt) {
     const API_URL = `/kichthuoc/suatrung/${makt}&&${tenkt}`;
     return axiosClient.get(API_URL);

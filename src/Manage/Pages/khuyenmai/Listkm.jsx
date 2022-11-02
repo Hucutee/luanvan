@@ -71,6 +71,9 @@ export default function Listkm() {
           setLoaisp(loai);
       if (trangthai) {
         try {
+          const datacount = await khuyenmaiAPI.getCount("a");
+          const sotrang = Math.ceil(datacount.length / 10);
+          setCounttrang(sotrang);
           const data = await khuyenmaiAPI.getList(trang);
           setData(data);
         
@@ -78,22 +81,23 @@ export default function Listkm() {
           console.log("loi lay dl", e);   }
       } else {
         try {
+          const datacount = await khuyenmaiAPI.getCountlistten(tenget);
+          const sotrang = Math.ceil(datacount.length / 10);
+          setCounttrang(sotrang);
           const data = await khuyenmaiAPI.getid(tenget, trang);
           setData(data);
         } catch (e) {
           console.log("loi lay dl", e);
         } }
-      const datacount = await khuyenmaiAPI.getCount("a");
-      const sotrang = Math.ceil(datacount.length / 10);
-      setCounttrang(sotrang);
+    
     })();
   }, [count]);
 
   const handleTrangthai = () => {
-    setTrangthai("1");
+    setTrangthai("1"); setTrang(1);
     setCount((e) => e + 1); };
   const handleTimkim = () => {
-    setTrangthai("");
+    setTrangthai("");setTrang(1);
     setCount((e) => e + 1); };
   //THEM
   const [opentrung, setOpentrung] = React.useState(false);
@@ -355,7 +359,7 @@ export default function Listkm() {
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     {product.ten_km} </td>
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
-                    {product.sanpham_km}  </td>
+                    {product.ten_lsp}  </td>
                     <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     {product.phantram_km}  </td>
                   <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">

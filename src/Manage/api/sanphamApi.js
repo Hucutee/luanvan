@@ -54,6 +54,10 @@ const sanphamAPI = {
     const API_URL = `/sanphamnoicount`;
     return axiosClient.get(API_URL);
   },
+  getListnoicounttenget(ten) {
+    const API_URL = `/sanphamnoicount/getListnoicounttenget/${ten}`;
+    return axiosClient.get(API_URL);
+  },
   getidnoi(ten,trang) {
     const API_URL = `/sanpham/getidnoi/${ten}&&${trang}`;
     return axiosClient.get(API_URL);

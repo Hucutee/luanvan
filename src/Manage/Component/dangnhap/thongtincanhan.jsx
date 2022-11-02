@@ -63,6 +63,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import { Link } from "@mui/material";
 import { logoutNhanvien } from "../../../Shop/app/nhanvienSlice";
+import Listmanager from "../../Pages/list";
 
 Thongtinnhanvien.propTypes = {};
 function Thongtinnhanvien() {
@@ -240,11 +241,16 @@ const handledoimatkhau = async ()=>{
           </Lin>
         </Breadcrumbs>
       </div>
-      <Grid className="w-[74%] mx-[13%] ">
+      <Grid className="w-[84%] mx-[8%] ">
+      <div style={{width:"18%",float:"left" , backgroundColor:"#f8f8f8"}}>
+          <Listmanager/>
+        </div>
+        <div style={{width:"79%",float:"right" }}>
+
         <Grid >
           {datand.map((nd) => (
             <div>
-              <div style={{ width: "45%", float: "left" }}>
+              <div style={{ width: "40%", float: "left" }}>
                 <Stack
                   direction="row"
                   spacing={2}
@@ -285,7 +291,7 @@ const handledoimatkhau = async ()=>{
                 <div id="nested-list-subheader"  style={{    fontSize: "20px",  color: "#333",  fontWeight: "500",  padding: 7,
                     display: "flex",  alignContent: "center",  justifyContent: "center",  height: "auto",  }}
                 >  {" "}
-                  Ảnh đại diện (<span onClick={handleClickOpenha} ><ModeEditIcon     className="a1"             sx={{ width: 16, height: 16 }}/></span>){" "} 
+                  Ảnh đại diện
                 </div>
                 <div id="nested-list-subheader"  style={{    fontSize: "20px",  color: "#333",  fontWeight: "500",  padding: 7,
                     display: "flex",  alignContent: "center",  justifyContent: "center",  height: "auto",  }}
@@ -780,7 +786,8 @@ const handledoimatkhau = async ()=>{
               </div>
             </div>
           ))}
-        </Grid>
+        </Grid> 
+        </div>
       </Grid>
       <Snackbar  open={opencheckthanhcong} autoHideDuration={6000} onClose={handleClosecheckthanhcong} >
         <Alert  onClose={handleClosecheckthanhcong}  severity="success"  sx={{ width: "100%" }}>  Thay đổi mật khẩu thành công!</Alert>

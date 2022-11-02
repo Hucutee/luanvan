@@ -29,6 +29,10 @@ const phieugiamgiaAPI = {
     const API_URL = "/phieugiamgia";
     return axiosClient.get(API_URL);
   },
+  getCountlistten(ten) {
+    const API_URL = `/phieugiamgia/getCountlistten/${ten}`;
+    return axiosClient.get(API_URL);
+  },
   getdieukien(aa) {
     const API_URL = `/phieugiamgia/dieukien/${aa}`;
     return axiosClient.get(API_URL);

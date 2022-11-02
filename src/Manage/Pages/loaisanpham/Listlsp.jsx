@@ -65,6 +65,10 @@ export default function Listlsp() {
       }
         if (trangthai) {
           try {
+            const datacount = await loaisanphamAPI.getCount("a");
+            const sotrang = Math.ceil(datacount.length / 10);
+      
+            setCounttrang(sotrang);
             const data = await loaisanphamAPI.getList(trang);
             setData(data);
             console.log(data);
@@ -73,16 +77,17 @@ export default function Listlsp() {
           }
         } else {
           try {
+            const datacount = await loaisanphamAPI.getCountlsp(tenget);
+            const sotrang = Math.ceil(datacount.length / 10);
+      
+            setCounttrang(sotrang);
             const data = await loaisanphamAPI.getid(tenget, trang);
             setData(data);
           } catch (e) {
             console.log("loi lay dl", e);
           }
         }
-        const datacount = await loaisanphamAPI.getCount("a");
-        const sotrang = Math.ceil(datacount.length / 10);
-  
-        setCounttrang(sotrang);
+       
      
     })();
   }, [count]);
@@ -90,11 +95,11 @@ export default function Listlsp() {
  
 
   const handleTrangthai = () => {
-    setTrangthai("1");
+    setTrangthai("1"); setTrang(1);
     setCount((e) => e + 1);
   };
   const handleTimkim = () => {
-    setTrangthai("");
+    setTrangthai(""); setTrang(1);
     setCount((e) => e + 1);
   };
  

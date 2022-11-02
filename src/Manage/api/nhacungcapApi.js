@@ -29,7 +29,10 @@ const nhacungcapAPI = {
     const API_URL = "/nhacungcap";
     return axiosClient.get(API_URL);
   },
-
+  getCountlistten(ten) {
+    const API_URL = `/nhacungcap/getCountlistten/${ten}`;
+    return axiosClient.get(API_URL);
+  },
   suatrung(ma,ten) {
     const API_URL = `/nhacungcap/suatrung/${ma}&&${ten}`;
     return axiosClient.get(API_URL);

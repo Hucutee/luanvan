@@ -29,6 +29,10 @@ const khuyenmaiAPI = {
     const API_URL = "/khuyenmai";
     return axiosClient.get(API_URL);
   },
+  getCountlistten(ten) {
+    const API_URL = `/khuyenmai/getCountlistten/${ten}`;
+    return axiosClient.get(API_URL);
+  },
   checkngay(ngay,ngaybd,ngaykt,makm) {
     const API_URL = `/khuyenmai/checkngay/${ngay}&&${ngaybd}&&${ngaykt}&&${makm}`;
     return axiosClient.get(API_URL);

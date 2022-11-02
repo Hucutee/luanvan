@@ -63,22 +63,22 @@ function Listproduct() {
   };
   const handleSubmitgia = () => {
     if ( locgianho > 999 && locgialon > 999 && locgianho % 1 == 0 && locgialon % 1 == 0 && locgianho <= locgialon) {
-      setCount((e) => e + 1); setHienkhoanggia(true);
+      setCount((e) => e + 1); setHienkhoanggia(true);setTrangthai("1"); setTrang(1);
     } else { setLocgianho(""); setLocgialon(""); setOpencheckgia(true);
     }};
   const handleChangloai = (Value, ten) => {
-    setLocloai(Value); setLocloaiten(ten);  setCount((e) => e + 1);
+    setLocloai(Value); setLocloaiten(ten);setTrangthai("1");  setCount((e) => e + 1);  setTrang(1);
   };
   const handleChangegia = (event, newValue) => {
-    setLocgia(newValue); setCount((e) => e + 1);
+    setLocgia(newValue); setCount((e) => e + 1);setTrangthai("1");  setTrang(1);
   };
   const handleTimkim = (aa) => {
-    setTenget(aa);
+    setTenget(aa);  setTrang(1);
     setTrangthai("");  setLocgia("");  setLocloai("");  setLocloaiten("");  setLocgianho("");
     setLocgialon("");  setHienkhoanggia(false);  setCount((e) => e + 1);
   };
   const handleTrangthai = () => {
-    setTrangthai("1"); setLocloai(""); setLocgia(""); setLocgialon(""); setTrang("1");
+    setTrangthai("1"); setLocloai(""); setLocgia(""); setLocgialon(""); setTrang(1);
     setLocgianho(""); setHienkhoanggia(false); setCount((e) => e + 1);
   };
   useEffect(() => {
@@ -87,6 +87,9 @@ function Listproduct() {
       setDatalsp(loaisp);
       if (trangthai) {
         try {
+          const datacount = await sanphamAPI.getListnoicount();
+          const sotrang = Math.ceil(datacount.length / 15);
+          setCounttrang(sotrang);
           if (locloai && !locgia && (!locgianho || !locgialon)) {
             const data = await sanphamAPI.getListnoiloai(locloai, trang);
             setData(data);
@@ -116,13 +119,14 @@ function Listproduct() {
         }
       } else {
         try {
+          const datacount = await sanphamAPI.getListnoicounttenget(tenget);
+          const sotrang = Math.ceil(datacount.length / 15);
+          setCounttrang(sotrang);
           const data = await sanphamAPI.getidnoi(tenget, trang); setData(data);
         } catch (e) { console.log("loi lay dl", e);
         }
       }
-      const datacount = await sanphamAPI.getListnoicount();
-      const sotrang = Math.ceil(datacount.length / 15);
-      setCounttrang(sotrang);
+     
     })();
   }, [count]);
 

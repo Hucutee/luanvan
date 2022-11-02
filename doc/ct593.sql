@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 01, 2022 lúc 08:21 AM
+-- Thời gian đã tạo: Th10 02, 2022 lúc 02:24 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -40,9 +40,12 @@ CREATE TABLE `anh_dai_dien` (
 --
 
 INSERT INTO `anh_dai_dien` (`ma_avt`, `ten_avt`, `ma_nd`, `ngay_them`, `trang_thai`) VALUES
-('AVT4', '1665218410283.jpg', 'ND01', '2022-10-08 15:40:10', 0),
-('AVT6', '1666929169214.jpg', 'ND01', '2022-10-28 10:52:49', 1),
-('AVT7', '1666948493178.jpg', 'ND06', '2022-10-28 16:14:53', 1);
+('AVT10', '1667389259110.jpg', 'ND09', '2022-11-02 18:40:59', 1),
+('AVT11', '1667389697341.jpg', 'ND010', '2022-11-02 18:48:17', 1),
+('AVT12', '1667393512621.jpg', 'ND013', '2022-11-02 19:51:52', 0),
+('AVT7', '1667388806882.jpg', 'ND06', '2022-11-02 18:33:26', 1),
+('AVT8', '1667388885363.jpg', 'ND07', '2022-11-02 18:34:45', 1),
+('AVT9', '1667388960244.jpg', 'ND08', '2022-11-02 18:36:00', 1);
 
 --
 -- Bẫy `anh_dai_dien`
@@ -76,20 +79,6 @@ CREATE TABLE `binh_luan` (
   `ma_sp` varchar(50) DEFAULT NULL,
   `rep` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `binh_luan`
---
-
-INSERT INTO `binh_luan` (`ma_bl`, `ma_nd`, `noi_dung`, `trang_thai`, `ngay_bl`, `ma_sp`, `rep`) VALUES
-('BL01', 'ND01', 'loại này dể sống ko shop', '1', '2022-10-09 00:00:00', 'SP019', NULL),
-('BL02', 'ND01', 'Dạ loại này dể trồng lắm ạ', '0', '2022-10-09 00:00:00', 'SP019', 'BL01'),
-('BL03', 'ND01', 'Loại này ưa nước ko shop', '1', '2022-10-09 00:00:00', 'SP02', NULL),
-('BL04', 'ND01', 'Dạ loại này tưới ít thoi ạ, 1 tuần tưới 1 lần', '0', '2022-10-09 11:46:20', 'SP02', 'BL03'),
-('BL05', 'ND01', 'loại này ưa nắng ko shop', '1', '2022-10-09 00:00:00', 'SP018', NULL),
-('BL06', 'ND01', 'Dạ loại này ưa nắng ạ', '0', '2022-10-09 11:47:53', 'SP018', 'BL05'),
-('BL07', 'ND01', 'Loại này dể bị sốc nhiệt ko shop', '1', '2022-10-09 00:00:00', 'SP016', NULL),
-('BL08', 'ND01', 'Dạ loại này bên shop đã thuần khí hậu rồi ạ', '0', '2022-10-09 11:49:23', 'SP016', 'BL07');
 
 --
 -- Bẫy `binh_luan`
@@ -128,14 +117,23 @@ CREATE TABLE `chi_tiet_dh` (
 --
 
 INSERT INTO `chi_tiet_dh` (`ma_ctdh`, `ma_ctsp`, `ma_dh`, `so_luong`, `gia`, `trang_thai`) VALUES
-('CTD10', 'CT031', 'DH06', 5, 25000, 0),
-('CTD11', 'CT022', 'DH07', 1, 27000, 0),
-('CTD4', 'CT048', 'DH03', 1, 67500, 0),
-('CTD5', 'CT051', 'DH03', 1, 90000, 0),
-('CTD6', 'CT043', 'DH04', 1, 36000, 1),
-('CTD7', 'CT046', 'DH04', 1, 136000, 1),
-('CTD8', 'CT047', 'DH05', 1, 13500, 0),
-('CTD9', 'CT048', 'DH05', 8, 67500, 0);
+('CTD1', 'CT018', 'DH01', 2, 27000, 0),
+('CTD10', 'CT075', 'DH02', 1, 65000, 1),
+('CTD11', 'CT018', 'DH03', 2, 27000, 0),
+('CTD12', 'CT044', 'DH04', 5, 15000, 0),
+('CTD13', 'CT043', 'DH04', 3, 45000, 0),
+('CTD14', 'CT067', 'DH05', 1, 35000, 1),
+('CTD15', 'CT052', 'DH06', 6, 15000, 0),
+('CTD16', 'CT082', 'DH07', 6, 25000, 0),
+('CTD17', 'CT080', 'DH07', 7, 30000, 0),
+('CTD2', 'CT022', 'DH01', 3, 30000, 0),
+('CTD3', 'CT027', 'DH01', 5, 50000, 0),
+('CTD4', 'CT031', 'DH01', 1, 25000, 0),
+('CTD5', 'CT034', 'DH01', 1, 20000, 0),
+('CTD6', 'CT033', 'DH02', 1, 15000, 1),
+('CTD7', 'CT036', 'DH02', 1, 75000, 1),
+('CTD8', 'CT073', 'DH02', 1, 70000, 0),
+('CTD9', 'CT074', 'DH02', 1, 100000, 0);
 
 --
 -- Bẫy `chi_tiet_dh`
@@ -173,12 +171,8 @@ CREATE TABLE `chi_tiet_hdn` (
 --
 
 INSERT INTO `chi_tiet_hdn` (`ma_cthdn`, `ma_hdn`, `ma_ctsp`, `so_luong_nhap`, `gia_nhap`) VALUES
-('CHN1', 'HDN1', 'CT047', 100, 10000),
-('CHN2', 'HDN1', 'CT048', 1000, 15000),
-('CHN3', 'HDN2', 'CT043', 100, 20000),
-('CHN4', 'HDN2', 'CT076', 50, 25000),
-('CHN5', 'HDN9', 'CT034', 111, 1000),
-('CHN6', 'HDN5', 'CT039', 100, 250000);
+('CHN1', 'HDN1', 'CT051', 20, 20000),
+('CHN2', 'HDN1', 'CT047', 100, 15000);
 
 --
 -- Bẫy `chi_tiet_hdn`
@@ -221,17 +215,16 @@ CREATE TABLE `chi_tiet_san_pham` (
 --
 
 INSERT INTO `chi_tiet_san_pham` (`ma_ctsp`, `ma_sp`, `ma_kt`, `soluong`, `giaban`, `thongtin`, `ten_sp`, `ten_kt`, `hinhanh`, `da_ban`) VALUES
-('CT018', 'SP01', 'KT03', 13, 30000, 'Sen đá xứ lạnh', 'Sen đá hoa hồng', 'Trung', '4-sen-da-hoa-hong-xanh-lon.jpg', 5),
-('CT022', 'SP010', 'KT03', 84, 30000, 'Sen đá xứ lạnh', 'Sen đá hồng phấn', 'Trung', 'hong phan trung.jpg', 27),
+('CT018', 'SP01', 'KT03', 13, 30000, 'Sen đá xứ lạnh', 'Sen đá hoa hồng', 'Trung', '4-sen-da-hoa-hong-xanh-lon.jpg', 7),
+('CT022', 'SP010', 'KT03', 83, 30000, 'Sen đá xứ lạnh', 'Sen đá hồng phấn', 'Trung', 'hong phan trung.jpg', 31),
 ('CT024', 'SP03', 'KT02', 110, 20000, 'Xương rồng ', 'Xương rồng thanh sơn', 'Vừa', 'xuong-rong-thanh-son-nho.jpg', 0),
 ('CT026', 'SP02', 'KT01', 105, 12000, 'Xương rồng', 'Xương rồng tay thỏ', 'Nhỏ', 'xuong-rong-tai-tho-nho.jpg', 6),
-('CT027', 'SP011', 'KT02', 106, 50000, 'Chậu tiểu cảnh sen đá', 'Chậu tiểu cảnh sen đá', 'Vừa', 'chau cay van phong 1.jpg', 10),
-('CT031', 'SP012', 'KT01', 116, 25000, 'Đá rải mặt Masato trọng lượng 1 kí', 'Đá Masato (1kg)', 'Nhỏ', 'masato.jpg', 12),
-('CT033', 'SP014', 'KT03', 103, 15000, 'Thuốc tím túi 1kg', 'Thuốc tím', 'Trung', 'thuoc-tim-thai-lan.jpg', 7),
-('CT034', 'SP013', 'KT01', 1131, 20000, 'Thuốc Coc85 bịch 20g', 'Thuốc trị nấm Coc85', 'Nhỏ', 'coc85 nho.jpg', 10),
+('CT027', 'SP011', 'KT02', 106, 50000, 'Chậu tiểu cảnh sen đá', 'Chậu tiểu cảnh sen đá', 'Vừa', 'chau cay van phong 1.jpg', 15),
+('CT031', 'SP012', 'KT01', 116, 25000, 'Đá rải mặt Masato trọng lượng 1 kí', 'Đá Masato (1kg)', 'Nhỏ', 'masato.jpg', 13),
+('CT033', 'SP014', 'KT03', 102, 15000, 'Thuốc tím túi 1kg', 'Thuốc tím', 'Trung', 'thuoc-tim-thai-lan.jpg', 8),
+('CT034', 'SP013', 'KT01', 1131, 20000, 'Thuốc Coc85 bịch 20g', 'Thuốc trị nấm Coc85', 'Nhỏ', 'coc85 nho.jpg', 11),
 ('CT035', 'SP013', 'KT03', 105, 50000, 'Thuốc Coc85 bịch 100g', 'Thuốc trị nấm Coc85', 'Trung', 'COC-85-01.jpg', 4),
-('CT036', 'SP015', 'KT01', 40, 75000, 'Chậu tiểu cảnh xương rồng nhiều loại', 'Mix xương rồng', 'Nhỏ', 'mix a.jpg', 0),
-('CT037', 'SP015', 'KT03', 30, 100000, 'Chậu tiểu cảnh xương rồng nhiều loại', 'Mix xương rồng', 'Trung', 'mix xuong rong a.jpg', 0),
+('CT036', 'SP015', 'KT01', 39, 75000, 'Chậu tiểu cảnh xương rồng nhiều loại', 'Mix xương rồng', 'Nhỏ', 'mix a.jpg', 1),
 ('CT039', 'SP017', 'KT03', 115, 82000, 'Mix 10 loai sen đá', 'Sen đá mix 10 loại', 'Trung', 'sen đá.jpg', 15),
 ('CT040', 'SP018', 'KT01', 1008, 20000, 'Xương rồng gym nhỏ', 'Xương rồng gym', 'Nhỏ', 'gym nho.jpg', 2),
 ('CT041', 'SP018', 'KT02', 53, 40000, 'Xương rồng gym to', 'Xương rồng gym', 'Vừa', 'gym to.jpg', 2),
@@ -239,12 +232,12 @@ INSERT INTO `chi_tiet_san_pham` (`ma_ctsp`, `ma_sp`, `ma_kt`, `soluong`, `giaban
 ('CT044', 'SP020', 'KT01', 73, 15000, 'Xương rồng bí xanh nhỏ', 'Xương rồng bí xanh', 'Nhỏ', 'bi xanh nho.jpg', 2),
 ('CT045', 'SP021', 'KT02', 63, 170000, 'Xương rồng LB lem vừa', 'Xương rồng LB lem', 'Vừa', 'lb lem.jpg', 4),
 ('CT046', 'SP019', 'KT04', 105, 170000, 'Xương rồng gym lem lớn', 'Xương rồng gym lem', 'Lớn', 'gym lem trung.jpg', 5),
-('CT047', 'SP022', 'KT02', 98, 15000, 'Sen đá xứ lạnh', 'Sen đá phật bà', 'Vừa', '0-sen-da-phat-ba-dep.jpg', 2),
+('CT047', 'SP022', 'KT02', 198, 15000, 'Sen đá xứ lạnh', 'Sen đá phật bà', 'Vừa', '0-sen-da-phat-ba-dep.jpg', 2),
 ('CT048', 'SP022', 'KT03', 1103, 75000, 'Sen đá xứ lạnh', 'Sen đá phật bà', 'Trung', '12c170f0ad9f3257f646260c50bf882a.jpg', 9),
 ('CT049', 'SP023', 'KT01', 0, 32000, 'Sen đá xứ lạnh', 'Sen đá pha lê', 'Nhỏ', '23c0266387ce9e142792de1c6e4e07c7.jpg', 0),
 ('CT050', 'SP023', 'KT02', 0, 50000, 'Sen đá xứ lạnh', 'Sen đá pha lê', 'Vừa', 'fbec04112ea3246fddceb252a40a2773.jpg', 0),
-('CT051', 'SP024', 'KT04', 48, 100000, 'Sen đá xứ lạnh', 'Sen đá hồng điệu', 'Lớn', '69483c7d30644e6edc45e8238881fdad.jpg', 9),
-('CT052', 'SP025', 'KT01', 94, 15000, 'Sen đá ưa mát', 'Sen đá Hawathia', 'Nhỏ', 'sen-da-sedum-da-quang-haworthia-cymbiformis-1.jpg', 6),
+('CT051', 'SP024', 'KT04', 68, 100000, 'Sen đá xứ lạnh', 'Sen đá hồng điệu', 'Lớn', '69483c7d30644e6edc45e8238881fdad.jpg', 9),
+('CT052', 'SP025', 'KT01', 88, 15000, 'Sen đá ưa mát', 'Sen đá Hawathia', 'Nhỏ', 'sen-da-sedum-da-quang-haworthia-cymbiformis-1.jpg', 12),
 ('CT053', 'SP026', 'KT01', 50, 50000, 'Sen đá ư mát', 'Sen đá Hawathia ngọc', 'Nhỏ', '4af503e829ea776cbddbb715bd65e658_tn.jpg', 0),
 ('CT054', 'SP027', 'KT01', 85, 75000, 'Sen đá ưa mát', 'Sen đá Hawathia vuốt đen', 'Nhỏ', '8f8950b55b25025e7b60a74cca14f47b.jpg', 0),
 ('CT055', 'SP030', 'KT03', 64, 35000, 'Sen đá ưa mát', 'Sen đá sao biển', 'Trung', 'f6592196401564bd686cb0793aa84cc0.jpg', 0),
@@ -256,22 +249,22 @@ INSERT INTO `chi_tiet_san_pham` (`ma_ctsp`, `ma_sp`, `ma_kt`, `soluong`, `giaban
 ('CT064', 'SP032', 'KT03', 50, 50000, 'Cây cảnh văn phòng', 'Cỏ may mắn', 'Trung', 'co may man nho.jpg', 0),
 ('CT065', 'SP032', 'KT04', 100, 70000, 'Cây cảnh văn phòng', 'Cỏ may mắn', 'Lớn', 'co may man to.jpg', 0),
 ('CT066', 'SP034', 'KT05', 100, 130000, 'Đất chuyên dụng trồng sen đá', 'Đất soilmix Túi 6kg', 'Túi lớn', 'Soilimix.jpg', 0),
-('CT067', 'SP035', 'KT02', 90, 35000, 'Sen đá xứ lạnh', 'Sen đá đế đỏ', 'Vừa', 'S_758000-MLB26295115161_112017-O.jpg', 0),
+('CT067', 'SP035', 'KT02', 89, 35000, 'Sen đá xứ lạnh', 'Sen đá đế đỏ', 'Vừa', 'S_758000-MLB26295115161_112017-O.jpg', 1),
 ('CT068', 'SP036', 'KT03', 100, 120000, 'Sen đá xứ lạnh', 'Sen đá kim cương', 'Trung', 'sen-da-kim-cuong-xanh-1.jpg', 0),
 ('CT069', 'SP037', 'KT02', 200, 35000, 'Sen đá xứ lạnh', 'Sen đá tay gấu', 'Vừa', 'Sen-da-tay-gau-bear-Paw.jpg', 0),
 ('CT070', 'SP038', 'KT07', 100, 40000, 'Thuốc trị nấm', 'Thuốc trị nấm Anvil', 'Chai nhỏ', 'ANVIL-5SC-100ml.jpg', 2),
 ('CT071', 'SP039', 'KT06', 59, 65000, 'Thuốc trị rệp', 'Thuốc tím Thái', 'Túi nhỏ', '16a809279333351db996b0e5591ed2e4.jpg', 1),
 ('CT072', 'SP033', 'KT02', 30, 25000, 'Chậu gốm sứ', 'Chậu gốm sứ', 'Vừa', 'chau gom xu.jpg', 0),
-('CT073', 'SP015', 'KT02', 50, 70000, 'Chậu tiểu cảnh xương rồng', 'Mix xương rồng', 'Vừa', 'mix xuong rong.jpg', 12),
-('CT074', 'SP015', 'KT04', 20, 100000, 'Chậu tiểu cảnh ', 'Mix xương rồng', 'Lớn', 'mix xuong rong a.jpg', 0),
-('CT075', 'SP016', 'KT03', 32, 65000, 'Mix sen đá nhiều loại', 'Mix sen đá nhiều loại', 'Trung', 'mix sen da 1.webp', 8),
+('CT073', 'SP015', 'KT02', 49, 70000, 'Chậu tiểu cảnh xương rồng', 'Mix xương rồng', 'Vừa', 'mix xuong rong.jpg', 13),
+('CT074', 'SP015', 'KT04', 19, 100000, 'Chậu tiểu cảnh ', 'Mix xương rồng', 'Lớn', 'mix xuong rong a.jpg', 1),
+('CT075', 'SP016', 'KT03', 31, 65000, 'Mix sen đá nhiều loại', 'Mix sen đá nhiều loại', 'Trung', 'mix sen da 1.webp', 9),
 ('CT076', 'SP040', 'KT04', 80, 150000, 'Xương rồng kim hổ lớn', 'Xương rồng kim hổ', 'Lớn', 'edbba0062a81dda5e0f70485dfed639e.jpg', 0),
 ('CT077', 'SP042', 'KT02', 96, 50000, 'Xương rồng Aster', 'Xương rồng Aster', 'Vừa', 'hat-giong-xuong-rong-aster-1.__.jpg', 4),
 ('CT078', 'SP044', 'KT03', 30, 70000, 'Xương rồng Mickey', 'Xương rồng Mickey', 'Trung', 'cay-xuong-rong-tai-tho-trung.jpg', 0),
 ('CT079', 'SP045', 'KT03', 50, 90000, 'Chậu cảnh con cáo', 'Chậu cây con cáo', 'Trung', 'ab8a8edb4457da83b2914bdb636d5bfb.jpg', 0),
-('CT080', 'SP046', 'KT01', 49, 30000, 'Chậu trồng cây', 'Chậu gốm nhật', 'Nhỏ', '0665b9d50eb8f90fbf857b5b8a424ee1.jpg', 1),
+('CT080', 'SP046', 'KT01', 42, 30000, 'Chậu trồng cây', 'Chậu gốm nhật', 'Nhỏ', '0665b9d50eb8f90fbf857b5b8a424ee1.jpg', 8),
 ('CT081', 'SP047', 'KT02', 100, 10000, 'Chậu trồng cây', 'Chậu đất nung', 'Vừa', 'chau-dat-nung.jpg', 0),
-('CT082', 'SP048', 'KT02', 100, 25000, 'Chậu trồng cây', 'Chậu họa tiết lá', 'Vừa', 'z2515470090222_5bb2b1f86f53988dab36f93c23eeab88.jpg', 15),
+('CT082', 'SP048', 'KT02', 94, 25000, 'Chậu trồng cây', 'Chậu họa tiết lá', 'Vừa', 'z2515470090222_5bb2b1f86f53988dab36f93c23eeab88.jpg', 21),
 ('CT083', 'SP050', 'KT05', 100, 12000, 'Đất trồng cây', 'Promix', 'Túi lớn', 'w-sen-da.png', 0),
 ('CT084', 'SP049', 'KT05', 100, 60000, 'Đất trồng cây', 'Namix', 'Túi lớn', 'gia-the-trong-sen-da-xuong-rong.jpg', 0),
 ('CT085', 'SP051', 'KT01', 10, 20000, 'Xẻn nhỏ', 'Xẻn nhỏ', 'Nhỏ', 'c4b59dbeecde8f1c1ddc5530e0c3c3c2.jpg', 0),
@@ -317,8 +310,10 @@ CREATE TABLE `danh_gia` (
 --
 
 INSERT INTO `danh_gia` (`ma_dg`, `so_sao`, `ngay`, `noi_dung`, `hinh_anh`, `ma_ctdh`) VALUES
-('DG01', 5, '2022-10-08 19:39:25', 'Giao hàng nhanh, cây đẹp lắm ạ', '', 'CTD6'),
-('DG02', 4, '2022-10-08 19:40:07', 'Cây đẹp lắm nhưng giao hoi lâu', '1665232807879.jpg', 'CTD7');
+('DG01', 5, '2022-11-02 20:19:55', 'Sản phẩm đẹp , giao hàng nhanh', '1667395195523.jpg', 'CTD14'),
+('DG02', 4, '2022-11-02 20:20:09', 'giao hàng hơi chậm', '', 'CTD10'),
+('DG03', 5, '2022-11-02 20:20:19', 'giao hàng nhanh', '', 'CTD6'),
+('DG04', 5, '2022-11-02 20:20:32', 'sản phẩm đẹp', '', 'CTD7');
 
 --
 -- Bẫy `danh_gia`
@@ -354,8 +349,9 @@ CREATE TABLE `dia_chi` (
 --
 
 INSERT INTO `dia_chi` (`ma_dc`, `ten_dc`, `ma_nd`) VALUES
-('DC02', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 'ND01'),
-('DC03', 'â, a, a, a', 'ND05');
+('DC03', 'â, a, a, a', 'ND05'),
+('DC04', '724, An Khánh, Ninh Kiều, Cần Thơ', 'ND05'),
+('DC05', '798, An Khánh, Ninh Kiều, Cần Thơ', 'ND013');
 
 --
 -- Bẫy `dia_chi`
@@ -427,11 +423,13 @@ CREATE TABLE `don_hang` (
 --
 
 INSERT INTO `don_hang` (`ma_dh`, `ma_kh`, `ma_pgg`, `ma_nv`, `ngay_dat_hang`, `dia_chi_giao`, `hinh_thuc_thanh_toan`, `tong_tien`, `trang_thai`, `nguoi_nhan`, `hoan_tien`, `chon_nguoi_giao`, `anh`) VALUES
-('DH03', 'ND01', 'PGG2', 'ND01', '2022-10-08 16:10:02', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 147500, 6, 'Phan Trung Hậu, 0934737645', 0, NULL, NULL),
-('DH04', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:01:30', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 162000, 4, 'Phan Trung Hậu, 09094874394', 0, NULL, NULL),
-('DH05', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:44:08', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 543500, 5, 'Phan Trung Hậu, 0337474374', 0, NULL, NULL),
-('DH06', 'ND01', 'PGG2', 'ND01', '2022-10-08 19:49:11', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', 1, 115000, 4, 'Phan Trung Hậu, 0947475753', 0, NULL, NULL),
-('DH07', 'ND05', 'PGG1', NULL, '2022-10-27 19:30:02', 'â, a, a, a', 1, 57000, 0, 'Trần Minh Trí, 09876543221', 0, NULL, NULL);
+('DH01', 'ND05', 'PGG3', 'ND09', '2022-11-02 19:38:36', '724, An Khánh, Ninh Kiều, Cần Thơ', 1, 518000, 6, 'Trần Minh Trí, 09876543221', 0, 'NGH3', NULL),
+('DH02', 'ND05', 'PGG1', 'ND09', '2022-11-02 19:40:10', '724, An Khánh, Ninh Kiều, Cần Thơ', 1, 355000, 4, 'Trần Minh Trí, 09876543221', 0, 'NGH3', NULL),
+('DH03', 'ND05', 'PGG1', NULL, '2022-11-02 19:40:30', '724, An Khánh, Ninh Kiều, Cần Thơ', 1, 183000, 5, 'Trần Minh Trí, 09876543221', 0, NULL, NULL),
+('DH04', 'ND05', 'PGG1', 'ND09', '2022-11-02 19:41:25', '724, An Khánh, Ninh Kiều, Cần Thơ', 1, 240000, 5, 'Trần Minh Trí, 09876543221', 0, NULL, NULL),
+('DH05', 'ND05', 'PGG1', 'ND09', '2022-11-02 19:41:58', '724, An Khánh, Ninh Kiều, Cần Thơ', 1, 65000, 4, 'Trần Minh Trí, 09876543221', 0, 'NGH3', NULL),
+('DH06', 'ND013', 'PGG1', 'ND09', '2022-11-02 19:53:38', '798, An Khánh, Ninh Kiều, Cần Thơ', 2, 120000, 1, 'Trần Minh  Hoàng, 0938437747', 0, 'NGH5', NULL),
+('DH07', 'ND013', 'PGG1', 'ND09', '2022-11-02 19:54:28', '798, An Khánh, Ninh Kiều, Cần Thơ', 1, 390000, 4, 'Trần Minh  Hoàng, 0938437747', 0, 'NGH3', '1667394675160.jpg');
 
 --
 -- Bẫy `don_hang`
@@ -470,15 +468,18 @@ CREATE TABLE `giao_hang` (
 --
 
 INSERT INTO `giao_hang` (`ma_gh`, `ngay_gh`, `ma_ngh`, `ma_dh`, `ghi_chu`, `trang_thai`) VALUES
-('GH01', '2022-10-08', 'NGH3', 'DH04', '', 2),
-('GH013', '2022-10-09', 'NGH3', 'DH06', '', 2),
-('GH014', '2022-10-09', 'NGH3', 'DH06', '', 3),
-('GH015', '2022-10-09', 'NGH3', 'DH06', '', 4),
-('GH02', '2022-10-08', 'NGH3', 'DH03', '', 2),
-('GH05', '2022-10-08', 'NGH3', 'DH04', '', 3),
-('GH06', '2022-10-08', 'NGH3', 'DH04', '', 4),
-('GH07', '2022-10-08', 'NGH3', 'DH03', '', 3),
-('GH08', '2022-10-08', 'NGH3', 'DH03', '', 6);
+('GH01', '2022-11-02', 'NGH3', 'DH07', '', 2),
+('GH010', '2022-11-02', 'NGH3', 'DH05', '', 4),
+('GH011', '2022-11-02', 'NGH3', 'DH02', '', 4),
+('GH012', '2022-11-02', 'NGH3', 'DH01', '', 6),
+('GH02', '2022-11-02', 'NGH3', 'DH05', '', 2),
+('GH03', '2022-11-02', 'NGH3', 'DH02', '', 2),
+('GH04', '2022-11-02', 'NGH3', 'DH01', '', 2),
+('GH05', '2022-11-02', 'NGH3', 'DH07', '', 3),
+('GH06', '2022-11-02', 'NGH3', 'DH05', '', 3),
+('GH07', '2022-11-02', 'NGH3', 'DH02', '', 3),
+('GH08', '2022-11-02', 'NGH3', 'DH01', '', 3),
+('GH09', '2022-11-02', 'NGH3', 'DH07', '', 4);
 
 --
 -- Bẫy `giao_hang`
@@ -516,17 +517,7 @@ CREATE TABLE `hoa_don_nhap` (
 --
 
 INSERT INTO `hoa_don_nhap` (`ma_hdn`, `ngay_nhap`, `ma_nv`, `ma_ncc`, `ghi_chu`) VALUES
-('HDN1', '0000-00-00', 'ND01', 'CC05', 'Lô hàng sen đá nhiều loại'),
-('HDN10', '2022-10-25', 'ND01', 'CC02', 'a'),
-('HDN11', '2022-10-25', 'ND01', 'CC01', 'a'),
-('HDN12', '2022-10-01', 'ND01', 'CC01', 'a'),
-('HDN13', '2022-10-01', 'ND01', 'CC01', 'a'),
-('HDN2', '2022-10-07', 'ND01', 'CC02', 'Lô hàng xương rồng nhiều '),
-('HDN4', '2022-10-25', 'ND01', 'CC01', 'a'),
-('HDN5', '2022-10-26', 'ND01', 'CC02', 'a'),
-('HDN6', '2022-10-26', 'ND01', 'CC02', 'a'),
-('HDN8', '2022-10-25', 'ND01', 'CC02', 'a'),
-('HDN9', '2022-10-19', 'ND01', 'CC04', 'a');
+('HDN1', '2022-11-01', 'ND09', 'CC01', 'Đơn sen đá nhiều loại');
 
 --
 -- Bẫy `hoa_don_nhap`
@@ -699,9 +690,14 @@ CREATE TABLE `nguoi_dung` (
 --
 
 INSERT INTO `nguoi_dung` (`ma_nd`, `ten_nd`, `gioi_tinh`, `ngay_sinh`, `email`, `mat_khau`, `dia_chi`, `sdt_nd`, `boom`, `tai_khoan`, `quyen`, `xac_thuc`, `ngay_them`) VALUES
-('ND01', 'Phan Trung Hậu', 'Nam', '2000-04-19', 'pthau123123@gmail.com', '6d942a6aabc3067557beea213a00ba1f', 'P.An Khánh, Q.Ninh Kiều, TP.Cần Thơ', NULL, NULL, 'hau12345', 2, 1, NULL),
+('ND010', 'Phan Trung Hậu', 'Nam', '2000-11-05', 'pthau123123@gmail.com', 'c58b9950249e71310c62cc1a8c060d26', '', '0947562846', NULL, NULL, 2, 1, '2022-11-02 18:48:17'),
+('ND012', 'Trần Hoàng Na', 'Nam', '2012-11-07', 'Na@gmail.com', '12e8ddb0545bfb084f8edf16910c4871', '', NULL, NULL, NULL, 1, 1, '2022-11-02 19:44:29'),
+('ND013', 'Trần Minh  Hoàng', 'Nam', '2000-11-02', 'hoang@gmail.com', '4af3f0c2cd42a25d06eb34456f571ed2', '', '0938437747', NULL, NULL, 1, 1, NULL),
 ('ND05', 'Trần Minh Trí', 'Nam', '2013-10-08', 'pthau123123@gmail.com', 'b7f877db8a1f5ba20016d525ba6c967c', '', '09876543221', NULL, NULL, 1, 1, NULL),
-('ND06', 'a', 'a', '2022-10-04', 'a', 'c58b9950249e71310c62cc1a8c060d26', '', '0987654321', NULL, NULL, 3, 1, '2022-10-28 16:14:53');
+('ND06', 'Bùi Công Minh', 'Nam', '2000-11-02', 'minh@gmail.com', '616a1287fd70fd0e5feecef121abb685', '', '092743727283', NULL, NULL, 3, 1, '2022-11-02 18:33:26'),
+('ND07', 'Bùi Thị Diệu Linh', 'Nữ ', '2000-11-18', 'linh@gmail.com', '21fdb736d09169660fb4a80ed2eeef7d', '', '0983626483', NULL, NULL, 4, 1, '2022-11-02 18:34:45'),
+('ND08', 'Nguyễn Văn Nhẫn', 'Nam', '2000-11-01', 'nhan@gmail.com', '43ef63b23b5ddbd8dc0b2805da15aca0', '', '0927477584', NULL, NULL, 5, 1, '2022-11-02 18:36:00'),
+('ND09', 'Trần Minh Trí', 'Nam', '1996-10-15', 'tri@gmail.com', '1e0d2f6037c400abf4935db547cd86fb', '', '0927465738', NULL, NULL, 2, 1, '2022-11-02 18:40:59');
 
 --
 -- Bẫy `nguoi_dung`
@@ -824,8 +820,9 @@ CREATE TABLE `phieu_giam_gia` (
 --
 
 INSERT INTO `phieu_giam_gia` (`ma_pgg`, `ten_pgg`, `so_tien_giam`, `ngay_bd`, `ngay_kt`, `toi_thieu`) VALUES
-('PGG1', '1', 1000, '2022-09-28', '2022-09-28', 100000000),
-('PGG2', 'Giảm giá trung thu', 10000, '2022-09-28', '2022-10-26', 100000);
+('PGG1', '1', 1000, '2022-08-01', '2022-08-02', 1000000000),
+('PGG2', 'Giảm giá trung thu', 10000, '2022-09-28', '2022-10-26', 100000),
+('PGG3', 'Giảm giá Noel', 20000, '2022-11-02', '2023-01-31', 150000);
 
 --
 -- Bẫy `phieu_giam_gia`

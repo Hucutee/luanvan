@@ -108,7 +108,7 @@ const handlehuy = async(madh) => {
     data.append("mactdh", mactdh);
     data.append("makh", dataUser[0].ma_nd);
 
-
+ console.log(noidung);
     if( noidung != ""){
       await binhluanApi.danhgia(data);
       await binhluanApi.settrangthaictdh(mactdh);

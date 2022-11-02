@@ -107,10 +107,10 @@ export default function Listnhanvien() {
   }, [count]);
 
   const handleTrangthai = () => {
-    setTrangthai("1");
+    setTrangthai("1"); setTrang(1);
     setCount((e) => e + 1); };
   const handleTimkim = () => {
-    setTrangthai("");
+    setTrangthai(""); setTrang(1);
     setCount((e) => e + 1); };
   //THEM
   const [file, setFile] = React.useState();

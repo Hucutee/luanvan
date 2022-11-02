@@ -65,6 +65,10 @@ const [counttrang,setCounttrang] = useState("");
       }
       if (trangthai) {
         try {
+          const datacount = await nhacungcapAPI.getCount("a");
+          const sotrang = Math.ceil(datacount.length/10);
+    
+          setCounttrang(sotrang);
           const data = await nhacungcapAPI.getList(trang);
           setData(data);
         } catch (e) {
@@ -72,25 +76,26 @@ const [counttrang,setCounttrang] = useState("");
         }
       } else {
         try {
+          const datacount = await nhacungcapAPI.getCountlistten(tenget);
+          const sotrang = Math.ceil(datacount.length/10);
+    
+          setCounttrang(sotrang);
           const data = await nhacungcapAPI.getid(tenget, trang);
           setData(data);
         } catch (e) {
           console.log("loi lay dl", e);
         }
       }
-      const datacount = await nhacungcapAPI.getCount("a");
-      const sotrang = Math.ceil(datacount.length/10);
-
-      setCounttrang(sotrang);
+     
     })();
   }, [count]);
 
   const handleTrangthai = () => {
-    setTrangthai("1");
+    setTrangthai("1");setTrang(1);
     setCount((e) => e + 1);
   };
   const handleTimkim = () => {
-    setTrangthai("");
+    setTrangthai("");setTrang(1);
     setCount((e) => e + 1);
   };
   //THEM

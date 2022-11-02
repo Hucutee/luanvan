@@ -29,6 +29,10 @@ const loaisanphamAPI = {
     const API_URL = "/loaisanpham";
     return axiosClient.get(API_URL);
   },
+  getCountlsp(ten) {
+    const API_URL = `/loaisanpham/countten/${ten}`;
+    return axiosClient.get(API_URL);
+  },
 
   suatrung(malsp,tenlsp) {
     const API_URL = `/loaisanpham/suatrung/${malsp}&&${tenlsp}`;

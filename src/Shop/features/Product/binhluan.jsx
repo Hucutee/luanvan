@@ -50,7 +50,7 @@ function Binhluan(product){
     };
     const handlebl = async () => {
       if(binhluan != "" && dataUser[0].ma_nd){ 
-        await binhluanApi.addbinhluan(binhluan,product.data.ma_sp,dataUser[0].ma_nd);
+        await binhluanApi.addbinhluan(binhluan,product.data.ma_sp,dataUser[0].ma_nd); 
       } setBinhluan("");
       setCount((e) => e + 1);
     };
