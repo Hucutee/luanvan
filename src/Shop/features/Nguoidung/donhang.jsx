@@ -182,7 +182,7 @@ const handlehuy = async(madh) => {
                         <td  className="font-medium h-14 bg-gray-100	" colSpan={4}> &ensp;&ensp; Mã đơn: {aa.ma_dh} &ensp;&ensp;&ensp;&ensp;&ensp; Tổng: {new Intl.NumberFormat("vi-VN", {
                           style: "currency",
                           currency: "VND",
-                        }).format(aa.tong_tien)}  &ensp;&ensp;&ensp;&ensp;&ensp; Ngày đặt hàng: {aa.ngay_dat_hang.slice(0,9)} &ensp;&ensp;&ensp;&ensp;&ensp;  {aa.hinh_thuc_thanh_toan == 1 ? <span >Thanh toán khi nhận hàng</span> :<span>Thanh toán online</span> }</td>
+                        }).format(aa.tong_tien)}  &ensp;&ensp;&ensp;&ensp;&ensp; Ngày đặt hàng: {aa.ngay_dat_hang.slice(0,10)} &ensp;&ensp;&ensp;&ensp;&ensp;  {aa.hinh_thuc_thanh_toan == 1 ? <span >Thanh toán khi nhận hàng</span> :<span>Thanh toán online</span> }</td>
                         </tr>
                         <tr><td className="h-4"></td></tr>
                         <tr className="">

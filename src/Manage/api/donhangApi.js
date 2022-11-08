@@ -9,6 +9,14 @@ const donhangAPI = {
     const API_URL = `/donhang/getmadh/${makh}`;
     return axiosClient.get(API_URL);
   },
+  thongkesanphamthang(thang) {
+    const API_URL = `/thongkesanphamthang/${thang}`;
+    return axiosClient.get(API_URL);
+  },
+  thongkeslkho(sx) {
+    const API_URL = `/thongkeslkho/${sx}`;
+    return axiosClient.get(API_URL);
+  },
   getall() {
     const API_URL = `/donhang`;
     return axiosClient.get(API_URL);

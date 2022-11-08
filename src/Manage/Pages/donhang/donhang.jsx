@@ -212,7 +212,7 @@ export default function Donhangquanly() {
           <MenuItem value="44"><b>Đã hoàn thành</b></MenuItem>
           <MenuItem value="55"><b>Đơn đã hủy</b></MenuItem>
           <MenuItem value="66"><b>Khách boom hàng</b></MenuItem>
-            {trangthaitk == "" ?    <MenuItem value="07"><b>Mã đơn: {tenget}</b></MenuItem>:false }
+            {trangthaitk == "" ?    <MenuItem value="07"><b>Tìm theo: {tenget}</b></MenuItem>:false }
         </Select>
       </FormControl></ListItemText> </div>
       <List
@@ -223,7 +223,7 @@ export default function Donhangquanly() {
     >
      
      
-      {datadhtrang.map((aa)=>(
+      {datadhtrang.length ? datadhtrang.map((aa)=>(
         <span>
             
             <ListItemButton >
@@ -345,7 +345,10 @@ export default function Donhangquanly() {
        </span>
      ): false}
         </span>
-      ))}
+      )):<div className="   h-[57px] pt-4">
+      {" "}
+      <Typography    style={{      display: "flex", flexFlow: "row nowrap", justifyContent: "center",marginTop:"20px", fontWeight:"500"}}>Không tìm thấy đơn hàng bạn muốn tìm! </Typography>
+    </div>}
     </List>
     <div className=" h-[57px] pt-4">
                   {" "}

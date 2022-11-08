@@ -25,6 +25,7 @@ import { logout } from "../../app/userSlice";
 import { removeAllCart } from "../../app/cartSlide";
 import { removeAllCarttt } from "../../app/cartthanhtoan";
 import nguoidungApi from "../../../Manage/api/nguoidungApi";
+import Chat from "../../features/chat/Chat";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -107,11 +108,7 @@ function Header() {
               Sản phẩm
             </Lin>
           </Typography>
-          <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
-            <Lin to="/products/carts" className="a1">
-              Ưu đãi
-            </Lin>
-          </Typography>
+         
           
           <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
           {dataUser.length > 0 ?  <Lin to="/products/donhang" className="a1">
@@ -122,7 +119,9 @@ function Header() {
           <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
             <div className="a1"> </div>
           </Typography>
-
+          <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
+            <div className="a1"> </div>
+          </Typography>
           <Typography
             variant="h7"
             component="div"
@@ -229,6 +228,8 @@ function Header() {
           </Typography>
         </Toolbar>
       </AppBar>
+      <Chat/>
+
     </Box>
   );
 }
