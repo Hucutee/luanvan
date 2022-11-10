@@ -22,6 +22,7 @@ const binhluanApi = {
     const API_URL = "/danhgia";
     return axiosClient.post(API_URL,data);
   },
+  
 
   settrangthaictdh(mactdh) {
     const API_URL = `/chitietdonhang/suatrangthai/${mactdh}`;

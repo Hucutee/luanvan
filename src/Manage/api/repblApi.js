@@ -102,6 +102,26 @@ const repblApi = {
     const API_URL = `/thongtinnguoigiaohang`;
     return axiosClient.get(API_URL);
   },
+  danhgiagetall() {
+    const API_URL = "/danhgia/getall";
+    return axiosClient.get(API_URL);
+  },
+  gettrangdanhgia(trang,t1,t2) {
+    const API_URL = `/trangdanhgia/${trang}&&${t1}&&${t2}`;
+    return axiosClient.get(API_URL);
+  },
+  addrepdanhgia(nd,mand,masp,mabl,mactdh) {
+    const API_URL = `/addrepdanhgia/addrep/${nd}&&${mand}&&${masp}&&${mabl}&&${mactdh}`;
+    return axiosClient.get(API_URL);
+  },
+  settrangthaidanhgia(mabl) {
+    const API_URL = `/addrepdanhgia/settrangthai/${mabl}`;
+    return axiosClient.get(API_URL);
+  },
+  gettldg() {
+    const API_URL = `/repdg/tldg`;
+    return axiosClient.get(API_URL);
+  },
 };
 
 export default repblApi;

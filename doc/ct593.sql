@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 08, 2022 lúc 03:54 PM
+-- Thời gian đã tạo: Th10 10, 2022 lúc 08:27 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -79,6 +79,18 @@ CREATE TABLE `binh_luan` (
   `ma_sp` varchar(50) DEFAULT NULL,
   `rep` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `binh_luan`
+--
+
+INSERT INTO `binh_luan` (`ma_bl`, `ma_nd`, `noi_dung`, `trang_thai`, `ngay_bl`, `ma_sp`, `rep`) VALUES
+('BL01', 'ND05', 'loại này ưa nước ko shop', '1', '2022-11-10 00:00:00', 'SP01', NULL),
+('BL02', 'ND09', 'dạ loại này cần ít nước ạ', '0', '2022-11-10 10:12:19', 'SP01', 'BL01'),
+('BL03', 'ND05', 'loại này dể sônsg ko shop', '1', '2022-11-10 00:00:00', 'SP035', NULL),
+('BL04', 'ND09', 'dạ loại này ưa nắng và cần ít nước ạ', '0', '2022-11-10 11:02:24', 'SP035', 'BL03'),
+('BL05', 'ND05', 'loại này đã thuần khí hậu chưa shop', '1', '2022-11-10 00:00:00', 'SP035', NULL),
+('BL06', 'ND09', 'dạ rồi ạ', '0', '2022-11-10 11:03:53', 'SP035', 'BL05');
 
 --
 -- Bẫy `binh_luan`
@@ -304,19 +316,25 @@ CREATE TABLE `danh_gia` (
   `ngay` datetime NOT NULL,
   `noi_dung` varchar(255) NOT NULL,
   `hinh_anh` varchar(255) NOT NULL,
-  `ma_ctdh` varchar(50) DEFAULT NULL
+  `ma_ctdh` varchar(50) DEFAULT NULL,
+  `rep` varchar(50) DEFAULT NULL,
+  `trang_thai_dg` int(5) DEFAULT 0,
+  `ma_nv` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `danh_gia`
 --
 
-INSERT INTO `danh_gia` (`ma_dg`, `so_sao`, `ngay`, `noi_dung`, `hinh_anh`, `ma_ctdh`) VALUES
-('DG01', 5, '2022-11-02 20:19:55', 'Sản phẩm đẹp , giao hàng nhanh', '1667395195523.jpg', 'CTD14'),
-('DG02', 4, '2022-11-02 20:20:09', 'giao hàng hơi chậm', '', 'CTD10'),
-('DG03', 5, '2022-11-02 20:20:19', 'giao hàng nhanh', '', 'CTD6'),
-('DG04', 5, '2022-11-02 20:20:32', 'sản phẩm đẹp', '', 'CTD7'),
-('DG05', 5, '2022-11-07 08:55:17', 'AJAHAH', '', 'CTD18');
+INSERT INTO `danh_gia` (`ma_dg`, `so_sao`, `ngay`, `noi_dung`, `hinh_anh`, `ma_ctdh`, `rep`, `trang_thai_dg`, `ma_nv`) VALUES
+('DG01', 5, '2022-11-02 20:19:55', 'Sản phẩm đẹp , giao hàng nhanh', '1667395195523.jpg', 'CTD14', NULL, 1, NULL),
+('DG02', 4, '2022-11-02 20:20:09', 'giao hàng hơi chậm', '', 'CTD10', NULL, 1, NULL),
+('DG03', 5, '2022-11-02 20:20:19', 'giao hàng nhanh', '', 'CTD6', NULL, 0, NULL),
+('DG04', 5, '2022-11-02 20:20:32', 'sản phẩm đẹp', '', 'CTD7', NULL, 0, NULL),
+('DG05', 5, '2022-11-07 08:55:17', 'AJAHAH', '', 'CTD18', NULL, 1, NULL),
+('DG06', 0, '2022-11-10 10:37:40', 'cảm ơn bạn đã phản hồi', '', 'CTD14', 'DG01', 0, 'ND09'),
+('DG07', 0, '2022-11-10 10:43:46', 'cảm ơn bạn đã phản hồi', '', 'CTD10', 'DG02', 0, 'ND09'),
+('DG08', 0, '2022-11-10 11:04:40', 'cảm ơn bạn đã phản hồi', '', 'CTD18', 'DG05', 0, 'ND09');
 
 --
 -- Bẫy `danh_gia`

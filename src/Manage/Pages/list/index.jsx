@@ -262,6 +262,14 @@ export default function Listmanager() {
         Bình luận
       </Lin></ListItemText>
       </ListItemButton>
+      <ListItemButton sx={{ pl: 3 }}>
+        <ListItemIcon>
+          {"A" % 2 === 0 ? <InboxIcon /> : <CommentIcon />}
+        </ListItemIcon>
+        <ListItemText > <Lin  onClick={toggleDrawer("left", false)} to="/Manager/repdg" className="">
+        Đánh giá
+      </Lin></ListItemText>
+      </ListItemButton>
 </span>:false} 
      
     

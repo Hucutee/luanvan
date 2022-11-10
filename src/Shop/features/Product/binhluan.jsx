@@ -150,7 +150,8 @@ function Binhluan(product){
                   ></Grid>
                  <Grid sx={{overflowY: 'scroll',maxHeight:"600px",pl:4,pr:4}}>
                  {datadg.map((dg)=>(
-                    <Grid>
+                  dg.rep == null ?
+                    <Grid sx={{}}>
                       <Grid>
                       <Typography
                       style={{
@@ -185,7 +186,36 @@ function Binhluan(product){
                    
                   </Grid>
                  
-                 
+                 {datadg.map((rdg)=>(
+                    rdg.rep == dg.ma_dg ? (<Grid height="70px" sx={{textAlign:"right"}}>
+
+                      <Typography
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: "400",
+                        lineHeight: "50px",
+                        color: "#333"
+                      }}
+                    >
+                      <Typography
+                     style={{
+                       color: "#333333",
+                       fontSize: "15px",
+                       fontWeight: "300",
+                     }}
+                   >
+                     <i>
+                       {" "}
+                       Trả lời từ <b> Hau' Garden </b> ngày <b> {rdg.ngay.slice(0,10)}</b>
+                     </i>
+                   </Typography>
+                   {rdg.noi_dung}
+
+                    </Typography>
+
+                    
+                    </Grid>):false
+                  ))}
                   <Grid
                     style={{
                       borderBottom: "1px solid #ededed",
@@ -195,7 +225,7 @@ function Binhluan(product){
                       marginRight: "auto",
                     }}
                   ></Grid>
-                    </Grid>
+                    </Grid> : false
                   ))}
                  </Grid>
                 </Grid>
@@ -231,8 +261,8 @@ function Binhluan(product){
                              <Typography
                       style={{
                         color: "#333333",
-                        fontSize: "14px",
-                        fontWeight: "300", textAlign: "right"
+                        fontSize: "15px",
+                        fontWeight: "300", 
                       }}
                     >
                       <i>
@@ -242,10 +272,10 @@ function Binhluan(product){
                     </Typography>
                     <Typography
                       style={{
-                        fontSize: "20px",
+                        fontSize: "17px",
                         fontWeight: "400",
                         lineHeight: "50px",
-                        color: "#333", textAlign: "right"
+                        color: "#333", 
                       }}
                     >
                       {bl.noi_dung}
@@ -259,17 +289,17 @@ function Binhluan(product){
 
                       <Typography
                       style={{
-                        fontSize: "18px",
+                        fontSize: "17px",
                         fontWeight: "400",
                         lineHeight: "50px",
-                        color: "#333",width:"60%"
+                        color: "#333",textAlign: "right"
                       }}
                     >
                       <Typography
                      style={{
                        color: "#333333",
-                       fontSize: "14px",
-                       fontWeight: "300",
+                       fontSize: "15px",
+                       fontWeight: "300",textAlign: "right"
                      }}
                    >
                      <i>

@@ -302,7 +302,7 @@ const handlehuy = async(madh) => {
                           style: "currency",
                           currency: "VND",
                         }).format(aaa.so_luong*aaa.gia)} {aa.trang_thai == 4 && aaa.trang_thai == 0 ? (<span> <br/> <Button onClick={(e)=>handledg(aaa.ma_ctdh)} size="small" variant="outlined" color="secondary" sx={{fontSize:"12px"}}>Đánh giá</Button></span>):false}
-                                                        {aa.trang_thai == 4 && aaa.trang_thai == 1 ? (<span> <br/> <Button onClick={(e)=>handledg(aaa.ma_ctdh)} size="small" variant="contained" color="secondary" sx={{fontSize:"12px"}}>Đã đánh giá</Button></span>):false}</td>
+                                                        {aa.trang_thai == 4 && aaa.trang_thai == 1 ? (<span> <br/> <Button size="small" variant="contained" color="secondary" sx={{fontSize:"12px"}}>Đã đánh giá</Button></span>):false}</td>
                             </tr>
                           ) : (
                             false

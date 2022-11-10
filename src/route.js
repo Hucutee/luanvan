@@ -41,6 +41,7 @@ import Quenmknv from "./Manage/Component/dangnhap/quenmk";
 import Resetmknv from "./Manage/Component/dangnhap/resetmk";
 import Listnhanvien from "./Manage/Pages/nhanvien/Listnhanvien";
 import Thongke from "./Manage/Pages/thongke/thongke";
+import Repdg from "./Manage/Pages/cskh/repdg";
 export default function Router() {
     return useRoutes([
         {
@@ -165,6 +166,9 @@ export default function Router() {
             },{
                 path: '/Manager/thongke',
                 element: <Thongke/>
+            },{
+                path: '/Manager/repdg',
+                element: <Repdg/>
             }
         ]
         },{
