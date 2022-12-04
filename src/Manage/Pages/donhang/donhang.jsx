@@ -104,6 +104,10 @@ export default function Donhangquanly() {
   } await donhangAPI.daxacnhan(madh,dataNhanvien[0].ma_nd);
     
   } setCount((e) => e + 1);}
+
+  const [chua, setChua] = React.useState(0);
+  const [da, setDa] = React.useState(0);
+  const [dang, setDang] = React.useState(0);
   useEffect(() => {
     (async () => {
       if(dataNhanvien.length==0){
@@ -127,7 +131,25 @@ export default function Donhangquanly() {
     const ngh = await donhangAPI.ttngh();setDatangh(ngh);console.log(ngh);
     const listnghh = await donhangAPI.listngh();setListngh(listnghh);console.log(ngh);
     const nd = await nguoidungApi.login(); setNguoidung(nd); console.log(nd);
+  
       }
+      const dhsl = await donhangAPI.getall();
+      let chuaa = 0;         let daa = 0; let dangg =0;
+          if (dhsl.length !== 0) {
+            for (let i = 0; i < dhsl.length; i++) {
+              if(dhsl[i].trang_thai==0){
+                chuaa = chuaa + 1;
+              }
+              if(dhsl[i].trang_thai==1 ){
+                daa = daa + 1;
+              }
+              if(dhsl[i].trang_thai==3 || dhsl[i].trang_thai==2){
+                dangg = dangg + 1;
+              }
+              
+            } setChua(chuaa); setDa(daa); setDang(dangg);
+            
+          }
     })();
   }, [count]);
 
@@ -206,12 +228,12 @@ export default function Donhangquanly() {
           label="Age"
         >
                     <MenuItem value="06"><b>Tất cả đơn hàng</b></MenuItem>
-          <MenuItem value="00"><b>Chưa xác nhận</b></MenuItem>
-          <MenuItem value="11"><b>Chưa có người giao</b></MenuItem>
-          <MenuItem value="23"><b>Đã có người giao</b></MenuItem>
+          <MenuItem value="00"><b>Chưa xác nhận&ensp;</b><span style={{ color:"red"}}>{chua}</span></MenuItem>
+          <MenuItem value="11"><b>Chưa có người giao&ensp; </b><span style={{ color:"red"}}>{da}</span></MenuItem>
+          <MenuItem value="23"><b>Đã có người giao&ensp;</b><span style={{ color:"red"}}>{dang}</span></MenuItem>
           <MenuItem value="44"><b>Đã hoàn thành</b></MenuItem>
           <MenuItem value="55"><b>Đơn đã hủy</b></MenuItem>
-          <MenuItem value="66"><b>Khách boom hàng</b></MenuItem>
+          <MenuItem value="66"><b>Hoàn hàng</b></MenuItem>
             {trangthaitk == "" ?    <MenuItem value="07"><b>Tìm theo: {tenget}</b></MenuItem>:false }
         </Select>
       </FormControl></ListItemText> </div>
@@ -249,7 +271,7 @@ export default function Donhangquanly() {
        {aa.trang_thai ==4 ? (
        <ListItemText sx={{width:"25%"}}> <Button variant="contained" color="success">ĐÃ GIAO NGÀY: {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
            {aa.trang_thai >5 ? (
-       <ListItemText sx={{width:"25%"}}> <Button variant="contained" color="error">Khách boom hàng</Button></ListItemText>):false}
+       <ListItemText sx={{width:"25%"}}> <Button variant="contained" color="error">Hoàn hàng: khách không nhận hàng</Button></ListItemText>):false}
         {open ? <ExpandLess onClick={(e)=>handleClick(aa.ma_dh)} /> : <ExpandMore onClick={(e)=>handleClick(aa.ma_dh)} />}
         
       </ListItemButton>

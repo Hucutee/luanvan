@@ -66,6 +66,9 @@ function Donhang() {
   const [file, setFile] = React.useState();
   const [noidung, setNoidung] = React.useState("");
   const [sosao, setSosao] = React.useState(5);
+  const [chua, setChua] = React.useState(0);
+  const [da, setDa] = React.useState(0);
+  const [dang, setDang] = React.useState(0);
 
 
 const handlehuy = async(madh) => {
@@ -78,11 +81,31 @@ const handlehuy = async(madh) => {
       try {
         console.log(noidung);
         const dh = await donhangAPI.getdhkh(dataUser[0].ma_nd,loc.slice(0,1),loc.slice(1));
+        const dhsl = await donhangAPI.getdhkh(dataUser[0].ma_nd,0,9);
+
         const ctdh = await donhangAPI.getctdhkh(dataUser[0].ma_nd);
         const ctgh = await donhangAPI.getctgh(dataUser[0].ma_nd);
         console.log(ctgh);setDatactgh(ctgh);
         setDatadh(dh); console.log(ctdh);
         setDatactdh(ctdh);
+
+        let chuaa = 0;         let daa = 0; let dangg =0;
+        if (dhsl.length !== 0) {
+          for (let i = 0; i < dhsl.length; i++) {
+            if(dhsl[i].trang_thai==0){
+              chuaa = chuaa + 1;
+            }
+            if(dhsl[i].trang_thai==1 || dhsl[i].trang_thai==2){
+              daa = daa + 1;
+            }
+            if(dhsl[i].trang_thai==3){
+              dangg = dangg + 1;
+            }
+            
+          } setChua(chuaa); setDa(daa); setDang(dangg);
+          
+        }
+
       } catch (error) {
         console.log("loi", error);
       }
@@ -157,13 +180,12 @@ const handlehuy = async(madh) => {
           <TabList  orientation="vertical"
         variant="scrollable" onChange={handleChangeloc} aria-label="lab API tabs example">
             <Tab sx={{alignItems: "flex-start"}} label="Tất cả đơn hàng" value="07" />
-            <Tab sx={{alignItems: "flex-start"}} label="Chưa xác nhận" value="00" />
-            <Tab sx={{alignItems: "flex-start"}} label="Đã xác nhận" value="11" />
-            <Tab sx={{alignItems: "flex-start"}} label="Chờ lấy hàng" value="22" />
-            <Tab sx={{alignItems: "flex-start"}} label="Đang giao" value="33" />
+            <Tab sx={{alignItems: "flex-start"}} label={"Chưa xác nhận    " + chua} value="00" />
+            <Tab sx={{alignItems: "flex-start"}} label={"Đã xác nhận   "+da} value="12" />
+            <Tab sx={{alignItems: "flex-start"}} label={"Đang giao " +dang} value="33" />
             <Tab sx={{alignItems: "flex-start"}} label="Đã giao" value="44" />
             <Tab sx={{alignItems: "flex-start"}} label="Đơn bị hủy" value="55" />
-            <Tab sx={{alignItems: "flex-start"}} label="Đơn bị boom" value="66" />
+            <Tab sx={{alignItems: "flex-start"}} label="Đơn bị hoàn hàng" value="66" />
 
           </TabList>
         </Box>
@@ -277,7 +299,7 @@ const handlehuy = async(madh) => {
                                 <StepLabel>Đang giao</StepLabel>
                               </Step>
                               <Step key="aaa">
-                                <StepLabel>Đã giao</StepLabel><Button  variant="contained" size="small" sx={{fontSize:"12px"}} color="error">Bạn đã boom<br/>
+                                <StepLabel>Đã giao</StepLabel><Button  variant="contained" size="small" sx={{fontSize:"12px"}} color="error">Không nhận hàng<br/>
                                 {datactgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==6 ) ? gh.ngay_gh.slice(0,10):false)}
 
                                 </Button>

@@ -138,6 +138,7 @@ const goToTop = () => {
     behavior: 'smooth',
   });
 };
+const [sodg, setSodg] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -152,10 +153,16 @@ const goToTop = () => {
 
               if(dg.length > 0){
                 for (let i = 0; i < dg.length; i++){
-                  trungbinh = trungbinh + dg[i].so_sao;
+                  if(dg[i].rep == null){
+                  trungbinh = trungbinh + dg[i].so_sao;}
                 }
-                trungbinh = parseFloat(trungbinh/dg.length).toFixed(1);
-
+                let tong = 0;
+                for (let i = 0; i < dg.length; i++){
+                  if(dg[i].rep != null){
+                  tong = tong +1}
+                }
+                trungbinh = parseFloat(trungbinh/tong).toFixed(1);
+                setSodg(tong)
               }
               setSosao(trungbinh);
        
@@ -256,7 +263,7 @@ const goToTop = () => {
                   padding: "10px",
                   color: "#333",
              
-                }}>{sosao} sao với {datadg.length} lượt đánh giá</Typography>
+                }}>{sosao} sao với {sodg} lượt đánh giá</Typography>
               </Grid>:<Grid  style={{ lineHeight: "60px", }}>
                 {" "}
               <Typography sx={{float:"left"}}>
@@ -344,11 +351,8 @@ const goToTop = () => {
                   marginBottom: "20px",
                 }}
               >
-                Trái ngược với việc sử dụng 'Nội dung ở đây, nội dung ở đây',
-                làm cho nó giống như tiếng Anh có thể đọc được. Nhiều gói xuất
-                bản trên máy tính để bàn và trình chỉnh sửa trang web hiện sử
-                dụng Lorem Ipsum làm văn bản mô hình mặc định của họ và tìm kiếm
-                ...
+                Mỗi loại cây có một đặc tính khác nhau: cây ưa sáng, cây ưa bóng mát, cây ưa nước,... nhắn tin cho Hau's Garden hoặc để loại bình luận để được tư vấn về loại cây và cách chăm sóc cây mà bạn muốn mua nhé!
+               
               </Typography>
               <Typography
                 style={{

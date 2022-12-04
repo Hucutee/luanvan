@@ -315,16 +315,7 @@ export default function TemporaryDrawer() {
       </div>
 
       <div className="flex gap-8">
-        <React.Fragment key={"left"}>
-        <button className="text-[24px]  a1" onClick={toggleDrawer("left", true)}> <ListIcon/> </button>
-        <Drawer
-          anchor={"left"}
-          open={state["left"]}
-          onClose={toggleDrawer("left", false)}
-        >
-          {list("left")}
-        </Drawer>
-      </React.Fragment>
+        
       </div>
       <div  className="w-[65%]"></div>
       <div  className="mr-[1%]">

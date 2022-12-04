@@ -54,6 +54,8 @@ function Binhluan(product){
       } setBinhluan("");
       setCount((e) => e + 1);
     };
+    const [sodg, setSodg] = useState(0);
+
     useEffect(() => {
       (async () => {
         try {
@@ -63,10 +65,16 @@ function Binhluan(product){
 
               if(dg.length > 0){
                 for (let i = 0; i < dg.length; i++){
-                  trungbinh = trungbinh + dg[i].so_sao;
+                  if(dg[i].rep == null){
+                  trungbinh = trungbinh + dg[i].so_sao;}
                 }
-                trungbinh = parseFloat(trungbinh/dg.length).toFixed(1);
-
+                let tong = 0;
+                for (let i = 0; i < dg.length; i++){
+                  if(dg[i].rep != null){
+                  tong = tong +1}
+                }
+                trungbinh = parseFloat(trungbinh/tong).toFixed(1);
+                setSodg(tong)
               }
               setSosao(trungbinh);
            const rbl = await binhluanApi.getlistrblid(product.data.ma_sp); setDatarbl(rbl); console.log(rbl);
@@ -135,7 +143,7 @@ function Binhluan(product){
                           fontWeight: "300",
                         }}
                       >
-                        {sosao} sao với {datadg.length} lượt đánh giá 
+                        {sosao} sao với {sodg} lượt đánh giá 
                       </Typography>
                     </Grid>: <Typography>Chưa có phản hồi nào</Typography>}
                   </Grid>

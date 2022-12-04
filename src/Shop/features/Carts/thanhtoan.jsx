@@ -477,7 +477,7 @@ function Thanhtoan() {
                          onChange={handleloaitt}
                        >
                          <FormControlLabel color="success" value="1" control={<Radio color="success" />} label="Thanh toán khi nhận hàng" />
-                         <FormControlLabel value="2" control={<Radio color="success" />} label="Thanh toán online" />
+                         <FormControlLabel value="2" control={<Radio color="success" />} label="Thanh toán VNPAY" />
                        </RadioGroup>
                      </FormControl>
 

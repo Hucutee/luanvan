@@ -38,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 function Chitietsp(props) {
   const classes = useStyles();
   const params = useLocation();

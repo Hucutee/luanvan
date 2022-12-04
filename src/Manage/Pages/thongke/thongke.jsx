@@ -32,13 +32,15 @@ import donhangAPI from "../../api/donhangApi";
 import sanphamAPI from "../../api/sanphamApi";
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import Stack from '@mui/material/Stack';
+
 export default function Thongke() {
   const dataNhanvien = useSelector((state) => state?.userNhanvien?.current);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const [thang, setThang] = useState(dayjs().$y + "-" + (dayjs().$M + 1));
-  const [nam, setNam] = useState(dayjs().$y);
+  const [nam, setNam] = useState(dayjs().$y + "-" + (dayjs().$M + 1));
   const [count, setCount] = useState(0);
   const [tongdb, setTongdb] = useState([]);
   const [soluongkho, setSoluongkho] = useState([]);
@@ -93,10 +95,10 @@ export default function Thongke() {
         const ttt = await hoadonnhapAPI.tongbanthang(thang);
         setTongdb(ttt);
         console.log(ttt);
-        const tttt = await hoadonnhapAPI.tongnhapthang(nam);
+        const tttt = await hoadonnhapAPI.tongnhapthang(nam.slice(0,4));
         setTongdnn(tttt);
         console.log(tttt);
-        const ttttt = await hoadonnhapAPI.tongbanthang(nam);
+        const ttttt = await hoadonnhapAPI.tongbanthang(nam.slice(0,4));
         setTongdbn(ttttt);
         console.log(ttttt);
 
@@ -116,17 +118,14 @@ export default function Thongke() {
     setTrangthai("1");
     setCount((e) => e + 1);
   };
-  const handlethang = () => {
-    if ((nam1, thang1)) {
-      setThang(nam1 + "-" + thang1);
-      console.log(nam1, thang1);
-    }
+  const handlethang = (aaa) => {
+      setThang(aaa.$y + "-" + (aaa.$M + 1));
+    
     setCount((e) => e + 1);
   };
-  const handlenam = () => {
-    if (nam2) {
-      setNam(nam2);
-    }
+  const handlenam = (aaa) => {
+    console.log(aaa,nam);
+      setNam(aaa.$y+ "-" + (aaa.$M + 1));
     setCount((e) => e + 1);
   };
   const handlettc = (aa) => {
@@ -278,7 +277,7 @@ export default function Thongke() {
                 style={{ fontSize: "20px", fontWeight: "500" }}
                 className="  text-white  bg-green-700 h-[57px] pt-3 pl-4 text-center "
               >
-                Doanh thu năm {nam}
+                Doanh thu năm {nam.slice(0,4)}
               </div>
               <div
                 style={{ fontSize: "16px", fontWeight: "400" }}
@@ -371,53 +370,46 @@ export default function Thongke() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 mt-2">
-            <div className="">
-              <TextField
-                color="success"
-                size="small"
-                style={{ width: "70px" }}
-                id="outlined-required"
-                onChange={(e) => setThang1(e.target.value)}
-                label="Tháng"
-              />
-              <TextField
-                color="success"
-                size="small"
-                id="outlined-disabled"
-                onChange={(e) => setNam1(e.target.value)}
-                label="Năm"
-                style={{ width: "70px" }}
-              />
-              <IconButton
-                size="small"
-                className="a1"
-                onClick={handlethang}
-                type="button"
-                sx={{ p: 1 }}
-                aria-label="search"
-              >
-                <SearchIcon />
-              </IconButton>
+            <div className="w-[90%]">
+            <LocalizationProvider         
+ dateAdapter={AdapterDayjs}>
+      <Stack spacing={3}>
+      
+        <DatePicker
+          views={['year', 'month']}
+          label="Năm và tháng"
+          maxDate={dayjs()}
+          value={thang}
+          onChange={(newValues) => handlethang(newValues)}
+          
+          renderInput={(params) => <TextField color="success"
+           {...params} helperText={null} />}
+        />
+       
+      </Stack>
+    </LocalizationProvider>
+
             </div>
-            <div>
-              <TextField
-                color="success"
-                size="small"
-                id="outlined-disabled"
-                onChange={(e) => setNam2(e.target.value)}
-                label="Năm"
-                style={{ width: "70px" }}
-              />
-              <IconButton
-                size="small"
-                className="a1"
-                onClick={handlenam}
-                type="button"
-                sx={{ p: 1 }}
-                aria-label="search"
-              >
-                <SearchIcon />
-              </IconButton>
+            <div className="w-[90%]">
+              
+            <LocalizationProvider         
+ dateAdapter={AdapterDayjs}>
+      <Stack spacing={3}>
+      
+      <DatePicker
+                maxDate={dayjs()}
+
+          views={['year']}
+          label="Năm"
+          value={nam}
+          onChange={(newValue) => {
+            handlenam(newValue);
+          }}
+          renderInput={(params) => <TextField  color="success" {...params} helperText={null} />}
+        />
+       
+      </Stack>
+    </LocalizationProvider>
             </div>
           </div>
           <div style={{ marginTop: "70px", width: "95%" }}>
