@@ -74,27 +74,26 @@ export default function Footer() {
               </Grid>
             </Grid>
             <Grid className={classes.grid2}>
-              <Grid className={classes.footer1}>Cửa hàng</Grid>
+              <Grid className={classes.footer1}>Hổ trợ</Grid>
               <Grid>
-                <Grid className={classes.footer2}>a</Grid>
-                <Grid className={classes.footer2}>a</Grid>
-                <Grid className={classes.footer2}>a</Grid>
+                <Grid className={classes.footer2}>Chính sách vận chuyển</Grid>
+                <Grid className={classes.footer2}>Chính sách đổi trả</Grid>
+                <Grid className={classes.footer2}>Phương thức thanh toán</Grid>
               </Grid>
             </Grid>
             <Grid className={classes.grid2}>
-              <Grid className={classes.footer1}>Cửa hàng</Grid>
+              <Grid className={classes.footer1}>Dịch vụ</Grid>
               <Grid>
-                <Grid className={classes.footer2}>a</Grid>
-                <Grid className={classes.footer2}>a</Grid>
-                <Grid className={classes.footer2}>a</Grid>
+                <Grid className={classes.footer2}>Điều khoản dịch vụ</Grid>
+  
               </Grid>
             </Grid>
             <Grid className={classes.grid2}>
-              <Grid className={classes.footer1}>Cửa hàng</Grid>
+              <Grid className={classes.footer1}>Tài khoản</Grid>
               <Grid>
-                <Grid className={classes.footer2}>a</Grid>
-                <Grid className={classes.footer2}>a</Grid>
-                <Grid className={classes.footer2}>a</Grid>
+                <Grid className={classes.footer2}>Đăng nhập</Grid>
+                <Grid className={classes.footer2}>Đăng ký</Grid>
+                <Grid className={classes.footer2}>Thông tin tài khoản</Grid>
               </Grid>
             </Grid>
           </Grid>

@@ -426,8 +426,7 @@ const handleSubmitxoa1 = async (e) => {
           <ListItemText sx={{width:"28%",fontWeight:"500",float:"left",paddingTop:"10px" }}><b>&ensp; Mã sản phẩm</b></ListItemText>
         <ListItemText sx={{width:"28%",float:"left",paddingTop:"10px"}}><b>Tên sản phẩm</b></ListItemText>
         <ListItemText sx={{width:"28%",float:"left",paddingTop:"10px"}}><b>Loại sản phẩm</b></ListItemText> 
-        <ListItemText sx={{width:"7%",float:"left",paddingTop:"10px"}}><b>Xóa </b></ListItemText> 
-        <ListItemText sx={{width:"7%",float:"left",paddingTop:"10px"}}><b>Sửa</b></ListItemText> 
+        <ListItemText sx={{width:"14%",float:"left",paddingTop:"10px"}}><b>Sửa</b></ListItemText> 
        </div>
        <List
       style={{ width: '100%',marginTop:"-10px" , fontSize:"10px" }}
@@ -445,10 +444,8 @@ const handleSubmitxoa1 = async (e) => {
 
     
         <ListItemText sx={{width:"27%"}}><p style={{fontSize:"14px" }}>{aa.ten_lsp}</p></ListItemText>
-                    <ListItemText sx={{width:"7%",}}><p style={{fontSize:"14px" }}> <Button   color="success"   variant="outlined"   onClick={handleClickOpenxoa(aa.ma_sp)} >
-                        {" "}
-                        <DeleteOutlineIcon /> </Button></p></ListItemText>
-                    <ListItemText sx={{width:"7%"}}><p style={{fontSize:"14px" ,width:"50px"}}><Button color="success"  variant="outlined"  onClick={handleClickOpensua(
+                    
+                    <ListItemText sx={{width:"14%"}}><p style={{fontSize:"14px" ,width:"50px"}}><Button color="success"  variant="outlined"  onClick={handleClickOpensua(
                           aa.ma_sp, aa.ten_sp,aa.loai_sp)}>
                         {" "}   <ColorizeIcon /> </Button></p></ListItemText>
 
@@ -544,11 +541,11 @@ const handleSubmitxoa1 = async (e) => {
                 <div className="   h-[57px] pt-4 mr-[-9px]">  Thông tin </div>
               </th>
               
-              <th className="">
+              {/* <th className="">
                 <div className=" h-[57px] w-[7%] pt-4 mr-[-3px]">    Xóa  </div>
-              </th>
+              </th> */}
               <th className="">
-                <div className="   h-[57px] w-[7%] pt-4 ml-[-3px]">    Sửa  </div>
+                <div className="   h-[57px] w-[14%] pt-4 ml-[-3px]">    Sửa  </div>
               </th>
             </tr>
             
@@ -577,14 +574,14 @@ const handleSubmitxoa1 = async (e) => {
                               )}  </td>
                     <td className="">
                     {bb.thongtin}  </td>
-                  <td className="w-[7%]">
+                  {/* <td className="w-[7%]">
                     <div>
                       <Button      variant="outlined"   onClick={handleClickOpenxoa1(bb)} >
                         {" "}
                         <DeleteOutlineIcon /> </Button>
                     </div>
-                  </td>
-                  <td className="w-[7%] ">
+                  </td> */}
+                  <td className="w-[14%] ">
                     <div>
                       <Button    variant="outlined"  onClick={handleClickOpensua1(
                           bb)} >
