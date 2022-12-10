@@ -63,7 +63,7 @@ export default function Listhdn() {
   const [mancc, setMancc] = useState("");
   const [ghichu, setGhichu] = useState("");
   const [manv, setManv] = useState("");
-  const [ngaynhap, setNgaynhap] = React.useState(null);
+  const [ngaynhap, setNgaynhap] = React.useState(dayjs());
   const [tenget, setTenget] = useState("");
   const [trangthai, setTrangthai] = useState("1");
   const [open, setOpen] = React.useState(false);
@@ -184,9 +184,9 @@ export default function Listhdn() {
                 ghichu,
                 mancc,
                 dataNhanvien[0].ma_nd,
-                ngaynhap.$y + "-" + (ngaynhap.$M + 1) + "-" + ngaynhap.$D,
+                ngaynhap.$y + "-" + (ngaynhap.$M + 1) + "-" + (ngaynhap.$D +1),
               );
-              setOpenadd(false);  setOpenalert(true);  setGhichu(""); setMancc("");  setNgaynhap("");   setCount((e) => e + 1);
+              setOpenadd(false);  setOpenalert(true);  setGhichu(""); setMancc("");     setCount((e) => e + 1);
            
       } 
     if ((!ghichu  || !mancc || !ngaynhap ) && !openxoa) {
@@ -202,7 +202,6 @@ export default function Listhdn() {
   const handleCloseadd = () => {
     setOpenadd(false);
     setGhichu("");
-    setNgaynhap("");
     setManv("");
   };
   const descriptionElementRef = React.useRef(null);
@@ -221,16 +220,16 @@ export default function Listhdn() {
     if (ghichu && ngaynhap  && mancc) {
       await hoadonnhapAPI.sua( mahdn,  ghichu,mancc, dataNhanvien[0].ma_nd,
         ngaynhap.$y + "-" + (ngaynhap.$M + 1) + "-" + ngaynhap.$D );
-      setCount((e) => e + 1); setOpensua(false); setOpenalert(true); setGhichu("");setMancc(""); setNgaynhap(""); setMahdn(""); 
+      setCount((e) => e + 1); setOpensua(false); setOpenalert(true); setGhichu("");setMancc(""); setMahdn(""); 
 
     } else {
       setOpenloi(true);}
     setOpen(false); };
   const handleClickOpensua = (idhdn, idncc, ghichu, nbd) => () => {
-    setOpensua(true);  setMahdn(idhdn);  setGhichu(ghichu);setMancc(idncc);  setNgaynhap(nbd);   
+    setOpensua(true);  setMahdn(idhdn);  setGhichu(ghichu);setMancc(idncc);     
        setScrollsua("paper"); };
 
-  const handleClosesua = () => { setOpensua(false);  setGhichu("");  setNgaynhap("");
+  const handleClosesua = () => { setOpensua(false);  setGhichu("");  
     setManv("");  };
   const descriptionElementRefsua = React.useRef(null);
   React.useEffect(() => {
@@ -434,16 +433,7 @@ const handleCloseloi1 = (event, reason) => {
                        <TextField fullWidth
                         label="* Ghi chú"  color="success"  onChange={(e) => setGhichu(e.target.value)}
                         style={{ display: "block", marginBottom: "20px" }}   type="text" />
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <div className="mb-[20px]">
-                          <DatePicker
-                            minDate="2022-09-01"     inputFormat="YYYY-MM-DD"
-                            mask="____-__-__"    label="* Ngày nhập"
-                            value={ngaynhap}    onChange={(newValue) => {     setNgaynhap(newValue);  }}
-                            renderInput={(params) => <TextField {...params} />}/>
-                        </div>
-                        
-                      </LocalizationProvider>
+                     
                     </div>
                   </div>
                 </DialogContentText>
@@ -472,8 +462,8 @@ const handleCloseloi1 = (event, reason) => {
         <ListItemText sx={{width:"18%",float:"left",paddingTop:"10px"}}><b>Ghi chú</b></ListItemText> 
         <ListItemText sx={{width:"14%",fontWeight:"500",float:"left",paddingTop:"10px" }}><b>&ensp; Ngày nhập</b></ListItemText>
         <ListItemText sx={{width:"16%",float:"left",paddingTop:"10px"}}><b>Người nhập</b></ListItemText>
-        <ListItemText sx={{width:"7%",float:"left",paddingTop:"10px"}}><b>Xóa </b></ListItemText> 
-        <ListItemText sx={{width:"7%",float:"left",paddingTop:"10px"}}><b>Sửa</b></ListItemText> 
+        {/* <ListItemText sx={{width:"7%",float:"left",paddingTop:"10px"}}><b>Xóa </b></ListItemText>  */}
+        <ListItemText sx={{width:"14%",float:"left",paddingTop:"10px"}}><b>Sửa</b></ListItemText> 
        </div>
        
        <List
@@ -504,10 +494,10 @@ const handleCloseloi1 = (event, reason) => {
         <ListItemText sx={{width:"20%"}}><p style={{fontSize:"14px" }}>{aa.ghi_chu}</p></ListItemText>
         <ListItemText sx={{width:"13%"}}><p style={{fontSize:"14px" }}>{aa.ngay_nhap.slice(0,10)}</p></ListItemText>
                     <ListItemText sx={{width:"15%"}}><p style={{fontSize:"14px" }}>{aa.ma_nv}</p></ListItemText>
-                    <ListItemText sx={{width:"7%",}}><p style={{fontSize:"14px" }}> <Button   color="success"   variant="outlined"   onClick={handleClickOpenxoa(aa.ma_hdn)} >
+                    {/* <ListItemText sx={{width:"7%",}}><p style={{fontSize:"14px" }}> <Button   color="success"   variant="outlined"   onClick={handleClickOpenxoa(aa.ma_hdn)} >
                         {" "}
-                        <DeleteOutlineIcon /> </Button></p></ListItemText>
-                    <ListItemText sx={{width:"7%"}}><p style={{fontSize:"14px" ,width:"50px"}}><Button color="success"  variant="outlined"  onClick={handleClickOpensua(
+                        <DeleteOutlineIcon /> </Button></p></ListItemText> */}
+                    <ListItemText sx={{width:"14%"}}><p style={{fontSize:"14px" ,width:"50px"}}><Button color="success"  variant="outlined"  onClick={handleClickOpensua(
                           aa.ma_hdn, aa.ma_ncc,aa.ghi_chu, aa.ngay_nhap)} >
                         {" "}   <ColorizeIcon /> </Button></p></ListItemText>
 
@@ -608,12 +598,12 @@ const handleCloseloi1 = (event, reason) => {
               </th>
              
               
-              <th className="">
+              {/* <th className="">
                 <div className=" h-[57px] pt-4 mr-[-3px]">    Xóa  </div>
               </th>
               <th className="">
                 <div className="   h-[57px] pt-4 ml-[-3px]">    Sửa  </div>
-              </th>
+              </th> */}
             </tr>
             
           </thead>
@@ -639,7 +629,7 @@ const handleCloseloi1 = (event, reason) => {
                                 bb.gia_nhap
                               )}  </td>
                    
-                  <td className="">
+                  {/* <td className="">
                     <div>
                       <Button      variant="outlined"   onClick={handleClickOpenxoa1(bb.ma_cthdn,bb.ma_ctsp,bb.so_luong_nhap )} >
                         {" "}
@@ -652,7 +642,7 @@ const handleCloseloi1 = (event, reason) => {
                           bb.ma_cthdn, bb.ma_hdn, bb.ma_ctsp,bb.so_luong_nhap,bb.gia_nhap)} >
                         {" "}   <ColorizeIcon /> </Button>
                     </div>
-                  </td>
+                  </td> */}
                 </tr>
                       ) : false
                      ))}
@@ -735,14 +725,7 @@ const handleCloseloi1 = (event, reason) => {
                 
               <LocalizationProvider dateAdapter={AdapterDayjs}></LocalizationProvider>
              
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className="mb-[20px]">
-                  <DatePicker      inputFormat="YYYY-MM-DD"   mask="____-__-__"   label="* Ngày nhập" minDate={"2022-8-1"}
-                    value={ngaynhap} onChange={(value) => { setNgaynhap(value);  }}
-                    renderInput={(params) => <TextField {...params} />} />
-                </div>
-                
-              </LocalizationProvider>
+             
             </DialogContentText>
           </DialogContent>
           <DialogActions>

@@ -726,9 +726,9 @@ const handleSubmitxoa1 = async (e) => {
                           <MenuItem value={loaispp.ma_kt} ><button value={loaispp.ten_kt} onClick={(e) => setTenkt(e.target.value)}>{loaispp.ten_kt}</button></MenuItem>
                         ))}
                       </Select> </FormControl>
-              <TextField fullWidth label="* Số lượng"  color="success"
+              {/* <TextField fullWidth label="* Số lượng"  color="success"
                 onChange={(e) => setSoluong(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
-                style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={soluong}/>
+                style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={soluong}/> */}
              <TextField fullWidth label="* Giá bán"  color="success"
                 onChange={(e) => setGiaban(e.target.value)}  className="px-4 py-2 border rounded-lg mb-4"
                 style={{ display: "block", marginBottom: "20px" }}  type="text"  defaultValue={giaban}/>
