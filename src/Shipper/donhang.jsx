@@ -190,9 +190,9 @@ export default function Donhangshipper() {
         {aa.trang_thai >5 ? (
        <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="error">Hoàn hàng: khách không nhận hàng</Button></ListItemText>):false}
         {aa.trang_thai ==2 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="inherit" onClick={(e)=>handlexacnhandon(aa)}>Đã nhận</Button></ListItemText>):false}
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="inherit" onClick={(e)=>handlexacnhandon(aa)}>Giao hàng</Button></ListItemText>):false}
          {aa.trang_thai ==3 ? (
-       <ListItemText sx={{width:"16%"}}> <Button variant="contained" onClick={(e)=>handlexacnhandon(aa)} >Đang giao</Button><Button sx={{marginLeft:"10px"}} color="warning" variant="contained" onClick={(e)=>handlexacnhandon1(aa)}>Hoàn hàng</Button></ListItemText>):false}
+       <ListItemText sx={{width:"16%"}}> <Button variant="contained" onClick={(e)=>handlexacnhandon(aa)} >Hoàn thành</Button><Button sx={{marginLeft:"10px"}} color="warning" variant="contained" onClick={(e)=>handlexacnhandon1(aa)}>Hoàn hàng</Button></ListItemText>):false}
        {aa.trang_thai ==4 ? (
        <ListItemText sx={{width:"16%"}}> <Button variant="contained" color="success">Đã giao ngày:  {dataallctgh.map((gh)=>(gh.ma_dh ==  aa.ma_dh && gh.trang_thai==4 ) ? gh.ngay_gh.slice(0,10):false)}</Button></ListItemText>):false}
         {open ? <ExpandLess onClick={(e)=>handleClick(aa.ma_dh)} /> : <ExpandMore onClick={(e)=>handleClick(aa.ma_dh)} />}

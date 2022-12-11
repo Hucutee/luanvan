@@ -258,7 +258,7 @@ export default function Donhangquanly() {
                               }).format(
                                 aa.tong_tien
                               )}</ListItemText> 
-        {aa.hinh_thuc_thanh_toan==1 ?          <ListItemText sx={{width:"25%"}}>Thanh toán khi nhận hàng</ListItemText>:         <ListItemText sx={{width:"25%"}}>Thanh toán Online {aa.trang_thai == 5 && aa.hinh_thuc_thanh_toan==2 && aa.hoan_tien == 0 ? <Button onClick={(e)=>handlehoantien(aa.ma_dh)}  variant="outlined" color="inherit" >Hoàn tiền</Button>:false}  {aa.trang_thai == 5 && aa.hinh_thuc_thanh_toan==2 && aa.hoan_tien == 1 ? <Button variant="contained" color="inherit"> đã Hoàn tiền</Button>:false}</ListItemText>
+        {aa.hinh_thuc_thanh_toan==1 ?          <ListItemText sx={{width:"25%"}}>Thanh toán khi nhận hàng</ListItemText>:         <ListItemText sx={{width:"25%"}}>Thanh toán Online {aa.trang_thai >= 5 && aa.hinh_thuc_thanh_toan==2 && aa.hoan_tien == 0 ? <Button onClick={(e)=>handlehoantien(aa.ma_dh)}  variant="outlined" color="inherit" >Hoàn tiền</Button>:false}  {aa.trang_thai >= 5 && aa.hinh_thuc_thanh_toan==2 && aa.hoan_tien == 1 ? <Button variant="contained" color="inherit"> đã Hoàn tiền</Button>:false}</ListItemText>
 
 }
         {aa.trang_thai ==0 ? (

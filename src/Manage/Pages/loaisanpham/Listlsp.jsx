@@ -359,11 +359,11 @@ export default function Listlsp() {
                 </div>
               </th>
 
-              <th className="border-[1px] 	border-white	border-solid">
+              {/* <th className="border-[1px] 	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">
                   Xóa
                 </div>
-              </th>
+              </th> */}
               <th className="border-[1px] 	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] ">
                   Sửa
@@ -382,7 +382,7 @@ export default function Listlsp() {
                     {product.ten_lsp}
                   </td>
 
-                  <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
+                  {/* <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     <div>
                       <Button
                         color="success"
@@ -393,7 +393,7 @@ export default function Listlsp() {
                         <DeleteOutlineIcon />
                       </Button>
                     </div>
-                  </td>
+                  </td> */}
                   <td className="border-[1px] 	border-white	 bg-gray-100	 border-solid ">
                     <div>
                       <Button

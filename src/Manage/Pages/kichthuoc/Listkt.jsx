@@ -352,11 +352,11 @@ const [counttrang,setCounttrang] = useState("");
                 </div>
               </th>
              
-              <th className="border-[1px] 	border-white	border-solid">
+              {/* <th className="border-[1px] 	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 mr-[-3px]">
                   Xóa
                 </div>
-              </th>
+              </th> */}
               <th className="border-[1px] 	border-white	border-solid">
                 <div className="  bg-green-700 h-[57px] pt-4 ml-[-3px] ">
                   Sửa
@@ -375,7 +375,7 @@ const [counttrang,setCounttrang] = useState("");
                     {product.ten_kt}
                   </td>
                  
-                  <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
+                  {/* <td className="border-[1px] 	border-white	 bg-gray-100			 border-solid ">
                     <div>
                       <Button
                         color="success"
@@ -386,7 +386,7 @@ const [counttrang,setCounttrang] = useState("");
                         <DeleteOutlineIcon />
                       </Button>
                     </div>
-                  </td>
+                  </td> */}
                   <td className="border-[1px] 	border-white	 bg-gray-100	 border-solid ">
                     <div>
                       <Button
